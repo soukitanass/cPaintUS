@@ -2,6 +2,7 @@ package cPaintUS.controllers;
 
 import cPaintUS.models.Pointer;
 import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -24,9 +25,16 @@ public class BottomPaneController implements IObserver {
 	}
 
 	@Override
-	public void update() {
-		displayX(pointer.getCursorPoint().getX());
-		displayY(pointer.getCursorPoint().getY());
+	public void update(ObservableList obs) {
+		switch (obs) {
+		case POINTER:
+			displayX(pointer.getCursorPoint().getX());
+			displayY(pointer.getCursorPoint().getY());			
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	private void displayX(double d) {

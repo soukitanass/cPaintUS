@@ -1,5 +1,5 @@
 package cPaintUS.models.observable;
 
 public interface IObserver {
-	public void update();
+	public void update(ObservableList obs);
 }

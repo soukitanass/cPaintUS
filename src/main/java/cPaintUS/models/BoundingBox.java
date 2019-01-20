@@ -1,7 +1,9 @@
 package cPaintUS.models;
 
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.Observable;
 
-public class BoundingBox {
+public class BoundingBox extends Observable<IObserver>{
 
 	private boolean visible;
 	private Point origin;
@@ -20,6 +22,14 @@ public class BoundingBox {
 	public static BoundingBox getInstance() {
 		return SingletonHelper.INSTANCE;
 	}
+	
+	@Override
+	public void notifyAllObservers() {
+		for(IObserver obs : getObserverList()) {
+			obs.notify();
+		}
+	}
+	
 
 	public void setOrigin(Point origin) {
 		this.origin.setPosition(origin.getX(), origin.getY());
