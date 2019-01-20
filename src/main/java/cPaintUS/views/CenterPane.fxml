@@ -4,16 +4,23 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cPaintUS.controllers.CenterPaneController">
-   <children>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <content>
-          <AnchorPane>
-               <children>
-                  <Canvas fx:id="canvas" height="1000.0" onMouseMoved="#onMouseMoved" width="1000.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.4"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="cPaintUS.controllers.CenterPaneController">
+	<children>
+		<ScrollPane prefHeight="200.0" prefWidth="200.0"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<content>
+				<AnchorPane>
+					<children>
+						<Canvas fx:id="canvas" height="1000.0"
+							onMouseMoved="#onMouseMoved" width="1000.0"
+							AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
+							AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+					</children>
+				</AnchorPane>
+			</content>
+		</ScrollPane>
+	</children>
 </AnchorPane>

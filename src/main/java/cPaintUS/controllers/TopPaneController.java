@@ -11,17 +11,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
-	@FXML private MenuBar menuBar;
-	
+	@FXML
+	private MenuBar menuBar;
+
 	@FXML
 	private void exit() {
 		System.exit(0);
 	}
-	
+
 	@FXML
 	private void about() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/About.fxml"));
-        Parent parent;
+		Parent parent;
 		try {
 			parent = fxmlLoader.load();
 			Scene scene = new Scene(parent, 300, 200);
