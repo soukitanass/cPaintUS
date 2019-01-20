@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cPaintUS.models.saveStrategy;
 
 public interface FileManagerStrategy {
 

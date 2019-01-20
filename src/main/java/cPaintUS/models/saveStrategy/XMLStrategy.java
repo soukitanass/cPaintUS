@@ -1,6 +1,6 @@
-package cPaintUS.models;
+package cPaintUS.models.saveStrategy;
 
-public class PNGStrategy implements FileManagerStrategy {
+public class XMLStrategy implements FileManagerStrategy{
 
 	@Override
 	public void save(String path) {

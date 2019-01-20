@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cPaintUS.models.shapes;
 
 public class ShapeFactory {
 	public static Shape getShape(ShapeType shapeType) {
