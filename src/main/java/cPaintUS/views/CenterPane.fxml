@@ -14,8 +14,11 @@
 			<content>
 				<AnchorPane>
 					<children>
-						<Canvas fx:id="canvas" height="1000.0"
-							onMouseMoved="#onMouseMoved" width="1000.0"
+						<Canvas fx:id="canvas" 
+							height="1000.0"
+							width="1000.0"
+							onMouseMoved="#onMouseMoved" 
+							onMouseDragged="#onMouseDragged"
 							AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
 							AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
 					</children>
