@@ -7,11 +7,11 @@ import javafx.scene.control.TextField;
 
 public class RootController {
 
-  @FXML private LeftPaneController _leftPaneController;
-  @FXML private RightPaneController _rightPaneController;
-  @FXML private CenterPaneController _centerPaneController;
-  @FXML private BottomPaneController _bottomPaneController;
-  @FXML private TopPaneController _topPaneController;
+  @FXML private LeftPaneController leftPaneController;
+  @FXML private RightPaneController rightPaneController;
+  @FXML private CenterPaneController centerPaneController;
+  @FXML private BottomPaneController bottomPaneController;
+  @FXML private TopPaneController topPaneController;
   
   
   public  RootController() {
@@ -19,22 +19,22 @@ public class RootController {
   }
   
   public LeftPaneController getLeftPaneController() {
-	  return this._leftPaneController;
+	  return leftPaneController;
   }
   
   public RightPaneController getRightPaneController() {
-	  return this._rightPaneController;
+	  return rightPaneController;
   }
   
   public CenterPaneController getCenterPaneController() {
-	  return this._centerPaneController;
+	  return centerPaneController;
   }
   
   public BottomPaneController getBottomPaneController() {
-	  return this._bottomPaneController;
+	  return bottomPaneController;
   }
   
   public TopPaneController getTopPaneController() {
-	  return this._topPaneController;
+	  return topPaneController;
   }
 }

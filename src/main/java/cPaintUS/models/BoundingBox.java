@@ -5,27 +5,27 @@ import cPaintUS.models.observable.Observable;
 
 public class BoundingBox extends Observable<IObserver> {
 	
-	private static BoundingBox _instance;
-	private Point _cursorPoint;
+	private static BoundingBox instance;
+	private Point cursorPoint;
 	
 	private BoundingBox() {
-		_cursorPoint = new Point();
+		cursorPoint = new Point();
 	}
 	
 	public static BoundingBox getInstance() {
-		if(_instance == null)
-			_instance = new BoundingBox();
-		return _instance;
+		if(instance == null)
+			instance = new BoundingBox();
+		return instance;
 	}
 	
 	public void setCursorPoint(double x, double y) {
-		_cursorPoint.setX(x);
-		_cursorPoint.setY(y);
+		cursorPoint.setX(x);
+		cursorPoint.setY(y);
 		this.notifyAllObservers();
 	}
 	
 	public Point getCursorPoint() {
-		return _cursorPoint;
+		return cursorPoint;
 	}
 
 	@Override

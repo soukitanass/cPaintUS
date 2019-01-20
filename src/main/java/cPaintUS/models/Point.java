@@ -1,32 +1,32 @@
 package cPaintUS.models;
 
 public class Point {
-	private double _x;
-	private double _y;
+	private double x;
+	private double y;
 	
 	public Point() {
-		_x = 0;
-		_y = 0;
+		x = 0;
+		y = 0;
 	}
 	
 	public Point(double x, double y) {
-		_x = x;
-		_y = y;
+		this.x = x;
+		this.y = y;
 	}
 	
 	public double getX() {
-		return _x;
+		return x;
 	}
 	
 	public void setX(double x) {
-		_x = x;
+		this.x = x;
 	}
 	
 	public double getY() {
-		return _y;
+		return y;
 	}
 	
 	public void setY(double y) {
-		_y = y;
+		this.y = y;
 	}
 }

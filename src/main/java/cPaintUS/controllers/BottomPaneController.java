@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 
 public class BottomPaneController implements IObserver {
 	
-	@FXML private Label _X;
-	@FXML private Label _Y;
-	@FXML private Label _W;
-	@FXML private Label _H;
+	@FXML private Label x;
+	@FXML private Label y;
+	@FXML private Label w;
+	@FXML private Label h;
 	
 	private BoundingBox _boundingBox;
 	
@@ -26,11 +26,11 @@ public class BottomPaneController implements IObserver {
 	}
 	
 	private void displayX(double d) {
-		_X.setText(_X.getText().substring(0, 4) + d);
+		x.setText(x.getText().substring(0, 4) + d);
 	}
 	
 	private void displayY(double d) {
-		_Y.setText(_Y.getText().substring(0, 4) + d);
+		y.setText(y.getText().substring(0, 4) + d);
 	}
 
 	

@@ -10,22 +10,22 @@ import javafx.scene.shape.ArcType;
 
 public class CenterPaneController {
 	
-	@FXML private Canvas _canvas;
+	@FXML private Canvas canvas;
 	
-	private GraphicsContext _gc;
-	private BoundingBox _boundingBox;
+	private GraphicsContext gc;
+	private BoundingBox boundingBox;
 		
 	@FXML
     public void initialize() {
-		_boundingBox = BoundingBox.getInstance();
+		boundingBox = BoundingBox.getInstance();
 		
-		_gc = _canvas.getGraphicsContext2D();
-		drawShapes(_gc);
+		gc = canvas.getGraphicsContext2D();
+		drawShapes(gc);
     }
 	
 	@FXML
 	private void onMouseMoved(MouseEvent event) {
-		_boundingBox.setCursorPoint(event.getX(), event.getY());
+		boundingBox.setCursorPoint(event.getX(), event.getY());
 	}
 	
 	private void drawShapes(GraphicsContext gc) {
@@ -52,7 +52,7 @@ public class CenterPaneController {
     }
 	
 	public Canvas getCanvas() {
-		return this._canvas;
+		return this.canvas;
 	}
 
 }
