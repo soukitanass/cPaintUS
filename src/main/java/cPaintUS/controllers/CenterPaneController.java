@@ -1,6 +1,6 @@
 package cPaintUS.controllers;
 
-import cPaintUS.models.BoundingBox;
+import cPaintUS.models.Pointer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,19 +14,21 @@ public class CenterPaneController {
 	private Canvas canvas;
 
 	private GraphicsContext gc;
-	private BoundingBox boundingBox;
+	private Pointer pointer;
 
+	public CenterPaneController() {
+	}
+	
 	@FXML
 	public void initialize() {
-		boundingBox = BoundingBox.getInstance();
-
+		pointer = Pointer.getInstance();
 		gc = canvas.getGraphicsContext2D();
 		drawShapes(gc);
 	}
-
+	
 	@FXML
 	private void onMouseMoved(MouseEvent event) {
-		boundingBox.setCursorPoint(event.getX(), event.getY());
+		pointer.setCursorPoint(event.getX(), event.getY());
 	}
 
 	private void drawShapes(GraphicsContext gc) {
