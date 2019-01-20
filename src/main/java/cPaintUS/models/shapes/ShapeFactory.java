@@ -2,13 +2,15 @@ package cPaintUS.models.shapes;
 
 public class ShapeFactory {
 	public static Shape getShape(ShapeType shapeType) {
+		Shape shape;
 		switch (shapeType) {
 		case Rectangle:
-			return new Rectangle();
+			shape = new Rectangle();
 
 		default:
-			return null;
+			shape = null;
 		}
+		return shape;
 	}
 
 }
