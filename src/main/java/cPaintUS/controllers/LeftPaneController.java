@@ -2,12 +2,14 @@ package cPaintUS.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextField;
 
 public class LeftPaneController {
 	@FXML
-	private Button testButton;
-
-	public void onClickTest() {
-		System.out.println(testButton.getText());
-	}
+	private TextField brushSize;
+	@FXML
+	private ColorPicker colorPicker;
+	@FXML
+	private Button eraseBtn;
 }
