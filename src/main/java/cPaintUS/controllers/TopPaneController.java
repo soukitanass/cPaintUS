@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 public class TopPaneController {
 	@FXML
 	private MenuBar menuBar;
+	
+	@FXML void newCanvas() {
+		
+	}
 
 	@FXML
 	private void exit() {
