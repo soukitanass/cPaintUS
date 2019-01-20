@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
-	@FXML private MenuBar menuBar;
+	@FXML private MenuBar _menuBar;
 	
 	@FXML
 	private void exit() {

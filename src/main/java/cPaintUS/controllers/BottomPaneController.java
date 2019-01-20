@@ -1,37 +1,30 @@
 package cPaintUS.controllers;
 
-import cPaintUS.models.BoundingBox;
-import cPaintUS.models.observable.IObserver;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
-public class BottomPaneController implements IObserver {
+public class BottomPaneController {
 	
-	@FXML private Label x;
-	@FXML private Label y;
-	@FXML private Label w;
-	@FXML private Label h;
-	
-	private BoundingBox _boundingBox;
+	@FXML private Label _X;
+	@FXML private Label _Y;
+	@FXML private Label _W;
+	@FXML private Label _H;
 	
 	public BottomPaneController(){
-		_boundingBox = BoundingBox.getInstance();
-		_boundingBox.register(this);
 	}
 	
-	@Override
-	public void update() {
-		displayX(_boundingBox.getCursorPoint().getX());
-        displayY(_boundingBox.getCursorPoint().getY());
+	private void onMouseMoved(MouseEvent event) {
+		displayX(event.getX());
+        displayY(event.getY());
 	}
 	
 	private void displayX(double d) {
-		x.setText(x.getText().substring(0, 4) + d);
+		_X.setText(_X.getText().substring(0, 4) + d);
 	}
 	
 	private void displayY(double d) {
-		y.setText(y.getText().substring(0, 4) + d);
+		_Y.setText(_Y.getText().substring(0, 4) + d);
 	}
-
-	
 }

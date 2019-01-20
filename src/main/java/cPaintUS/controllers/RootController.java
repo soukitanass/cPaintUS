@@ -1,40 +1,40 @@
 package cPaintUS.controllers;
 
+import cPaintUS.models.PaintModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 public class RootController {
 
-  @FXML private LeftPaneController leftPaneController;
-  @FXML private RightPaneController rightPaneController;
-  @FXML private CenterPaneController centerPaneController;
-  @FXML private BottomPaneController bottomPaneController;
-  @FXML private TopPaneController topPaneController;
+  @FXML private LeftPaneController _leftPaneController;
+  @FXML private RightPaneController _rightPaneController;
+  @FXML private CenterPaneController _centerPaneController;
+  @FXML private BottomPaneController _bottomPaneController;
+  @FXML private TopPaneController _topPaneController;
+  
+  private PaintModel paintModel;
   
   
   public  RootController() {
-	  
+	  paintModel = PaintModel.getInstance();
   }
   
   public LeftPaneController getLeftPaneController() {
-	  return leftPaneController;
+	  return this._leftPaneController;
   }
   
   public RightPaneController getRightPaneController() {
-	  return rightPaneController;
+	  return this._rightPaneController;
   }
   
   public CenterPaneController getCenterPaneController() {
-	  return centerPaneController;
+	  return this._centerPaneController;
   }
   
   public BottomPaneController getBottomPaneController() {
-	  return bottomPaneController;
+	  return this._bottomPaneController;
   }
   
   public TopPaneController getTopPaneController() {
-	  return topPaneController;
+	  return this._topPaneController;
   }
 }

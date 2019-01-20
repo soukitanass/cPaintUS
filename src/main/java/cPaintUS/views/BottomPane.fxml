@@ -28,10 +28,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="x" text="X : " />
-                  <Label fx:id="y" text="Y : " GridPane.columnIndex="1" />
-                  <Label fx:id="w" text="W : " GridPane.columnIndex="2" />
-                  <Label fx:id="h" text="H : " GridPane.columnIndex="3" />
+                  <Label fx:id="_X" text="X : " />
+                  <Label fx:id="_Y" text="Y : " GridPane.columnIndex="1" />
+                  <Label fx:id="_W" text="W : " GridPane.columnIndex="2" />
+                  <Label fx:id="_H" text="H : " GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </children>
