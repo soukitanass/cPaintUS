@@ -4,25 +4,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane 
-	minWidth="150.0" 
-	prefWidth="200.0" 
+<AnchorPane minWidth="150.0" prefWidth="200.0"
 	xmlns:fx="http://javafx.com/fxml/1"
-	xmlns="http://javafx.com/javafx/9.0.4" 
+	xmlns="http://javafx.com/javafx/9.0.4"
 	fx:controller="cPaintUS.controllers.LeftPaneController">
-   <children>
-   
-      <Button
-      	fx:id="testButton"
-		onAction="#onClickTest"
-      	layoutX="25.0" 
-      	layoutY="25.0" 
-      	mnemonicParsing="false" 
-      	text="Left Test" 
-      	AnchorPane.bottomAnchor="25.0" 
-      	AnchorPane.leftAnchor="25.0" 
-      	AnchorPane.rightAnchor="25.0" 
-      	AnchorPane.topAnchor="25.0" />
-      	
-   </children>
+	<children>
+
+		<Button fx:id="testButton" onAction="#onClickTest"
+			layoutX="25.0" layoutY="25.0" mnemonicParsing="false"
+			text="Left Test" AnchorPane.bottomAnchor="25.0"
+			AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0"
+			AnchorPane.topAnchor="25.0" />
+
+	</children>
 </AnchorPane>
