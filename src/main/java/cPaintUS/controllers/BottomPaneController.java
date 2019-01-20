@@ -1,6 +1,6 @@
 package cPaintUS.controllers;
 
-import cPaintUS.models.BoundingBox;
+import cPaintUS.models.Pointer;
 import cPaintUS.models.observable.IObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,17 +16,17 @@ public class BottomPaneController implements IObserver {
 	@FXML
 	private Label h;
 
-	private BoundingBox _boundingBox;
+	private Pointer pointer;
 
 	public BottomPaneController() {
-		_boundingBox = BoundingBox.getInstance();
-		_boundingBox.register(this);
+		pointer = Pointer.getInstance();
+		pointer.register(this);
 	}
 
 	@Override
 	public void update() {
-		displayX(_boundingBox.getCursorPoint().getX());
-		displayY(_boundingBox.getCursorPoint().getY());
+		displayX(pointer.getCursorPoint().getX());
+		displayY(pointer.getCursorPoint().getY());
 	}
 
 	private void displayX(double d) {

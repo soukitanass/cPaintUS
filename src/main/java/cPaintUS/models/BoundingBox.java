@@ -1,38 +1,55 @@
 package cPaintUS.models;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.Observable;
 
-public class BoundingBox extends Observable<IObserver> {
+public class BoundingBox {
 
-	private static BoundingBox instance;
-	private Point cursorPoint;
+	private boolean visible;
+	private Point origin;
+	private Point oppositeCorner;
 
+	private static class SingletonHelper {
+		private static final BoundingBox INSTANCE = new BoundingBox();
+	}
+	
 	private BoundingBox() {
-		cursorPoint = new Point();
+		visible = false;
+		origin = new Point();
+		oppositeCorner = new Point();
 	}
 
 	public static BoundingBox getInstance() {
-		if (instance == null)
-			instance = new BoundingBox();
-		return instance;
+		return SingletonHelper.INSTANCE;
 	}
 
-	public void setCursorPoint(double x, double y) {
-		cursorPoint.setX(x);
-		cursorPoint.setY(y);
-		this.notifyAllObservers();
+	public void setOrigin(Point origin) {
+		this.origin.setPosition(origin.getX(), origin.getY());
 	}
 
-	public Point getCursorPoint() {
-		return cursorPoint;
+	public void setOrigin(double x, double y) {
+		this.origin.setPosition(x, y);
 	}
 
-	@Override
-	public void notifyAllObservers() {
-		for (IObserver obs : this.getObserverList()) {
-			obs.update();
-		}
+	public void updateBoundingBox(Point cursor) {
+		this.oppositeCorner.setPosition(cursor.getX(), cursor.getY());
 	}
 
+	public Point getOrigin() {
+		return new Point(Math.min(this.origin.getX(), oppositeCorner.getX()), Math.min(this.origin.getY(), oppositeCorner.getY()));
+	}
+
+	public double getWidth() {
+		return Math.max(this.origin.getX(), oppositeCorner.getX()) - Math.min(this.origin.getX(), oppositeCorner.getX());
+	}
+
+	public double getHeight() {
+		return Math.max(this.origin.getY(), oppositeCorner.getY()) - Math.min(this.origin.getY(), oppositeCorner.getY());
+	}
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	
+	public boolean isVisible() {
+		return visible;
+	}
 }
