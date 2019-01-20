@@ -89,7 +89,6 @@ public class CenterPaneController {
 	}
 	
 	private void draw(GraphicsContext gc) {
-		System.out.println("test draw" + boundingBox.getOrigin().getX() + ";" + boundingBox.getOrigin().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		drawBoundingBox(gc);
