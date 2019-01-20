@@ -1,21 +1,32 @@
 package cPaintUS.controllers;
 
+import cPaintUS.models.BoundingBox;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public class CenterPaneController {
 	
 	@FXML private Canvas _canvas;
+	
 	private GraphicsContext _gc;
+	private BoundingBox _boundingBox;
 		
 	@FXML
     public void initialize() {
+		_boundingBox = BoundingBox.getInstance();
+		
 		_gc = _canvas.getGraphicsContext2D();
 		drawShapes(_gc);
     }
+	
+	@FXML
+	private void onMouseMoved(MouseEvent event) {
+		_boundingBox.setCursorPoint(event.getX(), event.getY());
+	}
 	
 	private void drawShapes(GraphicsContext gc) {
         gc.setFill(Color.GREEN);
@@ -43,4 +54,5 @@ public class CenterPaneController {
 	public Canvas getCanvas() {
 		return this._canvas;
 	}
+
 }
