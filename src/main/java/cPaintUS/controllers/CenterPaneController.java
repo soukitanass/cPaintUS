@@ -112,15 +112,20 @@ public class CenterPaneController {
 
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
-			switch (ShapeType.Rectangle) {
+			switch (ShapeType.Line) {
 				case Rectangle: 
-					gc.fillRect(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(), boundingBox.getWidth(), boundingBox.getHeight());
+					gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
 					break;
 				case Circle:
+					gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
 					break;
 				case Ellipse:
 					break;
-				case Line: 
+				case Line:
+					gc.strokeLine(boundingBox.getOrigin().getX(),
+							boundingBox.getOrigin().getY(),
+							boundingBox.getOppositeCorner().getX(), 
+							boundingBox.getOppositeCorner().getY());
 					break;
 				default: break;
 			}
@@ -134,16 +139,16 @@ public class CenterPaneController {
 		if(boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(), boundingBox.getWidth(), boundingBox.getHeight());
+			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(), boundingBox.getWidth(), boundingBox.getHeight());			
+			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());			
 		}
 	}
 	
 	private void draw() {
-		System.out.println("test draw" + boundingBox.getOrigin().getX() + ";" + boundingBox.getOrigin().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
+		System.out.println("test draw" + boundingBox.getUpLeftCorner().getX() + ";" + boundingBox.getUpLeftCorner().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
 
 		drawShape();
 		drawBoundingBox();
