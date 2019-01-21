@@ -91,17 +91,25 @@ public class CenterPaneController {
 	}
 	
 	private void drawShape() {		
-		if (true && !hasBeenDragged) { // TODO has a shape selected
-			Canvas newCanvas = new Canvas();
-			newCanvas.setHeight(1000.0);
-			newCanvas.setWidth(1000.0);
-			newCanvas.setMouseTransparent(true);
-			
-			pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
-			
-			System.out.println("New canvas created: " + pane.getChildren().size());
-			
-			GraphicsContext gc = newCanvas.getGraphicsContext2D();
+		if (true) { // TODO has a shape selected
+			GraphicsContext gc;
+			if (!hasBeenDragged) {
+				Canvas newCanvas = new Canvas();
+				newCanvas.setHeight(1000.0);
+				newCanvas.setWidth(1000.0);
+				newCanvas.setMouseTransparent(true);
+				
+				pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
+				
+				System.out.println("New canvas created: " + pane.getChildren().size());
+				
+				gc = newCanvas.getGraphicsContext2D();
+			} else {
+				Canvas activeCanvas = ((Canvas)pane.getChildren().get(pane.getChildren().size() - 2));
+				gc = activeCanvas.getGraphicsContext2D();
+				gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+			}
+
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
 			switch (ShapeType.Rectangle) {
