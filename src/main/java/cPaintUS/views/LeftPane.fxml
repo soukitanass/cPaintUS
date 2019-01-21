@@ -19,13 +19,20 @@
 		-->
 		
 		<ToolBar>
-			<VBox prefWidth="188.0" alignment="CENTER"  spacing="5">
+			<VBox prefWidth="188.0" alignment="CENTER" spacing="5">
 				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
-					<Label text="Brush Size: " />
-					<TextField prefWidth="116.0" fx:id="brushSize" text="2" />
+					<Label prefWidth="78.0" text="Brush Size: " />
+					<ComboBox prefWidth="110.0" fx:id="brushSize" promptText="Choose" onAction="#handleChangeBrushSize"/>
 				</HBox>
-				<ColorPicker prefWidth="188.0" fx:id="colorPicker" />
-				<Button prefWidth="188.0" fx:id="eraseBtn" onAction="#handleEraseAllClick" text="Erase All" />
+				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
+					<Label prefWidth="78.0" text="Fill Color: " />
+					<ColorPicker prefWidth="110.0" fx:id="fillColor" onAction="#handleChangeFillColor" />
+				</HBox>
+				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
+					<Label prefWidth="78.0" text="Stroke Color: " />
+					<ColorPicker prefWidth="110.0" fx:id="strokeColor" onAction="#handleChangeStrokeColor" />
+				</HBox>
+				<Button prefWidth="188.0" fx:id="eraseAllBtn" onAction="#handleEraseAllClick" text="Erase All" />
 			</VBox>
 		</ToolBar>
 	</children>

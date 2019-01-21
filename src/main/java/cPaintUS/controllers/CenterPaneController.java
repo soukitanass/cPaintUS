@@ -27,6 +27,10 @@ public class CenterPaneController {
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
+	
+	private Color fillColor;
+	private Color strokeColor;
+	private int lineWidth;
 
 	private boolean hasBeenDragged;
 
@@ -60,6 +64,18 @@ public class CenterPaneController {
 				draw();
 			}
 		};
+	}
+	
+	public void setFillColor(Color color) {
+		this.fillColor = color;
+	}
+	
+	public void setStrokeColor(Color color) {
+		this.strokeColor = color;
+	}
+	
+	public void setLineWidth(int width) {
+		this.lineWidth = width;
 	}
 
 	@FXML
@@ -98,9 +114,9 @@ public class CenterPaneController {
 	}
 
 	private void drawSettings(GraphicsContext gc) {
-		gc.setFill(Color.GREEN);
-		gc.setStroke(Color.BLUE);
-		gc.setLineWidth(5);
+		gc.setFill(fillColor);
+		gc.setStroke(strokeColor);
+		gc.setLineWidth(lineWidth);
 	}
 
 	private void drawShape() {
