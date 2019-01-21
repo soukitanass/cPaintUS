@@ -1,8 +1,5 @@
 package cPaintUS.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
 import cPaintUS.models.shapes.ShapeType;
@@ -118,8 +115,6 @@ public class CenterPaneController {
 					break;
 				case Circle:
 					gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
-					break;
-				case Ellipse:
 					break;
 				case Line:
 					gc.strokeLine(boundingBox.getOrigin().getX(),
