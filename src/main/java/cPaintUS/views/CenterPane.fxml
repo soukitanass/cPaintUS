@@ -12,15 +12,21 @@
 			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<content>
-				<AnchorPane>
+				<AnchorPane
+					fx:id="pane">
 					<children>
-						<Canvas fx:id="canvas" 
+						<Canvas fx:id="baseCanvas" 
 							height="1000.0"
 							width="1000.0"
 							onMouseMoved="#onMouseMoved" 
 							onMouseDragged="#onMouseDragged"
-							AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0"
-							AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Canvas fx:id="boundingBoxCanvas" 
+							height="1000.0"
+							width="1000.0"
+							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 					</children>
 				</AnchorPane>
 			</content>

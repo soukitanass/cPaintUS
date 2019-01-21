@@ -41,13 +41,21 @@ public class BoundingBox extends Observable<IObserver>{
 		this.origin.setPosition(x, y);
 		this.oppositeCorner.setPosition(x, y);
 	}
+	
+	public Point getOrigin() {
+		return this.origin;
+	}
+	
+	public Point getOppositeCorner() {
+		return this.oppositeCorner;
+	}
 
 	public void updateBoundingBox(Point cursor) {
 		this.oppositeCorner.setPosition(cursor.getX(), cursor.getY());
 		notifyAllObservers();
 	}
 
-	public Point getOrigin() {
+	public Point getUpLeftCorner() {
 		return new Point(Math.min(this.origin.getX(), oppositeCorner.getX()), Math.min(this.origin.getY(), oppositeCorner.getY()));
 	}
 
