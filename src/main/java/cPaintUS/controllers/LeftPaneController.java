@@ -40,6 +40,9 @@ public class LeftPaneController {
 		
 		shape.getItems().setAll(shapes);
 		
+		// Set default to Line
+		shape.setValue(ShapeType.Line);
+		
 		// Add possible brush sizes to the brushSize ComboBox
 		int[] widths = LineWidth.getInstance().getWidths();
 		List<String> sizes = new ArrayList<String>();
@@ -49,6 +52,9 @@ public class LeftPaneController {
 		}
 		
 		brushSize.getItems().setAll(sizes);
+		
+		// Set default to 1px
+		brushSize.setValue("1px");
 		
 		// Set ColorPickers default value to black
 		fillColor.setValue(Color.BLACK);
