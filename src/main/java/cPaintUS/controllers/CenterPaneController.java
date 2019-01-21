@@ -56,6 +56,7 @@ public class CenterPaneController {
 				else {
 					boundingBox.setVisible(false);
 				}
+				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				System.out.println("Mouse released on " + e.getX() + ";" + e.getY());
 				draw();
 			}
@@ -116,7 +117,6 @@ public class CenterPaneController {
 				default: break;
 			}
 		}
-		
 	}
 
 	private void drawBoundingBox() {
