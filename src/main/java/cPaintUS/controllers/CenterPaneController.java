@@ -2,7 +2,6 @@ package cPaintUS.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.assertj.core.util.Arrays;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
 import cPaintUS.models.shapes.ShapeType;
