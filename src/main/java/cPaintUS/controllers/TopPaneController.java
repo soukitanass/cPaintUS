@@ -1,5 +1,6 @@
 package cPaintUS.controllers;
 
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -70,12 +77,26 @@ public class TopPaneController {
 	private void openSavePng () {
 		
 		FileChooser fileChooser = new FileChooser();
-		Pane centerPane = this.root.getCenterPaneController().getPane();
 	    fileChooser.setTitle("Save Image");
 	    File file = fileChooser.showSaveDialog(this.root.getCenterPaneController().getPane().getScene().getWindow());
-	    if (file != null && centerPane != null) {
-	    	FileContext.save(types.PNG,centerPane,file);
+	    BufferedImage image = SwingFXUtils.fromFXImage(this.root.getCenterPaneController().getPane().snapshot(new SnapshotParameters(), null), null);
+	    if (file != null) {
+	    	FileContext.save(types.PNG,image,file);
 	    }
+	}
+	
+	@FXML 
+	private void openLoadPng () {
+		FileChooser fileChooser = new FileChooser (); 
+		fileChooser.setTitle("Select Image");
+		File file = fileChooser.showOpenDialog(this.root.getCenterPaneController().getPane().getScene().getWindow());
+		Image background = new Image(file.toURI().toString());
+		BackgroundImage backgroundImage= new BackgroundImage(background,
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);		
+		if (file != null) {
+            this.root.getCenterPaneController().getPane().setBackground(new Background(backgroundImage));
+        }
 	}
 	
 }

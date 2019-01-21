@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 
 public interface FileManagerStrategy {
 
-	public void save(Pane pane, File file);
+	public void save(File file);
 
 	public void load(String path);
 	

@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 public class XMLStrategy implements FileManagerStrategy{
 
 	@Override
-	public void save( Pane pane, File file) {
+	public void save(File file) {
 		// TODO Auto-generated method stub
 		
 	}

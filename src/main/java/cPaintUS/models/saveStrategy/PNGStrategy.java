@@ -1,23 +1,29 @@
 package cPaintUS.models.saveStrategy;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
 
 public class PNGStrategy implements FileManagerStrategy {
+	
+	private BufferedImage bufferedImage; 
+
+	public BufferedImage getBufferedImage() {
+		return bufferedImage;
+	}
+
+	public void setBufferedImage(BufferedImage bufferedImage) {
+		this.bufferedImage = bufferedImage;
+	}
 
 	@Override
-	public void save(Pane pane, File file) {
-	    WritableImage image = pane.snapshot(new SnapshotParameters(), null);
-	    if (image != null && pane != null && file !=null) {
+	public void save(File file) {
+	    if (this.bufferedImage != null && file !=null) {
 		    try {
-		        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+		        ImageIO.write(this.bufferedImage, "png", file);
 		    } catch (IOException e) {
 	            System.out.println(e.getMessage());
 	        }	

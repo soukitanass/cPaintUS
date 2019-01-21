@@ -1,5 +1,6 @@
 package cPaintUS.models.saveStrategy;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,12 +21,13 @@ public class FileContext {
 
 	}
 		
-	public static void save (types type, Pane pane, File file) {
+	public static void save (types type, BufferedImage image, File file) {
 		switch(type) {
 			case PNG : 
 				PNGStrategy pngstrategy = new PNGStrategy ();
-				if (file != null && pane != null) {
-					pngstrategy.save(pane,file);
+				if (file != null && image != null) {
+					pngstrategy.setBufferedImage(image);
+					pngstrategy.save(file);
 				}
 				break; 
 			case XML : 

@@ -39,6 +39,12 @@
 							onAction="#openSaveXml" />
 					</items>
 				</Menu>
+				<Menu mnemonicParsing="false" text="Load Png">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Load Png"
+							onAction="#openLoadPng" />
+					</items>
+				</Menu>
 			</menus>
 		</MenuBar>
 	</children>
