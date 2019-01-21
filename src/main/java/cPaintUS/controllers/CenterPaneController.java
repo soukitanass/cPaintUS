@@ -24,10 +24,7 @@ public class CenterPaneController {
 	
 	@FXML
 	private AnchorPane pane;
-	
-	private List<Canvas> canvas;
 
-//	private GraphicsContext gc;
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	
@@ -41,7 +38,7 @@ public class CenterPaneController {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		hasBeenDragged = false;
-		canvas = new ArrayList<Canvas>();
+		
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
@@ -71,7 +68,6 @@ public class CenterPaneController {
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
-		//draw();
 	}
 
 	@FXML
@@ -86,10 +82,6 @@ public class CenterPaneController {
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
 		draw();
 	}
-//	
-//	private Canvas getLastCanvas() {
-//		return canvas.get(canvas.size() - 1);
-//	}
 	
 	private void drawSettings(GraphicsContext gc) {
 		gc.setFill(Color.GREEN);
@@ -99,19 +91,16 @@ public class CenterPaneController {
 	
 	private void drawShape() {		
 		if (true && !hasBeenDragged) { // TODO has a shape selected
-			System.out.println("New canvas created");
 			Canvas newCanvas = new Canvas();
 			newCanvas.setHeight(1000.0);
 			newCanvas.setWidth(1000.0);
-//			newCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
-//			newCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 			newCanvas.setMouseTransparent(true);
-			canvas.add(newCanvas);
 			
 			pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 			
+			System.out.println("New canvas created: " + pane.getChildren().size());
+			
 			GraphicsContext gc = newCanvas.getGraphicsContext2D();
-//			gc.setFill(Color.TRANSPARENT);
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
 			switch (ShapeType.Rectangle) {
@@ -147,9 +136,7 @@ public class CenterPaneController {
 	
 	private void draw() {
 		System.out.println("test draw" + boundingBox.getOrigin().getX() + ";" + boundingBox.getOrigin().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
-//		GraphicsContext gc = getLastCanvas().getGraphicsContext2D();
-//		gc.setFill(Color.WHITE);
-//		gc.fillRect(0, 0, baseCanvas.getWidth(), baseCanvas.getHeight());
+
 		drawShape();
 		drawBoundingBox();
 		/*
