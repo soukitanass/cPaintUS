@@ -27,6 +27,18 @@
 							onAction="#about" />
 					</items>
 				</Menu>
+				<Menu mnemonicParsing="false" text="Save PNG">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Save PNG"
+							onAction="#openSavePng" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Save XML">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Save XML"
+							onAction="#openSaveXml" />
+					</items>
+				</Menu>
 			</menus>
 		</MenuBar>
 	</children>

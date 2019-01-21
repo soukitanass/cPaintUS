@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
@@ -12,6 +13,13 @@ public class CenterPaneController {
 
 	@FXML
 	private Canvas canvas;
+	
+	@FXML
+	private AnchorPane pane;
+
+	public AnchorPane getPane() {
+		return pane;
+	}
 
 	private GraphicsContext gc;
 	private BoundingBox boundingBox;

@@ -12,7 +12,7 @@
 			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<content>
-				<AnchorPane>
+				<AnchorPane fx:id="pane">
 					<children>
 						<Canvas fx:id="canvas" height="1000.0"
 							onMouseMoved="#onMouseMoved" width="1000.0"

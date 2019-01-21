@@ -13,5 +13,6 @@ public class XMLStrategy implements FileManagerStrategy{
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

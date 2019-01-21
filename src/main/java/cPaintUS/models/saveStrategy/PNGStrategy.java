@@ -13,5 +13,6 @@ public class PNGStrategy implements FileManagerStrategy {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
