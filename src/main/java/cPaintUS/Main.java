@@ -13,6 +13,8 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("views/root.fxml"));
 		primaryStage.setTitle("cPaintUS");
 		primaryStage.setScene(new Scene(root, 800, 600));
+		primaryStage.setMinWidth(800);
+		primaryStage.setMinHeight(600);
 		primaryStage.show();
 	}
 
