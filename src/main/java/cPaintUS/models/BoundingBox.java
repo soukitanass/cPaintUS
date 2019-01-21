@@ -51,7 +51,7 @@ public class BoundingBox extends Observable<IObserver>{
 	}
 
 	public void updateBoundingBox(Point cursor) {
-		this.oppositeCorner.setPosition(cursor.getX(), cursor.getY());
+		this.oppositeCorner.setPosition(cursor.getX() < 0 ? 0 : cursor.getX(), cursor.getY() < 0 ? 0 : cursor.getY());
 		notifyAllObservers();
 	}
 

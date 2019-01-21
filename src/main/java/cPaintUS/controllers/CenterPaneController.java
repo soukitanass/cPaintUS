@@ -154,9 +154,13 @@ public class CenterPaneController {
 			case Rectangle:
 				gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 						boundingBox.getWidth(), boundingBox.getHeight());
+				gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight());
 				break;
 			case Ellipse:
 				gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight());
+				gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 						boundingBox.getWidth(), boundingBox.getHeight());
 				break;
 			case Line:
