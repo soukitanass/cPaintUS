@@ -11,11 +11,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
+	private RootController root;
+	
 	@FXML
 	private MenuBar menuBar;
 	
+	public void setRoot(RootController rootController) {
+		root = rootController;
+	}
+	
 	@FXML void newCanvas() {
-		
+		root.getCenterPaneController().eraseAll();
 	}
 
 	@FXML

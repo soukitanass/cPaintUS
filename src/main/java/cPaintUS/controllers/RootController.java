@@ -22,6 +22,7 @@ public class RootController {
 	public void initialize() {
 		leftPaneController.setRoot(this);
 		centerPaneController.setRoot(this);
+		topPaneController.setRoot(this);
 	}
 
 	public RootController() {
