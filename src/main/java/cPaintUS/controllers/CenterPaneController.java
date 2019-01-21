@@ -1,10 +1,17 @@
 package cPaintUS.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.assertj.core.util.Arrays;
+
+>>>>>>> Ajout de erase
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
 import cPaintUS.models.shapes.ShapeType;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +28,8 @@ public class CenterPaneController {
 
 	@FXML
 	private AnchorPane pane;
+	
+	private RootController root;
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
@@ -58,6 +67,10 @@ public class CenterPaneController {
 			}
 		};
 	}
+	
+	public void setRoot(RootController rootController) {
+		root = rootController;
+	}
 
 	@FXML
 	public void initialize() {
@@ -65,6 +78,20 @@ public class CenterPaneController {
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
+	}
+	
+	@FXML
+	public void eraseAll() {
+		List<Node> canvasList = pane.getChildren();
+		List<Node> canvasToRemove = new ArrayList<Node>();
+		
+		for (int i = 1; i < canvasList.size() - 1; i++) {
+			canvasToRemove.add(canvasList.get(i));
+		}
+		
+		for (Node canvas : canvasToRemove) {
+			canvasList.remove(canvas);
+		}
 	}
 
 	@FXML
