@@ -1,6 +1,5 @@
 package cPaintUS.controllers;
 
-import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.PaintModel;
 import javafx.fxml.FXML;
 
