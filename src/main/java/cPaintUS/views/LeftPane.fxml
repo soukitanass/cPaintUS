@@ -25,7 +25,7 @@
 					<TextField prefWidth="116.0" fx:id="brushSize" text="2" />
 				</HBox>
 				<ColorPicker prefWidth="188.0" fx:id="colorPicker" />
-				<Button prefWidth="188.0" fx:id="eraseBtn" onAction="#onEraseBtnClick" text="Erase" />
+				<Button prefWidth="188.0" fx:id="eraseBtn" onAction="#handleEraseAllClick" text="Erase All" />
 			</VBox>
 		</ToolBar>
 	</children>

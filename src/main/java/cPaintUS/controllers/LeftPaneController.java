@@ -25,7 +25,7 @@ public class LeftPaneController {
 	}
 	
 	@FXML
-	private void onEraseBtnClick() {
+	private void handleEraseAllClick() {
 		root.getCenterPaneController().eraseAll();
 	}
 }

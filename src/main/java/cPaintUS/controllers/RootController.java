@@ -1,5 +1,6 @@
 package cPaintUS.controllers;
 
+import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.PaintModel;
 import javafx.fxml.FXML;
 
@@ -21,7 +22,6 @@ public class RootController {
 	@FXML
 	public void initialize() {
 		leftPaneController.setRoot(this);
-		centerPaneController.setRoot(this);
 		topPaneController.setRoot(this);
 	}
 

@@ -28,8 +28,6 @@ public class CenterPaneController {
 
 	@FXML
 	private AnchorPane pane;
-	
-	private RootController root;
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
@@ -66,10 +64,6 @@ public class CenterPaneController {
 				draw();
 			}
 		};
-	}
-	
-	public void setRoot(RootController rootController) {
-		root = rootController;
 	}
 
 	@FXML
