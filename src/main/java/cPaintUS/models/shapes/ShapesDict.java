@@ -30,10 +30,6 @@ public class ShapesDict {
 		shapesDict.put(shape.getShapeId(), shape);
 	}
 	
-	public void replaceShape(Shape shape) {
-		shapesDict.replace(shape.getShapeId(), shape);
-	}
-	
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
