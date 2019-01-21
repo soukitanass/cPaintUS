@@ -18,17 +18,17 @@
 				<Menu mnemonicParsing="false" text="File">
 					<items>
 						<MenuItem mnemonicParsing="false" text="New"
-							onAction="#newCanvas" />
+							onAction="#handleNewClick" />
 					</items>
 					<items>
 						<MenuItem mnemonicParsing="false" text="Close"
-							onAction="#exit" />
+							onAction="#handleExitClick" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
 						<MenuItem mnemonicParsing="false" text="About"
-							onAction="#about" />
+							onAction="#handleAboutClick" />
 					</items>
 				</Menu>
 			</menus>

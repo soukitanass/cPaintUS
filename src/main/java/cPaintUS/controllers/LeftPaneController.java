@@ -6,10 +6,26 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 
 public class LeftPaneController {
+	
+	private RootController root;
+	
 	@FXML
 	private TextField brushSize;
 	@FXML
 	private ColorPicker colorPicker;
 	@FXML
 	private Button eraseBtn;
+	
+	public void setRoot(RootController rootController) {
+		root = rootController;
+	}
+	
+	@FXML
+	private void initialize() {
+	}
+	
+	@FXML
+	private void handleEraseAllClick() {
+		root.getCenterPaneController().eraseAll();
+	}
 }

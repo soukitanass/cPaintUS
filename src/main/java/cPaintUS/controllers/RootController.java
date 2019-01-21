@@ -17,6 +17,12 @@ public class RootController {
 	private TopPaneController topPaneController;
 
 	private PaintModel paintModel;
+	
+	@FXML
+	public void initialize() {
+		leftPaneController.setRoot(this);
+		topPaneController.setRoot(this);
+	}
 
 	public RootController() {
 		paintModel = PaintModel.getInstance();
