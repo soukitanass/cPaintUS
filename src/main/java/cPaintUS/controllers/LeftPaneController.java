@@ -3,6 +3,7 @@ package cPaintUS.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import cPaintUS.models.LineWidth;
+import cPaintUS.models.shapes.ShapeType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
@@ -13,6 +14,8 @@ public class LeftPaneController {
 	
 	private RootController root;
 	
+	@FXML
+	private ComboBox<ShapeType> shape;
 	@FXML
 	private ComboBox<String> brushSize;
 	@FXML
@@ -28,12 +31,21 @@ public class LeftPaneController {
 	
 	@FXML
 	private void initialize() {
-		// Add possible brush sizes to the ComboBox
+		// Add possible shapes to the shape ComboBox
+		List<ShapeType> shapes = new ArrayList<ShapeType>();
+		
+		for (ShapeType s : ShapeType.values()) {
+			shapes.add(s);
+		}
+		
+		shape.getItems().setAll(shapes);
+		
+		// Add possible brush sizes to the brushSize ComboBox
 		int[] widths = LineWidth.getInstance().getWidths();
 		List<String> sizes = new ArrayList<String>();
 		
-		for (int i = 0; i < widths.length; i++) {
-			sizes.add(widths[i] + "px");
+		for (int w : widths) {
+			sizes.add(w + "px");
 		}
 		
 		brushSize.getItems().setAll(sizes);
@@ -44,24 +56,30 @@ public class LeftPaneController {
 	}
 	
 	@FXML
+	private void handleChangeShape() {
+		ShapeType newShape = shape.getValue();
+		root.getCenterPaneController().setShape(newShape);
+	}
+	
+	@FXML
 	private void handleChangeBrushSize() {
 		// Extract the integer in the string
 		String sizeStr = brushSize.getValue().replaceAll("[^0-9]", "");
-		int size = Integer.parseInt(sizeStr);
+		int newSize = Integer.parseInt(sizeStr);
 		
-		root.getCenterPaneController().setLineWidth(size);
+		root.getCenterPaneController().setLineWidth(newSize);
 	}
 	
 	@FXML
 	private void handleChangeFillColor() {
-		Color color = fillColor.getValue();
-		root.getCenterPaneController().setFillColor(color);
+		Color newColor = fillColor.getValue();
+		root.getCenterPaneController().setFillColor(newColor);
 	}
 	
 	@FXML
 	private void handleChangeStrokeColor() {
-		Color color = strokeColor.getValue();
-		root.getCenterPaneController().setStrokeColor(color);
+		Color newColor = strokeColor.getValue();
+		root.getCenterPaneController().setStrokeColor(newColor);
 	}
 	
 	@FXML

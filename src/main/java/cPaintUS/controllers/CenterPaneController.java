@@ -28,9 +28,10 @@ public class CenterPaneController {
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	
-	private Color fillColor;
-	private Color strokeColor;
-	private int lineWidth;
+	private ShapeType shape = ShapeType.Line;
+	private Color fillColor = Color.BLACK;
+	private Color strokeColor = Color.BLACK;
+	private int lineWidth = 1;
 
 	private boolean hasBeenDragged;
 
@@ -64,6 +65,10 @@ public class CenterPaneController {
 				draw();
 			}
 		};
+	}
+	
+	public void setShape(ShapeType shape) {
+		this.shape = shape;
 	}
 	
 	public void setFillColor(Color color) {
@@ -141,7 +146,7 @@ public class CenterPaneController {
 
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
-			switch (ShapeType.Line) {
+			switch (this.shape) {
 			case Rectangle:
 				gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 						boundingBox.getWidth(), boundingBox.getHeight());
