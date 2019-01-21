@@ -1,36 +1,48 @@
 package cPaintUS.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.shapes.ShapeType;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 public class CenterPaneController {
 
 	@FXML
-	private Canvas canvas;
+	private Canvas baseCanvas;
+	
+	@FXML
+	private Canvas boundingBoxCanvas;
+	
+	@FXML
+	private AnchorPane pane;
+	
+	private List<Canvas> canvas;
 
-	private GraphicsContext gc;
+//	private GraphicsContext gc;
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	
 	private boolean hasBeenDragged;
+	
+	private EventHandler<MouseEvent> mousePressedEventHandler;
+
+	private EventHandler<MouseEvent> mouseReleasedEventHandler;
 
 	public CenterPaneController() {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		hasBeenDragged = false;
-	}
-
-	@FXML
-	public void initialize() {
- 		gc = canvas.getGraphicsContext2D();
- 		//configuration of the mouse events
-		EventHandler<MouseEvent> mousePressedEventHandler = new EventHandler<MouseEvent>() {
+		canvas = new ArrayList<Canvas>();
+		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
 				System.out.println("Mouse pressed on " + e.getX() + ";" + e.getY());
@@ -38,8 +50,7 @@ public class CenterPaneController {
 				boundingBox.setVisible(true);
 			}
 		};
-		canvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
-		EventHandler<MouseEvent> mouseReleasedEventHandler = new EventHandler<MouseEvent>() {
+		mouseReleasedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
 				if(hasBeenDragged == true) {
@@ -49,12 +60,18 @@ public class CenterPaneController {
 					boundingBox.setVisible(false);
 				}
 				System.out.println("Mouse released on " + e.getX() + ";" + e.getY());
-				draw(gc);
+				draw();
 			}
 		};
-		canvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
-		
-		draw(gc);
+	}
+
+	@FXML
+	public void initialize() {
+ 		//configuration of the mouse events
+		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
+		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
+		boundingBoxCanvas.setMouseTransparent(true);
+		//draw();
 	}
 
 	@FXML
@@ -67,16 +84,56 @@ public class CenterPaneController {
 		hasBeenDragged = true;
 		pointer.setCursorPoint(event.getX(), event.getY());
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
-		draw(gc);
+		draw();
 	}
+//	
+//	private Canvas getLastCanvas() {
+//		return canvas.get(canvas.size() - 1);
+//	}
 	
 	private void drawSettings(GraphicsContext gc) {
 		gc.setFill(Color.GREEN);
 		gc.setStroke(Color.BLUE);
 		gc.setLineWidth(5);
 	}
+	
+	private void drawShape() {		
+		if (true && !hasBeenDragged) { // TODO has a shape selected
+			System.out.println("New canvas created");
+			Canvas newCanvas = new Canvas();
+			newCanvas.setHeight(1000.0);
+			newCanvas.setWidth(1000.0);
+//			newCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
+//			newCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
+			newCanvas.setMouseTransparent(true);
+			canvas.add(newCanvas);
+			
+			pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
+			
+			GraphicsContext gc = newCanvas.getGraphicsContext2D();
+//			gc.setFill(Color.TRANSPARENT);
+			drawSettings(gc);
+			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
+			switch (ShapeType.Rectangle) {
+				case Rectangle: 
+					gc.fillRect(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(), boundingBox.getWidth(), boundingBox.getHeight());
+					break;
+				case Circle:
+					break;
+				case Ellipse:
+					break;
+				case Line: 
+					break;
+				default: break;
+			}
+		}
+		
+	}
 
-	private void drawBoundingBox(GraphicsContext gc) {
+	private void drawBoundingBox() {
+		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
+		
 		if(boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
@@ -88,12 +145,13 @@ public class CenterPaneController {
 		}
 	}
 	
-	private void draw(GraphicsContext gc) {
+	private void draw() {
 		System.out.println("test draw" + boundingBox.getOrigin().getX() + ";" + boundingBox.getOrigin().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
-		gc.setFill(Color.WHITE);
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		drawBoundingBox(gc);
-		drawSettings(gc);
+//		GraphicsContext gc = getLastCanvas().getGraphicsContext2D();
+//		gc.setFill(Color.WHITE);
+//		gc.fillRect(0, 0, baseCanvas.getWidth(), baseCanvas.getHeight());
+		drawShape();
+		drawBoundingBox();
 		/*
 		gc.strokeLine(40, 10, 10, 40);
 		gc.fillOval(10, 60, 30, 30);
@@ -113,7 +171,7 @@ public class CenterPaneController {
 	}
 
 	public Canvas getCanvas() {
-		return this.canvas;
+		return this.baseCanvas;
 	}
 
 }
