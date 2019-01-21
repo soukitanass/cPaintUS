@@ -183,9 +183,6 @@ public class CenterPaneController {
 	}
 
 	private void draw() {
-		System.out.println("test draw" + boundingBox.getUpLeftCorner().getX() + ";"
-				+ boundingBox.getUpLeftCorner().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
-
 		drawShape();
 		drawBoundingBox();
 	}

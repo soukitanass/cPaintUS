@@ -2,6 +2,7 @@ package cPaintUS.models;
 
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.Observable;
+import cPaintUS.models.observable.ObservableList;
 
 public class Pointer extends Observable<IObserver>{
 
@@ -32,7 +33,7 @@ public class Pointer extends Observable<IObserver>{
 	@Override
 	public void notifyAllObservers() {
 		for (IObserver obs : this.getObserverList()) {
-			obs.update();
+			obs.update(ObservableList.POINTER);
 		}
 	}
 }
