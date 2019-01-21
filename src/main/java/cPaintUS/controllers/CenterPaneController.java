@@ -27,6 +27,11 @@ public class CenterPaneController {
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
+	
+	private ShapeType shape = ShapeType.Line;
+	private Color fillColor = Color.BLACK;
+	private Color strokeColor = Color.BLACK;
+	private int lineWidth = 1;
 
 	private boolean hasBeenDragged;
 
@@ -60,6 +65,22 @@ public class CenterPaneController {
 				draw();
 			}
 		};
+	}
+	
+	public void setShape(ShapeType shape) {
+		this.shape = shape;
+	}
+	
+	public void setFillColor(Color color) {
+		this.fillColor = color;
+	}
+	
+	public void setStrokeColor(Color color) {
+		this.strokeColor = color;
+	}
+	
+	public void setLineWidth(int width) {
+		this.lineWidth = width;
 	}
 
 	@FXML
@@ -98,9 +119,9 @@ public class CenterPaneController {
 	}
 
 	private void drawSettings(GraphicsContext gc) {
-		gc.setFill(Color.GREEN);
-		gc.setStroke(Color.BLUE);
-		gc.setLineWidth(5);
+		gc.setFill(fillColor);
+		gc.setStroke(strokeColor);
+		gc.setLineWidth(lineWidth);
 	}
 
 	private void drawShape() {
@@ -125,7 +146,7 @@ public class CenterPaneController {
 
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
-			switch (ShapeType.Line) {
+			switch (this.shape) {
 			case Rectangle:
 				gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 						boundingBox.getWidth(), boundingBox.getHeight());
