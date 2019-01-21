@@ -18,23 +18,42 @@ public abstract class Shape {
 		this.strokeColor = strokeColor;
 	}
 	
+	// Can't modify the shapeId!
 	public String getShapeId() {
 		return this.shapeId;
 	}
 	
+	// These properties might be modified.
+	// So, provide setters
 	public int getCanvasId() {
 		return this.canvasId;
+	}
+	
+	public void setCanvasId(int canvasId) {
+		this.canvasId = canvasId;
 	}
 	
 	public BoundingBox getBoundingBox() { 
 		return this.box;
 	}
 	
+	public void setBoundingBox(BoundingBox box) { 
+		this.box = box;
+	}
+	
 	public int getLineWidth() {
 		return this.lineWidth;
 	}
 	
+	public void setLineWidth(int lineWidth) {
+		this.lineWidth = lineWidth;
+	}
+	
 	public Color getStrokeColor() {
 		return this.strokeColor;
+	}
+	
+	public void getStrokeColor(Color strokeColor) {
+		this.strokeColor = strokeColor;
 	}
  }

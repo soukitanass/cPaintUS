@@ -18,6 +18,11 @@ public class Pokeball extends Shape {
 		return this.fillColor;
 	}
 	
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+	}
+	
+	// Can't modify this property!
 	public Color getBackColor() {
 		return this.backColor;
 	}

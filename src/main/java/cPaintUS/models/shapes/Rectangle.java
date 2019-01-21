@@ -15,4 +15,8 @@ public class Rectangle extends Shape {
 	public Color getFillColor() {
 		return this.fillColor;
 	}
+	
+	public void setFillColor(Color fillColor) {
+		this.fillColor = fillColor;
+	}
 }
