@@ -10,20 +10,29 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public class CenterPaneController {
+	
+	private RootController root; 
 
 	@FXML
 	private Canvas canvas;
 	
 	@FXML
 	private AnchorPane pane;
+	
+	private GraphicsContext gc;
+	private BoundingBox boundingBox;
 
 	public AnchorPane getPane() {
 		return pane;
 	}
 
-	private GraphicsContext gc;
-	private BoundingBox boundingBox;
+	public RootController getRoot() {
+		return root;
+	}
 
+	public void setRoot(RootController root) {
+		this.root = root;
+	}
 	@FXML
 	public void initialize() {
 		boundingBox = BoundingBox.getInstance();

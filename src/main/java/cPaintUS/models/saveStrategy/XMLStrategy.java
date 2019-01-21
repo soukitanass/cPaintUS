@@ -1,9 +1,14 @@
 package cPaintUS.models.saveStrategy;
 
+import java.io.File;
+
+import cPaintUS.models.saveStrategy.FileContext.types;
+import javafx.scene.layout.Pane;
+
 public class XMLStrategy implements FileManagerStrategy{
 
 	@Override
-	public void save(String path) {
+	public void save( Pane pane, File file) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -44,6 +44,7 @@ public class RootController {
 	
 	@FXML
 	public void initialize () {
-		this.topPaneController.setCenterPaneController(this.centerPaneController);
+		centerPaneController.setRoot(this);
+		topPaneController.setRoot(this);
 	}
 }
