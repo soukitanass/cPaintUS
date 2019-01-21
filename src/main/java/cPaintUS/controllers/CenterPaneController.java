@@ -15,18 +15,18 @@ public class CenterPaneController {
 
 	@FXML
 	private Canvas baseCanvas;
-	
+
 	@FXML
 	private Canvas boundingBoxCanvas;
-	
+
 	@FXML
 	private AnchorPane pane;
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
-	
+
 	private boolean hasBeenDragged;
-	
+
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
 	private EventHandler<MouseEvent> mouseReleasedEventHandler;
@@ -35,7 +35,7 @@ public class CenterPaneController {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		hasBeenDragged = false;
-		
+
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
@@ -47,10 +47,9 @@ public class CenterPaneController {
 		mouseReleasedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				if(hasBeenDragged == true) {
+				if (hasBeenDragged == true) {
 					hasBeenDragged = false;
-				}
-				else {
+				} else {
 					boundingBox.setVisible(false);
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
@@ -62,7 +61,7 @@ public class CenterPaneController {
 
 	@FXML
 	public void initialize() {
- 		//configuration of the mouse events
+		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
@@ -72,7 +71,7 @@ public class CenterPaneController {
 	private void onMouseMoved(MouseEvent event) {
 		pointer.setCursorPoint(event.getX(), event.getY());
 	}
-	
+
 	@FXML
 	private void onMouseDragged(MouseEvent event) {
 		hasBeenDragged = true;
@@ -80,14 +79,14 @@ public class CenterPaneController {
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
 		draw();
 	}
-	
+
 	private void drawSettings(GraphicsContext gc) {
 		gc.setFill(Color.GREEN);
 		gc.setStroke(Color.BLUE);
 		gc.setLineWidth(5);
 	}
-	
-	private void drawShape() {		
+
+	private void drawShape() {
 		if (true) { // TODO has a shape selected
 			GraphicsContext gc;
 			if (!hasBeenDragged) {
@@ -95,14 +94,14 @@ public class CenterPaneController {
 				newCanvas.setHeight(1000.0);
 				newCanvas.setWidth(1000.0);
 				newCanvas.setMouseTransparent(true);
-				
+
 				pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
-				
+
 				System.out.println("New canvas created: " + pane.getChildren().size());
-				
+
 				gc = newCanvas.getGraphicsContext2D();
 			} else {
-				Canvas activeCanvas = ((Canvas)pane.getChildren().get(pane.getChildren().size() - 2));
+				Canvas activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 				gc = activeCanvas.getGraphicsContext2D();
 				gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
 			}
@@ -110,19 +109,20 @@ public class CenterPaneController {
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
 			switch (ShapeType.Line) {
-				case Rectangle: 
-					gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
-					break;
-				case Circle:
-					gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
-					break;
-				case Line:
-					gc.strokeLine(boundingBox.getOrigin().getX(),
-							boundingBox.getOrigin().getY(),
-							boundingBox.getOppositeCorner().getX(), 
-							boundingBox.getOppositeCorner().getY());
-					break;
-				default: break;
+			case Rectangle:
+				gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight());
+				break;
+			case Circle:
+				gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight());
+				break;
+			case Line:
+				gc.strokeLine(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
+						boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY());
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -130,43 +130,38 @@ public class CenterPaneController {
 	private void drawBoundingBox() {
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-		
-		if(boundingBox.isVisible()) {
+
+		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
+			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getWidth(), boundingBox.getHeight());
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());			
+			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getWidth(), boundingBox.getHeight());
 		}
 	}
-	
+
 	private void draw() {
-		System.out.println("test draw" + boundingBox.getUpLeftCorner().getX() + ";" + boundingBox.getUpLeftCorner().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
+		System.out.println("test draw" + boundingBox.getUpLeftCorner().getX() + ";"
+				+ boundingBox.getUpLeftCorner().getY() + ";" + boundingBox.getWidth() + ";" + boundingBox.getHeight());
 
 		drawShape();
 		drawBoundingBox();
 		/*
-		gc.strokeLine(40, 10, 10, 40);
-		gc.fillOval(10, 60, 30, 30);
-		gc.strokeOval(60, 60, 30, 30);
-		gc.fillRoundRect(110, 60, 30, 30, 10, 10);
-		gc.strokeRoundRect(160, 60, 30, 30, 10, 10);
-		gc.fillArc(10, 110, 30, 30, 45, 240, ArcType.OPEN);
-		gc.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD);
-		gc.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND);
-		gc.strokeArc(10, 160, 30, 30, 45, 240, ArcType.OPEN);
-		gc.strokeArc(60, 160, 30, 30, 45, 240, ArcType.CHORD);
-		gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
-		gc.fillPolygon(new double[] { 10, 40, 10, 40 }, new double[] { 210, 210, 240, 240 }, 4);
-		gc.strokePolygon(new double[] { 60, 90, 60, 90 }, new double[] { 210, 210, 240, 240 }, 4);
-		gc.strokePolyline(new double[] { 110, 140, 110, 140 }, new double[] { 210, 210, 240, 240 }, 4);
+		 * gc.strokeLine(40, 10, 10, 40); gc.fillOval(10, 60, 30, 30); gc.strokeOval(60,
+		 * 60, 30, 30); gc.fillRoundRect(110, 60, 30, 30, 10, 10);
+		 * gc.strokeRoundRect(160, 60, 30, 30, 10, 10); gc.fillArc(10, 110, 30, 30, 45,
+		 * 240, ArcType.OPEN); gc.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD);
+		 * gc.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND); gc.strokeArc(10, 160,
+		 * 30, 30, 45, 240, ArcType.OPEN); gc.strokeArc(60, 160, 30, 30, 45, 240,
+		 * ArcType.CHORD); gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
+		 * gc.fillPolygon(new double[] { 10, 40, 10, 40 }, new double[] { 210, 210, 240,
+		 * 240 }, 4); gc.strokePolygon(new double[] { 60, 90, 60, 90 }, new double[] {
+		 * 210, 210, 240, 240 }, 4); gc.strokePolyline(new double[] { 110, 140, 110, 140
+		 * }, new double[] { 210, 210, 240, 240 }, 4);
 		 */
 	}
-
-	public Canvas getCanvas() {
-		return this.baseCanvas;
-	}
-
 }
