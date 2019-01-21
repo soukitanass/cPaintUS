@@ -12,12 +12,12 @@ public class LineWidth {
 		widths[3] = 8;
 	}
 	
+	private static class LineWidthInstance {
+		private static final LineWidth instance = new LineWidth();
+	}
+	
 	public static LineWidth getInstance() {
-		if (lineWidth == null) {
-			lineWidth = new LineWidth();
-		}
-		
-		return lineWidth;
+		return LineWidthInstance.instance;
 	}
 	
 	public int[] getWidths() {
