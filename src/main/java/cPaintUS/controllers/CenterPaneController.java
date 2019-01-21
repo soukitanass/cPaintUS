@@ -98,6 +98,8 @@ public class CenterPaneController {
 		List<Node> canvasList = pane.getChildren();
 		List<Node> canvasToRemove = new ArrayList<Node>();
 		
+		System.out.println(canvasList);
+		
 		for (int i = 1; i < canvasList.size() - 1; i++) {
 			canvasToRemove.add(canvasList.get(i));
 		}
@@ -154,9 +156,13 @@ public class CenterPaneController {
 			case Rectangle:
 				gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 						boundingBox.getWidth(), boundingBox.getHeight());
+				gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight());
 				break;
 			case Ellipse:
 				gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight());
+				gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 						boundingBox.getWidth(), boundingBox.getHeight());
 				break;
 			case Line:
