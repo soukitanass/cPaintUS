@@ -98,8 +98,6 @@ public class CenterPaneController {
 		List<Node> canvasList = pane.getChildren();
 		List<Node> canvasToRemove = new ArrayList<Node>();
 		
-		System.out.println(canvasList);
-		
 		for (int i = 1; i < canvasList.size() - 1; i++) {
 			canvasToRemove.add(canvasList.get(i));
 		}
