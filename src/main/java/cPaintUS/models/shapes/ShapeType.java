@@ -1,5 +1,5 @@
 package cPaintUS.models.shapes;
 
 public enum ShapeType {
-	Rectangle, Ellipse, Line
+	Rectangle, Ellipse, Line, Pokeball
 }
