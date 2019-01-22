@@ -16,6 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public class CenterPaneController {
 
@@ -156,35 +157,75 @@ public class CenterPaneController {
 		gc.setLineWidth(lineWidth);
 	}
 
-	private void drawShape() {
-		if (true) { // TODO has a shape selected
-			GraphicsContext gc;
-			activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
-			gc = activeCanvas.getGraphicsContext2D();
-			gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+	private void drawPokeball(GraphicsContext gc) {
+		// Colored top of the ball
+		gc.fillArc(boundingBox.getUpLeftCorner().getX(),
+				boundingBox.getUpLeftCorner().getY(),
+				boundingBox.getWidth(),
+				boundingBox.getHeight(),
+				0, 180, ArcType.ROUND);
 
-			drawSettings(gc);
-			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
-			switch (this.shape) {
-			case Rectangle:
-				gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(), boundingBox.getHeight());
-				gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(), boundingBox.getHeight());
-				break;
-			case Ellipse:
-				gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(), boundingBox.getHeight());
-				gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(), boundingBox.getHeight());
-				break;
-			case Line:
-				gc.strokeLine(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
-						boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY());
-				break;
-			default:
-				break;
-			}
+		gc.setFill(Color.WHITE);
+		// White bottom of the ball
+		gc.fillArc(boundingBox.getUpLeftCorner().getX(),
+				boundingBox.getUpLeftCorner().getY(),
+				boundingBox.getWidth(),
+				boundingBox.getHeight(),
+				0, -180, ArcType.ROUND);
+		// White circle in center
+		gc.fillOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.375,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.375,
+				boundingBox.getWidth()*0.25,
+				boundingBox.getHeight()*0.25);
+		// Biggest circle
+		gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+				boundingBox.getWidth(), boundingBox.getHeight());
+		// Smallest circle
+		gc.strokeOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.375,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.375,
+				boundingBox.getWidth()*0.25,
+				boundingBox.getHeight()*0.25);
+		// Two lines on the sides
+		gc.strokeLine(boundingBox.getUpLeftCorner().getX(),
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5,
+				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.375,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5);
+		gc.strokeLine(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.625,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5,
+				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth(),
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5);
+	}
+
+	private void drawShape() {
+		GraphicsContext gc;
+		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+		gc = activeCanvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+
+		drawSettings(gc);
+		
+		switch (this.shape) {
+		case Rectangle:
+			gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getWidth(), boundingBox.getHeight());
+			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getWidth(), boundingBox.getHeight());
+			break;
+		case Ellipse:
+			gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getWidth(), boundingBox.getHeight());
+			gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getWidth(), boundingBox.getHeight());
+			break;
+		case Line:
+			gc.strokeLine(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
+					boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY());
+			break;
+		case Pokeball:
+			drawPokeball(gc);
+			break;
+		default:
+			break;
 		}
 	}
 
