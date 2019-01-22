@@ -7,8 +7,8 @@ public class Pokeball extends Shape {
 	private Color fillColor;
 	private Color backColor;
 
-	public Pokeball(String shapeId, int canvasId,  BoundingBox box, int lineWidth, Color strokeColor, Color fillColor) {
-		super(shapeId, canvasId, box, lineWidth, strokeColor);
+	public Pokeball(String shapeId, int canvasId,  double x, double y, int z, double width, double height, int lineWidth, Color strokeColor, Color fillColor) {
+		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor);
 		
 		this.fillColor = fillColor;
 		this.backColor = Color.WHITE;

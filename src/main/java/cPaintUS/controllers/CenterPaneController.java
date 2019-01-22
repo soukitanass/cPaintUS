@@ -73,19 +73,30 @@ public class CenterPaneController {
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				draw();
-				cleanUpScene();
-				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
 				
-				// Create shape
-				Shape newShape = shapeFactory.getShape(
-						shape,
-						activeCanvas.hashCode(),
-						boundingBox,
-						lineWidth,
-						strokeColor,
-						fillColor
-					);
-				shapesDict.addShape(newShape);
+				if(boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
+					pane.getChildren().remove(pane.getChildren().size() - 2);
+				// A shape was created!
+				} else {
+					// Create shape
+					Shape newShape = shapeFactory.getShape(
+							shape,
+							activeCanvas.hashCode(),
+							boundingBox.getUpLeftCorner().getX(),
+							boundingBox.getUpLeftCorner().getY(),
+							boundingBox.getWidth(),
+							boundingBox.getHeight(),
+							lineWidth,
+							strokeColor,
+							fillColor
+						);
+					// Add it to the shapesDict
+					shapesDict.addShape(newShape);
+					
+					System.out.println(newShape.getShapeId());
+				}
+			
+				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
 			}
 		};
 	}
@@ -149,12 +160,6 @@ public class CenterPaneController {
 		newCanvas.setWidth(1000.0);
 		newCanvas.setMouseTransparent(true);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
-	}
-	
-	private void cleanUpScene() {
-		if(boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
-			pane.getChildren().remove(pane.getChildren().size() - 2);
-		}
 	}
 
 	private void drawSettings(GraphicsContext gc) {
