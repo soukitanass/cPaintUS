@@ -27,7 +27,10 @@ public class ShapesDict {
 	}
 	
 	public void addShape(Shape shape) {
-		shapesDict.put(shape.getShapeId(), shape);
+		if(shape != null)
+			shapesDict.put(shape.getShapeId(), shape);
+		else
+			System.out.println("addShape error : Unknown shape");
 	}
 	
 	public void clearShapes() {

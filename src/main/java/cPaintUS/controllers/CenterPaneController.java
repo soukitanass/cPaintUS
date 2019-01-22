@@ -182,6 +182,9 @@ public class CenterPaneController {
 				gc.strokeLine(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
 						boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY());
 				break;
+			case Heart:
+				drawHeart(gc, boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
+				break;
 			default:
 				break;
 			}
@@ -222,7 +225,58 @@ public class CenterPaneController {
 				strokeColor,
 				fillColor
 			);
-		shapesDict.addShape(newShape);
-		System.out.println(newShape.getShapeId());
+		if(newShape != null) {
+			shapesDict.addShape(newShape);
+			System.out.println(newShape.getShapeId());
+		}else {
+			System.out.println("Create shape : Unknown shape");
+		}
+	}
+	
+	private void calculShape(double x, double y, double w, double h, double[] xAxis, double[] yTop, double[] yBottom, int size) {
+		int j = 0;
+		for(double i = -w/2 ; i <= 0; i+=0.5 ) {
+			yTop[j] = -h * Math.sqrt(1 - ((Math.abs(4*i/w)-1)*(Math.abs(4*i/w)-1))) /4;
+			yBottom[j] = h * 3 * Math.sqrt(1- (Math.sqrt(Math.abs(4*i/w)) / Math.sqrt(2)) ) / 4;
+			yTop[j] = yTop[j] + y + h/4;
+			yBottom[j] = yBottom[j] + y + h/4;
+			xAxis[j] = i+w/2 + x;
+			if(i != 0) {
+				yTop[size-1-j] = yTop[j];
+				yBottom[size-1-j] = yBottom[j];
+				xAxis[size-1-j] = w-(i+(w/2)) + x;
+			}
+			j++;
+		}
+	}
+	
+	private void drawStrokeHeart(GraphicsContext gc, double x, double y, double w, double h) {
+		int size = 2*(int)w+1;
+		double[] yTop = new double[size];
+		double[] yBottom = new double[size];
+		double[] xAxis = new double[size];
+		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
+		gc.setStroke(strokeColor);
+		gc.setLineWidth(lineWidth);
+		gc.strokePolyline(xAxis, yTop, size);
+		gc.strokePolyline(xAxis, yBottom, size);
+	}
+	
+	private void drawHeart(GraphicsContext gc, double x, double y, double w, double h) {
+		drawFillHeart(gc, x, y, w, h);
+		drawStrokeHeart(gc, x, y, w, h);
+	}
+	private void drawFillHeart(GraphicsContext gc, double x, double y, double w, double h) {
+
+		int size = 2*(int)w+1;
+		double[] yTop = new double[size];
+		double[] yBottom = new double[size];
+		double[] xAxis = new double[size];
+		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
+		for(int i = 0 ; i<size; i++) {
+			gc.setStroke(fillColor);
+			gc.setLineWidth(1);
+			gc.strokeLine(xAxis[i], yTop[i], xAxis[i], yBottom[i]);
+		}
 	}
 }
