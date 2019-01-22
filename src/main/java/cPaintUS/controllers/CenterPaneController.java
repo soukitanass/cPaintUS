@@ -246,22 +246,23 @@ public class CenterPaneController implements IObserver {
 
 	private void createShape() {
 		Shape newShape;
-		if(shape == ShapeType.Line) {
+		if (shape == ShapeType.Line) {
 			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getOrigin().getX(),
-					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY(), lineWidth,
-					String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255, ((int) strokeColor.getGreen()) * 255,
-							((int) strokeColor.getBlue()) * 255),
+					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), lineWidth,
+					String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255,
+							((int) strokeColor.getGreen()) * 255, ((int) strokeColor.getBlue()) * 255),
 					String.format("#%02X%02X%02X", ((int) fillColor.getRed()) * 255, ((int) fillColor.getGreen()) * 255,
 							((int) fillColor.getBlue()) * 255));
-		}else {
+		} else {
 			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getUpLeftCorner().getX(),
 					boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), lineWidth,
-					String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255, ((int) strokeColor.getGreen()) * 255,
-							((int) strokeColor.getBlue()) * 255),
+					String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255,
+							((int) strokeColor.getGreen()) * 255, ((int) strokeColor.getBlue()) * 255),
 					String.format("#%02X%02X%02X", ((int) fillColor.getRed()) * 255, ((int) fillColor.getGreen()) * 255,
 							((int) fillColor.getBlue()) * 255));
 		}
-		
+
 		shapesDict.addShape(newShape);
 		System.out.println(newShape.getShapeId());
 	}
@@ -303,6 +304,6 @@ public class CenterPaneController implements IObserver {
 	public void update(ObservableList obs) {
 		eraseCanvas();
 		refresh();
-		
+
 	}
 }
