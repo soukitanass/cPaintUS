@@ -273,7 +273,7 @@ public class CenterPaneController {
 			gc.strokeOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 			break;
 		case Line:
-			gc.strokeLine(shape.getX(), shape.getY(), shape.getX(), shape.getY());
+			gc.strokeLine(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 			break;
 		default:
 			break;
