@@ -158,6 +158,11 @@ public class CenterPaneController {
 	}
 
 	private void drawPokeball(GraphicsContext gc) {
+		double ratioBetweenCircles = 0.25;
+		double halfOfRatio = ratioBetweenCircles/2;
+		double startingCornerRatio = 0.5 - halfOfRatio;
+		double endingCornerRatio = 0.5 + halfOfRatio;
+		
 		// Colored top of the ball
 		gc.fillArc(boundingBox.getUpLeftCorner().getX(),
 				boundingBox.getUpLeftCorner().getY(),
@@ -173,27 +178,27 @@ public class CenterPaneController {
 				boundingBox.getHeight(),
 				0, -180, ArcType.ROUND);
 		// White circle in center
-		gc.fillOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.375,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.375,
-				boundingBox.getWidth()*0.25,
-				boundingBox.getHeight()*0.25);
+		gc.fillOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * startingCornerRatio,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * startingCornerRatio,
+				boundingBox.getWidth() * ratioBetweenCircles,
+				boundingBox.getHeight() * ratioBetweenCircles);
 		// Biggest circle
 		gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 				boundingBox.getWidth(), boundingBox.getHeight());
 		// Smallest circle
-		gc.strokeOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.375,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.375,
-				boundingBox.getWidth()*0.25,
-				boundingBox.getHeight()*0.25);
+		gc.strokeOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * startingCornerRatio,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * startingCornerRatio,
+				boundingBox.getWidth() * ratioBetweenCircles,
+				boundingBox.getHeight() * ratioBetweenCircles);
 		// Two lines on the sides
 		gc.strokeLine(boundingBox.getUpLeftCorner().getX(),
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5,
-				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.375,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5);
-		gc.strokeLine(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()*0.625,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5,
+				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * startingCornerRatio,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5);
+		gc.strokeLine(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * endingCornerRatio,
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5,
 				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth(),
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()*0.5);
+				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5);
 	}
 
 	private void drawShape() {
