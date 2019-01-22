@@ -76,24 +76,8 @@ public class CenterPaneController {
 				
 				if(boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
 					pane.getChildren().remove(pane.getChildren().size() - 2);
-				// A shape was created!
 				} else {
-					// Create shape
-					Shape newShape = shapeFactory.getShape(
-							shape,
-							activeCanvas.hashCode(),
-							boundingBox.getUpLeftCorner().getX(),
-							boundingBox.getUpLeftCorner().getY(),
-							boundingBox.getWidth(),
-							boundingBox.getHeight(),
-							lineWidth,
-							strokeColor,
-							fillColor
-						);
-					// Add it to the shapesDict
-					shapesDict.addShape(newShape);
-					
-					System.out.println(newShape.getShapeId());
+					createShape();
 				}
 			
 				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
@@ -220,5 +204,21 @@ public class CenterPaneController {
 	private void draw() {
 		drawShape();
 		drawBoundingBox();
+	}
+	
+	private void createShape() {
+		Shape newShape = shapeFactory.getShape(
+				shape,
+				activeCanvas.hashCode(),
+				boundingBox.getUpLeftCorner().getX(),
+				boundingBox.getUpLeftCorner().getY(),
+				boundingBox.getWidth(),
+				boundingBox.getHeight(),
+				lineWidth,
+				strokeColor,
+				fillColor
+			);
+		shapesDict.addShape(newShape);
+		System.out.println(newShape.getShapeId());
 	}
 }
