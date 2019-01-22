@@ -11,6 +11,7 @@ public class ShapeFactory {
 	private int ellipseNb;
 	private int lineNb;
 	private int pokeballNb;
+	private int heartNb;
 	private int totalShapeNb;
 	
 	private ShapeFactory() {
@@ -19,6 +20,7 @@ public class ShapeFactory {
 		lineNb = 0;
 		pokeballNb = 0;
 		totalShapeNb = 0;
+		heartNb = 0;
 	}
 	
 	public static ShapeFactory getInstance() {
@@ -51,6 +53,10 @@ public class ShapeFactory {
 				shapeId = "Pokeball:" + pokeballNb;
 				pokeballNb++;
 				return new Pokeball(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor);
+			case Heart:
+				shapeId = "Heart:" + heartNb;
+				heartNb++;
+				return new Heart(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor);
 			default:
 				totalShapeNb--;
 				return null;
@@ -63,6 +69,7 @@ public class ShapeFactory {
 		ellipseNb = 0;
 		lineNb = 0;
 		pokeballNb = 0;
+		heartNb = 0;
 		totalShapeNb = 0;
 	}
 }
