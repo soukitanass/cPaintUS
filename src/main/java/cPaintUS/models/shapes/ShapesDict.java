@@ -5,29 +5,25 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import cPaintUS.controllers.CenterPaneController;
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.Observable;
+import cPaintUS.models.observable.ObservableList;
 
-public class ShapesDict {
+public class ShapesDict extends Observable<IObserver> {
 	private static ShapesDict instance = null;
 	private HashMap<String, Shape> shapesDict;
 	private ShapeFactory shapeFactory;
-	private final CenterPaneController centerPaneController;
 
-	private ShapesDict(CenterPaneController centerPaneController) {
+	private ShapesDict() {
 		this.shapesDict = new HashMap<String, Shape>();
 		this.shapeFactory = ShapeFactory.getInstance();
-		this.centerPaneController = centerPaneController;
 	}
 
-	public static ShapesDict getInstance(CenterPaneController centerPaneController) {
+	public static ShapesDict getInstance() {
 		if (instance == null) {
-			instance = new ShapesDict(centerPaneController);
+			instance = new ShapesDict();
 		}
 
-		return instance;
-	}
-	
-	public static ShapesDict getInstance() {
 		return instance;
 	}
 
@@ -43,9 +39,9 @@ public class ShapesDict {
 	public void addShape(Shape shape) {
 		shapesDict.put(shape.getShapeId(), shape);
 	}
-	
+
 	public void addListShapes(List<Shape> shapesList) {
-		for(Shape shape : shapesList) {
+		for (Shape shape : shapesList) {
 			this.addShape(shape);
 		}
 	}
@@ -55,7 +51,11 @@ public class ShapesDict {
 		shapeFactory.clear();
 	}
 
-	public CenterPaneController getCenterPaneController() {
-		return centerPaneController;
+	@Override
+	public void notifyAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.SHAPES_LOAD);
+		}
+
 	}
 }

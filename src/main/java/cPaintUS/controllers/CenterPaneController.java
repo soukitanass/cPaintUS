@@ -5,6 +5,8 @@ import java.util.List;
 
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Ellipse;
 import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
@@ -20,7 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class CenterPaneController {
+public class CenterPaneController implements IObserver {
 
 	@FXML
 	private Canvas baseCanvas;
@@ -53,7 +55,8 @@ public class CenterPaneController {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
-		shapesDict = ShapesDict.getInstance(this);
+		shapesDict = ShapesDict.getInstance();
+		shapesDict.register(this);
 
 		hasBeenDragged = false;
 
@@ -138,6 +141,12 @@ public class CenterPaneController {
 
 	@FXML
 	public void eraseAll() {
+		eraseCanvas();
+
+		shapesDict.clearShapes();
+	}
+
+	private void eraseCanvas() {
 		List<Node> canvasList = pane.getChildren();
 		List<Node> canvasToRemove = new ArrayList<Node>();
 
@@ -152,8 +161,6 @@ public class CenterPaneController {
 		for (Node canvas : canvasToRemove) {
 			canvasList.remove(canvas);
 		}
-
-		shapesDict.clearShapes();
 	}
 
 	@FXML
@@ -290,5 +297,12 @@ public class CenterPaneController {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public void update(ObservableList obs) {
+		eraseCanvas();
+		refresh();
+		
 	}
 }

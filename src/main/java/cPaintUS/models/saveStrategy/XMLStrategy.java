@@ -60,10 +60,9 @@ public class XMLStrategy implements FileManagerStrategy {
 			XMLDecoder decoder = new XMLDecoder(fis);
 			List<Shape> readObject = (List<Shape>) decoder.readObject();
 			shapes = readObject;
-			shapeDict.getCenterPaneController().eraseAll();
 			shapeDict.clearShapes();
 			shapeDict.addListShapes(shapes);
-			shapeDict.getCenterPaneController().refresh();
+			shapeDict.notifyAllObservers();
 			decoder.close();
 			try {
 				fis.close();
