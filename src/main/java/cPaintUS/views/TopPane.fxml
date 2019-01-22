@@ -21,6 +21,10 @@
 							onAction="#handleNewClick" />
 					</items>
 					<items>
+						<MenuItem mnemonicParsing="false" text="Save As XML"
+							onAction="#handleSaveXMLClick" />
+					</items>
+					<items>
 						<MenuItem mnemonicParsing="false" text="Close"
 							onAction="#handleExitClick" />
 					</items>
