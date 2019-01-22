@@ -2,8 +2,11 @@ package cPaintUS.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.shapes.Ellipse;
+import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
@@ -50,7 +53,7 @@ public class CenterPaneController {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDict.getInstance(this);
 
 		hasBeenDragged = false;
 
@@ -237,8 +240,43 @@ public class CenterPaneController {
 	private void createShape() {
 		Shape newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getUpLeftCorner().getX(),
 				boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), lineWidth,
-				"#" + Integer.toHexString(strokeColor.hashCode()), "#" + Integer.toHexString(fillColor.hashCode()));
+				String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255, ((int) strokeColor.getGreen()) * 255,
+						((int) strokeColor.getBlue()) * 255),
+				String.format("#%02X%02X%02X", ((int) fillColor.getRed()) * 255, ((int) fillColor.getGreen()) * 255,
+						((int) fillColor.getBlue()) * 255));
 		shapesDict.addShape(newShape);
 		System.out.println(newShape.getShapeId());
+	}
+
+	public void refresh() {
+		for (Shape shape : shapesDict.getShapesList()) {
+			drawShape(shape);
+		}
+	}
+
+	private void drawShape(Shape shape) {
+		GraphicsContext gc;
+		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+		gc = activeCanvas.getGraphicsContext2D();
+
+		gc.setStroke(Color.web(shape.getStrokeColor()));
+		gc.setLineWidth(shape.getLineWidth());
+		switch (shape.getShapeType()) {
+		case Rectangle:
+			gc.setFill(Color.web(((Rectangle) shape).getFillColor()));
+			gc.fillRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			gc.strokeRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			break;
+		case Ellipse:
+			gc.setFill(Color.web(((Ellipse) shape).getFillColor()));
+			gc.fillOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			gc.strokeOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			break;
+		case Line:
+			gc.strokeLine(shape.getX(), shape.getY(), shape.getX(), shape.getY());
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -1,7 +1,9 @@
 package cPaintUS.models.saveStrategy;
 
 import java.beans.ExceptionListener;
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,9 +51,28 @@ public class XMLStrategy implements FileManagerStrategy {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void load(String path) {
-		// TODO Auto-generated method stub
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(path);
+			XMLDecoder decoder = new XMLDecoder(fis);
+			List<Shape> readObject = (List<Shape>) decoder.readObject();
+			shapes = readObject;
+			shapeDict.getCenterPaneController().eraseAll();
+			shapeDict.clearShapes();
+			shapeDict.addListShapes(shapes);
+			shapeDict.getCenterPaneController().refresh();
+			decoder.close();
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 	}
 

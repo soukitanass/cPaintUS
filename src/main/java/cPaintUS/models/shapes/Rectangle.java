@@ -4,8 +4,8 @@ public class Rectangle extends Shape {
 	private String fillColor;
 
 	public Rectangle(String shapeId, int canvasId, double x, double y, int z, double width, double height,
-			int lineWidth, String strokeColor, String fillColor) {
-		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor);
+			int lineWidth, String strokeColor, String fillColor,ShapeType shapeType) {
+		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor,shapeType);
 
 		this.fillColor = fillColor;
 	}

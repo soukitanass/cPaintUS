@@ -10,9 +10,10 @@ public abstract class Shape {
 	private double height;
 	private int lineWidth;
 	private String strokeColor;
+	private ShapeType shapeType;
 
 	public Shape(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth,
-			String strokeColor) {
+			String strokeColor, ShapeType shapeType) {
 		this.shapeId = shapeId;
 		this.canvasId = canvasId;
 		this.x = x;
@@ -22,6 +23,15 @@ public abstract class Shape {
 		this.height = height;
 		this.lineWidth = lineWidth;
 		this.strokeColor = strokeColor;
+		this.shapeType = shapeType;
+	}
+
+	public ShapeType getShapeType() {
+		return shapeType;
+	}
+
+	public void setShapeType(ShapeType shapeType) {
+		this.shapeType = shapeType;
 	}
 
 	public Shape() {
@@ -83,6 +93,14 @@ public abstract class Shape {
 
 	public void setHeight(double height) {
 		this.height = height;
+	}
+
+	public void setShapeId(String shapeId) {
+		this.shapeId = shapeId;
+	}
+
+	public void setStrokeColor(String strokeColor) {
+		this.strokeColor = strokeColor;
 	}
 
 	// LineWidth

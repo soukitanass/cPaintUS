@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -87,5 +89,20 @@ public class TopPaneController {
 		if (selectedDirectory != null)
 			fileManager.save(selectedDirectory.getAbsolutePath());
 
+	}
+	
+	@FXML
+	private void handleLoadXMLClick() {
+		fileManager = new XMLStrategy();
+
+		 FileChooser fileChooser = new FileChooser();
+		 fileChooser.setTitle("Open Resource File");
+		 fileChooser.getExtensionFilters().addAll(
+		         new ExtensionFilter("XML Files", "*.xml"));
+		 Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
+		 File selectedFile = fileChooser.showOpenDialog(stage);
+		 if (selectedFile != null) {
+		    fileManager.load(selectedFile.getAbsolutePath());
+		 }
 	}
 }

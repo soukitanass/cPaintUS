@@ -35,20 +35,20 @@ public class ShapeFactory {
 			shapeId = "Rectangle:" + rectangleNb;
 			rectangleNb++;
 			return new Rectangle(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,
-					fillColor);
+					fillColor,ShapeType.Rectangle);
 		case Ellipse:
 			shapeId = "Ellipse:" + ellipseNb;
 			ellipseNb++;
-			return new Ellipse(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor);
+			return new Ellipse(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor,ShapeType.Ellipse);
 		case Line:
 			shapeId = "Line:" + lineNb;
 			lineNb++;
-			return new Line(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor);
+			return new Line(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,ShapeType.Line);
 		case Pokeball:
 			shapeId = "Pokeball:" + pokeballNb;
 			pokeballNb++;
 			return new Pokeball(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,
-					fillColor);
+					fillColor,ShapeType.Pokeball);
 		default:
 			totalShapeNb--;
 			return null;
