@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.shapes.Shape;
+import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
+import cPaintUS.models.shapes.ShapesDict;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -25,8 +28,12 @@ public class CenterPaneController {
 	@FXML
 	private AnchorPane pane;
 
+	private Canvas activeCanvas;
+	
 	private Pointer pointer;
 	private BoundingBox boundingBox;
+	private ShapeFactory shapeFactory;
+	private ShapesDict shapesDict;
 	
 	private ShapeType shape = ShapeType.Line;
 	private Color fillColor = Color.BLACK;
@@ -42,6 +49,9 @@ public class CenterPaneController {
 	public CenterPaneController() {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
+		shapeFactory = ShapeFactory.getInstance();
+		shapesDict = ShapesDict.getInstance();
+
 		hasBeenDragged = false;
 
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
@@ -63,7 +73,13 @@ public class CenterPaneController {
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				draw();
-				cleanUpScene();
+				
+				if(boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
+					pane.getChildren().remove(pane.getChildren().size() - 2);
+				} else {
+					createShape();
+				}
+			
 				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
 			}
 		};
@@ -109,6 +125,8 @@ public class CenterPaneController {
 		for (Node canvas : canvasToRemove) {
 			canvasList.remove(canvas);
 		}
+		
+		shapesDict.clearShapes();
 	}
 
 	@FXML
@@ -131,12 +149,6 @@ public class CenterPaneController {
 		newCanvas.setMouseTransparent(true);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
-	
-	private void cleanUpScene() {
-		if(boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
-			pane.getChildren().remove(pane.getChildren().size() - 2);
-		}
-	}
 
 	private void drawSettings(GraphicsContext gc) {
 		gc.setFill(fillColor);
@@ -147,10 +159,9 @@ public class CenterPaneController {
 	private void drawShape() {
 		if (true) { // TODO has a shape selected
 			GraphicsContext gc;
-			Canvas activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+			activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 			gc = activeCanvas.getGraphicsContext2D();
 			gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
-			
 
 			drawSettings(gc);
 			// getCurrentShape (Rectangle, circle...) TODO once the toolbar is done
@@ -197,5 +208,21 @@ public class CenterPaneController {
 	private void draw() {
 		drawShape();
 		drawBoundingBox();
+	}
+	
+	private void createShape() {
+		Shape newShape = shapeFactory.getShape(
+				shape,
+				activeCanvas.hashCode(),
+				boundingBox.getUpLeftCorner().getX(),
+				boundingBox.getUpLeftCorner().getY(),
+				boundingBox.getWidth(),
+				boundingBox.getHeight(),
+				lineWidth,
+				strokeColor,
+				fillColor
+			);
+		shapesDict.addShape(newShape);
+		System.out.println(newShape.getShapeId());
 	}
 }

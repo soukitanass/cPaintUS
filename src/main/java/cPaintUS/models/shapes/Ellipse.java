@@ -2,10 +2,10 @@ package cPaintUS.models.shapes;
 
 import javafx.scene.paint.Color;
 
-public class Rectangle extends Shape {
+public class Ellipse extends Shape {
 	private Color fillColor;
 
-	public Rectangle(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth, Color strokeColor, Color fillColor) {
+	public Ellipse(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth, Color strokeColor, Color fillColor) {
 		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor);
 		
 		this.fillColor = fillColor;
