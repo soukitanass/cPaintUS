@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="9.0.4" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="cPaintUS.models.shapes.Heart">
+    <void property="canvasId">
+     <int>807565975</int>
+    </void>
+    <void property="fillColor">
+     <string>#FFFF4D</string>
+    </void>
+    <void property="height">
+     <double>171.0</double>
+    </void>
+    <void property="lineWidth">
+     <int>1</int>
+    </void>
+    <void property="shapeId">
+     <string>Heart:0</string>
+    </void>
+    <void property="shapeType">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>cPaintUS.models.shapes.ShapeType</class>
+      <string>Heart</string>
+     </object>
+    </void>
+    <void property="strokeColor">
+     <string>#000000</string>
+    </void>
+    <void property="width">
+     <double>157.0</double>
+    </void>
+    <void property="x">
+     <double>98.0</double>
+    </void>
+    <void property="y">
+     <double>113.0</double>
+    </void>
+    <void property="z">
+     <int>1</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
