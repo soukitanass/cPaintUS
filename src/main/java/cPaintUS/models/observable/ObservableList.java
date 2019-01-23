@@ -4,5 +4,6 @@ public enum ObservableList {
 	POINTER,
 	BOUNDING_BOX,
 	PAINT_MODEL,
-	SHAPES_LOAD
+	SHAPES_LOAD,
+	DRAW_SETTINGS
 }
