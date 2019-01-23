@@ -43,8 +43,6 @@ public abstract class Shape {
 		return this.shapeId;
 	}
 
-	// These properties might be modified. So, provide setters
-	// CanvasId
 	public int getCanvasId() {
 		return this.canvasId;
 	}
@@ -53,7 +51,6 @@ public abstract class Shape {
 		this.canvasId = canvasId;
 	}
 
-	// Position
 	public double getX() {
 		return this.x;
 	}
@@ -78,7 +75,6 @@ public abstract class Shape {
 		this.z = z;
 	}
 
-	// Dimensions
 	public double getWidth() {
 		return this.width;
 	}
@@ -103,7 +99,6 @@ public abstract class Shape {
 		this.strokeColor = strokeColor;
 	}
 
-	// LineWidth
 	public int getLineWidth() {
 		return this.lineWidth;
 	}
@@ -112,7 +107,6 @@ public abstract class Shape {
 		this.lineWidth = lineWidth;
 	}
 
-	// StrokeColor
 	public String getStrokeColor() {
 		return this.strokeColor;
 	}
