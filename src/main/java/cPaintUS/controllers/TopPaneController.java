@@ -7,6 +7,7 @@ import java.io.IOException;
 import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.saveStrategy.FileContext;
 import cPaintUS.models.saveStrategy.FileContext.types;
+import cPaintUS.models.shapes.ShapesDict;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,8 +26,11 @@ public class TopPaneController {
 	@FXML
 	private MenuBar menuBar;
 
+	private ShapesDict shapesDict;
+
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
+		shapesDict = ShapesDict.getInstance();
 	}
 
 	@FXML
@@ -43,12 +47,14 @@ public class TopPaneController {
 
 			NewController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);
-
-			stage.showAndWait();
-
-			if (controller.isYesClicked()) {
+			if (!shapesDict.getShapesList().isEmpty()) {
+				stage.showAndWait();
+				if (controller.isYesClicked()) {
+					this.handleSaveClick();
+				}
 				snapshotSingleton.eraseAll();
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
