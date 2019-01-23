@@ -1,7 +1,5 @@
 package cPaintUS.models.shapes;
 
-import javafx.scene.paint.Color;
-
 public abstract class Shape {
 	private String shapeId;
 	private int canvasId;
@@ -11,9 +9,11 @@ public abstract class Shape {
 	private double width;
 	private double height;
 	private int lineWidth;
-	private Color strokeColor;
-	
-	public Shape(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth, Color strokeColor) {
+	private String strokeColor;
+	private ShapeType shapeType;
+
+	public Shape(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth,
+			String strokeColor, ShapeType shapeType) {
 		this.shapeId = shapeId;
 		this.canvasId = canvasId;
 		this.x = x;
@@ -23,80 +23,95 @@ public abstract class Shape {
 		this.height = height;
 		this.lineWidth = lineWidth;
 		this.strokeColor = strokeColor;
+		this.shapeType = shapeType;
 	}
-	
+
+	public ShapeType getShapeType() {
+		return shapeType;
+	}
+
+	public void setShapeType(ShapeType shapeType) {
+		this.shapeType = shapeType;
+	}
+
+	public Shape() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// Can't modify the shapeId!
 	public String getShapeId() {
 		return this.shapeId;
 	}
-	
-	// These properties might be modified. So, provide setters
-	// CanvasId
+
 	public int getCanvasId() {
 		return this.canvasId;
 	}
-	
+
 	public void setCanvasId(int canvasId) {
 		this.canvasId = canvasId;
 	}
-	
-	// Position
-	public double getX() { 
+
+	public double getX() {
 		return this.x;
 	}
-	
-	public void setX(double x) { 
+
+	public void setX(double x) {
 		this.x = x;
 	}
-	
-	public double getY() { 
+
+	public double getY() {
 		return this.y;
 	}
-	
-	public void setY(double y) { 
+
+	public void setY(double y) {
 		this.y = y;
 	}
-	
-	public int getZ() { 
+
+	public int getZ() {
 		return this.z;
 	}
-	
-	public void setZ(int z) { 
+
+	public void setZ(int z) {
 		this.z = z;
 	}
-	
-	// Dimensions
-	public double getWidth() { 
+
+	public double getWidth() {
 		return this.width;
 	}
-	
-	public void setWidth(double width) { 
+
+	public void setWidth(double width) {
 		this.width = width;
 	}
-	
-	public double getHeight() { 
+
+	public double getHeight() {
 		return this.height;
 	}
-	
-	public void setHeight(double height) { 
+
+	public void setHeight(double height) {
 		this.height = height;
 	}
-	
-	// LineWidth
+
+	public void setShapeId(String shapeId) {
+		this.shapeId = shapeId;
+	}
+
+	public void setStrokeColor(String strokeColor) {
+		this.strokeColor = strokeColor;
+	}
+
 	public int getLineWidth() {
 		return this.lineWidth;
 	}
-	
+
 	public void setLineWidth(int lineWidth) {
 		this.lineWidth = lineWidth;
 	}
-	
-	// StrokeColor
-	public Color getStrokeColor() {
+
+	public String getStrokeColor() {
 		return this.strokeColor;
 	}
-	
-	public void getStrokeColor(Color strokeColor) {
+
+	public void getStrokeColor(String strokeColor) {
 		this.strokeColor = strokeColor;
 	}
- }
+}
