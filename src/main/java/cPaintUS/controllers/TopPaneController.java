@@ -1,8 +1,14 @@
 package cPaintUS.controllers;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
+import cPaintUS.models.saveStrategy.FileContext;
+import cPaintUS.models.saveStrategy.FileContext.types;
+import javafx.embed.swing.SwingFXUtils;
 import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.saveStrategy.FileManagerStrategy;
 import cPaintUS.models.saveStrategy.XMLStrategy;
@@ -10,23 +16,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
-	private RootController root;
+	
 	private FileManagerStrategy fileManager;
-
+	private SnapshotSingleton snapshotSingleton;
 	@FXML
 	private MenuBar menuBar;
-
-	public void setRoot(RootController r) {
-		this.root = r;
+	
+	public TopPaneController() {
+		snapshotSingleton = SnapshotSingleton.getInstance();
 	}
-
+	
 	@FXML
 	private void handleNewClick() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/New.fxml"));
@@ -45,7 +61,7 @@ public class TopPaneController {
 			stage.showAndWait();
 
 			if (controller.isYesClicked()) {
-				root.getCenterPaneController().eraseAll();
+				snapshotSingleton.eraseAll();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -82,7 +98,7 @@ public class TopPaneController {
 		fileManager = new XMLStrategy();
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save As");
-		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
+		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		chooser.getExtensionFilters().add(extFilter);
 		File selectedDirectory = chooser.showSaveDialog(stage);
@@ -98,10 +114,37 @@ public class TopPaneController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"));
-		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
+		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
 		File selectedFile = fileChooser.showOpenDialog(stage);
 		if (selectedFile != null) {
 			fileManager.load(selectedFile.getAbsolutePath());
 		}
 	}
+	@FXML
+	private void openSavePng () {
+		
+		FileChooser fileChooser = new FileChooser();
+	    fileChooser.setTitle("Save Image");
+	    File file = fileChooser.showSaveDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
+	    BufferedImage image = SwingFXUtils.fromFXImage(snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
+	    if (file != null) {
+	    	FileContext.save(types.PNG,image,file.getPath());
+	    }
+	}
+	
+	@FXML 
+	private void openLoadPng () {
+		FileChooser fileChooser = new FileChooser (); 
+		fileChooser.setTitle("Select Image");
+		File file = fileChooser.showOpenDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
+		Image background = new Image(file.toURI().toString());
+		BackgroundImage backgroundImage= new BackgroundImage(background,
+		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+		          BackgroundSize.DEFAULT);		
+		if (file != null) {
+			snapshotSingleton.getSnapshotPane().setBackground(new Background(backgroundImage));
+        }
+	}
+	
 }
+

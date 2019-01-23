@@ -15,12 +15,6 @@ public class RootController {
 	@FXML
 	private TopPaneController topPaneController;
 
-	@FXML
-	public void initialize() {
-		leftPaneController.setRoot(this);
-		topPaneController.setRoot(this);
-	}
-
 	public LeftPaneController getLeftPaneController() {
 		return leftPaneController;
 	}

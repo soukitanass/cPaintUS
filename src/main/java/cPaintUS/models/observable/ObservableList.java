@@ -5,5 +5,6 @@ public enum ObservableList {
 	BOUNDING_BOX,
 	PAINT_MODEL,
 	SHAPES_LOAD,
-	DRAW_SETTINGS
+	DRAW_SETTINGS,
+	MENU_ERASE
 }

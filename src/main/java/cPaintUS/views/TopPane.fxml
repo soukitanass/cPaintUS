@@ -29,6 +29,14 @@
 							onAction="#handleSaveXMLClick" />
 					</items>
 					<items>
+						<MenuItem mnemonicParsing="false" text="Save PNG"
+							onAction="#openSavePng" />
+					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" text="Load Png"
+							onAction="#openLoadPng" />
+					</items>
+					<items>
 						<MenuItem mnemonicParsing="false" text="Close"
 							onAction="#handleExitClick" />
 					</items>
@@ -38,6 +46,10 @@
 						<MenuItem mnemonicParsing="false" text="About"
 							onAction="#handleAboutClick" />
 					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Save PNG">
+				</Menu>
+				<Menu mnemonicParsing="false" text="Load Png">
 				</Menu>
 			</menus>
 		</MenuBar>

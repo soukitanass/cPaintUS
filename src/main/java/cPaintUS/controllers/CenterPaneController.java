@@ -58,6 +58,7 @@ public class CenterPaneController implements IObserver {
 		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
+		SnapshotSingleton.getInstance().register(this);
 
 		hasBeenDragged = false;
 
@@ -122,6 +123,7 @@ public class CenterPaneController implements IObserver {
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
+		SnapshotSingleton.getInstance().setSnapshotPane(pane);
 	}
 
 	@FXML
@@ -397,6 +399,9 @@ public class CenterPaneController implements IObserver {
 		case SHAPES_LOAD:
 			eraseCanvas();
 			refresh();
+			break;
+		case MENU_ERASE:
+			eraseAll();
 			break;
 		default:
 			break;

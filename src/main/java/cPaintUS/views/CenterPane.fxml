@@ -12,8 +12,7 @@
 			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<content>
-				<AnchorPane
-					fx:id="pane">
+				<AnchorPane fx:id="pane">
 					<children>
 						<Canvas fx:id="baseCanvas" 
 							height="1000.0"
