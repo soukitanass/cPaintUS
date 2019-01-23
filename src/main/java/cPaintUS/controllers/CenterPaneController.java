@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -345,9 +346,9 @@ public class CenterPaneController implements IObserver {
 		}
 
 		if(newShape != null) {
-		shapesDict.addShape(newShape);
-		System.out.println(newShape.getShapeId());
-		}else {
+			shapesDict.addShape(newShape);
+			System.out.println(newShape.getShapeId());
+		} else {
 			System.out.println("Create shape : Unknown shape");
 		}
 	}
@@ -392,6 +393,20 @@ public class CenterPaneController implements IObserver {
 			break;
 		}
 	}
+	
+	private void drawImage() {
+		GraphicsContext gc;
+		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+		gc = activeCanvas.getGraphicsContext2D();
+		
+		Image image = SnapshotSingleton.getInstance().getImage();
+		gc.drawImage(image, 0, 0);
+	}
+	
+	private void loadImage() {
+		initializeNewCanvas();
+		drawImage();
+	}
 
 	@Override
 	public void update(ObservableList obs) {
@@ -399,6 +414,9 @@ public class CenterPaneController implements IObserver {
 		case SHAPES_LOAD:
 			eraseCanvas();
 			refresh();
+			break;
+		case LOAD_IMAGE:
+			loadImage();
 			break;
 		case MENU_ERASE:
 			eraseAll();

@@ -6,5 +6,6 @@ public enum ObservableList {
 	PAINT_MODEL,
 	SHAPES_LOAD,
 	DRAW_SETTINGS,
-	MENU_ERASE
+	MENU_ERASE,
+	LOAD_IMAGE
 }

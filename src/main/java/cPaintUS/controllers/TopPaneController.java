@@ -11,6 +11,7 @@ import cPaintUS.models.saveStrategy.FileContext.types;
 import javafx.embed.swing.SwingFXUtils;
 import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.saveStrategy.FileManagerStrategy;
+import cPaintUS.models.saveStrategy.PNGStrategy;
 import cPaintUS.models.saveStrategy.XMLStrategy;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -134,15 +135,14 @@ public class TopPaneController {
 	
 	@FXML 
 	private void openLoadPng () {
+		fileManager = new PNGStrategy();
+		
 		FileChooser fileChooser = new FileChooser (); 
 		fileChooser.setTitle("Select Image");
 		File file = fileChooser.showOpenDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
-		Image background = new Image(file.toURI().toString());
-		BackgroundImage backgroundImage= new BackgroundImage(background,
-		        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-		          BackgroundSize.DEFAULT);		
+		
 		if (file != null) {
-			snapshotSingleton.getSnapshotPane().setBackground(new Background(backgroundImage));
+			fileManager.load(file.toURI().toString());
         }
 	}
 	

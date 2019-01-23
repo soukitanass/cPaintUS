@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import cPaintUS.controllers.SnapshotSingleton;
+import javafx.scene.image.Image;
+
 
 public class PNGStrategy implements FileManagerStrategy {
 	
@@ -33,8 +36,9 @@ public class PNGStrategy implements FileManagerStrategy {
 
 	@Override
 	public void load(String path) {
-		// TODO Auto-generated method stub
-
+		Image image = new Image(path);
+		SnapshotSingleton.getInstance().setImage(image);
+		SnapshotSingleton.getInstance().notifyAllLoadImage();
 	}
 	
 
