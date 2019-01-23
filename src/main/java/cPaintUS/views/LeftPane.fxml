@@ -17,7 +17,7 @@
 				</HBox>
 				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
 					<Label prefWidth="78.0" text="Brush Size: " />
-					<ComboBox prefWidth="110.0" fx:id="brushSize" promptText="Choose" onAction="#handleChangeBrushSize"/>
+					<ComboBox prefWidth="110.0" fx:id="lineWidth" promptText="Choose" onAction="#handleChangeBrushSize"/>
 				</HBox>
 				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
 					<Label prefWidth="78.0" text="Fill Color: " />
