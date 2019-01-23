@@ -2,8 +2,13 @@ package cPaintUS.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.ObservableList;
+import cPaintUS.models.shapes.Ellipse;
+import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
@@ -18,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
-public class CenterPaneController {
+public class CenterPaneController implements IObserver {
 
 	@FXML
 	private Canvas baseCanvas;
@@ -30,12 +35,12 @@ public class CenterPaneController {
 	private AnchorPane pane;
 
 	private Canvas activeCanvas;
-	
+
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
-	
+
 	private ShapeType shape = ShapeType.Line;
 	private Color fillColor = Color.BLACK;
 	private Color strokeColor = Color.BLACK;
@@ -52,6 +57,7 @@ public class CenterPaneController {
 		boundingBox = BoundingBox.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDict.getInstance();
+		shapesDict.register(this);
 
 		hasBeenDragged = false;
 
@@ -74,30 +80,54 @@ public class CenterPaneController {
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				draw();
-				
-				if(boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
+
+				if (boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
 					pane.getChildren().remove(pane.getChildren().size() - 2);
 				} else {
 					createShape();
 				}
-			
+
 				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
 			}
 		};
 	}
-	
+
 	public void setShape(ShapeType shape) {
 		this.shape = shape;
 	}
-	
+
 	public void setFillColor(Color color) {
 		this.fillColor = color;
 	}
-	
+
+	public Canvas getBaseCanvas() {
+		return baseCanvas;
+	}
+
+	public void setBaseCanvas(Canvas baseCanvas) {
+		this.baseCanvas = baseCanvas;
+	}
+
+	public AnchorPane getPane() {
+		return pane;
+	}
+
+	public void setPane(AnchorPane pane) {
+		this.pane = pane;
+	}
+
+	public Canvas getActiveCanvas() {
+		return activeCanvas;
+	}
+
+	public void setActiveCanvas(Canvas activeCanvas) {
+		this.activeCanvas = activeCanvas;
+	}
+
 	public void setStrokeColor(Color color) {
 		this.strokeColor = color;
 	}
-	
+
 	public void setLineWidth(int width) {
 		this.lineWidth = width;
 	}
@@ -109,25 +139,29 @@ public class CenterPaneController {
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
 	}
-	
+
 	@FXML
 	public void eraseAll() {
+		eraseCanvas();
+
+		shapesDict.clearShapes();
+	}
+
+	private void eraseCanvas() {
 		List<Node> canvasList = pane.getChildren();
 		List<Node> canvasToRemove = new ArrayList<Node>();
-		
+
 		for (int i = 1; i < canvasList.size() - 1; i++) {
 			canvasToRemove.add(canvasList.get(i));
 		}
-		
+
 		// Erase bounding box
 		GraphicsContext bdgc = boundingBoxCanvas.getGraphicsContext2D();
 		bdgc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-		
+
 		for (Node canvas : canvasToRemove) {
 			canvasList.remove(canvas);
 		}
-		
-		shapesDict.clearShapes();
 	}
 
 	@FXML
@@ -142,7 +176,7 @@ public class CenterPaneController {
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
 		draw();
 	}
-	
+
 	private void initializeNewCanvas() {
 		Canvas newCanvas = new Canvas();
 		newCanvas.setHeight(1000.0);
@@ -255,20 +289,69 @@ public class CenterPaneController {
 		drawShape();
 		drawBoundingBox();
 	}
-	
+
 	private void createShape() {
-		Shape newShape = shapeFactory.getShape(
-				shape,
-				activeCanvas.hashCode(),
-				boundingBox.getUpLeftCorner().getX(),
-				boundingBox.getUpLeftCorner().getY(),
-				boundingBox.getWidth(),
-				boundingBox.getHeight(),
-				lineWidth,
-				strokeColor,
-				fillColor
-			);
+		Shape newShape;
+		String sfillColor = String.format("#%02X%02X%02X", ((int) fillColor.getRed()) * 255,
+				((int) fillColor.getGreen()) * 255, ((int) fillColor.getBlue()) * 255);
+		String sstrokeColor = String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255,
+				((int) strokeColor.getGreen()) * 255, ((int) strokeColor.getBlue()) * 255);
+		if (shape == ShapeType.Line) {
+			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getOrigin().getX(),
+					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), lineWidth, sstrokeColor, sfillColor);
+		} else {
+			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getUpLeftCorner().getX(),
+					boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), lineWidth,
+					sstrokeColor, sfillColor);
+		}
+
 		shapesDict.addShape(newShape);
 		System.out.println(newShape.getShapeId());
+	}
+
+	public void refresh() {
+		for (Shape shape : shapesDict.getShapesList()) {
+			initializeNewCanvas();
+			drawShape(shape);
+		}
+	}
+
+	private void drawShape(Shape shape) {
+		GraphicsContext gc;
+		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+		gc = activeCanvas.getGraphicsContext2D();
+
+		gc.setStroke(Color.web(shape.getStrokeColor()));
+		gc.setLineWidth(shape.getLineWidth());
+		switch (shape.getShapeType()) {
+		case Rectangle:
+			gc.setFill(Color.web(((Rectangle) shape).getFillColor()));
+			gc.fillRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			gc.strokeRect(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			break;
+		case Ellipse:
+			gc.setFill(Color.web(((Ellipse) shape).getFillColor()));
+			gc.fillOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			gc.strokeOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			break;
+		case Line:
+			gc.strokeLine(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void update(ObservableList obs) {
+		switch (obs) {
+		case SHAPES_LOAD:
+			eraseCanvas();
+			refresh();
+			break;
+		default:
+			break;
+		}
 	}
 }
