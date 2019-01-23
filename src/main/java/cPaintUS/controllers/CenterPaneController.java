@@ -41,6 +41,7 @@ public class CenterPaneController implements IObserver {
 	private BoundingBox boundingBox;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
+	private Shape newShape;
 
 	private ShapeType shape = ShapeType.Line;
 	private Color fillColor = Color.BLACK;
@@ -186,56 +187,6 @@ public class CenterPaneController implements IObserver {
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
-	private void drawSettings(GraphicsContext gc) {
-		gc.setFill(fillColor);
-		gc.setStroke(strokeColor);
-		gc.setLineWidth(lineWidth);
-	}
-
-	private void drawPokeball(GraphicsContext gc) {
-		double ratioBetweenCircles = 0.25;
-		double halfOfRatio = ratioBetweenCircles/2;
-		double startingCornerRatio = 0.5 - halfOfRatio;
-		double endingCornerRatio = 0.5 + halfOfRatio;
-		
-		// Colored top of the ball
-		gc.fillArc(boundingBox.getUpLeftCorner().getX(),
-				boundingBox.getUpLeftCorner().getY(),
-				boundingBox.getWidth(),
-				boundingBox.getHeight(),
-				0, 180, ArcType.ROUND);
-
-		gc.setFill(Color.WHITE);
-		// White bottom of the ball
-		gc.fillArc(boundingBox.getUpLeftCorner().getX(),
-				boundingBox.getUpLeftCorner().getY(),
-				boundingBox.getWidth(),
-				boundingBox.getHeight(),
-				0, -180, ArcType.ROUND);
-		// White circle in center
-		gc.fillOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * startingCornerRatio,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * startingCornerRatio,
-				boundingBox.getWidth() * ratioBetweenCircles,
-				boundingBox.getHeight() * ratioBetweenCircles);
-		// Biggest circle
-		gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-				boundingBox.getWidth(), boundingBox.getHeight());
-		// Smallest circle
-		gc.strokeOval(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * startingCornerRatio,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * startingCornerRatio,
-				boundingBox.getWidth() * ratioBetweenCircles,
-				boundingBox.getHeight() * ratioBetweenCircles);
-		// Two lines on the sides
-		gc.strokeLine(boundingBox.getUpLeftCorner().getX(),
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5,
-				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * startingCornerRatio,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5);
-		gc.strokeLine(boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth() * endingCornerRatio,
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5,
-				boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth(),
-				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5);
-	}
-
 	private void drawPokeball(GraphicsContext gc,Shape shape) {
 		double ratioBetweenCircles = 0.25;
 		double halfOfRatio = ratioBetweenCircles/2;
@@ -280,38 +231,7 @@ public class CenterPaneController implements IObserver {
 				shape.getY() + shape.getHeight() * 0.5);
 	}
 
-	private void drawShape() {
-		GraphicsContext gc;
-		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
-		gc = activeCanvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
 
-		drawSettings(gc);
-		
-		switch (this.shape) {
-		case Rectangle:
-			gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-					boundingBox.getWidth(), boundingBox.getHeight());
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-					boundingBox.getWidth(), boundingBox.getHeight());
-			break;
-		case Ellipse:
-			gc.fillOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-					boundingBox.getWidth(), boundingBox.getHeight());
-			gc.strokeOval(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-					boundingBox.getWidth(), boundingBox.getHeight());
-			break;
-		case Line:
-			gc.strokeLine(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
-					boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY());
-			break;
-		case Pokeball:
-			drawPokeball(gc);
-			break;
-		default:
-			break;
-		}
-	}
 
 	private void drawBoundingBox() {
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
@@ -331,11 +251,12 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void draw() {
-		drawShape();
+		newShape = createShape();
+		drawShape(newShape);
 		drawBoundingBox();
 	}
 
-	private void createShape() {
+	private Shape createShape() {
 		Shape newShape;
 		String sfillColor = String.format("#%02X%02X%02X", ((int) fillColor.getRed()) * 255,
 				((int) fillColor.getGreen()) * 255, ((int) fillColor.getBlue()) * 255);
@@ -353,6 +274,7 @@ public class CenterPaneController implements IObserver {
 
 		shapesDict.addShape(newShape);
 		System.out.println(newShape.getShapeId());
+		return newShape;
 	}
 
 	public void refresh() {
