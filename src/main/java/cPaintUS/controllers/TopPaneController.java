@@ -108,17 +108,19 @@ public class TopPaneController {
 	private void openSavePng () {
 		
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("PNG Files", "*.png"));
 	    fileChooser.setTitle("Save Image");
 	    File file = fileChooser.showSaveDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
 	    BufferedImage image = SwingFXUtils.fromFXImage(snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
 	    if (file != null) {
-	    	FileContext.save(types.PNG,image,file.getPath());
+	    	FileContext.save(types.PNG,image,file.getAbsolutePath());
 	    }
 	}
 	
 	@FXML 
 	private void openLoadPng () {		
 		FileChooser fileChooser = new FileChooser (); 
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("PNG Files", "*.png"));
 		fileChooser.setTitle("Select Image");
 		File file = fileChooser.showOpenDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
 		
