@@ -33,6 +33,7 @@ public class SnapshotSingleton extends Observable<IObserver> {
 	
 	public void setImage(Image im) {
 		this.image = im;
+		notifyAllLoadImage();
 	}
 	
 	public void eraseAll() {

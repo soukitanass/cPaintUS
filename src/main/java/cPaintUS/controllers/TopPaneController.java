@@ -35,7 +35,6 @@ import javafx.stage.Stage;
 
 public class TopPaneController {
 	
-	private FileManagerStrategy fileManager;
 	private SnapshotSingleton snapshotSingleton;
 	@FXML
 	private MenuBar menuBar;
@@ -96,7 +95,6 @@ public class TopPaneController {
 	@FXML
 	private void handleSaveXMLClick() {
 		// get the path
-		fileManager = new XMLStrategy();
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save As");
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
@@ -104,13 +102,12 @@ public class TopPaneController {
 		chooser.getExtensionFilters().add(extFilter);
 		File selectedDirectory = chooser.showSaveDialog(stage);
 		if (selectedDirectory != null)
-			fileManager.save(selectedDirectory.getAbsolutePath());
+			FileContext.save(types.XML, null, selectedDirectory.getAbsolutePath());
 
 	}
 
 	@FXML
 	private void handleLoadXMLClick() {
-		fileManager = new XMLStrategy();
 
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
@@ -118,7 +115,7 @@ public class TopPaneController {
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
 		File selectedFile = fileChooser.showOpenDialog(stage);
 		if (selectedFile != null) {
-			fileManager.load(selectedFile.getAbsolutePath());
+			FileContext.load(types.XML, selectedFile.getAbsolutePath());
 		}
 	}
 	@FXML
@@ -134,15 +131,13 @@ public class TopPaneController {
 	}
 	
 	@FXML 
-	private void openLoadPng () {
-		fileManager = new PNGStrategy();
-		
+	private void openLoadPng () {		
 		FileChooser fileChooser = new FileChooser (); 
 		fileChooser.setTitle("Select Image");
 		File file = fileChooser.showOpenDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
 		
 		if (file != null) {
-			fileManager.load(file.toURI().toString());
+			FileContext.load(types.PNG, file.toURI().toString());
         }
 	}
 	

@@ -39,4 +39,22 @@ public class FileContext {
 				break; 
 		}
 	}
+	
+	public static void load (types type, String path) {
+		switch(type) {
+			case PNG : 
+				PNGStrategy pngstrategy = new PNGStrategy ();
+				if (path != null && path != "") {
+					pngstrategy.load(path);
+				}
+				break; 
+			case XML : 
+				XMLStrategy xmlStrategy = new XMLStrategy ();
+				xmlStrategy.load(path);
+				break; 
+			default : 
+				System.err.println ("Type d'enregistrement non reconnu"); 
+				break; 
+		}
+	}
 }
