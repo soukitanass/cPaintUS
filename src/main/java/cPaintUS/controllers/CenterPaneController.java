@@ -8,6 +8,7 @@ import cPaintUS.models.Pointer;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Ellipse;
+import cPaintUS.models.shapes.Pokeball;
 import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeFactory;
@@ -235,6 +236,50 @@ public class CenterPaneController implements IObserver {
 				boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight() * 0.5);
 	}
 
+	private void drawPokeball(GraphicsContext gc,Shape shape) {
+		double ratioBetweenCircles = 0.25;
+		double halfOfRatio = ratioBetweenCircles/2;
+		double startingCornerRatio = 0.5 - halfOfRatio;
+		double endingCornerRatio = 0.5 + halfOfRatio;
+		
+		// Colored top of the ball
+		gc.fillArc(shape.getX(),
+				shape.getY(),
+				shape.getWidth(),
+				shape.getHeight(),
+				0, 180, ArcType.ROUND);
+
+		gc.setFill(Color.WHITE);
+		// White bottom of the ball
+		gc.fillArc(shape.getX(),
+				shape.getY(),
+				shape.getWidth(),
+				shape.getHeight(),
+				0, -180, ArcType.ROUND);
+		// White circle in center
+		gc.fillOval(shape.getX() + shape.getWidth() * startingCornerRatio,
+				shape.getY() + shape.getHeight() * startingCornerRatio,
+				shape.getWidth() * ratioBetweenCircles,
+				shape.getHeight() * ratioBetweenCircles);
+		// Biggest circle
+		gc.strokeOval(shape.getX(), shape.getY(),
+				shape.getWidth(), shape.getHeight());
+		// Smallest circle
+		gc.strokeOval(shape.getX() + shape.getWidth() * startingCornerRatio,
+				shape.getY() + shape.getHeight() * startingCornerRatio,
+				shape.getWidth() * ratioBetweenCircles,
+				shape.getHeight() * ratioBetweenCircles);
+		// Two lines on the sides
+		gc.strokeLine(shape.getX(),
+				shape.getY() + shape.getHeight() * 0.5,
+				shape.getX() + shape.getWidth() * startingCornerRatio,
+				shape.getY() + shape.getHeight() * 0.5);
+		gc.strokeLine(shape.getX() + shape.getWidth() * endingCornerRatio,
+				shape.getY() + shape.getHeight() * 0.5,
+				shape.getX() + shape.getWidth(),
+				shape.getY() + shape.getHeight() * 0.5);
+	}
+
 	private void drawShape() {
 		GraphicsContext gc;
 		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
@@ -337,6 +382,10 @@ public class CenterPaneController implements IObserver {
 			break;
 		case Line:
 			gc.strokeLine(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+			break;
+		case Pokeball:
+			gc.setFill(Color.web(((Pokeball) shape).getFillColor()));
+			drawPokeball(gc,shape);
 			break;
 		default:
 			break;
