@@ -1,15 +1,6 @@
 package cPaintUS.models.saveStrategy;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
 
 public class FileContext {
 	
