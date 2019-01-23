@@ -27,13 +27,8 @@ public class ShapesDict extends Observable<IObserver> {
 		return instance;
 	}
 
-	public Collection<Shape> getShapes() {
-		return shapesDict.values();
-	}
-
 	public List<Shape> getShapesList() {
-
-		return new ArrayList<Shape>(this.getShapes());
+		return new ArrayList<Shape>(shapesDict.values());
 	}
 
 	public void addShape(Shape shape) {

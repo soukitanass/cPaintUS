@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -75,34 +74,34 @@ public class TopPaneController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@FXML
 	private void handleSaveXMLClick() {
 		// get the path
 		fileManager = new XMLStrategy();
-		DirectoryChooser chooser = new DirectoryChooser();
-		chooser.setTitle("JavaFX Projects");
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Save As");
 		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
-		File selectedDirectory = chooser.showDialog(stage);
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		chooser.getExtensionFilters().add(extFilter);
+		File selectedDirectory = chooser.showSaveDialog(stage);
 		if (selectedDirectory != null)
 			fileManager.save(selectedDirectory.getAbsolutePath());
 
 	}
-	
+
 	@FXML
 	private void handleLoadXMLClick() {
 		fileManager = new XMLStrategy();
 
-		 FileChooser fileChooser = new FileChooser();
-		 fileChooser.setTitle("Open Resource File");
-		 fileChooser.getExtensionFilters().addAll(
-		         new ExtensionFilter("XML Files", "*.xml"));
-		 Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
-		 File selectedFile = fileChooser.showOpenDialog(stage);
-		 if (selectedFile != null) {
-		    fileManager.load(selectedFile.getAbsolutePath());
-		 }
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"));
+		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
+		File selectedFile = fileChooser.showOpenDialog(stage);
+		if (selectedFile != null) {
+			fileManager.load(selectedFile.getAbsolutePath());
+		}
 	}
 }
