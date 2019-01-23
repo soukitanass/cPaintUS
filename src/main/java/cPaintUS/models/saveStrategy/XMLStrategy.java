@@ -47,7 +47,6 @@ public class XMLStrategy implements FileManagerStrategy {
 		} else {
 			System.out.println("There is no shapes to save !");
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -71,7 +70,5 @@ public class XMLStrategy implements FileManagerStrategy {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }

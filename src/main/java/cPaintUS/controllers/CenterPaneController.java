@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -58,6 +59,7 @@ public class CenterPaneController implements IObserver {
 		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
+		SnapshotSingleton.getInstance().register(this);
 
 		hasBeenDragged = false;
 
@@ -122,6 +124,7 @@ public class CenterPaneController implements IObserver {
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
+		SnapshotSingleton.getInstance().setSnapshotPane(pane);
 	}
 
 	@FXML
@@ -343,9 +346,9 @@ public class CenterPaneController implements IObserver {
 		}
 
 		if(newShape != null) {
-		shapesDict.addShape(newShape);
-		System.out.println(newShape.getShapeId());
-		}else {
+			shapesDict.addShape(newShape);
+			System.out.println(newShape.getShapeId());
+		} else {
 			System.out.println("Create shape : Unknown shape");
 		}
 	}
@@ -390,6 +393,20 @@ public class CenterPaneController implements IObserver {
 			break;
 		}
 	}
+	
+	private void drawImage() {
+		GraphicsContext gc;
+		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+		gc = activeCanvas.getGraphicsContext2D();
+		
+		Image image = SnapshotSingleton.getInstance().getImage();
+		gc.drawImage(image, 0, 0);
+	}
+	
+	private void loadImage() {
+		initializeNewCanvas();
+		drawImage();
+	}
 
 	@Override
 	public void update(ObservableList obs) {
@@ -398,12 +415,18 @@ public class CenterPaneController implements IObserver {
 			eraseCanvas();
 			refresh();
 			break;
+		case LOAD_IMAGE:
+			loadImage();
+			break;
+		case MENU_ERASE:
+			eraseAll();
+			break;
 		default:
 			break;
 		}
 	}
 	
-	private void calculShape(double x, double y, double w, double h, double[] xAxis, double[] yTop, double[] yBottom, int size) {
+	private void calculHeartShape(double x, double y, double w, double h, double[] xAxis, double[] yTop, double[] yBottom, int size) {
 		int j = 0;
 		for(double i = -w/2 ; i <= 0; i+=0.5 ) {
 			yTop[j] = -h * Math.sqrt(1 - ((Math.abs(4*i/w)-1)*(Math.abs(4*i/w)-1))) /4;
@@ -425,7 +448,7 @@ public class CenterPaneController implements IObserver {
 		double[] yTop = new double[size];
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
-		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
+		calculHeartShape(x, y, w, h, xAxis, yTop, yBottom, size);
 		gc.setStroke(drawSettings.getStrokeColor());
 		gc.setLineWidth(drawSettings.getLineWidth());
 		gc.strokePolyline(xAxis, yTop, size);
@@ -437,7 +460,7 @@ public class CenterPaneController implements IObserver {
 		double[] yTop = new double[size];
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
-		calculShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
+		calculHeartShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
 		gc.setStroke(Color.web(heart.getStrokeColor()));
 		gc.setLineWidth(heart.getLineWidth());
 		gc.strokePolyline(xAxis, yTop, size);
@@ -460,7 +483,7 @@ public class CenterPaneController implements IObserver {
 		double[] yTop = new double[size];
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
-		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
+		calculHeartShape(x, y, w, h, xAxis, yTop, yBottom, size);
 		for(int i = 0 ; i<size; i++) {
 			gc.setStroke(drawSettings.getFillColor());
 			gc.setLineWidth(1);
@@ -474,7 +497,7 @@ public class CenterPaneController implements IObserver {
 		double[] yTop = new double[size];
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
-		calculShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
+		calculHeartShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
 		for(int i = 0 ; i<size; i++) {
 			gc.setStroke(Color.web(heart.getFillColor()));
 			gc.setLineWidth(1);
