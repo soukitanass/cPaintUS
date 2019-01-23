@@ -43,6 +43,4 @@ public class PNGStrategy implements FileManagerStrategy {
 			System.out.println("Image cannot be created");
 		}
 	}
-	
-
 }
