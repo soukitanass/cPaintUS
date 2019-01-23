@@ -81,7 +81,7 @@ public class TopPaneController {
 		// get the path
 		fileManager = new XMLStrategy();
 		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Enregistrer Sous");
+		chooser.setTitle("Save As");
 		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		chooser.getExtensionFilters().add(extFilter);
