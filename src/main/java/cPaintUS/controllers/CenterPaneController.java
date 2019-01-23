@@ -41,14 +41,9 @@ public class CenterPaneController implements IObserver {
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
+	private DrawSettings drawSettings;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
-	private DrawSettings drawSettings;
-
-	private ShapeType shape = ShapeType.Line;
-	private Color fillColor = Color.BLACK;
-	private Color strokeColor = Color.BLACK;
-	private int lineWidth = 1;
 
 	private boolean hasBeenDragged;
 
@@ -59,11 +54,10 @@ public class CenterPaneController implements IObserver {
 	public CenterPaneController() {
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
+		drawSettings = DrawSettings.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDict.getInstance();
-		drawSettings = DrawSettings.getInstance();
 		shapesDict.register(this);
-		drawSettings.register(this);
 
 		hasBeenDragged = false;
 
@@ -175,10 +169,10 @@ public class CenterPaneController implements IObserver {
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
-	private void drawSettings(GraphicsContext gc) {
-		gc.setFill(fillColor);
-		gc.setStroke(strokeColor);
-		gc.setLineWidth(lineWidth);
+	private void drawSettings(GraphicsContext gc) {		
+		gc.setFill(drawSettings.getFillColor());
+		gc.setStroke(drawSettings.getStrokeColor());
+		gc.setLineWidth(drawSettings.getLineWidth());
 	}
 
 	private void drawPokeball(GraphicsContext gc) {
@@ -277,7 +271,7 @@ public class CenterPaneController implements IObserver {
 
 		drawSettings(gc);
 		
-		switch (this.shape) {
+		switch (drawSettings.getShape()) {
 		case Rectangle:
 			gc.fillRect(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
 					boundingBox.getWidth(), boundingBox.getHeight());
@@ -329,16 +323,21 @@ public class CenterPaneController implements IObserver {
 
 	private void createShape() {
 		Shape newShape;
+		ShapeType shapeType = drawSettings.getShape();
+		int lineWidth = drawSettings.getLineWidth();
+		Color fillColor = drawSettings.getFillColor();
+		Color strokeColor = drawSettings.getStrokeColor();
+
 		String sfillColor = String.format("#%02X%02X%02X", (int) (fillColor.getRed() * 255),
 				(int) (fillColor.getGreen() * 255), (int) (fillColor.getBlue() * 255));
 		String sstrokeColor = String.format("#%02X%02X%02X", (int) (strokeColor.getRed() * 255),
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
-		if (shape == ShapeType.Line) {
-			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getOrigin().getX(),
+		if (shapeType == ShapeType.Line) {
+			newShape = shapeFactory.getShape(shapeType, activeCanvas.hashCode(), boundingBox.getOrigin().getX(),
 					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
 					boundingBox.getOppositeCorner().getY(), lineWidth, sstrokeColor, sfillColor);
 		} else {
-			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getUpLeftCorner().getX(),
+			newShape = shapeFactory.getShape(shapeType, activeCanvas.hashCode(), boundingBox.getUpLeftCorner().getX(),
 					boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), lineWidth,
 					sstrokeColor, sfillColor);
 		}
@@ -399,11 +398,6 @@ public class CenterPaneController implements IObserver {
 			eraseCanvas();
 			refresh();
 			break;
-		case DRAW_SETTINGS:
-			this.shape = drawSettings.getShape();
-			this.lineWidth = drawSettings.getLineWidth();
-			this.fillColor = drawSettings.getFillColor();
-			this.strokeColor = drawSettings.getStrokeColor();
 		default:
 			break;
 		}
@@ -432,8 +426,8 @@ public class CenterPaneController implements IObserver {
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
 		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
-		gc.setStroke(strokeColor);
-		gc.setLineWidth(lineWidth);
+		gc.setStroke(drawSettings.getStrokeColor());
+		gc.setLineWidth(drawSettings.getLineWidth());
 		gc.strokePolyline(xAxis, yTop, size);
 		gc.strokePolyline(xAxis, yBottom, size);
 	}
@@ -468,7 +462,7 @@ public class CenterPaneController implements IObserver {
 		double[] xAxis = new double[size];
 		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
 		for(int i = 0 ; i<size; i++) {
-			gc.setStroke(fillColor);
+			gc.setStroke(drawSettings.getFillColor());
 			gc.setLineWidth(1);
 			gc.strokeLine(xAxis[i], yTop[i], xAxis[i], yBottom[i]);
 		}

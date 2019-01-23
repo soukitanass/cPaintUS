@@ -36,4 +36,8 @@ public class LineWidth {
 	public String getDefaultString() {
 		return strings.get(0);
 	}
+	
+	public int getDefault() {
+		return widths[0];
+	}
 }

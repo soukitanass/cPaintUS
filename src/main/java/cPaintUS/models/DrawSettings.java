@@ -8,7 +8,7 @@ import cPaintUS.models.shapes.ShapesDict;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
 
-public class DrawSettings extends Observable<IObserver>{
+public class DrawSettings {
 	private DrawSettings instance;
 	private ShapeType shape;
 	private int lineWidth;
@@ -16,6 +16,11 @@ public class DrawSettings extends Observable<IObserver>{
 	private Color strokeColor;
 	
 	private DrawSettings() {
+		// set defaults
+		shape = ShapeType.Line;
+		fillColor = Color.BLACK;
+		strokeColor = Color.BLACK;
+		lineWidth = LineWidth.getInstance().getDefault();
 	}
 
 	private static class DrawSettingsInstance {
@@ -28,7 +33,6 @@ public class DrawSettings extends Observable<IObserver>{
 	
 	public void setShape(ShapeType selectedShape) {
 		shape = selectedShape;
-		notifyAllObservers();
 	}
 	
 	public ShapeType getShape() {
@@ -37,7 +41,6 @@ public class DrawSettings extends Observable<IObserver>{
 	
 	public void setLineWidth(int selectedLineWidth) {
 		lineWidth = selectedLineWidth;
-		notifyAllObservers();
 	}
 	
 	public int getLineWidth() {
@@ -46,7 +49,6 @@ public class DrawSettings extends Observable<IObserver>{
 	
 	public void setFillColor(Color selectedFillColor) {
 		fillColor = selectedFillColor;
-		notifyAllObservers();
 	}
 	
 	public Color getFillColor() {
@@ -55,17 +57,9 @@ public class DrawSettings extends Observable<IObserver>{
 	
 	public void setStrokeColor(Color selectedStrokeColor) {
 		strokeColor = selectedStrokeColor;
-		notifyAllObservers();
 	}
 	
 	public Color getStrokeColor() {
 		return strokeColor;
-	}
-
-	@Override
-	public void notifyAllObservers() {
-		for (IObserver obs : this.getObserverList()) {
-			obs.update(ObservableList.DRAW_SETTINGS);
-		}
 	}
 }
