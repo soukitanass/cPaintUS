@@ -5,6 +5,7 @@ import java.util.List;
 
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.DrawSettings;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Ellipse;
@@ -42,6 +43,7 @@ public class CenterPaneController implements IObserver {
 	private BoundingBox boundingBox;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
+	private DrawSettings drawSettings;
 
 	private ShapeType shape = ShapeType.Line;
 	private Color fillColor = Color.BLACK;
@@ -59,7 +61,9 @@ public class CenterPaneController implements IObserver {
 		boundingBox = BoundingBox.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDict.getInstance();
+		drawSettings = DrawSettings.getInstance();
 		shapesDict.register(this);
+		drawSettings.register(this);
 
 		hasBeenDragged = false;
 
@@ -94,14 +98,6 @@ public class CenterPaneController implements IObserver {
 		};
 	}
 
-	public void setShape(ShapeType shape) {
-		this.shape = shape;
-	}
-
-	public void setFillColor(Color color) {
-		this.fillColor = color;
-	}
-
 	public Canvas getBaseCanvas() {
 		return baseCanvas;
 	}
@@ -124,14 +120,6 @@ public class CenterPaneController implements IObserver {
 
 	public void setActiveCanvas(Canvas activeCanvas) {
 		this.activeCanvas = activeCanvas;
-	}
-
-	public void setStrokeColor(Color color) {
-		this.strokeColor = color;
-	}
-
-	public void setLineWidth(int width) {
-		this.lineWidth = width;
 	}
 
 	@FXML
@@ -411,6 +399,11 @@ public class CenterPaneController implements IObserver {
 			eraseCanvas();
 			refresh();
 			break;
+		case DRAW_SETTINGS:
+			this.shape = drawSettings.getShape();
+			this.lineWidth = drawSettings.getLineWidth();
+			this.fillColor = drawSettings.getFillColor();
+			this.strokeColor = drawSettings.getStrokeColor();
 		default:
 			break;
 		}
