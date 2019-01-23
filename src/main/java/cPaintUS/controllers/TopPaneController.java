@@ -74,7 +74,6 @@ public class TopPaneController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@FXML

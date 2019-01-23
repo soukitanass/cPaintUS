@@ -26,7 +26,6 @@ public class XMLStrategy implements FileManagerStrategy {
 	public void save(String path) {
 		if (!shapes.isEmpty()) {
 			FileOutputStream fos;
-			//String path2 = path + "\\myXML.xml";
 			try {
 				fos = new FileOutputStream(path);
 				XMLEncoder encoder = new XMLEncoder(fos);
