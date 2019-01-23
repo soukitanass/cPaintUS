@@ -8,6 +8,7 @@ import cPaintUS.models.Pointer;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Ellipse;
+import cPaintUS.models.shapes.Pokeball;
 import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeFactory;
@@ -383,6 +384,7 @@ public class CenterPaneController implements IObserver {
 			gc.strokeLine(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 			break;
 		case Pokeball:
+			gc.setFill(Color.web(((Pokeball) shape).getFillColor()));
 			drawPokeball(gc,shape);
 			break;
 		default:
