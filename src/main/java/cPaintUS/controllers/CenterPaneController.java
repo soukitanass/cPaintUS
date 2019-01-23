@@ -251,7 +251,6 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void draw() {
-		createShape();
 		newShape = createShape();
 		drawShape(newShape);
 		drawBoundingBox();
