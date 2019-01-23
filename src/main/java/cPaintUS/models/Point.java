@@ -13,6 +13,11 @@ public class Point {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public void setPosition(double x, double y) {
+		this.setX(x);
+		this.setY(y);
+	}
 
 	public double getX() {
 		return x;

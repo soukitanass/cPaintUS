@@ -33,7 +33,7 @@ public class PNGStrategy implements FileManagerStrategy {
 	@Override
 	public void load(String path) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	
 

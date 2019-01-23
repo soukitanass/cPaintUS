@@ -1,6 +1,5 @@
 package cPaintUS.controllers;
 
-import cPaintUS.models.PaintModel;
 import javafx.fxml.FXML;
 
 public class RootController {
@@ -16,10 +15,10 @@ public class RootController {
 	@FXML
 	private TopPaneController topPaneController;
 
-	private PaintModel paintModel;
-
-	public RootController() {
-		paintModel = PaintModel.getInstance();
+	@FXML
+	public void initialize() {
+		leftPaneController.setRoot(this);
+		topPaneController.setRoot(this);
 	}
 
 	public LeftPaneController getLeftPaneController() {
