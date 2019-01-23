@@ -37,7 +37,7 @@ public class PNGStrategy implements FileManagerStrategy {
 	@Override
 	public void load(String path) {
 		Image image = new Image(path);
-		if(image.isError() == false) {
+		if (!image.isError()) {
 			SnapshotSingleton.getInstance().setImage(image);			
 		} else {
 			System.out.println("Image cannot be created");

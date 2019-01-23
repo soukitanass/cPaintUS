@@ -42,13 +42,13 @@ public class SnapshotSingleton extends Observable<IObserver> {
 
 	@Override
 	public void notifyAllObservers() {
-		for(IObserver obs : getObserverList()) {
+		for (IObserver obs : getObserverList()) {
 			obs.update(ObservableList.MENU_ERASE);
 		}
 	}
 	
-	public void notifyAllLoadImage() {
-		for(IObserver obs : getObserverList()) {
+	private void notifyAllLoadImage() {
+		for (IObserver obs : getObserverList()) {
 			obs.update(ObservableList.LOAD_IMAGE);
 		}
 	}
