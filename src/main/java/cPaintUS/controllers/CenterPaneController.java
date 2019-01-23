@@ -8,6 +8,7 @@ import cPaintUS.models.Pointer;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Ellipse;
+import cPaintUS.models.shapes.Heart;
 import cPaintUS.models.shapes.Pokeball;
 import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
@@ -308,6 +309,9 @@ public class CenterPaneController implements IObserver {
 		case Pokeball:
 			drawPokeball(gc);
 			break;
+		case Heart:
+			drawHeart(gc, boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight());
+			break;
 		default:
 			break;
 		}
@@ -337,10 +341,10 @@ public class CenterPaneController implements IObserver {
 
 	private void createShape() {
 		Shape newShape;
-		String sfillColor = String.format("#%02X%02X%02X", ((int) fillColor.getRed()) * 255,
-				((int) fillColor.getGreen()) * 255, ((int) fillColor.getBlue()) * 255);
-		String sstrokeColor = String.format("#%02X%02X%02X", ((int) strokeColor.getRed()) * 255,
-				((int) strokeColor.getGreen()) * 255, ((int) strokeColor.getBlue()) * 255);
+		String sfillColor = String.format("#%02X%02X%02X", (int) (fillColor.getRed() * 255),
+				(int) (fillColor.getGreen() * 255), (int) (fillColor.getBlue() * 255));
+		String sstrokeColor = String.format("#%02X%02X%02X", (int) (strokeColor.getRed() * 255),
+				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 		if (shape == ShapeType.Line) {
 			newShape = shapeFactory.getShape(shape, activeCanvas.hashCode(), boundingBox.getOrigin().getX(),
 					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
@@ -351,8 +355,12 @@ public class CenterPaneController implements IObserver {
 					sstrokeColor, sfillColor);
 		}
 
+		if(newShape != null) {
 		shapesDict.addShape(newShape);
 		System.out.println(newShape.getShapeId());
+		}else {
+			System.out.println("Create shape : Unknown shape");
+		}
 	}
 
 	public void refresh() {
@@ -387,6 +395,10 @@ public class CenterPaneController implements IObserver {
 			gc.setFill(Color.web(((Pokeball) shape).getFillColor()));
 			drawPokeball(gc,shape);
 			break;
+		case Heart:
+			gc.setFill(Color.web(((Heart) shape).getFillColor()));
+			drawHeart(gc,(Heart)shape);
+			break;
 		default:
 			break;
 		}
@@ -401,6 +413,85 @@ public class CenterPaneController implements IObserver {
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void calculShape(double x, double y, double w, double h, double[] xAxis, double[] yTop, double[] yBottom, int size) {
+		int j = 0;
+		for(double i = -w/2 ; i <= 0; i+=0.5 ) {
+			yTop[j] = -h * Math.sqrt(1 - ((Math.abs(4*i/w)-1)*(Math.abs(4*i/w)-1))) /4;
+			yBottom[j] = h * 3 * Math.sqrt(1- (Math.sqrt(Math.abs(4*i/w)) / Math.sqrt(2)) ) / 4;
+			yTop[j] = yTop[j] + y + h/4;
+			yBottom[j] = yBottom[j] + y + h/4;
+			xAxis[j] = i+w/2 + x;
+			if(i != 0) {
+				yTop[size-1-j] = yTop[j];
+				yBottom[size-1-j] = yBottom[j];
+				xAxis[size-1-j] = w-(i+(w/2)) + x;
+			}
+			j++;
+		}
+	}
+	
+	private void drawStrokeHeart(GraphicsContext gc, double x, double y, double w, double h) {
+		int size = 2*(int)w+1;
+		double[] yTop = new double[size];
+		double[] yBottom = new double[size];
+		double[] xAxis = new double[size];
+		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
+		gc.setStroke(strokeColor);
+		gc.setLineWidth(lineWidth);
+		gc.strokePolyline(xAxis, yTop, size);
+		gc.strokePolyline(xAxis, yBottom, size);
+	}
+	
+	private void drawStrokeHeart(GraphicsContext gc, Heart heart) {
+		int size = 2*(int)heart.getWidth()+1;
+		double[] yTop = new double[size];
+		double[] yBottom = new double[size];
+		double[] xAxis = new double[size];
+		calculShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
+		gc.setStroke(Color.web(heart.getStrokeColor()));
+		gc.setLineWidth(heart.getLineWidth());
+		gc.strokePolyline(xAxis, yTop, size);
+		gc.strokePolyline(xAxis, yBottom, size);
+	}
+	
+	private void drawHeart(GraphicsContext gc, double x, double y, double w, double h) {
+		drawFillHeart(gc, x, y, w, h);
+		drawStrokeHeart(gc, x, y, w, h);
+	}
+	
+	private void drawHeart(GraphicsContext gc, Heart heart) {
+		drawFillHeart(gc, heart);
+		drawStrokeHeart(gc, heart);
+	}
+	
+	private void drawFillHeart(GraphicsContext gc, double x, double y, double w, double h) {
+
+		int size = 2*(int)w+1;
+		double[] yTop = new double[size];
+		double[] yBottom = new double[size];
+		double[] xAxis = new double[size];
+		calculShape(x, y, w, h, xAxis, yTop, yBottom, size);
+		for(int i = 0 ; i<size; i++) {
+			gc.setStroke(fillColor);
+			gc.setLineWidth(1);
+			gc.strokeLine(xAxis[i], yTop[i], xAxis[i], yBottom[i]);
+		}
+	}
+	
+	private void drawFillHeart(GraphicsContext gc, Heart heart) {
+
+		int size = 2*(int)heart.getWidth()+1;
+		double[] yTop = new double[size];
+		double[] yBottom = new double[size];
+		double[] xAxis = new double[size];
+		calculShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
+		for(int i = 0 ; i<size; i++) {
+			gc.setStroke(Color.web(heart.getFillColor()));
+			gc.setLineWidth(1);
+			gc.strokeLine(xAxis[i], yTop[i], xAxis[i], yBottom[i]);
 		}
 	}
 }
