@@ -14,6 +14,9 @@ public class PNGStrategy implements FileManagerStrategy {
 	
 	private BufferedImage bufferedImage; 
 
+	public PNGStrategy() {
+		
+	}
 	public BufferedImage getBufferedImage() {
 		return bufferedImage;
 	}
