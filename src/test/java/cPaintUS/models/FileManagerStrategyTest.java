@@ -1,18 +1,14 @@
 package cPaintUS.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.io.File;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
 
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.TemporaryFolder;
 
-import com.sun.javafx.tools.packager.Main;
-
-import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.saveStrategy.FileContext.types;
 import cPaintUS.models.saveStrategy.FileManagerStrategy;
 import cPaintUS.models.saveStrategy.XMLStrategy;
 import cPaintUS.models.shapes.ShapeFactory;
@@ -22,17 +18,18 @@ import cPaintUS.models.shapes.ShapesDict;
 class FileManagerStrategyTest {
 
 	private FileManagerStrategy fileManagerStrategy;
-	private FileContext fileContext;
 	private final String XML_FILE_TO_LOAD_PATH = "xmlFileLoadTest.xml";
 	private final String XML_FILE_TO_SAVE_PATH = "xmlFileSaveTest.xml";
 	private ShapesDict shapesDict;
 	private ShapeFactory shapeFactory;
+	@Rule
+	public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
 	@BeforeEach
 	void setUp() throws Exception {
-		fileContext = new FileContext();
 		shapesDict = ShapesDict.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
+		temporaryFolder.create();
 	}
 
 	@Test
@@ -44,13 +41,22 @@ class FileManagerStrategyTest {
 
 	@Test
 	void testSaveXML() {
+		fileManagerStrategy = new XMLStrategy();
 		shapesDict.clearShapes();
 		shapesDict.addShape(shapeFactory.getShape(ShapeType.Rectangle, 0, 11, 1, 10, 100, 1, "#00000", "#00000"));
-		fileManagerStrategy.save(getClass().getClassLoader().getResource(XML_FILE_TO_SAVE_PATH).getPath());
-		//creation du fichier
-		File file = new File(getClass().getClassLoader().getResource(XML_FILE_TO_SAVE_PATH).getFile());
-		assertNotNull(file);
-		//load bien les shapes
+		fileManagerStrategy.save(resolvePath(XML_FILE_TO_SAVE_PATH));
+		shapesDict.clearShapes();
+		fileManagerStrategy.load(resolvePath(XML_FILE_TO_SAVE_PATH));
+		assertFalse(shapesDict.getShapesList().isEmpty());
+		
+		
 	}
+	
+	private String resolvePath(String folder) {
+        return temporaryFolder
+                .getRoot().toPath()
+                .resolve(folder)
+                .toString();
+    }
 
 }
