@@ -111,7 +111,4 @@ public abstract class Shape {
 		return this.strokeColor;
 	}
 
-	public void getStrokeColor(String strokeColor) {
-		this.strokeColor = strokeColor;
-	}
 }

@@ -34,6 +34,7 @@ class ShapeDictTest {
 	@Test
 	void addShapeTest() {
 		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
+		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
 
 		assertTrue(shapeDict.getShapesList().contains(actual));

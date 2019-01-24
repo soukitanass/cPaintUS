@@ -1,15 +1,9 @@
 package cPaintUS.models;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.Observable;
-import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
-import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
 
 public class DrawSettings {
-	private DrawSettings instance;
 	private ShapeType shape;
 	private int lineWidth;
 	private Color fillColor;
