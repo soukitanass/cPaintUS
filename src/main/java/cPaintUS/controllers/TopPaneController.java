@@ -5,8 +5,9 @@ import java.io.File;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.NewController;
-import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.saveStrategy.FileContext.types;
+import cPaintUS.models.saveStrategy.FileManagerStrategy;
+import cPaintUS.models.saveStrategy.PNGStrategy;
+import cPaintUS.models.saveStrategy.XMLStrategy;
 import cPaintUS.models.shapes.ShapesDict;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -27,6 +28,8 @@ public class TopPaneController {
 	private MenuBar menuBar;
 
 	private ShapesDict shapesDict;
+	
+	private FileManagerStrategy fileManagerStrategy;
 
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
@@ -96,10 +99,13 @@ public class TopPaneController {
 			String fileName = selectedFile.getName();
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
-				FileContext.load(types.XML, selectedFile.getAbsolutePath());
+				fileManagerStrategy = new XMLStrategy();
+				fileManagerStrategy.load(selectedFile.getAbsolutePath());
 			} else {
-				FileContext.load(types.PNG, selectedFile.toURI().toString());
+				fileManagerStrategy = new PNGStrategy();
+				fileManagerStrategy.load(selectedFile.toURI().toString());
 			}
+			
 		}
 
 	}
@@ -116,13 +122,14 @@ public class TopPaneController {
 			String fileName = selectedFile.getName();
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
-				FileContext.save(types.XML, null, selectedFile.getAbsolutePath());
+				fileManagerStrategy = new XMLStrategy();
 			} else {
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
-				FileContext.save(types.PNG, image, selectedFile.getAbsolutePath());
-
+				fileManagerStrategy = new PNGStrategy();
+				((PNGStrategy) fileManagerStrategy).setBufferedImage(image);
 			}
+			fileManagerStrategy.save(selectedFile.getAbsolutePath());
 		}
 	}
 
