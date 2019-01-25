@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.ObservableList;
+
 class BoundingBoxTest {
 
 	BoundingBox boundingBox;
@@ -73,5 +76,35 @@ class BoundingBoxTest {
 	void setVisibleTest() {
 		boundingBox.setVisible(true);
 		assertTrue(boundingBox.isVisible());
+	}
+	
+	@Test
+	void observerRegisterUnregisterTest() {
+		boundingBox.register(new IObserver() {
+
+			@Override
+			public void update(ObservableList obs) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		assertEquals(1, boundingBox.getObserverList().size());
+
+		IObserver observer = new IObserver() {
+
+			@Override
+			public void update(ObservableList obs) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		boundingBox.register(observer);
+		assertEquals(2, boundingBox.getObserverList().size());
+
+		boundingBox.unregister(observer);
+		assertEquals(1, boundingBox.getObserverList().size());
+		
+		boundingBox.unregisterAll();
+		assertTrue(boundingBox.getObserverList().isEmpty());
 	}
 }

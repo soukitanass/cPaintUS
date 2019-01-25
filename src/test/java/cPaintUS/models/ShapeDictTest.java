@@ -10,6 +10,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
@@ -60,6 +62,36 @@ class ShapeDictTest {
 
 		shapeDict.addListShapes(actualList);
 		assertEquals(shapeDict.getShapesList().size(), actualList.size());
+	}
+
+	@Test
+	void observerRegisterUnregisterTest() {
+		shapeDict.register(new IObserver() {
+
+			@Override
+			public void update(ObservableList obs) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		assertEquals(1, shapeDict.getObserverList().size());
+
+		IObserver observer = new IObserver() {
+
+			@Override
+			public void update(ObservableList obs) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		shapeDict.register(observer);
+		assertEquals(2, shapeDict.getObserverList().size());
+
+		shapeDict.unregister(observer);
+		assertEquals(1, shapeDict.getObserverList().size());
+		
+		shapeDict.unregisterAll();
+		assertTrue(shapeDict.getObserverList().isEmpty());
 	}
 
 }
