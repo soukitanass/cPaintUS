@@ -21,20 +21,12 @@
 							onAction="#handleNewClick" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" text="Load XML"
-							onAction="#handleLoadXMLClick" />
+						<MenuItem mnemonicParsing="false" text="Import"
+							onAction="#handleLoadLClick" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" text="Save As XML"
-							onAction="#handleSaveXMLClick" />
-					</items>
-					<items>
-						<MenuItem mnemonicParsing="false" text="Import PNG"
-							onAction="#openLoadPng" />
-					</items>
-					<items>
-						<MenuItem mnemonicParsing="false" text="Save PNG"
-							onAction="#openSavePng" />
+						<MenuItem mnemonicParsing="false" text="Save"
+							onAction="#handleSaveClick" />
 					</items>
 					<items>
 						<MenuItem mnemonicParsing="false" text="Close"
