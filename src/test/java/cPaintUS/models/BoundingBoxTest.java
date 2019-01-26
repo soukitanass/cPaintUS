@@ -26,7 +26,7 @@ class BoundingBoxTest {
 	
 	@Test
 	void setOriginTest() {
-		Point expected = new Point(0.0,1.0);
+		Point expected = new Point(2.0,1.0);
 		boundingBox.setOrigin(expected);
 		assertEquals(expected.getX(),boundingBox.getOrigin().getX());
 		assertEquals(expected.getY(),boundingBox.getOrigin().getY());
@@ -37,7 +37,7 @@ class BoundingBoxTest {
 	
 	@Test
 	void updateBoundingBoxTest() {
-		Point expected = new Point(0.0,0.0);
+		Point expected = new Point(1.0,2.0);
 		boundingBox.updateBoundingBox(expected);
 		
 		assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
