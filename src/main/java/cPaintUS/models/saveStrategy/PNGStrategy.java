@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import cPaintUS.controllers.SnapshotSingleton;
+import javafx.scene.image.Image;
+
 
 public class PNGStrategy implements FileManagerStrategy {
 	
@@ -20,9 +23,10 @@ public class PNGStrategy implements FileManagerStrategy {
 	}
 
 	@Override
-	public void save(File file) {
-	    if (this.bufferedImage != null && file !=null) {
+	public void save(String path) {
+	    if (this.bufferedImage != null && path !=null) {
 		    try {
+		    	File file = new File(path);
 		        ImageIO.write(this.bufferedImage, "png", file);
 		    } catch (IOException e) {
 	            System.out.println(e.getMessage());
@@ -32,9 +36,11 @@ public class PNGStrategy implements FileManagerStrategy {
 
 	@Override
 	public void load(String path) {
-		// TODO Auto-generated method stub
-
+		Image image = new Image(path);
+		if (!image.isError()) {
+			SnapshotSingleton.getInstance().setImage(image);			
+		} else {
+			System.out.println("Image cannot be created");
+		}
 	}
-	
-
 }

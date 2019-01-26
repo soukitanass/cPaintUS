@@ -15,12 +15,6 @@ public class RootController {
 	@FXML
 	private TopPaneController topPaneController;
 
-	@FXML
-	public void initialize() {
-		leftPaneController.setRoot(this);
-		topPaneController.setRoot(this);
-	}
-
 	public LeftPaneController getLeftPaneController() {
 		return leftPaneController;
 	}
@@ -39,11 +33,5 @@ public class RootController {
 
 	public TopPaneController getTopPaneController() {
 		return topPaneController;
-	}
-	
-	@FXML
-	public void initialize () {
-		centerPaneController.setRoot(this);
-		topPaneController.setRoot(this);
 	}
 }

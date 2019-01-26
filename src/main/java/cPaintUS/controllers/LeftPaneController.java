@@ -1,9 +1,7 @@
 package cPaintUS.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import cPaintUS.models.LineWidth;
 import cPaintUS.models.DrawSettings;
+import cPaintUS.models.LineWidth;
 import cPaintUS.models.shapes.ShapeType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +11,6 @@ import javafx.scene.paint.Color;
 
 public class LeftPaneController {
 	
-	private RootController root;
 	private DrawSettings drawSettings;
 	
 	@FXML
@@ -28,7 +25,6 @@ public class LeftPaneController {
 	private Button eraseAllBtn;
 	
 	public void setRoot(RootController rootController) {
-		root = rootController;
 	}
 	
 	@FXML
@@ -74,6 +70,6 @@ public class LeftPaneController {
 	
 	@FXML
 	private void handleEraseAllClick() {
-		root.getCenterPaneController().eraseAll();
+		SnapshotSingleton.getInstance().eraseAll();
 	}
 }

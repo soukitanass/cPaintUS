@@ -1,11 +1,15 @@
 package cPaintUS.controllers;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.saveStrategy.FileManagerStrategy;
+import cPaintUS.models.saveStrategy.PNGStrategy;
 import cPaintUS.models.saveStrategy.XMLStrategy;
+import cPaintUS.models.shapes.ShapesDict;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,16 +22,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
-	private RootController root;
-	private FileManagerStrategy fileManager;
 
+	private SnapshotSingleton snapshotSingleton;
 	@FXML
 	private MenuBar menuBar;
-	
-	private RootController root; 
 
-	public void setRoot(RootController r) {
-		this.root = r;
+	private ShapesDict shapesDict;
+	
+	private FileManagerStrategy fileManagerStrategy;
+
+	public TopPaneController() {
+		snapshotSingleton = SnapshotSingleton.getInstance();
+		shapesDict = ShapesDict.getInstance();
 	}
 
 	@FXML
@@ -44,12 +50,14 @@ public class TopPaneController {
 
 			NewController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);
-
-			stage.showAndWait();
-
-			if (controller.isYesClicked()) {
-				root.getCenterPaneController().eraseAll();
+			if (!shapesDict.getShapesList().isEmpty()) {
+				stage.showAndWait();
+				if (controller.isYesClicked()) {
+					this.handleSaveClick();
+				}
+				snapshotSingleton.eraseAll();
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,32 +88,49 @@ public class TopPaneController {
 	}
 
 	@FXML
-	private void handleSaveXMLClick() {
-		// get the path
-		fileManager = new XMLStrategy();
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Save As");
-		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-		chooser.getExtensionFilters().add(extFilter);
-		File selectedDirectory = chooser.showSaveDialog(stage);
-		if (selectedDirectory != null)
-			fileManager.save(selectedDirectory.getAbsolutePath());
+	private void handleLoadLClick() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
+				new ExtensionFilter("PNG Files", "*.png"));
+		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
+		File selectedFile = fileChooser.showOpenDialog(stage);
+		if (selectedFile != null) {
+			String fileName = selectedFile.getName();
+			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
+			if (fileExtension.equalsIgnoreCase("xml")) {
+				fileManagerStrategy = new XMLStrategy();
+				fileManagerStrategy.load(selectedFile.getAbsolutePath());
+			} else {
+				fileManagerStrategy = new PNGStrategy();
+				fileManagerStrategy.load(selectedFile.toURI().toString());
+			}
+			
+		}
 
 	}
 
 	@FXML
-	private void handleLoadXMLClick() {
-		fileManager = new XMLStrategy();
-
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"));
-		Stage stage = (Stage) root.getCenterPaneController().getPane().getScene().getWindow();
-		File selectedFile = fileChooser.showOpenDialog(stage);
+	private void handleSaveClick() {
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Save As");
+		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
+		chooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
+				new ExtensionFilter("PNG Files", "*.png"));
+		File selectedFile = chooser.showSaveDialog(stage);
 		if (selectedFile != null) {
-			fileManager.load(selectedFile.getAbsolutePath());
+			String fileName = selectedFile.getName();
+			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
+			if (fileExtension.equalsIgnoreCase("xml")) {
+				fileManagerStrategy = new XMLStrategy();
+			} else {
+				BufferedImage image = SwingFXUtils.fromFXImage(
+						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
+				fileManagerStrategy = new PNGStrategy();
+				((PNGStrategy) fileManagerStrategy).setBufferedImage(image);
+			}
+			fileManagerStrategy.save(selectedFile.getAbsolutePath());
 		}
 	}
-}
 
+}
