@@ -9,10 +9,6 @@ import cPaintUS.models.Pointer;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Ellipse;
-import cPaintUS.models.shapes.Heart;
-import cPaintUS.models.shapes.Pokeball;
-import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
@@ -26,7 +22,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 
 public class CenterPaneController implements IObserver {
 
@@ -229,19 +224,10 @@ public class CenterPaneController implements IObserver {
 			drawerStrategyContext.draw(shape, (Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 		}
 	}
-
-	private void drawImage() {
-		GraphicsContext gc;
-		activeCanvas = ((Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
-		gc = activeCanvas.getGraphicsContext2D();
-		
-		Image image = SnapshotSingleton.getInstance().getImage();
-		gc.drawImage(image, 0, 0);
-	}
 	
 	private void loadImage() {
 		initializeNewCanvas();
-		drawImage();
+		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(), (Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 	}
 	
 }

@@ -7,6 +7,7 @@ public class ShapeFactory {
 	private int lineNb;
 	private int pokeballNb;
 	private int heartNb;
+	private int pictureNb;
 	private int totalShapeNb;
 
 	private ShapeFactory() {
@@ -16,6 +17,7 @@ public class ShapeFactory {
 		pokeballNb = 0;
 		totalShapeNb = 0;
 		heartNb = 0;
+		pictureNb = 0;
 	}
 
 	public static ShapeFactory getInstance() {
@@ -67,6 +69,12 @@ public class ShapeFactory {
 				heartNb++;
 			shape = new Heart(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor, ShapeType.Heart);
 			break;
+		case Picture:
+			shapeId = "Picture_" + pictureNb;
+			if(persistent)
+				pictureNb++;
+			shape = new Picture(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor, ShapeType.Picture);
+			break;
 		default:
 			if(persistent)
 				totalShapeNb--;
@@ -84,6 +92,7 @@ public class ShapeFactory {
 		lineNb = 0;
 		pokeballNb = 0;
 		heartNb = 0;
+		pictureNb = 0;
 		totalShapeNb = 0;
 	}
 }

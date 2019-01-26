@@ -22,6 +22,7 @@ public class DrawerStrategyContext {
 		IDrawerStrategy drawerStrategy;
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+		shape.setCanvasId(activeCanvas.hashCode());
 		switch (shape.getShapeType()) {
 		case Rectangle:
 			drawerStrategy = new RectangleDrawerStrategy();
@@ -41,6 +42,10 @@ public class DrawerStrategyContext {
 			break;
 		case Heart:
 			drawerStrategy = new HeartDrawerStrategy();
+			drawerStrategy.draw(gc, shape);
+			break;
+		case Picture:
+			drawerStrategy = new PictureDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
 		default:

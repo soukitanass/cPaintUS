@@ -125,7 +125,7 @@ public class TopPaneController {
 		File file = fileChooser.showOpenDialog(snapshotSingleton.getSnapshotPane().getScene().getWindow());
 		
 		if (file != null) {
-			FileContext.load(types.PNG, file.toURI().toString());
+			FileContext.load(types.PNG, file.getAbsolutePath());
         }
 	}
 	
