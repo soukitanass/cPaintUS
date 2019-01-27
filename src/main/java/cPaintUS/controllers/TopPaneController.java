@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.NewController;
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.Observable;
+import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.saveStrategy.FileManagerStrategy;
 import cPaintUS.models.saveStrategy.PNGStrategy;
 import cPaintUS.models.saveStrategy.XMLStrategy;
@@ -21,7 +24,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class TopPaneController {
+public class TopPaneController extends Observable<IObserver> {
 
 	private SnapshotSingleton snapshotSingleton;
 	@FXML
@@ -34,6 +37,14 @@ public class TopPaneController {
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
+	}
+	
+	@Override
+	public void notifyAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.CLOSE_APPLICATION);
+		}
+
 	}
 
 	@FXML
@@ -66,7 +77,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleExitClick() {
-		System.exit(0);
+		notifyAllObservers();
 	}
 
 	@FXML
@@ -131,6 +142,10 @@ public class TopPaneController {
 			}
 			fileManagerStrategy.save(selectedFile.getAbsolutePath());
 		}
+	}
+	
+	public void handleSave () {
+		this.handleSaveClick();
 	}
 
 }
