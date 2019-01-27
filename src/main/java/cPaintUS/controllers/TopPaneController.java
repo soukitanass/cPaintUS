@@ -113,23 +113,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleSaveClick() {
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Save As");
-		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
-		chooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
-				new ExtensionFilter("PNG Files", "*.png"));
-		File selectedFile = chooser.showSaveDialog(stage);
-		if (selectedFile != null) {
-			String fileName = selectedFile.getName();
-			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
-			if (fileExtension.equalsIgnoreCase("xml")) {
-				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
-			} else {
-				BufferedImage image = SwingFXUtils.fromFXImage(
-						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
-				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
-			}
-		}
+		centralCloseController.handleSave();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.CloseController;
+import cPaintUS.models.saveStrategy.FileContext;
 import cPaintUS.models.saveStrategy.FileManagerStrategy;
 import cPaintUS.models.saveStrategy.PNGStrategy;
 import cPaintUS.models.saveStrategy.XMLStrategy;
@@ -14,9 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class CentralCloseController {
 	private SnapshotSingleton snapshotSingleton;
@@ -39,11 +40,12 @@ public class CentralCloseController {
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent, 220, 100);
+			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Close");
 			stage.setScene(scene);
+			stage.setResizable(false);
 
 			CloseController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);
@@ -70,14 +72,12 @@ public class CentralCloseController {
 			String fileName = selectedFile.getName();
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
-				fileManagerStrategy = new XMLStrategy();
+				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 			} else {
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
-				fileManagerStrategy = new PNGStrategy();
-				((PNGStrategy) fileManagerStrategy).setBufferedImage(image);
+				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
 			}
-			fileManagerStrategy.save(selectedFile.getAbsolutePath());
 		}
 	}
 

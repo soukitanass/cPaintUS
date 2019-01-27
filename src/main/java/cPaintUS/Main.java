@@ -1,7 +1,6 @@
 package cPaintUS;
 
 import cPaintUS.controllers.CentralCloseController;
-import cPaintUS.controllers.RootController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

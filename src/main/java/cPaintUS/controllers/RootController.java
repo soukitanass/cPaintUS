@@ -1,16 +1,6 @@
 package cPaintUS.controllers;
 
-import java.io.IOException;
-
-import cPaintUS.controllers.popup.NewController;
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class RootController {
 
