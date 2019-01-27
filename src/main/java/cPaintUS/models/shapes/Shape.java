@@ -37,6 +37,11 @@ public abstract class Shape {
 	public Shape() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public String toString() {
+		return this.shapeId;
+	}
 
 	// Can't modify the shapeId!
 	public String getShapeId() {
@@ -111,7 +116,4 @@ public abstract class Shape {
 		return this.strokeColor;
 	}
 
-	public void getStrokeColor(String strokeColor) {
-		this.strokeColor = strokeColor;
-	}
 }

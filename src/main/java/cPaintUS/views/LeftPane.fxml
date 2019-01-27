@@ -1,34 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane minWidth="150.0" prefWidth="200.0"
-	xmlns:fx="http://javafx.com/fxml/1"
-	xmlns="http://javafx.com/javafx/9.0.4"
-	fx:controller="cPaintUS.controllers.LeftPaneController">
+<AnchorPane minWidth="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cPaintUS.controllers.LeftPaneController">
 	<children>
-		<ToolBar>
-			<VBox prefWidth="188.0" alignment="CENTER" spacing="5">
-				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
-					<Label prefWidth="78.0" text="Draw Shape: " />
-					<ComboBox prefWidth="110.0" fx:id="shape" promptText="Choose" onAction="#handleChangeShape"/>
-				</HBox>
-				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
-					<Label prefWidth="78.0" text="Brush Size: " />
-					<ComboBox prefWidth="110.0" fx:id="lineWidth" promptText="Choose" onAction="#handleChangeBrushSize"/>
-				</HBox>
-				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
-					<Label prefWidth="78.0" text="Fill Color: " />
-					<ColorPicker prefWidth="110.0" fx:id="fillColor" onAction="#handleChangeFillColor" />
-				</HBox>
-				<HBox prefWidth="188.0" alignment="CENTER" spacing="5">
-					<Label prefWidth="78.0" text="Stroke Color: " />
-					<ColorPicker prefWidth="110.0" fx:id="strokeColor" onAction="#handleChangeStrokeColor" />
-				</HBox>
-				<Button prefWidth="188.0" fx:id="eraseAllBtn" onAction="#handleEraseAllClick" text="Erase All" />
-			</VBox>
-		</ToolBar>
+      <VBox prefHeight="402.0" prefWidth="200.0">
+         <children>
+      		<ToolBar>
+      			<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Draw Shape: " />
+      					<ComboBox fx:id="shape" onAction="#handleChangeShape" prefWidth="110.0" promptText="Choose" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Brush Size: " />
+      					<ComboBox fx:id="lineWidth" onAction="#handleChangeBrushSize" prefWidth="110.0" promptText="Choose" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Fill Color: " />
+      					<ColorPicker fx:id="fillColor" onAction="#handleChangeFillColor" prefWidth="110.0" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Stroke Color: " />
+      					<ColorPicker fx:id="strokeColor" onAction="#handleChangeStrokeColor" prefWidth="110.0" />
+      				</HBox>
+      				<Button fx:id="eraseAllBtn" onAction="#handleEraseAllClick" prefWidth="188.0" text="Erase All" />
+      			</VBox>
+      		</ToolBar>
+            <ListView fx:id="shapeList" prefHeight="243.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ListView>
+         </children>
+      </VBox>
 	</children>
 </AnchorPane>

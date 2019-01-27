@@ -4,7 +4,6 @@ import cPaintUS.models.shapes.ShapeType;
 import javafx.scene.paint.Color;
 
 public class DrawSettings {
-	private DrawSettings instance;
 	private ShapeType shape;
 	private int lineWidth;
 	private Color fillColor;
