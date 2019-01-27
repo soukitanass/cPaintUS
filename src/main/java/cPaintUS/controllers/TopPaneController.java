@@ -27,6 +27,8 @@ public class TopPaneController {
 
 	private ShapesDict shapesDict;
 	
+	private FileManagerStrategy fileManagerStrategy;
+
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
