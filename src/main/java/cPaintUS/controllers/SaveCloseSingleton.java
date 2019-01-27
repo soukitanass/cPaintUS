@@ -6,9 +6,6 @@ import java.io.IOException;
 
 import cPaintUS.controllers.popup.CloseController;
 import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.saveStrategy.FileManagerStrategy;
-import cPaintUS.models.saveStrategy.PNGStrategy;
-import cPaintUS.models.saveStrategy.XMLStrategy;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,20 +16,19 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class CentralCloseController {
+public class SaveCloseSingleton {
 	private SnapshotSingleton snapshotSingleton;
-	private FileManagerStrategy fileManagerStrategy;
 	
-	private CentralCloseController () {
+	private SaveCloseSingleton () {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 	}
 	
-	private static class CentralCloseControllerHelper {
-		private static final CentralCloseController INSTANCE = new CentralCloseController();
+	private static class SaveCloseSingletonHelper {
+		private static final SaveCloseSingleton INSTANCE = new SaveCloseSingleton();
 	}
 	
-	public static CentralCloseController getInstance () {
-		return CentralCloseControllerHelper.INSTANCE;
+	public static SaveCloseSingleton getInstance () {
+		return SaveCloseSingletonHelper.INSTANCE;
 	}
 	
 	public void triggerClose() {

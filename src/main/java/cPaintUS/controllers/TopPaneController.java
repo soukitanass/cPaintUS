@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class TopPaneController {
 
 	private SnapshotSingleton snapshotSingleton;
-	private CentralCloseController centralCloseController;
+	private SaveCloseSingleton saveCloseSingleton;
 	@FXML
 	private MenuBar menuBar;
 
@@ -32,7 +32,7 @@ public class TopPaneController {
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
-		centralCloseController = CentralCloseController.getInstance();
+		saveCloseSingleton = SaveCloseSingleton.getInstance();
 	}
 
 	@FXML
@@ -66,7 +66,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleExitClick() {
-		centralCloseController.triggerClose();
+		saveCloseSingleton.triggerClose();
 	}
 
 	@FXML
@@ -113,7 +113,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleSaveClick() {
-		centralCloseController.handleSave();
+		saveCloseSingleton.handleSave();
 	}
 
 }

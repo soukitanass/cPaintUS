@@ -1,6 +1,6 @@
 package cPaintUS;
 
-import cPaintUS.controllers.CentralCloseController;
+import cPaintUS.controllers.SaveCloseSingleton;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
-	static CentralCloseController centralCloseController; 
+	static SaveCloseSingleton saveCloseSingleton; 
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -21,8 +21,8 @@ public class Main extends Application {
 		primaryStage.setMinHeight(600);
 		primaryStage.show();	
 		primaryStage.setOnCloseRequest((WindowEvent event) -> {
-			centralCloseController = CentralCloseController.getInstance();
-			centralCloseController.triggerClose();
+			saveCloseSingleton = SaveCloseSingleton.getInstance();
+			saveCloseSingleton.triggerClose();
 	    });
 	}
 
