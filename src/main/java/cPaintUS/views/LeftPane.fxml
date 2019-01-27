@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ColorPicker?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane minWidth="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cPaintUS.controllers.LeftPaneController">
+<AnchorPane prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cPaintUS.controllers.LeftPaneController">
 	<children>
-      <VBox prefHeight="402.0" prefWidth="200.0">
+      <VBox prefHeight="520" prefWidth="200.0">
          <children>
       		<ToolBar>
       			<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
@@ -23,7 +18,7 @@
       				</HBox>
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Brush Size: " />
-      					<ComboBox fx:id="lineWidth" onAction="#handleChangeBrushSize" prefWidth="110.0" promptText="Choose" />
+      					<ComboBox fx:id="lineWidth" onAction="#handleChangeLineWidth" prefWidth="110.0" promptText="Choose" />
       				</HBox>
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Fill Color: " />
@@ -36,11 +31,68 @@
       				<Button fx:id="eraseAllBtn" onAction="#handleEraseAllClick" prefWidth="188.0" text="Erase All" />
       			</VBox>
       		</ToolBar>
-            <ListView fx:id="shapeList" prefHeight="243.0" prefWidth="200.0">
+            <ListView fx:id="shapeList" prefHeight="200.0" prefWidth="200.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </ListView>
+            <ToolBar fx:id="attributes">
+      			<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
+      				<Label fx:id="attributesLabel" />
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Brush Size: " />
+      					<ComboBox fx:id="editLineWidth" onAction="#handleEditLineWidth" prefWidth="110.0" promptText="Choose" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Fill Color: " />
+      					<ColorPicker fx:id="editFillColor" onAction="#handleEditFillColor" prefWidth="110.0" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Stroke Color: " />
+      					<ColorPicker fx:id="editStrokeColor" onAction="#handleEditStrokeColor" prefWidth="110.0" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="X: " />
+      					<Spinner fx:id="editX" prefWidth="110.0">
+      						<valueFactory>
+      							<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="1000" />
+      						</valueFactory>
+      					</Spinner>
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Y: " />
+      					<Spinner fx:id="editY" prefWidth="110.0">
+      						<valueFactory>
+      							<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="1000" />
+      						</valueFactory>
+      					</Spinner>
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Width: " />
+      					<Spinner fx:id="editWidth" prefWidth="110.0">
+      						<valueFactory>
+      							<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="1000" />
+      						</valueFactory>
+      					</Spinner>
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Height: " />
+      					<Spinner fx:id="editHeight" prefWidth="110.0">
+      						<valueFactory>
+      							<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="1000" />
+      						</valueFactory>
+      					</Spinner>
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Rotation: " />
+      					<Spinner fx:id="rotate" prefWidth="110.0">
+      						<valueFactory>
+      							<SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="360" />
+      						</valueFactory>
+      					</Spinner>
+      				</HBox>
+      			</VBox>
+      		</ToolBar>
          </children>
       </VBox>
 	</children>
