@@ -9,7 +9,6 @@
 <AnchorPane 
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="cPaintUS.controllers.popup.NewController">
-
 	<VBox alignment="CENTER">
 		<Label fx:id="title"
 			text="Do you want to save your workspace?" />

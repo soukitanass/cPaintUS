@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 public class TopPaneController {
 
 	private SnapshotSingleton snapshotSingleton;
+	private SaveCloseSingleton saveCloseSingleton;
 	@FXML
 	private MenuBar menuBar;
 
@@ -31,6 +32,7 @@ public class TopPaneController {
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
+		saveCloseSingleton = SaveCloseSingleton.getInstance();
 	}
 
 	@FXML
@@ -64,7 +66,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleExitClick() {
-		System.exit(0);
+		saveCloseSingleton.triggerClose();
 	}
 
 	@FXML
@@ -105,30 +107,13 @@ public class TopPaneController {
 			} else {
 				FileContext.load(FileContext.types.PNG, selectedFile.getAbsolutePath());
 			}
-			
 		}
 
 	}
 
 	@FXML
 	private void handleSaveClick() {
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Save As");
-		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
-		chooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
-				new ExtensionFilter("PNG Files", "*.png"));
-		File selectedFile = chooser.showSaveDialog(stage);
-		if (selectedFile != null) {
-			String fileName = selectedFile.getName();
-			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
-			if (fileExtension.equalsIgnoreCase("xml")) {
-				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
-			} else {
-				BufferedImage image = SwingFXUtils.fromFXImage(
-						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
-				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
-			}
-		}
+		saveCloseSingleton.handleSave();
 	}
 
 }
