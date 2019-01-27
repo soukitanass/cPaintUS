@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import cPaintUS.controllers.popup.AboutController;
 import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.saveStrategy.FileContext;
 import cPaintUS.models.shapes.ShapesDict;
@@ -38,11 +39,12 @@ public class TopPaneController {
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent, 220, 100);
+			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("New");
 			stage.setScene(scene);
+			stage.setResizable(false);
 
 			NewController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);
@@ -71,11 +73,15 @@ public class TopPaneController {
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent, 300, 200);
+			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("About");
 			stage.setScene(scene);
+			stage.setResizable(false);
+			
+			AboutController controller = fxmlLoader.getController();
+			controller.setNewDialog(stage);
 			stage.showAndWait();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -53,6 +53,7 @@ public class CenterPaneController implements IObserver {
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
+		boundingBox.register(this);
 		drawSettings = DrawSettings.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDict.getInstance();
@@ -107,6 +108,9 @@ public class CenterPaneController implements IObserver {
 		case MENU_ERASE:
 			eraseAll();
 			break;
+		case BOUNDING_BOX:
+			drawBoundingBox();
+			break;
 		default:
 			break;
 		}
@@ -140,13 +144,11 @@ public class CenterPaneController implements IObserver {
 			canvasToRemove.add(canvasList.get(i));
 		}
 
-		// Erase bounding box
-		GraphicsContext bdgc = boundingBoxCanvas.getGraphicsContext2D();
-		bdgc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-
 		for (Node canvas : canvasToRemove) {
 			canvasList.remove(canvas);
 		}
+		
+		boundingBox.setVisible(false);
 	}
 
 	private void initializeNewCanvas() {
@@ -162,8 +164,7 @@ public class CenterPaneController implements IObserver {
 		Shape shape = createShape(persistent);
 		if(shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
-		}
-		drawBoundingBox();			
+		}		
 	}
 	
 	private void drawBoundingBox() {
