@@ -135,12 +135,7 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleChangeShape() {
 		drawSettings.setShape(shape.getValue());
-		
-		if (shape.getValue() == ShapeType.Line) {
-			fillColor.setDisable(true);
-		} else {
-			fillColor.setDisable(false);
-		}
+		fillColor.setDisable(shape.getValue() == ShapeType.Line);
 	}
 	
 	@FXML
