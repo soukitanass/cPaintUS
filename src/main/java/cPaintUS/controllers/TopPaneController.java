@@ -38,6 +38,7 @@ public class TopPaneController {
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
+		centralCloseController = CentralCloseController.getInstance();
 	}
 
 	@FXML
