@@ -1,9 +1,7 @@
 package cPaintUS.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import cPaintUS.models.LineWidth;
 import cPaintUS.models.DrawSettings;
+import cPaintUS.models.LineWidth;
 import cPaintUS.models.shapes.ShapeType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
