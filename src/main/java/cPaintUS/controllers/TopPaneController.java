@@ -39,11 +39,12 @@ public class TopPaneController {
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent, 220, 100);
+			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("New");
 			stage.setScene(scene);
+			stage.setResizable(false);
 
 			NewController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);

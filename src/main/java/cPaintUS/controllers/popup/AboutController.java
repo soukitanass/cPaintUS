@@ -23,11 +23,11 @@ public class AboutController {
 	
 	@FXML
 	private void initialize() {
-		this.description.setPadding(new Insets(10, 20, 10, 20));
-		this.description.setWrapText(true);
-		this.description.setText("Created by cPaintUS team members:\nJean Bilski\nCorentin Chatelin\nNoemie Landry-Boisvert\nSoukaina Nassib\nMarc-Eric Pelletier");
-		this.closeBtn.setAlignment(Pos.BOTTOM_CENTER);
-		VBox.setMargin(this.closeBtn, new Insets(10));
+		description.setPadding(new Insets(10, 20, 10, 20));
+		description.setWrapText(true);
+		description.setText("Created by cPaintUS team members:\nJean Bilski\nCorentin Chatelin\nNoemie Landry-Boisvert\nSoukaina Nassib\nMarc-Eric Pelletier");
+		closeBtn.setAlignment(Pos.BOTTOM_CENTER);
+		VBox.setMargin(closeBtn, new Insets(10));
 	}
 	
 	@FXML
