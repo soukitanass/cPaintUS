@@ -1,8 +1,11 @@
 package cPaintUS.controllers.popup;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class NewController {
@@ -11,6 +14,8 @@ public class NewController {
 
 	@FXML
 	private Label title;
+	@FXML
+	private HBox buttonsHBox;
 	@FXML
 	private Button yesBtn;
 	@FXML
@@ -37,7 +42,7 @@ public class NewController {
 	
 	@FXML
 	public void initialize() {
-		title.setStyle("-fx-font-size: 24px");
-		title.setStyle("-fx-padding: 10 20 10 20");
+		title.setPadding(new Insets(10, 20, 10, 20));
+		VBox.setMargin(buttonsHBox, new Insets(10));
 	}
 }
