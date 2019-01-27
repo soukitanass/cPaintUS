@@ -7,8 +7,6 @@ public class RootController {
 	@FXML
 	private LeftPaneController leftPaneController;
 	@FXML
-	private RightPaneController rightPaneController;
-	@FXML
 	private CenterPaneController centerPaneController;
 	@FXML
 	private BottomPaneController bottomPaneController;
@@ -17,10 +15,6 @@ public class RootController {
 
 	public LeftPaneController getLeftPaneController() {
 		return leftPaneController;
-	}
-
-	public RightPaneController getRightPaneController() {
-		return rightPaneController;
 	}
 
 	public CenterPaneController getCenterPaneController() {

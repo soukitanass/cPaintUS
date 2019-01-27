@@ -30,9 +30,6 @@ public class PNGStrategy implements FileManagerStrategy {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 	}
 
-	public PNGStrategy() {
-		
-	}
 	public BufferedImage getBufferedImage() {
 		return bufferedImage;
 	}

@@ -26,19 +26,19 @@ class ShapeFactoryTest {
 
 	@Test
 	void getShapeTest() {
-		Shape actual =  shapeFactory.getShape(ShapeType.Rectangle, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
+		Shape actual =  shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
 		assertTrue(actual instanceof cPaintUS.models.shapes.Rectangle);
 		
-		actual =  shapeFactory.getShape(ShapeType.Ellipse, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
+		actual =  shapeFactory.getShape(ShapeType.Ellipse, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
 		assertTrue(actual instanceof cPaintUS.models.shapes.Ellipse);
 		
-		actual =  shapeFactory.getShape(ShapeType.Line, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
+		actual =  shapeFactory.getShape(ShapeType.Line, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
 		assertTrue(actual instanceof cPaintUS.models.shapes.Line);
 		
-		actual =  shapeFactory.getShape(ShapeType.Heart, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
+		actual =  shapeFactory.getShape(ShapeType.Heart, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
 		assertTrue(actual instanceof cPaintUS.models.shapes.Heart);
 		
-		actual =  shapeFactory.getShape(ShapeType.Pokeball, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
+		actual =  shapeFactory.getShape(ShapeType.Pokeball, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff");
 		assertTrue(actual instanceof cPaintUS.models.shapes.Pokeball);
 		
 	}
