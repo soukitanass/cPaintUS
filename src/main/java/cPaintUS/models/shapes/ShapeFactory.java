@@ -35,7 +35,7 @@ public class ShapeFactory {
 
 		if(persistent)
 			totalShapeNb++;
-
+		
 		switch (shapeType) {
 		case Rectangle:
 			shapeId = "Rectangle_" + rectangleNb;

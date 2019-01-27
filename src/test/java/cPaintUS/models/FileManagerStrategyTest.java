@@ -41,7 +41,7 @@ class FileManagerStrategyTest {
 	void testSaveXML() {
 		fileManagerStrategy = new XMLStrategy();
 		shapesDict.clearShapes();
-		shapesDict.addShape(shapeFactory.getShape(ShapeType.Rectangle, 3333, 11, 1, 10, 100, 1, "#00000", "#00000"));
+		shapesDict.addShape(shapeFactory.getShape(ShapeType.Rectangle, true, 3333, 11, 1, 10, 100, 1, "#00000", "#00000"));
 		fileManagerStrategy.save(resolvePath(XML_FILE_TO_SAVE_PATH));
 		shapesDict.clearShapes();
 		fileManagerStrategy.load(resolvePath(XML_FILE_TO_SAVE_PATH));

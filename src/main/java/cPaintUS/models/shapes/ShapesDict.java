@@ -1,7 +1,7 @@
 package cPaintUS.models.shapes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import cPaintUS.models.observable.IObserver;
@@ -10,11 +10,11 @@ import cPaintUS.models.observable.ObservableList;
 
 public class ShapesDict extends Observable<IObserver> {
 	private static ShapesDict instance = null;
-	private HashMap<String, Shape> shapesDict;
+	private LinkedHashMap<String, Shape> shapesDict;
 	private ShapeFactory shapeFactory;
 
 	private ShapesDict() {
-		this.shapesDict = new HashMap<String, Shape>();
+		this.shapesDict = new LinkedHashMap<String, Shape>();
 		this.shapeFactory = ShapeFactory.getInstance();
 	}
 
@@ -31,6 +31,15 @@ public class ShapesDict extends Observable<IObserver> {
 	}
 
 	public void addShape(Shape shape) {
+		if(shape != null) {
+			shapesDict.put(shape.getShapeId(), shape);
+			notifyAllObservers();
+		}
+		else
+			System.out.println("addShape error : Unknown shape");
+	}
+	
+	public void addShapeSilent(Shape shape) {
 		if(shape != null)
 			shapesDict.put(shape.getShapeId(), shape);
 		else
@@ -39,20 +48,20 @@ public class ShapesDict extends Observable<IObserver> {
 
 	public void addListShapes(List<Shape> shapesList) {
 		for (Shape shape : shapesList) {
-			this.addShape(shape);
+			this.addShapeSilent(shape);
 		}
 	}
 
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
+		notifyAllObservers();
 	}
 
 	@Override
 	public void notifyAllObservers() {
 		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.SHAPES_LOAD);
+			obs.update(ObservableList.SHAPES_UPDATED);
 		}
-
 	}
 }

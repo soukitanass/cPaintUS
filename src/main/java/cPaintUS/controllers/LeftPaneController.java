@@ -2,16 +2,22 @@ package cPaintUS.controllers;
 
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.LineWidth;
+import cPaintUS.models.observable.IObserver;
+import cPaintUS.models.observable.ObservableList;
+import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeType;
+import cPaintUS.models.shapes.ShapesDict;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 
-public class LeftPaneController {
+public class LeftPaneController implements IObserver {
 	
 	private DrawSettings drawSettings;
+	private ShapesDict shapesDict;
 	
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -23,16 +29,23 @@ public class LeftPaneController {
 	private ColorPicker strokeColor;
 	@FXML
 	private Button eraseAllBtn;
+	@FXML
+	private ListView<Shape> shapeList;
 	
 	public void setRoot(RootController rootController) {
 	}
 	
+	public LeftPaneController() {
+		shapesDict = ShapesDict.getInstance();
+		shapesDict.register(this);
+		drawSettings = DrawSettings.getInstance();
+	}
+	
 	@FXML
 	private void initialize() {
-		drawSettings = DrawSettings.getInstance();
-
 		// Add possible shapes to the shape ComboBox
 		shape.getItems().setAll(ShapeType.values());
+		shape.getItems().remove(ShapeType.Picture);
 		shape.setValue(ShapeType.Line);
 		
 		// Add possible brush sizes to the brushSize ComboBox
@@ -72,4 +85,14 @@ public class LeftPaneController {
 	private void handleEraseAllClick() {
 		SnapshotSingleton.getInstance().eraseAll();
 	}
+
+	@Override
+	public void update(ObservableList obs) {
+		if(obs == ObservableList.SHAPES_UPDATED) {
+			shapeList.getItems().clear();
+			shapeList.getItems().addAll(shapesDict.getShapesList());
+		}
+	}
+	
+	
 }

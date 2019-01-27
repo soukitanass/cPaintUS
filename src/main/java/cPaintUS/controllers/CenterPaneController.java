@@ -97,7 +97,7 @@ public class CenterPaneController implements IObserver {
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
-		case SHAPES_LOAD:
+		case SHAPES_UPDATED:
 			eraseCanvas();
 			refresh();
 			break;
