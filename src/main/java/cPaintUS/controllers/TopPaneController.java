@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.NewController;
-import cPaintUS.models.saveStrategy.FileManagerStrategy;
-import cPaintUS.models.saveStrategy.PNGStrategy;
-import cPaintUS.models.saveStrategy.XMLStrategy;
+import cPaintUS.models.saveStrategy.FileContext;
 import cPaintUS.models.shapes.ShapesDict;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -99,11 +97,9 @@ public class TopPaneController {
 			String fileName = selectedFile.getName();
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
-				fileManagerStrategy = new XMLStrategy();
-				fileManagerStrategy.load(selectedFile.getAbsolutePath());
+				FileContext.load(FileContext.types.XML, selectedFile.getAbsolutePath());
 			} else {
-				fileManagerStrategy = new PNGStrategy();
-				fileManagerStrategy.load(selectedFile.toURI().toString());
+				FileContext.load(FileContext.types.PNG, selectedFile.getAbsolutePath());
 			}
 			
 		}
@@ -122,14 +118,12 @@ public class TopPaneController {
 			String fileName = selectedFile.getName();
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
-				fileManagerStrategy = new XMLStrategy();
+				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 			} else {
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
-				fileManagerStrategy = new PNGStrategy();
-				((PNGStrategy) fileManagerStrategy).setBufferedImage(image);
+				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
 			}
-			fileManagerStrategy.save(selectedFile.getAbsolutePath());
 		}
 	}
 
