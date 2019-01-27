@@ -7,5 +7,5 @@ public enum ObservableList {
 	SHAPES_UPDATED,
 	DRAW_SETTINGS,
 	MENU_ERASE,
-	LOAD_IMAGE
+	LOAD_IMAGE,
 }
