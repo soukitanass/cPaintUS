@@ -19,12 +19,12 @@ public class SnapshotSingleton extends Observable<IObserver> {
 		this.snapshotPane = snapshotPane;
 	}
 
-	private static class SingletonHelper {
+	private static class SnapSingletonHelper {
 		private static final SnapshotSingleton INSTANCE = new SnapshotSingleton();
 	}
 	
 	public static SnapshotSingleton getInstance() {
-		return SingletonHelper.INSTANCE;
+		return SnapSingletonHelper.INSTANCE;
 	}
 	
 	public Image getImage() {

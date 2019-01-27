@@ -24,9 +24,10 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class TopPaneController extends Observable<IObserver> {
+public class TopPaneController {
 
 	private SnapshotSingleton snapshotSingleton;
+	private CentralCloseController centralCloseController;
 	@FXML
 	private MenuBar menuBar;
 
@@ -37,14 +38,6 @@ public class TopPaneController extends Observable<IObserver> {
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
-	}
-	
-	@Override
-	public void notifyAllObservers() {
-		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.CLOSE_APPLICATION);
-		}
-
 	}
 
 	@FXML
@@ -77,7 +70,7 @@ public class TopPaneController extends Observable<IObserver> {
 
 	@FXML
 	private void handleExitClick() {
-		notifyAllObservers();
+		centralCloseController.triggerClose();
 	}
 
 	@FXML
@@ -116,7 +109,6 @@ public class TopPaneController extends Observable<IObserver> {
 				fileManagerStrategy = new PNGStrategy();
 				fileManagerStrategy.load(selectedFile.toURI().toString());
 			}
-			
 		}
 
 	}
@@ -142,10 +134,6 @@ public class TopPaneController extends Observable<IObserver> {
 			}
 			fileManagerStrategy.save(selectedFile.getAbsolutePath());
 		}
-	}
-	
-	public void handleSave () {
-		this.handleSaveClick();
 	}
 
 }

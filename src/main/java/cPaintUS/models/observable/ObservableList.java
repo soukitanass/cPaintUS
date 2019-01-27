@@ -8,5 +8,4 @@ public enum ObservableList {
 	DRAW_SETTINGS,
 	MENU_ERASE,
 	LOAD_IMAGE,
-	CLOSE_APPLICATION
 }
