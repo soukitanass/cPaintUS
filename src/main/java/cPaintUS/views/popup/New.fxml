@@ -9,7 +9,7 @@
 
 	<VBox minHeight="100.0" alignment="CENTER" spacing="10">
 		<Label minWidth="200.0" fx:id="title"
-			text=" Do you want to save you workspace? " />
+			text="Do you want to save your workspace?" />
 		<HBox minWidth="200.0" alignment="CENTER" spacing="10">
 			<Button fx:id="yesBtn" onAction="#handleYesClick" text="Yes" />
 			<Button fx:id="noBtn" onAction="#handleNoClick" text="No" />
