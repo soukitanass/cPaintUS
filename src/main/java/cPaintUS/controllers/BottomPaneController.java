@@ -27,6 +27,12 @@ public class BottomPaneController implements IObserver {
 		boundingBox = BoundingBox.getInstance();
 		boundingBox.register(this);
 	}
+	
+	@FXML
+	private void initialize() {
+		w.setVisible(boundingBox.isVisible());
+		h.setVisible(boundingBox.isVisible());
+	}
 
 	@Override
 	public void update(ObservableList obs) {
@@ -53,10 +59,12 @@ public class BottomPaneController implements IObserver {
 	}
 	
 	private void displayW() {
+		w.setVisible(boundingBox.isVisible());
 		w.setText(w.getText().substring(0, 4) + (boundingBox.isVisible() ? boundingBox.getWidth() : ""));
 	}
 
 	private void displayH() {
+		h.setVisible(boundingBox.isVisible());
 		h.setText(h.getText().substring(0, 4) + (boundingBox.isVisible() ? boundingBox.getHeight() : ""));
 	}
 }
