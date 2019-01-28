@@ -1,6 +1,5 @@
 package cPaintUS.controllers.drawers;
 
-import cPaintUS.models.Point;
 import cPaintUS.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -46,6 +45,10 @@ public class DrawerStrategyContext {
 			break;
 		case Picture:
 			drawerStrategy = new PictureDrawerStrategy();
+			drawerStrategy.draw(gc, shape);
+			break;
+		case Text:
+			drawerStrategy = new TextDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
 		default:
