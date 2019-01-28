@@ -33,6 +33,7 @@ public class AddTextSingleton extends Observable<IAddTextObserver>{
 
 	public void setText(String text) {
 		this.text = text;
+		notifyAllObservers();
 	}
 
 }

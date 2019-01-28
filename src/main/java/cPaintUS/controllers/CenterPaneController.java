@@ -84,6 +84,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 				System.out.println("Mouse pressed : " + pane.getChildren().size() + " canevas");
 				boundingBox.setOrigin(e.getX(), e.getY());
 				boundingBox.setVisible(true);
+				boundingBox.setRotation(0);
 				initializeNewCanvas();
 			}
 		};
@@ -257,6 +258,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
 					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 		}
+		boundingBoxCanvas.setRotate(boundingBox.getRotation());
 	}
 
 	private Shape createShape(boolean persistent) {
@@ -344,8 +346,6 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	@Override
 	public void update( String text) {
 		setText(text);
-		draw(true);
-		
 	}
 
 }
