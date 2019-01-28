@@ -5,9 +5,9 @@ public class Text extends Shape{
 	private String text;
 	private String fillColor;
 	
-	public Text(String shapeId, double x, double y, int z, double width, double height,
+	public Text(String shapeId, double x, double y, int z, double width, double height, double rotation,
 			int lineWidth, String strokeColor, String fillColor, String text, ShapeType shapeType) {
-		super(shapeId, canvasId, x, y, z, width, height, rotation, lineWidth, strokeColor,shapeType);
+		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor,shapeType);
 		this.setText(text);
 		this.setFillColor(fillColor);
 
