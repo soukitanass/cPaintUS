@@ -1,11 +1,12 @@
 package cPaintUS.models.shapes;
 
+import cPaintUS.controllers.drawers.DrawerStrategyContext;
+import cPaintUS.controllers.drawers.DrawerStrategyContext.SingletonHelper;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.Observable;
 import cPaintUS.models.observable.ObservableList;
 
 public class ShapeEditor extends Observable<IObserver> {
-	private static ShapeEditor instance = null;
 	private ShapesDict shapesDict;
 	private Shape shapeToEdit;
 
@@ -14,12 +15,12 @@ public class ShapeEditor extends Observable<IObserver> {
 		shapeToEdit = null;
 	}
 
-	public static ShapeEditor getInstance() {
-		if (instance == null) {
-			instance = new ShapeEditor();
-		}
+	private static class SingletonHelper {
+		private static final ShapeEditor INSTANCE = new ShapeEditor();
+	}
 
-		return instance;
+	public static ShapeEditor getInstance() {
+		return SingletonHelper.INSTANCE;
 	}
 	
 	public void edit(Shape shape) {

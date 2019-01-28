@@ -63,8 +63,6 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private TextField editText;
 	@FXML
-	private Button edditBtn;
-	@FXML
 	private TextField editX;
 	@FXML
 	private TextField editY;
@@ -203,6 +201,12 @@ public class LeftPaneController implements IObserver {
 		shapeEditor.edit(shapeToEdit);
 	}
 	
+	@FXML
+	private void handleEditText() {
+		String editedText = editText.getText();
+		//
+	}
+	
 	private void onlyNumeric(TextField textField) {
 		String newValue = textField.getText();
         if (!newValue.matches("\\d*")) {
@@ -273,11 +277,6 @@ public class LeftPaneController implements IObserver {
 		int newRotation = Integer.parseInt(rotate.getText());
 		shapeToEdit.setRotation(newRotation);
 		shapeEditor.edit(shapeToEdit);
-	}
-
-	@FXML
-	private void handleEditText() {
-		String editedText = editText.getText();
 	}
 
 	@Override
