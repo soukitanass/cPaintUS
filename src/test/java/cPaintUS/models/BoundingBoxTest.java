@@ -13,10 +13,13 @@ import cPaintUS.models.observable.ObservableList;
 class BoundingBoxTest {
 
 	BoundingBox boundingBox;
+	DrawSettings drawSettings;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		boundingBox = BoundingBox.getInstance();
+		drawSettings = DrawSettings.getInstance();
+		drawSettings.setLineWidth(1);
 	}
 
 	@Test
@@ -37,7 +40,7 @@ class BoundingBoxTest {
 	
 	@Test
 	void updateBoundingBoxTest() {
-		Point expected = new Point(3.0,2.0);
+		Point expected = new Point(8.4,7.1);
 		boundingBox.updateBoundingBox(expected);
 		
 		assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
@@ -46,9 +49,9 @@ class BoundingBoxTest {
 
 	@Test
 	void getUpLeftCornerTest() {
-		Point expected = new Point(2.2,3.0);
-		boundingBox.setOrigin(new Point(15.3,3.0));
-		boundingBox.updateBoundingBox(new Point(2.2,11.3));
+		Point expected = new Point(4.7,5.8);
+		boundingBox.setOrigin(new Point(15.3,5.8));
+		boundingBox.updateBoundingBox(new Point(4.7,11.3));
 		
 		assertEquals(expected.getX(),boundingBox.getUpLeftCorner().getX());
 		assertEquals(expected.getY(),boundingBox.getUpLeftCorner().getY());
@@ -56,18 +59,18 @@ class BoundingBoxTest {
 	
 	@Test
 	void getWidthTest() {
-		double expected = 3;
-		boundingBox.setOrigin(new Point(6.0,0.0));
-		boundingBox.updateBoundingBox(new Point(3.0,0.4));
+		double expected = 6;
+		boundingBox.setOrigin(new Point(6.0,9.0));
+		boundingBox.updateBoundingBox(new Point(12.0,5.4));
 		
 		assertEquals(expected, boundingBox.getWidth());
 	}
 	
 	@Test
 	void getHeightTest() {
-		double expected = 3;
-		boundingBox.setOrigin(0.0,6.0);
-		boundingBox.updateBoundingBox(new Point(3.0,3.0));
+		double expected = 2;
+		boundingBox.setOrigin(8.0,6.0);
+		boundingBox.updateBoundingBox(new Point(12.0,8.0));
 		
 		assertEquals(expected, boundingBox.getHeight());
 	}
