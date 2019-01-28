@@ -211,9 +211,13 @@ public class CenterPaneController implements IObserver {
 					boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY(), lineWidth,
 					sstrokeColor, sfillColor, null);
 		} else if (shapeType == ShapeType.Text) {
-			newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
-					boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(),
-					boundingBox.getHeight(), lineWidth, sstrokeColor, sfillColor, text);
+			if (boundingBox.getWidth() + boundingBox.getHeight() == 0) {
+				newShape = null;
+			} else {
+				newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
+						boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(), boundingBox.getHeight(), lineWidth, sstrokeColor, sfillColor, text);
+			}
 		} else {
 			newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
 					boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(),

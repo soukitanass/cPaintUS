@@ -1,6 +1,5 @@
 package cPaintUS.controllers.drawers;
 
-import cPaintUS.models.Point;
 import cPaintUS.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
