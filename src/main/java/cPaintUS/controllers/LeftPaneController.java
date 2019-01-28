@@ -3,8 +3,10 @@ package cPaintUS.controllers;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.AddTextController;
+import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.LineWidth;
+import cPaintUS.models.Point;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -36,6 +38,7 @@ public class LeftPaneController implements IObserver {
 	private ShapesDict shapesDict;
 	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
+	private BoundingBox boundingBox;
 	
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -81,6 +84,7 @@ public class LeftPaneController implements IObserver {
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
+		boundingBox = BoundingBox.getInstance();
 	}
 
 	@FXML
@@ -105,11 +109,22 @@ public class LeftPaneController implements IObserver {
 		// Event listener when shape is selected
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
-			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {				
+			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
+				boundingBox.setVisible(newShape != null);
 				if (newShape == null) {
 					attributes.setVisible(false);
+					boundingBox.setVisible(false);
 					return;
 				}
+				boundingBox.setOrigin(newShape.getX(), newShape.getY());
+				if (newShape.getShapeType() == ShapeType.Line) {
+					boundingBox.updateBoundingBox(new Point(newShape.getWidth(),
+							newShape.getHeight()));
+				} else {
+					boundingBox.updateBoundingBox(new Point(newShape.getX() + newShape.getWidth(),
+							newShape.getY() + newShape.getHeight()));
+				}
+
 				shapeToEdit = newShape;
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
