@@ -115,9 +115,6 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		case BOUNDING_BOX:
 			drawBoundingBox();
 			break;
-		case ADD_TEXT:
-			drawBoundingBox();
-			break;
 		default:
 			break;
 		}
