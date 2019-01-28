@@ -10,6 +10,7 @@ public class BoundingBox extends Observable<IObserver>{
 	private Point origin;
 	private Point oppositeCorner;
 	private double margin;
+	private DrawSettings drawSettings;
 
 	private static class SingletonHelper {
 		private static final BoundingBox INSTANCE = new BoundingBox();
@@ -19,7 +20,7 @@ public class BoundingBox extends Observable<IObserver>{
 		visible = false;
 		origin = new Point();
 		oppositeCorner = new Point();
-		margin = 2;
+		drawSettings = DrawSettings.getInstance();
 	}
 
 	public static BoundingBox getInstance() {
@@ -53,7 +54,7 @@ public class BoundingBox extends Observable<IObserver>{
 	}
 
 	public void updateBoundingBox(Point cursor) {
-		this.oppositeCorner.setPosition(cursor.getX() < margin ? margin : cursor.getX(), cursor.getY() < margin ? margin : cursor.getY());
+		this.oppositeCorner.setPosition(cursor.getX() < 4 + drawSettings.getLineWidth()/2 ? 4 + drawSettings.getLineWidth()/2 : cursor.getX(), cursor.getY() < 4 + drawSettings.getLineWidth()/2 ? 4 + drawSettings.getLineWidth()/2 : cursor.getY());
 		notifyAllObservers();
 	}
 
