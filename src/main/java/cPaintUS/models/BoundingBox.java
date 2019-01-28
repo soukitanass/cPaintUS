@@ -9,6 +9,8 @@ public class BoundingBox extends Observable<IObserver>{
 	private boolean visible;
 	private Point origin;
 	private Point oppositeCorner;
+	private DrawSettings drawSettings;
+	private double rotation;
 
 	private static class SingletonHelper {
 		private static final BoundingBox INSTANCE = new BoundingBox();
@@ -18,6 +20,8 @@ public class BoundingBox extends Observable<IObserver>{
 		visible = false;
 		origin = new Point();
 		oppositeCorner = new Point();
+		drawSettings = DrawSettings.getInstance();
+		rotation = 0;
 	}
 
 	public static BoundingBox getInstance() {
@@ -51,7 +55,7 @@ public class BoundingBox extends Observable<IObserver>{
 	}
 
 	public void updateBoundingBox(Point cursor) {
-		this.oppositeCorner.setPosition(cursor.getX() < 0 ? 0 : cursor.getX(), cursor.getY() < 0 ? 0 : cursor.getY());
+		this.oppositeCorner.setPosition(cursor.getX() < 4 + drawSettings.getLineWidth()/2 ? 4 + drawSettings.getLineWidth()/2 : cursor.getX(), cursor.getY() < 4 + drawSettings.getLineWidth()/2 ? 4 + drawSettings.getLineWidth()/2 : cursor.getY());
 		notifyAllObservers();
 	}
 
@@ -68,11 +72,19 @@ public class BoundingBox extends Observable<IObserver>{
 	}
 	
 	public void setVisible(boolean visible) {
-		notifyAllObservers();
 		this.visible = visible;
+		notifyAllObservers();
 	}
 	
 	public boolean isVisible() {
 		return visible;
+	}
+
+	public double getRotation() {
+		return rotation;
+	}
+
+	public void setRotation(double rotation) {
+		this.rotation = rotation;
 	}
 }

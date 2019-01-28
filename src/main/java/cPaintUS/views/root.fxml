@@ -7,7 +7,7 @@
 
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="550.0" minWidth="785.0" prefHeight="600.0" prefWidth="800.0"
+	minHeight="600.0" minWidth="785.0" prefHeight="600.0" prefWidth="800.0"
 	fx:controller="cPaintUS.controllers.RootController"
 	xmlns="http://javafx.com/javafx/9.0.4"
 	xmlns:fx="http://javafx.com/fxml/1">

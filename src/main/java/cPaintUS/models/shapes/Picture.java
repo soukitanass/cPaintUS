@@ -3,9 +3,19 @@ package cPaintUS.models.shapes;
 public class Picture extends Shape {
 	private String base64;
 	
-	public Picture(String shapeId, int canvasId, double x, double y, int z, double width, double height,
-			int lineWidth, String strokeColor, String base64,ShapeType shapeType) {
-		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor,shapeType);
+	public Picture(
+			String shapeId,
+			double x,
+			double y,
+			int z,
+			double width,
+			double height,
+			double rotation,
+			int lineWidth,
+			String strokeColor,
+			ShapeType shapeType) 
+	{
+		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor, shapeType);
 
 		this.setBase64(base64);
 	}

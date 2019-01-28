@@ -9,21 +9,21 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Main extends Application {
-	static SaveCloseSingleton saveCloseSingleton; 
+	static SaveCloseSingleton saveCloseSingleton;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader (getClass().getResource("views/root.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("views/root.fxml"));
 		Parent root = loader.load();
 		primaryStage.setTitle("cPaintUS");
 		primaryStage.setScene(new Scene(root, 800, 600));
 		primaryStage.setMinWidth(800);
 		primaryStage.setMinHeight(600);
-		primaryStage.show();	
+		primaryStage.show();
 		primaryStage.setOnCloseRequest((WindowEvent event) -> {
 			saveCloseSingleton = SaveCloseSingleton.getInstance();
 			saveCloseSingleton.triggerClose();
-	    });
+		});
 	}
 
 	public static void main(String[] args) {
