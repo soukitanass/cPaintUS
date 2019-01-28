@@ -1,7 +1,5 @@
 package cPaintUS.models.shapes;
 
-import cPaintUS.controllers.drawers.DrawerStrategyContext;
-import cPaintUS.controllers.drawers.DrawerStrategyContext.SingletonHelper;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.Observable;
 import cPaintUS.models.observable.ObservableList;
