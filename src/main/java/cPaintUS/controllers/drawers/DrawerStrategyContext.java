@@ -34,6 +34,8 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case Line:
+			activeCanvas.setWidth(shape.getX() + Math.abs(shape.getWidth() - shape.getX()));
+			activeCanvas.setHeight(shape.getY()+ Math.abs(shape.getHeight() - shape.getY()));
 			drawerStrategy = new LineDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
