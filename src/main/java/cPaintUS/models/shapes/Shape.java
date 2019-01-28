@@ -2,25 +2,35 @@ package cPaintUS.models.shapes;
 
 public abstract class Shape {
 	private String shapeId;
-	private int canvasId;
 	private double x;
 	private double y;
 	private int z;
 	private double width;
 	private double height;
+	private double rotation;
 	private int lineWidth;
 	private String strokeColor;
 	private ShapeType shapeType;
 
-	public Shape(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth,
-			String strokeColor, ShapeType shapeType) {
+	public Shape(
+			String shapeId,
+			double x,
+			double y,
+			int z,
+			double width,
+			double height,
+			double rotation,
+			int lineWidth,
+			String strokeColor,
+			ShapeType shapeType)
+	{
 		this.shapeId = shapeId;
-		this.canvasId = canvasId;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		this.width = width;
 		this.height = height;
+		this.rotation = rotation;
 		this.lineWidth = lineWidth;
 		this.strokeColor = strokeColor;
 		this.shapeType = shapeType;
@@ -46,14 +56,6 @@ public abstract class Shape {
 	// Can't modify the shapeId!
 	public String getShapeId() {
 		return this.shapeId;
-	}
-
-	public int getCanvasId() {
-		return this.canvasId;
-	}
-
-	public void setCanvasId(int canvasId) {
-		this.canvasId = canvasId;
 	}
 
 	public double getX() {
@@ -94,6 +96,14 @@ public abstract class Shape {
 
 	public void setHeight(double height) {
 		this.height = height;
+	}
+	
+	public double getRotation() {
+		return this.rotation;
+	}
+
+	public void setRotation(double rotation) {
+		this.rotation = rotation;
 	}
 
 	public int getLineWidth() {

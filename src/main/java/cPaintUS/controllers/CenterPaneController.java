@@ -272,22 +272,39 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.Line) {
-			newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
-					boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
-					boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY(), lineWidth,
-					sstrokeColor, sfillColor, null);
+			newShape = shapeFactory.getShape(
+					shapeType,
+					persistent,
+					boundingBox.getOrigin().getX(),
+					boundingBox.getOrigin().getY(),
+					boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(),
+					0,
+					lineWidth,
+					sstrokeColor,
+					sfillColor,
+					null);
 		} else if (shapeType == ShapeType.Text) {
 			if (boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 				newShape = null;
 			} else {
-				newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
-						boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(), boundingBox.getHeight(), lineWidth, sstrokeColor, sfillColor, text);
+				newShape = shapeFactory.getShape(
+						shapeType,
+						persistent,
+						boundingBox.getUpLeftCorner().getX(),
+						boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(),
+						boundingBox.getHeight(),
+						0,
+						lineWidth,
+						sstrokeColor,
+						sfillColor,
+						text);
 			}
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
+			newShape = shapeFactory.getShape(shapeType, persistent,
 					boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(),
-					boundingBox.getHeight(), lineWidth, sstrokeColor, sfillColor, null);
+					boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, null);
 		}
 
 		if (newShape != null && persistent) {

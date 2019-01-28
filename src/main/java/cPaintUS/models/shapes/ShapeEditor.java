@@ -8,12 +8,10 @@ public class ShapeEditor extends Observable<IObserver> {
 	private static ShapeEditor instance = null;
 	private ShapesDict shapesDict;
 	private Shape shapeToEdit;
-	private int angle;
 
 	private ShapeEditor() {
 		shapesDict = ShapesDict.getInstance();
 		shapeToEdit = null;
-		angle = 0;
 	}
 
 	public static ShapeEditor getInstance() {
