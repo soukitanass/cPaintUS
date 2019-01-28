@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import cPaintUS.controllers.popup.CloseController;
 import cPaintUS.models.saveStrategy.FileContext;
+import cPaintUS.models.shapes.ShapesDict;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,45 +19,48 @@ import javafx.stage.Stage;
 
 public class SaveCloseSingleton {
 	private SnapshotSingleton snapshotSingleton;
-	
+	private ShapesDict shapesDict;
+
 	private SaveCloseSingleton () {
 		snapshotSingleton = SnapshotSingleton.getInstance();
+		shapesDict = ShapesDict.getInstance();
 	}
-	
+
 	private static class SaveCloseSingletonHelper {
 		private static final SaveCloseSingleton INSTANCE = new SaveCloseSingleton();
 	}
-	
+
 	public static SaveCloseSingleton getInstance () {
 		return SaveCloseSingletonHelper.INSTANCE;
 	}
-	
+
 	public void triggerClose() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/Close.fxml"));
-		Parent parent;
-		try {
-			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent);
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Close");
-			stage.setScene(scene);
-			stage.setResizable(false);
+		if (shapesDict.getShapesList().size() != 0) {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/Close.fxml"));
+			Parent parent;
+			try {
+				parent = fxmlLoader.load();
+				Scene scene = new Scene(parent);
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setTitle("Close");
+				stage.setScene(scene);
+				stage.setResizable(false);
+				CloseController controller = fxmlLoader.getController();
+				controller.setNewDialog(stage);
+				stage.showAndWait();
+				if (controller.isYesClicked()) {
+					this.handleSave();
+				}
 
-			CloseController controller = fxmlLoader.getController();
-			controller.setNewDialog(stage);
-			stage.showAndWait();
-			if (controller.isYesClicked()) {
-				this.handleSave();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			System.exit(0);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		System.exit(0);
 	}
-	
+
 	public void handleSave () {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save As");
