@@ -11,6 +11,10 @@ public class ShapeFactory {
 	private int textNb;
 	private int totalShapeNb;
 
+	public int getTotalShapeNb() {
+		return totalShapeNb;
+	}
+
 	private ShapeFactory() {
 		rectangleNb = 0;
 		ellipseNb = 0;

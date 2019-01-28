@@ -53,7 +53,10 @@ public abstract class Shape {
 		return this.shapeId;
 	}
 
-	// Can't modify the shapeId!
+	public void setShapeId(String id) {
+		shapeId = id;
+	}
+	
 	public String getShapeId() {
 		return this.shapeId;
 	}
