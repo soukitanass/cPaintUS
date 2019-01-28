@@ -8,9 +8,12 @@ public class LineDrawerStrategy implements IDrawerStrategy {
 
 	@Override
 	public void draw(GraphicsContext gc, Shape shape) {
+		double originX = Math.min(shape.getX(),shape.getWidth());
+		double originY = Math.min(shape.getY(),shape.getHeight());
+		
 		gc.setStroke(Color.web(shape.getStrokeColor()));
 		gc.setLineWidth(shape.getLineWidth());
-		gc.strokeLine(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth()/2, shape.getHeight() - shape.getLineWidth()/2);
+		gc.strokeLine(shape.getX() - originX, shape.getY() - originY, shape.getWidth() - originX, shape.getHeight() - originY);
 	}
 
 }
