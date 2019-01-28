@@ -189,6 +189,8 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		}
 
 		boundingBox.setVisible(false);
+		scrollPaneWidthHandler(pane.getWidth());
+		scrollPaneHeightHandler(pane.getHeight());
 	}
 
 	private void initializeNewCanvas() {
