@@ -6,7 +6,6 @@ import cPaintUS.controllers.popup.AddTextController;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.LineWidth;
-import cPaintUS.models.Point;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -25,12 +24,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToolBar;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 public class LeftPaneController implements IObserver {
 
@@ -106,6 +107,12 @@ public class LeftPaneController implements IObserver {
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		attributes.setVisible(false);
 
+		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		editY.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		editWidth.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		editHeight.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+
 		// Event listener when shape is selected
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
@@ -130,11 +137,11 @@ public class LeftPaneController implements IObserver {
 				}
 
 				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
-				editX.setText(String.valueOf(newShape.getX()));
-				editY.setText(String.valueOf(newShape.getY()));
-				editWidth.setText(String.valueOf(newShape.getWidth()));
-				editHeight.setText(String.valueOf(newShape.getHeight()));
-				rotate.setText(String.valueOf(newShape.getRotation()));
+				editX.setText(String.valueOf((int) Math.round(newShape.getX())));
+				editY.setText(String.valueOf((int) Math.round(newShape.getY())));
+				editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
+				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
+				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
 				attributes.setVisible(true);
 				shapeEditor.edit(newShape);
 			}
@@ -214,19 +221,11 @@ public class LeftPaneController implements IObserver {
 		//
 	}
 	
-	private void onlyNumeric(TextField textField) {
-		String newValue = textField.getText();
-        if (!newValue.matches("\\d*")) {
-            textField.setText(newValue.replaceAll("[^\\d]", ""));
-        }
-	}
-	
 	@FXML
 	private void handleEditX() {
 		if (!attributes.isVisible()) return;
-		onlyNumeric(editX);
 		if (editX.getText() == null || editX.getText().trim().isEmpty()) {
-			editX.setText(String.valueOf(shapeToEdit.getX()));
+			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getX())));
 			return;
 		}
 		int newX = Integer.parseInt(editX.getText());
@@ -237,9 +236,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleEditY() {
 		if (!attributes.isVisible()) return;
-		onlyNumeric(editY);
 		if (editY.getText() == null || editY.getText().trim().isEmpty()) {
-			editY.setText(String.valueOf(shapeToEdit.getY()));
+			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getY())));
 			return;
 		}
 		int newY = Integer.parseInt(editY.getText());
@@ -250,9 +248,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleEditWidth() {
 		if (!attributes.isVisible()) return;
-		onlyNumeric(editWidth);
 		if (editWidth.getText() == null || editWidth.getText().trim().isEmpty()) {
-			editWidth.setText(String.valueOf(shapeToEdit.getWidth()));
+			editWidth.setText(String.valueOf((int) Math.round(shapeToEdit.getWidth())));
 			return;
 		}
 		int newWidth = Integer.parseInt(editWidth.getText());
@@ -263,9 +260,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleEditHeight() {
 		if (!attributes.isVisible()) return;
-		onlyNumeric(editHeight);
 		if (editHeight.getText() == null || editHeight.getText().trim().isEmpty()) {
-			editHeight.setText(String.valueOf(shapeToEdit.getHeight()));
+			editHeight.setText(String.valueOf((int) Math.round(shapeToEdit.getHeight())));
 			return;
 		}
 		int newHeight = Integer.parseInt(editHeight.getText());
@@ -276,9 +272,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleRotate() {
 		if (!attributes.isVisible()) return;
-		onlyNumeric(rotate);
 		if (rotate.getText() == null || rotate.getText().trim().isEmpty()) {
-			rotate.setText(String.valueOf(shapeToEdit.getRotation()));
+			rotate.setText(String.valueOf((int) Math.round(shapeToEdit.getRotation())));
 			return;
 		}
 		int newRotation = Integer.parseInt(rotate.getText());
