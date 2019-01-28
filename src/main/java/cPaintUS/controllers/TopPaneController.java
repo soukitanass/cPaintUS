@@ -1,6 +1,5 @@
 package cPaintUS.controllers;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -8,12 +7,10 @@ import cPaintUS.controllers.popup.AboutController;
 import cPaintUS.controllers.popup.NewController;
 import cPaintUS.models.saveStrategy.FileContext;
 import cPaintUS.models.shapes.ShapesDict;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuBar;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -28,7 +25,7 @@ public class TopPaneController {
 	private MenuBar menuBar;
 
 	private ShapesDict shapesDict;
-	
+
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
@@ -81,7 +78,7 @@ public class TopPaneController {
 			stage.setTitle("About");
 			stage.setScene(scene);
 			stage.setResizable(false);
-			
+
 			AboutController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);
 			stage.showAndWait();
