@@ -12,6 +12,7 @@ import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeEditor;
 import cPaintUS.models.shapes.ShapeType;
 import cPaintUS.models.shapes.ShapesDict;
+import cPaintUS.models.shapes.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class LeftPaneController implements IObserver {
 	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
-	
+
 	@FXML
 	private ComboBox<ShapeType> shape;
 	@FXML
@@ -51,6 +52,8 @@ public class LeftPaneController implements IObserver {
 	private ColorPicker strokeColor;
 	@FXML
 	private Button eraseAllBtn;
+	@FXML
+	private Button editBtn;
 	@FXML
 	private ListView<Shape> shapeList;
 
@@ -76,10 +79,10 @@ public class LeftPaneController implements IObserver {
 	private TextField editHeight;
 	@FXML
 	private TextField rotate;
-	
+
 	public void setRoot(RootController rootController) {
 	}
-	
+
 	public LeftPaneController() {
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
@@ -126,14 +129,22 @@ public class LeftPaneController implements IObserver {
 				shapeToEdit = newShape;
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
-				editLineWidth.setValue(newShape.getLineWidth() + "px");	
-				
+				editLineWidth.setValue(newShape.getLineWidth() + "px");
+
 				String fillCol = newShape.getFillColor();
 				if (fillCol == null) {
 					editFillColor.setDisable(true);
 				} else {
 					editFillColor.setDisable(false);
 					editFillColor.setValue(Color.web(fillCol));
+				}
+				editText.setDisable(true);
+				editBtn.setDisable(true);
+				
+				if(newShape.getShapeType() == ShapeType.Text) {
+					editText.setText(((Text)newShape).getText());
+					editText.setDisable(false);
+					editBtn.setDisable(false);
 				}
 
 				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
@@ -147,7 +158,7 @@ public class LeftPaneController implements IObserver {
 			}
 		});
 	}
-	
+
 	@FXML
 	private void handleChangeShape() {
 		drawSettings.setShape(shape.getValue());
@@ -183,7 +194,8 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditLineWidth() {
-		if (!attributes.isVisible()) return;
+		if (!attributes.isVisible())
+			return;
 		// Extract the integer in the string
 		String widthStr = editLineWidth.getValue().replaceAll("[^0-9]", "");
 		int newWidth = Integer.parseInt(widthStr);
@@ -193,37 +205,42 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditFillColor() {
-		if (!attributes.isVisible()) return;
-		String color =  String.format(
-			"#%02X%02X%02X",
-			(int) (editFillColor.getValue().getRed() * 255),
-			(int) (editFillColor.getValue().getGreen() * 255),
-			(int) (editFillColor.getValue().getBlue() * 255));
+		if (!attributes.isVisible())
+			return;
+		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
+				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
 		shapeToEdit.setFillColor(color);
 		shapeEditor.edit(shapeToEdit);
 	}
 
 	@FXML
 	private void handleEditStrokeColor() {
-		if (!attributes.isVisible()) return;
-		String color =  String.format(
-			"#%02X%02X%02X",
-			(int) (editStrokeColor.getValue().getRed() * 255),
-			(int) (editStrokeColor.getValue().getGreen() * 255),
-			(int) (editStrokeColor.getValue().getBlue() * 255));
+		if (!attributes.isVisible())
+			return;
+		String color = String.format("#%02X%02X%02X", (int) (editStrokeColor.getValue().getRed() * 255),
+				(int) (editStrokeColor.getValue().getGreen() * 255),
+				(int) (editStrokeColor.getValue().getBlue() * 255));
 		shapeToEdit.setStrokeColor(color);
 		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	@FXML
 	private void handleEditText() {
+		if (!attributes.isVisible())
+			return;
+		if (editText.getText() == null || editText.getText() == "") {
+			editText.setText(((Text) shapeToEdit).getText());
+			return;
+		}
 		String editedText = editText.getText();
-		//
+		((Text) shapeToEdit).setText(editedText);
+		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	@FXML
 	private void handleEditX() {
-		if (!attributes.isVisible()) return;
+		if (!attributes.isVisible())
+			return;
 		if (editX.getText() == null || editX.getText().trim().isEmpty()) {
 			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getX())));
 			return;
@@ -232,10 +249,11 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setX(newX);
 		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	@FXML
 	private void handleEditY() {
-		if (!attributes.isVisible()) return;
+		if (!attributes.isVisible())
+			return;
 		if (editY.getText() == null || editY.getText().trim().isEmpty()) {
 			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getY())));
 			return;
@@ -244,10 +262,11 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setY(newY);
 		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	@FXML
 	private void handleEditWidth() {
-		if (!attributes.isVisible()) return;
+		if (!attributes.isVisible())
+			return;
 		if (editWidth.getText() == null || editWidth.getText().trim().isEmpty()) {
 			editWidth.setText(String.valueOf((int) Math.round(shapeToEdit.getWidth())));
 			return;
@@ -256,10 +275,11 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setWidth(newWidth);
 		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	@FXML
 	private void handleEditHeight() {
-		if (!attributes.isVisible()) return;
+		if (!attributes.isVisible())
+			return;
 		if (editHeight.getText() == null || editHeight.getText().trim().isEmpty()) {
 			editHeight.setText(String.valueOf((int) Math.round(shapeToEdit.getHeight())));
 			return;
@@ -268,10 +288,11 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setHeight(newHeight);
 		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	@FXML
 	private void handleRotate() {
-		if (!attributes.isVisible()) return;
+		if (!attributes.isVisible())
+			return;
 		if (rotate.getText() == null || rotate.getText().trim().isEmpty()) {
 			rotate.setText(String.valueOf((int) Math.round(shapeToEdit.getRotation())));
 			return;
