@@ -213,12 +213,12 @@ public class CenterPaneController implements IObserver {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
 			gc.strokeRect(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2), boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getWidth() + 2 + drawSettings.getLineWidth(), boundingBox.getHeight() + 2 + drawSettings.getLineWidth());
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2), boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2));
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
 			gc.strokeRect(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2), boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getWidth() + 2 + drawSettings.getLineWidth(), boundingBox.getHeight() + 2 + drawSettings.getLineWidth());
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2), boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2));
 		}
 	}
 
