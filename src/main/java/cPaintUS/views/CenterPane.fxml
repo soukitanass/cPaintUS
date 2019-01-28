@@ -23,11 +23,7 @@
 							onMouseDragged="#onMouseDragged"
 							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<Canvas fx:id="boundingBoxCanvas" 
-							height="1000.0"
-							width="1000.0"
-							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Canvas fx:id="boundingBoxCanvas" />
 					</children>
 				</AnchorPane>
 			</content>

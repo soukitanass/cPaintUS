@@ -154,7 +154,6 @@ public class CenterPaneController implements IObserver {
 	private void scrollPaneWidthHandler(double width) {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setWidth(width);
-		boundingBoxCanvas.setWidth(width);
 		if(pane.getWidth() > width) {
 			baseCanvas.setWidth(pane.getWidth());
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -165,7 +164,6 @@ public class CenterPaneController implements IObserver {
 	private void scrollPaneHeightHandler(double height) {
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setHeight(height);
-		boundingBoxCanvas.setHeight(height);
 		if(pane.getHeight() > height) {
 			baseCanvas.setHeight(pane.getHeight());
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -207,19 +205,22 @@ public class CenterPaneController implements IObserver {
 	}
 	
 	private void drawBoundingBox() {
+		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2) - 3);
+		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2) - 3);
+		boundingBoxCanvas.setWidth(boundingBox.getWidth() + drawSettings.getLineWidth() + 6);
+		boundingBoxCanvas.setHeight(boundingBox.getHeight() + drawSettings.getLineWidth() + 6);
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2), boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2), boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2));
+			gc.strokeRect((1 + drawSettings.getLineWidth() / 2) + 1, (1 + drawSettings.getLineWidth() / 2) + 1,
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2, boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2), boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2), boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2));
+			gc.strokeRect((1 + drawSettings.getLineWidth() / 2) + 1, (1 + drawSettings.getLineWidth() / 2) + 1,
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2, boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 		}
 	}
 
