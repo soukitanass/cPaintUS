@@ -48,8 +48,6 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Button eraseAllBtn;
 	@FXML
-	private Button addTextBtn;
-	@FXML
 	private ListView<Shape> shapeList;
 
 	@FXML
@@ -143,6 +141,9 @@ public class LeftPaneController implements IObserver {
 	private void handleChangeShape() {
 		drawSettings.setShape(shape.getValue());
 		fillColor.setDisable(shape.getValue() == ShapeType.Line);
+		if (shape.getValue() == ShapeType.Text) {
+			handleTextAddClick();
+		}
 	}
 
 	@FXML
@@ -196,8 +197,7 @@ public class LeftPaneController implements IObserver {
 		}
 	}
 
-	@FXML
-	public void handleTextAddClick() {
+	private void handleTextAddClick() {
 
 		drawSettings.setShape(ShapeType.Text);
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/AddText.fxml"));
