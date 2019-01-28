@@ -18,6 +18,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +36,10 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	private AnchorPane pane;
-
+	
+	@FXML
+	private ScrollPane scrollPane;
+	
 	private Canvas activeCanvas;
 
 	private Pointer pointer;
@@ -87,6 +93,16 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	public void initialize() {
+		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+			scrollPaneWidthHandler(newVal.doubleValue());
+		});
+
+		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+			scrollPaneHeightHandler(newVal.doubleValue());
+		});
+
+		baseCanvas.setBlendMode(BlendMode.SRC_OVER);
+		boundingBoxCanvas.setBlendMode(BlendMode.SRC_OVER);
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -132,6 +148,26 @@ public class CenterPaneController implements IObserver {
 		draw(false);
 	}
 
+	private void scrollPaneWidthHandler(double width) {
+		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		baseCanvas.setWidth(width);
+		boundingBoxCanvas.setWidth(width);
+		if(pane.getWidth() > width) {
+			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		}
+		drawBoundingBox();
+	}
+	
+	private void scrollPaneHeightHandler(double height) {
+		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+		baseCanvas.setHeight(height);
+		boundingBoxCanvas.setHeight(height);
+		if(pane.getHeight() > height) {
+			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		}
+		drawBoundingBox();
+	}
+
 	private void eraseCanvas() {
 		List<Node> canvasList = pane.getChildren();
 		List<Node> canvasToRemove = new ArrayList<Node>();
@@ -151,9 +187,8 @@ public class CenterPaneController implements IObserver {
 
 	private void initializeNewCanvas() {
 		Canvas newCanvas = new Canvas();
-		newCanvas.setHeight(1000.0);
-		newCanvas.setWidth(1000.0);
 		newCanvas.setMouseTransparent(true);
+		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
@@ -163,7 +198,9 @@ public class CenterPaneController implements IObserver {
 		if(shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
-		drawBoundingBox();			
+		drawBoundingBox();
+		scrollPaneWidthHandler(scrollPane.getWidth());
+		scrollPaneHeightHandler(scrollPane.getHeight());
 	}
 	
 	private void drawBoundingBox() {

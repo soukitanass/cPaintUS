@@ -1,6 +1,5 @@
 package cPaintUS.controllers.drawers;
 
-import cPaintUS.models.Point;
 import cPaintUS.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +19,8 @@ public class DrawerStrategyContext {
 
 	public void draw(Shape shape, Canvas activeCanvas) {
 		IDrawerStrategy drawerStrategy;
+		activeCanvas.setWidth(shape.getX()+ shape.getWidth());
+		activeCanvas.setHeight(shape.getY()+ shape.getHeight());
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
 		shape.setCanvasId(activeCanvas.hashCode());
