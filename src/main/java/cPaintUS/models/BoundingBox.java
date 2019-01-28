@@ -71,8 +71,8 @@ public class BoundingBox extends Observable<IObserver>{
 	}
 	
 	public void setVisible(boolean visible) {
-		notifyAllObservers();
 		this.visible = visible;
+		notifyAllObservers();
 	}
 	
 	public boolean isVisible() {

@@ -3,8 +3,10 @@ package cPaintUS.controllers;
 import java.io.IOException;
 
 import cPaintUS.controllers.popup.AddTextController;
+import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.LineWidth;
+import cPaintUS.models.Point;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -36,6 +38,7 @@ public class LeftPaneController implements IObserver {
 	private ShapesDict shapesDict;
 	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
+	private BoundingBox boundingBox;
 	
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -81,6 +84,7 @@ public class LeftPaneController implements IObserver {
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
+		boundingBox = BoundingBox.getInstance();
 	}
 
 	@FXML
@@ -105,11 +109,13 @@ public class LeftPaneController implements IObserver {
 		// Event listener when shape is selected
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
-			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {				
+			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
+				boundingBox.setVisible(newShape != null);
 				if (newShape == null) {
 					attributes.setVisible(false);
 					return;
 				}
+
 				shapeToEdit = newShape;
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
@@ -130,10 +136,11 @@ public class LeftPaneController implements IObserver {
 				editHeight.setText(String.valueOf(newShape.getHeight()));
 				rotate.setText(String.valueOf(newShape.getRotation()));
 				attributes.setVisible(true);
+				shapeEditor.edit(newShape);
 			}
 		});
 	}
-
+	
 	@FXML
 	private void handleChangeShape() {
 		drawSettings.setShape(shape.getValue());
