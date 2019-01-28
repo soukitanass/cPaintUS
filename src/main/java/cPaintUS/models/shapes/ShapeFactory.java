@@ -91,7 +91,7 @@ public class ShapeFactory {
 			shapeId = "Text_" + textNb;
 			if (persistent)
 				textNb++;
-			shape = new Text(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor, text,
+			shape = new Text(shapeId, x, y, totalShapeNb, rotation, width, height, lineWidth, strokeColor, fillColor, text,
 					ShapeType.Text);
 			break;
 		default:
