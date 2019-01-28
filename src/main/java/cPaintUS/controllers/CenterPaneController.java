@@ -11,6 +11,7 @@ import cPaintUS.models.observable.IAddTextObserver;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
+import cPaintUS.models.shapes.ShapeEditor;
 import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
 import cPaintUS.models.shapes.ShapesDict;
@@ -50,6 +51,8 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private ShapesDict shapesDict;
 	private AddTextSingleton addTextSingleton;
 	private DrawerStrategyContext drawerStrategyContext;
+	private ShapeEditor shapeEditor;
+	
 	private boolean hasBeenDragged;
 
 	private String text;
@@ -70,6 +73,8 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		SnapshotSingleton.getInstance().register(this);
 		addTextSingleton = AddTextSingleton.getInstance();
 		addTextSingleton.register(this);
+		shapeEditor = ShapeEditor.getInstance();
+		shapeEditor.register(this);
 
 		hasBeenDragged = false;
 
@@ -121,6 +126,10 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		case SHAPES_UPDATED:
 			eraseCanvas();
 			refresh();
+			break;
+		case EDIT_SHAPE:
+			editShape();
+			shapeEditor.done();
 			break;
 		case LOAD_IMAGE:
 			loadImage();
@@ -199,6 +208,15 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
+	
+	private void editShape() {
+		Shape shape = shapeEditor.getShapeToEdit();
+		if (shape == null) System.out.println("ERROR: No shape to edit.");
+
+		int index = shape.getZ();
+		Canvas canvas = (Canvas) pane.getChildren().get(index);
+		drawerStrategyContext.draw(shape, canvas);	
+	}
 
 	public void draw(boolean persistent) {
 		activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
@@ -259,22 +277,39 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.Line) {
-			newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
-					boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY(),
-					boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY(), lineWidth,
-					sstrokeColor, sfillColor, null);
+			newShape = shapeFactory.getShape(
+					shapeType,
+					persistent,
+					boundingBox.getOrigin().getX(),
+					boundingBox.getOrigin().getY(),
+					boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(),
+					0,
+					lineWidth,
+					sstrokeColor,
+					sfillColor,
+					null);
 		} else if (shapeType == ShapeType.Text) {
 			if (boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 				newShape = null;
 			} else {
-				newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
-						boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(), boundingBox.getHeight(), lineWidth, sstrokeColor, sfillColor, text);
+				newShape = shapeFactory.getShape(
+						shapeType,
+						persistent,
+						boundingBox.getUpLeftCorner().getX(),
+						boundingBox.getUpLeftCorner().getY(),
+						boundingBox.getWidth(),
+						boundingBox.getHeight(),
+						0,
+						lineWidth,
+						sstrokeColor,
+						sfillColor,
+						text);
 			}
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, activeCanvas.hashCode(),
+			newShape = shapeFactory.getShape(shapeType, persistent,
 					boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(),
-					boundingBox.getHeight(), lineWidth, sstrokeColor, sfillColor, null);
+					boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, null);
 		}
 
 		if (newShape != null && persistent) {

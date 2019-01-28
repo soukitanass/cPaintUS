@@ -25,7 +25,6 @@ public class DrawerStrategyContext {
 		activeCanvas.setHeight(shape.getHeight()+shape.getLineWidth());
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
-		shape.setCanvasId(activeCanvas.hashCode());
 		switch (shape.getShapeType()) {
 		case Rectangle:
 			drawerStrategy = new RectangleDrawerStrategy();
@@ -66,5 +65,7 @@ public class DrawerStrategyContext {
 		default:
 			break;
 		}
+		
+		activeCanvas.setRotate(shape.getRotation());
 	}
 }
