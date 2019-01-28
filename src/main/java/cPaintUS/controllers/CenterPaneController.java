@@ -7,7 +7,7 @@ import cPaintUS.controllers.drawers.DrawerStrategyContext;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.Pointer;
-import cPaintUS.models.observable.IAddObserver;
+import cPaintUS.models.observable.IAddTextObserver;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -23,7 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class CenterPaneController implements IObserver,IAddObserver {
+public class CenterPaneController implements IObserver,IAddTextObserver {
 
 	@FXML
 	private Canvas baseCanvas;

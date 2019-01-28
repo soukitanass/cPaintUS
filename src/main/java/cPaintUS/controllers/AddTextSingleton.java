@@ -1,9 +1,9 @@
 package cPaintUS.controllers;
 
-import cPaintUS.models.observable.IAddObserver;
+import cPaintUS.models.observable.IAddTextObserver;
 import cPaintUS.models.observable.Observable;
 
-public class AddTextSingleton extends Observable<CenterPaneController>{
+public class AddTextSingleton extends Observable<IAddTextObserver>{
 	
 	private static AddTextSingleton INSTANCE = null;
 	private String text;
@@ -21,7 +21,7 @@ public class AddTextSingleton extends Observable<CenterPaneController>{
 
 	@Override
 	public void notifyAllObservers() {
-		for (IAddObserver obs : getObserverList()) {
+		for (IAddTextObserver obs : getObserverList()) {
 			obs.update(getText());
 		}
 		

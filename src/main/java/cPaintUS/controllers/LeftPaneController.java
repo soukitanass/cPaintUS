@@ -2,6 +2,7 @@ package cPaintUS.controllers;
 
 import java.io.IOException;
 
+import cPaintUS.controllers.popup.AddTextController;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.LineWidth;
 import cPaintUS.models.observable.IObserver;

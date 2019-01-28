@@ -1,5 +1,6 @@
-package cPaintUS.controllers;
+package cPaintUS.controllers.popup;
 
+import cPaintUS.controllers.AddTextSingleton;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -41,10 +42,6 @@ public class AddTextController {
 
 	@FXML
 	public void handleAddTextClick() {
-		/*
-		 * CenterPaneController center = rootController.getCenterPaneController();
-		 * center.setText(addText.getText()); center.draw(true);
-		 */
 		addTextSingleton.setText(addText.getText());
 		addTextSingleton.notifyAllObservers();
 		addDialog.close();

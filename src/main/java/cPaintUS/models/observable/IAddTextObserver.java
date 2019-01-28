@@ -1,5 +1,5 @@
 package cPaintUS.models.observable;
 
-public interface IAddObserver {
+public interface IAddTextObserver {
 	public void update(String text);
 }
