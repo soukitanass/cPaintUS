@@ -25,6 +25,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -60,6 +61,10 @@ public class LeftPaneController implements IObserver {
 	private ColorPicker editFillColor;
 	@FXML
 	private ColorPicker editStrokeColor;
+	@FXML
+	private TextField editText;
+	@FXML
+	private Button edditBtn;
 	@FXML
 	private Spinner<Integer> editX;
 	@FXML
@@ -123,8 +128,12 @@ public class LeftPaneController implements IObserver {
 				case Rectangle:
 					editFillColor.setValue(Color.web(((Rectangle) newShape).getFillColor()));
 					break;
+				case Text:
+					editText.setDisable(false);
+					break;
 				default:
 					editFillColor.setDisable(true);
+					editText.setDisable(true);
 					break;
 				}
 
@@ -187,6 +196,11 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleEditStrokeColor() {
 		//
+	}
+
+	@FXML
+	private void handleEditText() {
+		String editedText = editText.getText();
 	}
 
 	@Override
