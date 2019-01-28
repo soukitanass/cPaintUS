@@ -19,8 +19,10 @@ public class DrawerStrategyContext {
 
 	public void draw(Shape shape, Canvas activeCanvas) {
 		IDrawerStrategy drawerStrategy;
-		activeCanvas.setWidth(shape.getX()+ shape.getWidth());
-		activeCanvas.setHeight(shape.getY()+ shape.getHeight());
+		activeCanvas.setTranslateX(shape.getX()-(shape.getLineWidth()/2));
+		activeCanvas.setTranslateY(shape.getY()-(shape.getLineWidth()/2));
+		activeCanvas.setWidth(shape.getWidth()+shape.getLineWidth());
+		activeCanvas.setHeight(shape.getHeight()+shape.getLineWidth());
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
 		shape.setCanvasId(activeCanvas.hashCode());
@@ -34,8 +36,8 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case Line:
-			activeCanvas.setWidth(shape.getX() + Math.abs(shape.getWidth() - shape.getX()));
-			activeCanvas.setHeight(shape.getY()+ Math.abs(shape.getHeight() - shape.getY()));
+			activeCanvas.setWidth(Math.abs(shape.getWidth() - shape.getX()));
+			activeCanvas.setHeight(Math.abs(shape.getHeight() - shape.getY()));
 			drawerStrategy = new LineDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;

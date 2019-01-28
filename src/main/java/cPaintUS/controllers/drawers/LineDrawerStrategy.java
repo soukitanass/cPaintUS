@@ -10,7 +10,7 @@ public class LineDrawerStrategy implements IDrawerStrategy {
 	public void draw(GraphicsContext gc, Shape shape) {
 		gc.setStroke(Color.web(shape.getStrokeColor()));
 		gc.setLineWidth(shape.getLineWidth());
-		gc.strokeLine(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+		gc.strokeLine(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth()/2, shape.getHeight() - shape.getLineWidth()/2);
 	}
 
 }
