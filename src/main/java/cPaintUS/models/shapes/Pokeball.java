@@ -6,9 +6,20 @@ public class Pokeball extends Shape {
 	private String fillColor;
 	private Color backColor;
 
-	public Pokeball(String shapeId, int canvasId, double x, double y, int z, double width, double height, int lineWidth,
-			String strokeColor, String fillColor,ShapeType shapeType) {
-		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor,shapeType);
+	public Pokeball(
+			String shapeId,
+			double x,
+			double y,
+			int z,
+			double width,
+			double height,
+			double rotation,
+			int lineWidth,
+			String strokeColor,
+			String fillColor,
+			ShapeType shapeType) 
+	{
+		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor,shapeType);
 
 		this.fillColor = fillColor;
 		this.backColor = Color.WHITE;
@@ -18,10 +29,12 @@ public class Pokeball extends Shape {
 
 	}
 
+	@Override
 	public String getFillColor() {
 		return this.fillColor;
 	}
 
+	@Override
 	public void setFillColor(String fillColor) {
 		this.fillColor = fillColor;
 	}

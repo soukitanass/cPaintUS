@@ -4,9 +4,9 @@ public class Text extends Shape{
 
 	private String text;
 	
-	public Text(String shapeId, int canvasId, double x, double y, int z, double width, double height,
+	public Text(String shapeId, double x, double y, int z, double width, double height, double rotation,
 			int lineWidth, String strokeColor, String text,ShapeType shapeType) {
-		super(shapeId, canvasId, x, y, z, width, height, lineWidth, strokeColor,shapeType);
+		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor,shapeType);
 		this.setText(text);
 
 	}
