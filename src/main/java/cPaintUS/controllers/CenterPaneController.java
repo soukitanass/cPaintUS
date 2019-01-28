@@ -19,6 +19,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -33,7 +37,10 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 
 	@FXML
 	private AnchorPane pane;
-
+	
+	@FXML
+	private ScrollPane scrollPane;
+	
 	private Canvas activeCanvas;
 
 	private Pointer pointer;
@@ -92,6 +99,15 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 
 	@FXML
 	public void initialize() {
+		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+			scrollPaneWidthHandler(newVal.doubleValue());
+		});
+
+		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+			scrollPaneHeightHandler(newVal.doubleValue());
+		});
+
+		pane.setStyle("-fx-background-color: white");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -140,6 +156,26 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		draw(false);
 	}
 
+	private void scrollPaneWidthHandler(double width) {
+		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		baseCanvas.setWidth(width);
+		if(pane.getWidth() > width) {
+			baseCanvas.setWidth(pane.getWidth());
+			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		}
+		drawBoundingBox();
+	}
+	
+	private void scrollPaneHeightHandler(double height) {
+		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+		baseCanvas.setHeight(height);
+		if(pane.getHeight() > height) {
+			baseCanvas.setHeight(pane.getHeight());
+			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		}
+		drawBoundingBox();
+	}
+
 	private void eraseCanvas() {
 		List<Node> canvasList = pane.getChildren();
 		List<Node> canvasToRemove = new ArrayList<Node>();
@@ -153,13 +189,14 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		}
 
 		boundingBox.setVisible(false);
+		scrollPaneWidthHandler(pane.getWidth());
+		scrollPaneHeightHandler(pane.getHeight());
 	}
 
 	private void initializeNewCanvas() {
 		Canvas newCanvas = new Canvas();
-		newCanvas.setHeight(1000.0);
-		newCanvas.setWidth(1000.0);
 		newCanvas.setMouseTransparent(true);
+		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
@@ -169,26 +206,33 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
+		drawBoundingBox();
+		scrollPaneWidthHandler(scrollPane.getWidth());
+		scrollPaneHeightHandler(scrollPane.getHeight());
 	}
 
 	private void drawBoundingBox() {
+		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2) - 3);
+		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2) - 3);
+		boundingBoxCanvas.setWidth(boundingBox.getWidth() + drawSettings.getLineWidth() + 6);
+		boundingBoxCanvas.setHeight(boundingBox.getHeight() + drawSettings.getLineWidth() + 6);
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getWidth() + 2 + drawSettings.getLineWidth(),
-					boundingBox.getHeight() + 2 + drawSettings.getLineWidth());
+			gc.strokeRect((1 + drawSettings.getLineWidth() / 2) + 1, (1 + drawSettings.getLineWidth() / 2) + 1,
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2, boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
+			gc.setLineWidth(1);
+			gc.setStroke(Color.GRAY);
+			gc.strokeLine(3,3, boundingBox.getWidth()+3, boundingBox.getHeight()+3);
+			gc.strokeLine(boundingBox.getWidth()+3, 3, 3, boundingBox.getHeight()+3);
+			
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2),
-					boundingBox.getWidth() + 2 + drawSettings.getLineWidth(),
-					boundingBox.getHeight() + 2 + drawSettings.getLineWidth());
+			gc.strokeRect((1 + drawSettings.getLineWidth() / 2) + 1, (1 + drawSettings.getLineWidth() / 2) + 1,
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2, boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 		}
 	}
 

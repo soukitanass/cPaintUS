@@ -30,11 +30,13 @@ public class HeartDrawerStrategy implements IDrawerStrategy {
 	}
 	
 	private void drawStrokeHeart(GraphicsContext gc, Shape heart) {
-		int size = 2*(int)heart.getWidth()+1;
+		int size = 2*(int)(heart.getWidth()- heart.getLineWidth())+1;
+		if(size < 0)
+			size = 0;
 		double[] yTop = new double[size];
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
-		calculHeartShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
+		calculHeartShape(heart.getLineWidth()/2, heart.getLineWidth()/2, heart.getWidth() - heart.getLineWidth(), heart.getHeight()- heart.getLineWidth(), xAxis, yTop, yBottom, size);
 		gc.setStroke(Color.web(heart.getStrokeColor()));
 		gc.setLineWidth(heart.getLineWidth());
 		
@@ -70,7 +72,7 @@ public class HeartDrawerStrategy implements IDrawerStrategy {
 		double[] yTop = new double[size];
 		double[] yBottom = new double[size];
 		double[] xAxis = new double[size];
-		calculHeartShape(heart.getX(), heart.getY(), heart.getWidth(), heart.getHeight(), xAxis, yTop, yBottom, size);
+		calculHeartShape(heart.getLineWidth()/2, heart.getLineWidth()/2, heart.getWidth() - heart.getLineWidth(), heart.getHeight() - heart.getLineWidth(), xAxis, yTop, yBottom, size);
 		for(int i = 0 ; i<size; i++) {
 			gc.setStroke(Color.web(heart.getFillColor()));
 			gc.setLineWidth(1);

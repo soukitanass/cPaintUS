@@ -17,7 +17,7 @@ public class PictureDrawerStrategy implements IDrawerStrategy {
 	@Override
 	public void draw(GraphicsContext gc, Shape shape) {
 		Picture picture = (Picture) shape;
-		gc.drawImage(decode(picture.getBase64()), picture.getX(), picture.getY());
+		gc.drawImage(decode(picture.getBase64()), 0, 0);
 	}
 	
 	private Image decode(String base64) {

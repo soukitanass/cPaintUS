@@ -37,7 +37,7 @@ class BoundingBoxTest {
 	
 	@Test
 	void updateBoundingBoxTest() {
-		Point expected = new Point(1.0,2.0);
+		Point expected = new Point(3.0,2.0);
 		boundingBox.updateBoundingBox(expected);
 		
 		assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
@@ -46,9 +46,9 @@ class BoundingBoxTest {
 
 	@Test
 	void getUpLeftCornerTest() {
-		Point expected = new Point(0.3,0.4);
-		boundingBox.setOrigin(new Point(1.0,1.0));
-		boundingBox.updateBoundingBox(new Point(0.3,0.4));
+		Point expected = new Point(2.2,3.0);
+		boundingBox.setOrigin(new Point(15.3,3.0));
+		boundingBox.updateBoundingBox(new Point(2.2,11.3));
 		
 		assertEquals(expected.getX(),boundingBox.getUpLeftCorner().getX());
 		assertEquals(expected.getY(),boundingBox.getUpLeftCorner().getY());
