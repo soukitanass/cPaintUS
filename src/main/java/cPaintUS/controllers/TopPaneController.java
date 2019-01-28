@@ -25,7 +25,7 @@ public class TopPaneController {
 	private MenuBar menuBar;
 
 	private ShapesDict shapesDict;
-	
+
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
@@ -78,7 +78,7 @@ public class TopPaneController {
 			stage.setTitle("About");
 			stage.setScene(scene);
 			stage.setResizable(false);
-			
+
 			AboutController controller = fxmlLoader.getController();
 			controller.setNewDialog(stage);
 			stage.showAndWait();

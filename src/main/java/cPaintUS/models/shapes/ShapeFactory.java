@@ -8,6 +8,7 @@ public class ShapeFactory {
 	private int pokeballNb;
 	private int heartNb;
 	private int pictureNb;
+	private int textNb;
 	private int totalShapeNb;
 
 	private ShapeFactory() {
@@ -28,60 +29,71 @@ public class ShapeFactory {
 		return factory;
 	}
 
-	public Shape getShape(ShapeType shapeType, boolean persistent, int canvasId, double x, double y, double width, double height, int lineWidth,
-			String strokeColor, String fillColor) {
+	public Shape getShape(ShapeType shapeType, boolean persistent, int canvasId, double x, double y, double width,
+			double height, int lineWidth, String strokeColor, String fillColor, String text) {
 		String shapeId;
 		Shape shape;
 
-		if(persistent)
+		if (persistent)
 			totalShapeNb++;
-		
+
 		switch (shapeType) {
 		case Rectangle:
 			shapeId = "Rectangle_" + rectangleNb;
-			if(persistent)
+			if (persistent)
 				rectangleNb++;
 			shape = new Rectangle(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,
-					fillColor,ShapeType.Rectangle);
+					fillColor, ShapeType.Rectangle);
 			break;
 		case Ellipse:
 			shapeId = "Ellipse_" + ellipseNb;
-			if(persistent)
+			if (persistent)
 				ellipseNb++;
-			shape = new Ellipse(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor,ShapeType.Ellipse);
+			shape = new Ellipse(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor,
+					ShapeType.Ellipse);
 			break;
 		case Line:
 			shapeId = "Line_" + lineNb;
-			if(persistent)
+			if (persistent)
 				lineNb++;
-			shape = new Line(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,ShapeType.Line);
+			shape = new Line(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,
+					ShapeType.Line);
 			break;
 		case Pokeball:
 			shapeId = "Pokeball_" + pokeballNb;
-			if(persistent)
+			if (persistent)
 				pokeballNb++;
 			shape = new Pokeball(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor,
-					fillColor,ShapeType.Pokeball);
+					fillColor, ShapeType.Pokeball);
 			break;
 		case Heart:
 			shapeId = "Heart_" + heartNb;
-			if(persistent)
+			if (persistent)
 				heartNb++;
-			shape = new Heart(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor, ShapeType.Heart);
+			shape = new Heart(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor,
+					ShapeType.Heart);
 			break;
 		case Picture:
 			shapeId = "Picture_" + pictureNb;
-			if(persistent)
+			if (persistent)
 				pictureNb++;
-			shape = new Picture(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor, ShapeType.Picture);
+			shape = new Picture(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, fillColor,
+					ShapeType.Picture);
+			break;
+		case Text:
+			shapeId = "Text_" + textNb;
+			if (persistent)
+				textNb++;
+			shape = new Text(shapeId, canvasId, x, y, totalShapeNb, width, height, lineWidth, strokeColor, text,
+					ShapeType.Text);
 			break;
 		default:
-			if(persistent)
+			if (persistent)
 				totalShapeNb--;
 			shape = null;
 			break;
 		}
-		
+
 		return shape;
 	}
 

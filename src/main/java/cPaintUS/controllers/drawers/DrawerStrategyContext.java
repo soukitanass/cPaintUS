@@ -59,6 +59,10 @@ public class DrawerStrategyContext {
 			drawerStrategy = new PictureDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
+		case Text:
+			drawerStrategy = new TextDrawerStrategy();
+			drawerStrategy.draw(gc, shape);
+			break;
 		default:
 			break;
 		}
