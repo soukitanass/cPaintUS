@@ -214,15 +214,17 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private void drawBoundingBox() {
 		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2) - 3);
 		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2) - 3);
-		boundingBoxCanvas.setWidth(boundingBox.getWidth() + drawSettings.getLineWidth() + 6);
-		boundingBoxCanvas.setHeight(boundingBox.getHeight() + drawSettings.getLineWidth() + 6);
+		boundingBoxCanvas.setWidth(boundingBox.getWidth() + drawSettings.getLineWidth() + 8);
+		boundingBoxCanvas.setHeight(boundingBox.getHeight() + drawSettings.getLineWidth() + 8);
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect((1 + drawSettings.getLineWidth() / 2) + 1, (1 + drawSettings.getLineWidth() / 2) + 1,
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2, boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
+			gc.strokeRect(2,
+					2,
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
+					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
 			gc.strokeLine(3,3, boundingBox.getWidth()+3, boundingBox.getHeight()+3);
@@ -231,8 +233,11 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect((1 + drawSettings.getLineWidth() / 2) + 1, (1 + drawSettings.getLineWidth() / 2) + 1,
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2, boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
+			gc.strokeRect(
+					2,
+					2,
+					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
+					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 		}
 	}
 

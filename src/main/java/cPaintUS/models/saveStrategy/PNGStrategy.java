@@ -58,10 +58,10 @@ public class PNGStrategy implements FileManagerStrategy {
 				bytes = Files.readAllBytes(Paths.get(path));
 				String img = Base64.getEncoder().encodeToString(bytes);
 				Shape pic = shapeFactory.getShape(ShapeType.Picture, true, 0, 0, 0, 10, 10, 1, "a", img,null);
-				shapeDict.addShape(pic);
 				snapshotSingleton.setImage((Picture)pic);
 				pic.setHeight(snapshotSingleton.getImage().getHeight());
 				pic.setWidth(snapshotSingleton.getImage().getWidth());
+				shapeDict.addShape(pic);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
