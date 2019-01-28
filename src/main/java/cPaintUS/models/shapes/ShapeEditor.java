@@ -34,6 +34,7 @@ public class ShapeEditor extends Observable<IObserver> {
 	
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
+		boundingBox.setRotation(shape.getRotation());
 		if (shape.getShapeType() == ShapeType.Line) {
 			boundingBox.updateBoundingBox(new Point(shape.getWidth(),
 					shape.getHeight()));

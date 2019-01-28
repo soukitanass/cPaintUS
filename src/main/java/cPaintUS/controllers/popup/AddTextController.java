@@ -43,7 +43,6 @@ public class AddTextController {
 	@FXML
 	public void handleAddTextClick() {
 		addTextSingleton.setText(addText.getText());
-		addTextSingleton.notifyAllObservers();
 		addDialog.close();
 	}
 
