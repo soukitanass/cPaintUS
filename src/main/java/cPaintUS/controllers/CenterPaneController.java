@@ -7,6 +7,7 @@ import cPaintUS.controllers.drawers.DrawerStrategyContext;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.Pointer;
+import cPaintUS.models.observable.IAddObserver;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -22,7 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class CenterPaneController implements IObserver {
+public class CenterPaneController implements IObserver,IAddObserver {
 
 	@FXML
 	private Canvas baseCanvas;
@@ -40,6 +41,7 @@ public class CenterPaneController implements IObserver {
 	private DrawSettings drawSettings;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
+	private AddTextSingleton addTextSingleton;
 	private DrawerStrategyContext drawerStrategyContext;
 	private boolean hasBeenDragged;
 
@@ -59,6 +61,8 @@ public class CenterPaneController implements IObserver {
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
+		addTextSingleton = AddTextSingleton.getInstance();
+		addTextSingleton.register(this);
 
 		hasBeenDragged = false;
 
@@ -109,6 +113,9 @@ public class CenterPaneController implements IObserver {
 			eraseAll();
 			break;
 		case BOUNDING_BOX:
+			drawBoundingBox();
+			break;
+		case ADD_TEXT:
 			drawBoundingBox();
 			break;
 		default:
@@ -251,6 +258,13 @@ public class CenterPaneController implements IObserver {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	@Override
+	public void update( String text) {
+		setText(text);
+		draw(true);
+		
 	}
 
 }

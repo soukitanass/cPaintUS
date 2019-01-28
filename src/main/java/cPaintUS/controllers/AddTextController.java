@@ -24,14 +24,14 @@ public class AddTextController {
 	@FXML
 	private HBox buttonsHBox;
 
-	private RootController rootController;
+	private AddTextSingleton addTextSingleton;
+
+	public AddTextController() {
+		addTextSingleton = AddTextSingleton.getInstance();
+	}
 
 	public void setAddDialog(Stage stage) {
 		this.addDialog = stage;
-	}
-
-	public void setRoot(RootController rootController) {
-		this.rootController = rootController;
 	}
 
 	@FXML
@@ -41,9 +41,12 @@ public class AddTextController {
 
 	@FXML
 	public void handleAddTextClick() {
-		CenterPaneController center = rootController.getCenterPaneController();
-		center.setText(addText.getText());
-		center.draw(true);
+		/*
+		 * CenterPaneController center = rootController.getCenterPaneController();
+		 * center.setText(addText.getText()); center.draw(true);
+		 */
+		addTextSingleton.setText(addText.getText());
+		addTextSingleton.notifyAllObservers();
 		addDialog.close();
 	}
 

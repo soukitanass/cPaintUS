@@ -51,7 +51,6 @@ public class LeftPaneController implements IObserver {
 	private Button addTextBtn;
 	@FXML
 	private ListView<Shape> shapeList;
-	private RootController rootController;
 
 	@FXML
 	private ToolBar attributes;
@@ -74,10 +73,6 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Spinner<Integer> rotate;
 
-	public void setRoot(RootController rootController) {
-		this.rootController = rootController;
-	}
-
 	public LeftPaneController() {
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
@@ -99,10 +94,10 @@ public class LeftPaneController implements IObserver {
 		fillColor.setDisable(true);
 		fillColor.setValue(Color.BLACK);
 		strokeColor.setValue(Color.BLACK);
-		
+
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		attributes.setVisible(false);
-		
+
 		// Event listener when shape is selected
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
@@ -114,27 +109,27 @@ public class LeftPaneController implements IObserver {
 				attributes.setVisible(true);
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
-				editLineWidth.setValue(newShape.getLineWidth() + "px");			
+				editLineWidth.setValue(newShape.getLineWidth() + "px");
 				editFillColor.setDisable(false);
 
 				switch (newShape.getShapeType()) {
-					case Ellipse: 
-						editFillColor.setValue(Color.web(((Ellipse) newShape).getFillColor()));
-						break;
-					case Heart:
-						editFillColor.setValue(Color.web(((Heart) newShape).getFillColor()));
-						break;
-					case Pokeball:
-						editFillColor.setValue(Color.web(((Pokeball) newShape).getFillColor()));
-						break;
-					case Rectangle:
-						editFillColor.setValue(Color.web(((Rectangle) newShape).getFillColor()));
-						break;
-					default:
-						editFillColor.setDisable(true);
-						break;
+				case Ellipse:
+					editFillColor.setValue(Color.web(((Ellipse) newShape).getFillColor()));
+					break;
+				case Heart:
+					editFillColor.setValue(Color.web(((Heart) newShape).getFillColor()));
+					break;
+				case Pokeball:
+					editFillColor.setValue(Color.web(((Pokeball) newShape).getFillColor()));
+					break;
+				case Rectangle:
+					editFillColor.setValue(Color.web(((Rectangle) newShape).getFillColor()));
+					break;
+				default:
+					editFillColor.setDisable(true);
+					break;
 				}
-				
+
 				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
 				editX.getValueFactory().setValue((int) newShape.getX());
 				editY.getValueFactory().setValue((int) newShape.getY());
@@ -173,21 +168,21 @@ public class LeftPaneController implements IObserver {
 	private void handleEraseAllClick() {
 		SnapshotSingleton.getInstance().eraseAll();
 	}
-	
+
 	@FXML
 	private void handleEditLineWidth() {
 		// Extract the integer in the string
 		String widthStr = lineWidth.getValue().replaceAll("[^0-9]", "");
 		int newWidth = Integer.parseInt(widthStr);
-		
+
 		//
 	}
-	
+
 	@FXML
 	private void handleEditFillColor() {
 		//
 	}
-	
+
 	@FXML
 	private void handleEditStrokeColor() {
 		//
@@ -218,7 +213,6 @@ public class LeftPaneController implements IObserver {
 
 			AddTextController controller = fxmlLoader.getController();
 			controller.setAddDialog(stage);
-			controller.setRoot(rootController);
 			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
