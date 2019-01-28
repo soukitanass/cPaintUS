@@ -113,7 +113,6 @@ public class LeftPaneController implements IObserver {
 				boundingBox.setVisible(newShape != null);
 				if (newShape == null) {
 					attributes.setVisible(false);
-					boundingBox.setVisible(false);
 					return;
 				}
 				boundingBox.setOrigin(newShape.getX(), newShape.getY());
