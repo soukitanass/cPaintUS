@@ -1,5 +1,7 @@
 package cPaintUS.models.shapes;
 
+import cPaintUS.models.BoundingBox;
+import cPaintUS.models.Point;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.Observable;
 import cPaintUS.models.observable.ObservableList;
@@ -7,10 +9,12 @@ import cPaintUS.models.observable.ObservableList;
 public class ShapeEditor extends Observable<IObserver> {
 	private ShapesDict shapesDict;
 	private Shape shapeToEdit;
+	private BoundingBox boundingBox;
 
 	private ShapeEditor() {
 		shapesDict = ShapesDict.getInstance();
 		shapeToEdit = null;
+		boundingBox = BoundingBox.getInstance();
 	}
 
 	private static class SingletonHelper {
@@ -24,7 +28,19 @@ public class ShapeEditor extends Observable<IObserver> {
 	public void edit(Shape shape) {
 		shapeToEdit = shape;
 		shapesDict.addShapeSilent(shape);
+		updateBoundingBox(shape);
 		notifyAllObservers();
+	}
+	
+	private void updateBoundingBox(Shape shape) {
+		boundingBox.setOrigin(shape.getX(), shape.getY());
+		if (shape.getShapeType() == ShapeType.Line) {
+			boundingBox.updateBoundingBox(new Point(shape.getWidth(),
+					shape.getHeight()));
+		} else {
+			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(),
+					shape.getY() + shape.getHeight()));
+		}
 	}
 	
 	public void done() {

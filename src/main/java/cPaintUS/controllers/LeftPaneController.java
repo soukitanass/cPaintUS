@@ -115,14 +115,6 @@ public class LeftPaneController implements IObserver {
 					attributes.setVisible(false);
 					return;
 				}
-				boundingBox.setOrigin(newShape.getX(), newShape.getY());
-				if (newShape.getShapeType() == ShapeType.Line) {
-					boundingBox.updateBoundingBox(new Point(newShape.getWidth(),
-							newShape.getHeight()));
-				} else {
-					boundingBox.updateBoundingBox(new Point(newShape.getX() + newShape.getWidth(),
-							newShape.getY() + newShape.getHeight()));
-				}
 
 				shapeToEdit = newShape;
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
@@ -144,10 +136,11 @@ public class LeftPaneController implements IObserver {
 				editHeight.setText(String.valueOf(newShape.getHeight()));
 				rotate.setText(String.valueOf(newShape.getRotation()));
 				attributes.setVisible(true);
+				shapeEditor.edit(newShape);
 			}
 		});
 	}
-
+	
 	@FXML
 	private void handleChangeShape() {
 		drawSettings.setShape(shape.getValue());
