@@ -19,8 +19,8 @@ public class DrawerStrategyContext {
 
 	public void draw(Shape shape, Canvas activeCanvas) {
 		IDrawerStrategy drawerStrategy;
-		activeCanvas.setTranslateX(shape.getX()-(shape.getLineWidth()/2));
-		activeCanvas.setTranslateY(shape.getY()-(shape.getLineWidth()/2));
+		activeCanvas.setLayoutX(shape.getX()-(shape.getLineWidth()/2));
+		activeCanvas.setLayoutY(shape.getY()-(shape.getLineWidth()/2));
 		activeCanvas.setWidth(shape.getWidth()+shape.getLineWidth());
 		activeCanvas.setHeight(shape.getHeight()+shape.getLineWidth());
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();

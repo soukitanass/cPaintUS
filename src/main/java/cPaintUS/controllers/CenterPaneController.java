@@ -102,8 +102,7 @@ public class CenterPaneController implements IObserver {
 			scrollPaneHeightHandler(newVal.doubleValue());
 		});
 
-		baseCanvas.setBlendMode(BlendMode.SRC_OVER);
-		boundingBoxCanvas.setBlendMode(BlendMode.SRC_OVER);
+		pane.setStyle("-fx-background-color: white");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -157,6 +156,7 @@ public class CenterPaneController implements IObserver {
 		baseCanvas.setWidth(width);
 		boundingBoxCanvas.setWidth(width);
 		if(pane.getWidth() > width) {
+			baseCanvas.setWidth(pane.getWidth());
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -167,6 +167,7 @@ public class CenterPaneController implements IObserver {
 		baseCanvas.setHeight(height);
 		boundingBoxCanvas.setHeight(height);
 		if(pane.getHeight() > height) {
+			baseCanvas.setHeight(pane.getHeight());
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();

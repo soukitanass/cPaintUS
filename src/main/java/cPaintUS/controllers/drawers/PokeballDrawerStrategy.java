@@ -22,41 +22,44 @@ public class PokeballDrawerStrategy implements IDrawerStrategy {
 		double startingCornerRatio = 0.5 - halfOfRatio;
 		double endingCornerRatio = 0.5 + halfOfRatio;
 		
+		double width = shape.getWidth() - (shape.getLineWidth()/2);
+		double height = shape.getHeight() - (shape.getLineWidth()/2);
+		
 		// Colored top of the ball
 		gc.fillArc(shape.getLineWidth()/2,
 				shape.getLineWidth()/2,
-				shape.getWidth()-shape.getLineWidth()/2,
-				shape.getHeight()-shape.getLineWidth()/2,
+				width,
+				height,
 				0, 180, ArcType.ROUND);
 
 		gc.setFill(Color.WHITE);
 		// White bottom of the ball
 		gc.fillArc(shape.getLineWidth()/2,
 				shape.getLineWidth()/2,
-				shape.getWidth()-shape.getLineWidth()/2,
-				shape.getHeight()-shape.getLineWidth()/2,
+				width,
+				height,
 				0, -180, ArcType.ROUND);
 		// White circle in center
-		gc.fillOval(shape.getWidth() * startingCornerRatio,
-				shape.getHeight() * startingCornerRatio,
-				(shape.getWidth() * ratioBetweenCircles)-shape.getLineWidth()/2,
-				(shape.getHeight() * ratioBetweenCircles)-shape.getLineWidth()/2);
+		gc.fillOval(width * startingCornerRatio,
+				height * startingCornerRatio,
+				width * ratioBetweenCircles,
+				height * ratioBetweenCircles);
 		// Biggest circle
 		gc.strokeOval(shape.getLineWidth()/2, shape.getLineWidth()/2,
-				shape.getWidth()-shape.getLineWidth()/2, shape.getHeight()-shape.getLineWidth()/2);
+				width, height);
 		// Smallest circle
-		gc.strokeOval((shape.getLineWidth()/2 + shape.getWidth()-shape.getLineWidth()/2) * startingCornerRatio,
-				(shape.getLineWidth()/2 + shape.getHeight()-shape.getLineWidth()/2) * startingCornerRatio,
-				(shape.getWidth() * ratioBetweenCircles)-shape.getLineWidth()/2,
-				(shape.getHeight() * ratioBetweenCircles)-shape.getLineWidth()/2);
+		gc.strokeOval((shape.getLineWidth()/2 + width) * startingCornerRatio,
+				(shape.getLineWidth()/2 + height) * startingCornerRatio,
+				width * ratioBetweenCircles,
+				height * ratioBetweenCircles);
 		// Two lines on the sides
 		gc.strokeLine(shape.getLineWidth()/2,
-				shape.getHeight() * 0.5,
-				shape.getWidth() * startingCornerRatio,
-				shape.getHeight() * 0.5);
+				height * 0.5,
+				width * startingCornerRatio,
+				height * 0.5);
 		gc.strokeLine(shape.getWidth() * endingCornerRatio,
-				shape.getHeight() * 0.5,
-				shape.getWidth(),
-				shape.getHeight() * 0.5);
+				height * 0.5,
+				width,
+				height * 0.5);
 	}
 }
