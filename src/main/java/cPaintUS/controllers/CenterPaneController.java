@@ -11,6 +11,7 @@ import cPaintUS.models.observable.IAddTextObserver;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
+import cPaintUS.models.shapes.ShapeEditor;
 import cPaintUS.models.shapes.ShapeFactory;
 import cPaintUS.models.shapes.ShapeType;
 import cPaintUS.models.shapes.ShapesDict;
@@ -50,6 +51,8 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private ShapesDict shapesDict;
 	private AddTextSingleton addTextSingleton;
 	private DrawerStrategyContext drawerStrategyContext;
+	private ShapeEditor shapeEditor;
+	
 	private boolean hasBeenDragged;
 
 	private String text;
@@ -70,6 +73,8 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		SnapshotSingleton.getInstance().register(this);
 		addTextSingleton = AddTextSingleton.getInstance();
 		addTextSingleton.register(this);
+		shapeEditor = ShapeEditor.getInstance();
+		shapeEditor.register(this);
 
 		hasBeenDragged = false;
 
@@ -121,6 +126,10 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		case SHAPES_UPDATED:
 			eraseCanvas();
 			refresh();
+			break;
+		case EDIT_SHAPE:
+			editShape();
+			shapeEditor.done();
 			break;
 		case LOAD_IMAGE:
 			loadImage();
@@ -198,6 +207,15 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		newCanvas.setMouseTransparent(true);
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
+	}
+	
+	private void editShape() {
+		Shape shape = shapeEditor.getShapeToEdit();
+		if (shape == null) System.out.println("ERROR: No shape to edit.");
+
+		int index = shape.getZ();
+		Canvas canvas = (Canvas) pane.getChildren().get(index);
+		drawerStrategyContext.draw(shape, canvas);	
 	}
 
 	public void draw(boolean persistent) {

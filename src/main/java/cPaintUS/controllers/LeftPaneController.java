@@ -12,6 +12,7 @@ import cPaintUS.models.shapes.Heart;
 import cPaintUS.models.shapes.Pokeball;
 import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
+import cPaintUS.models.shapes.ShapeEditor;
 import cPaintUS.models.shapes.ShapeType;
 import cPaintUS.models.shapes.ShapesDict;
 import javafx.beans.value.ChangeListener;
@@ -38,7 +39,9 @@ public class LeftPaneController implements IObserver {
 
 	private DrawSettings drawSettings;
 	private ShapesDict shapesDict;
-
+	private ShapeEditor shapeEditor;
+	private Shape shapeToEdit;
+	
 	@FXML
 	private ComboBox<ShapeType> shape;
 	@FXML
@@ -81,6 +84,7 @@ public class LeftPaneController implements IObserver {
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
+		shapeEditor = ShapeEditor.getInstance();
 	}
 
 	@FXML
@@ -105,37 +109,22 @@ public class LeftPaneController implements IObserver {
 		// Event listener when shape is selected
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
-			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
+			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {				
 				if (newShape == null) {
 					attributes.setVisible(false);
 					return;
 				}
-				attributes.setVisible(true);
+				shapeToEdit = newShape;
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
-				editLineWidth.setValue(newShape.getLineWidth() + "px");
-				editFillColor.setDisable(false);
-
-				switch (newShape.getShapeType()) {
-				case Ellipse:
-					editFillColor.setValue(Color.web(((Ellipse) newShape).getFillColor()));
-					break;
-				case Heart:
-					editFillColor.setValue(Color.web(((Heart) newShape).getFillColor()));
-					break;
-				case Pokeball:
-					editFillColor.setValue(Color.web(((Pokeball) newShape).getFillColor()));
-					break;
-				case Rectangle:
-					editFillColor.setValue(Color.web(((Rectangle) newShape).getFillColor()));
-					break;
-				case Text:
-					editText.setDisable(false);
-					break;
-				default:
+				editLineWidth.setValue(newShape.getLineWidth() + "px");	
+				
+				String fillCol = newShape.getFillColor();
+				if (fillCol == null) {
 					editFillColor.setDisable(true);
-					editText.setDisable(true);
-					break;
+				} else {
+					editFillColor.setDisable(false);
+					editFillColor.setValue(Color.web(fillCol));
 				}
 
 				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
@@ -143,6 +132,7 @@ public class LeftPaneController implements IObserver {
 				editY.getValueFactory().setValue((int) newShape.getY());
 				editWidth.getValueFactory().setValue((int) newShape.getWidth());
 				editHeight.getValueFactory().setValue((int) newShape.getHeight());
+				attributes.setVisible(true);
 			}
 		});
 	}
@@ -182,21 +172,36 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditLineWidth() {
+		if (!attributes.isVisible()) return;
 		// Extract the integer in the string
-		String widthStr = lineWidth.getValue().replaceAll("[^0-9]", "");
+		String widthStr = editLineWidth.getValue().replaceAll("[^0-9]", "");
 		int newWidth = Integer.parseInt(widthStr);
-
-		//
+		shapeToEdit.setLineWidth(newWidth);
+		shapeEditor.edit(shapeToEdit);
 	}
 
 	@FXML
 	private void handleEditFillColor() {
-		//
+		if (!attributes.isVisible()) return;
+		String color =  String.format(
+			"#%02X%02X%02X",
+			(int) (editFillColor.getValue().getRed() * 255),
+			(int) (editFillColor.getValue().getGreen() * 255),
+			(int) (editFillColor.getValue().getBlue() * 255));
+		shapeToEdit.setFillColor(color);
+		shapesDict.addShape(shapeToEdit);
 	}
 
 	@FXML
 	private void handleEditStrokeColor() {
-		//
+		if (!attributes.isVisible()) return;
+		String color =  String.format(
+			"#%02X%02X%02X",
+			(int) (editStrokeColor.getValue().getRed() * 255),
+			(int) (editStrokeColor.getValue().getGreen() * 255),
+			(int) (editStrokeColor.getValue().getBlue() * 255));
+		shapeToEdit.setStrokeColor(color);
+		shapesDict.addShape(shapeToEdit);
 	}
 
 	@FXML

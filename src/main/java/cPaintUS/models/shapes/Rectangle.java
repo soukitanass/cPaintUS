@@ -13,10 +13,12 @@ public class Rectangle extends Shape {
 	public Rectangle() {
 	}
 
+	@Override
 	public String getFillColor() {
 		return this.fillColor;
 	}
 
+	@Override
 	public void setFillColor(String fillColor) {
 		this.fillColor = fillColor;
 	}

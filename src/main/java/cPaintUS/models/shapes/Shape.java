@@ -96,14 +96,6 @@ public abstract class Shape {
 		this.height = height;
 	}
 
-	public void setShapeId(String shapeId) {
-		this.shapeId = shapeId;
-	}
-
-	public void setStrokeColor(String strokeColor) {
-		this.strokeColor = strokeColor;
-	}
-
 	public int getLineWidth() {
 		return this.lineWidth;
 	}
@@ -114,6 +106,18 @@ public abstract class Shape {
 
 	public String getStrokeColor() {
 		return this.strokeColor;
+	}
+	
+	public void setStrokeColor(String strokeColor) {
+		this.strokeColor = strokeColor;
+	}
+	
+	public String getFillColor() {
+		return null;
+	}
+	
+	public void setFillColor(String strokeColor) {
+		// do nothing
 	}
 
 }
