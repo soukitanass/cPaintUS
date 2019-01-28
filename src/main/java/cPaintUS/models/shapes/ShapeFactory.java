@@ -89,7 +89,7 @@ public class ShapeFactory {
 			shapeId = "Picture_" + pictureNb;
 			if (persistent)
 				pictureNb++;
-			shape = new Picture(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, ShapeType.Picture);
+			shape = new Picture(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, fillColor, ShapeType.Picture);
 			break;
 		case Text:
 			shapeId = "Text_" + textNb;
