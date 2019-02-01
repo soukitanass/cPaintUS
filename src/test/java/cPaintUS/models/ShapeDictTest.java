@@ -44,6 +44,13 @@ class ShapeDictTest {
 
 		shapeDict.addShape(null);
 		assertEquals(1, shapeDict.getShapesList().size());
+		
+		shapeDict.addShapeSilent(null);
+		assertEquals(1, shapeDict.getShapesList().size());
+		
+		shapeDict.addShapeSilentForList(null);
+		assertEquals(1, shapeDict.getShapesList().size());
+
 	}
 
 	@Test

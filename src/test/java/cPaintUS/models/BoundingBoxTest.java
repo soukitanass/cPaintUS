@@ -82,6 +82,14 @@ class BoundingBoxTest {
 	}
 	
 	@Test
+	void getRotationTest() {
+		double expected = 2.0;
+		boundingBox.setRotation(2.0);
+		assertEquals(expected, boundingBox.getRotation());
+		
+	}
+	
+	@Test
 	void observerRegisterUnregisterTest() {
 		boundingBox.register(new IObserver() {
 
