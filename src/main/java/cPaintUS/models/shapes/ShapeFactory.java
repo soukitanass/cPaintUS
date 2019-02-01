@@ -11,6 +11,10 @@ public class ShapeFactory {
 	private int textNb;
 	private int totalShapeNb;
 
+	public int getTotalShapeNb() {
+		return totalShapeNb;
+	}
+
 	private ShapeFactory() {
 		rectangleNb = 0;
 		ellipseNb = 0;
@@ -85,7 +89,7 @@ public class ShapeFactory {
 			shapeId = "Picture_" + pictureNb;
 			if (persistent)
 				pictureNb++;
-			shape = new Picture(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, ShapeType.Picture);
+			shape = new Picture(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, fillColor, ShapeType.Picture);
 			break;
 		case Text:
 			shapeId = "Text_" + textNb;

@@ -13,6 +13,7 @@ public class Picture extends Shape {
 			double rotation,
 			int lineWidth,
 			String strokeColor,
+			String base64,
 			ShapeType shapeType) 
 	{
 		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor, shapeType);
