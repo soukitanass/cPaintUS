@@ -114,6 +114,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		});
 
 		pane.setStyle("-fx-background-color: white");
+		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -169,8 +170,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private void scrollPaneWidthHandler(double width) {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setWidth(width);
-		if(pane.getWidth() > width) {
-			baseCanvas.setWidth(pane.getWidth());
+		if(pane.getWidth() > width+10) {
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -179,8 +179,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private void scrollPaneHeightHandler(double height) {
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setHeight(height);
-		if(pane.getHeight() > height) {
-			baseCanvas.setHeight(pane.getHeight());
+		if(pane.getHeight() > height+10) {
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
