@@ -29,12 +29,10 @@ public class Pokeball extends Shape {
 
 	}
 
-	@Override
 	public String getFillColor() {
 		return this.fillColor;
 	}
 
-	@Override
 	public void setFillColor(String fillColor) {
 		this.fillColor = fillColor;
 	}

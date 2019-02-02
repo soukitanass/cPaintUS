@@ -124,13 +124,4 @@ public abstract class Shape {
 	public void setStrokeColor(String strokeColor) {
 		this.strokeColor = strokeColor;
 	}
-	
-	public String getFillColor() {
-		return null;
-	}
-	
-	public void setFillColor(String strokeColor) {
-		// do nothing
-	}
-
 }

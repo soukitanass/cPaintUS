@@ -8,6 +8,10 @@ import cPaintUS.models.DrawSettings;
 import cPaintUS.models.LineWidth;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
+import cPaintUS.models.shapes.Ellipse;
+import cPaintUS.models.shapes.Heart;
+import cPaintUS.models.shapes.Pokeball;
+import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.ShapeEditor;
 import cPaintUS.models.shapes.ShapeType;
@@ -130,14 +134,30 @@ public class LeftPaneController implements IObserver {
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 				editLineWidth.setValue(newShape.getLineWidth() + "px");
+				
+				String fillCol = null;
+				switch (newShape.getShapeType()) {
+					case Rectangle:
+						fillCol = ((Rectangle) newShape).getFillColor();
+					case Pokeball:
+						fillCol = ((Pokeball) newShape).getFillColor();
+					case Heart:
+						fillCol = ((Heart) newShape).getFillColor();
+					case Ellipse:
+						fillCol = ((Ellipse) newShape).getFillColor();
+					case Text:
+						fillCol = ((Text) newShape).getFillColor();
+					default:
+						break;
+				}
 
-				String fillCol = newShape.getFillColor();
 				if (fillCol == null) {
 					editFillColor.setDisable(true);
 				} else {
 					editFillColor.setDisable(false);
 					editFillColor.setValue(Color.web(fillCol));
 				}
+
 				editText.setDisable(true);
 				editBtn.setDisable(true);
 				
@@ -209,7 +229,21 @@ public class LeftPaneController implements IObserver {
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
 				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
-		shapeToEdit.setFillColor(color);
+		
+		switch (shapeToEdit.getShapeType()) {
+			case Rectangle:
+				((Rectangle) shapeToEdit).setFillColor(color);
+			case Pokeball:
+				((Pokeball) shapeToEdit).setFillColor(color);
+			case Heart:
+				((Heart) shapeToEdit).setFillColor(color);
+			case Ellipse:
+				((Ellipse) shapeToEdit).setFillColor(color);
+			case Text:
+				((Text) shapeToEdit).setFillColor(color);
+			default:
+				break;
+		}
 		shapeEditor.edit(shapeToEdit);
 	}
 
