@@ -8,6 +8,7 @@ public class DrawSettings {
 	private int lineWidth;
 	private Color fillColor;
 	private Color strokeColor;
+	private String text;
 	
 	private DrawSettings() {
 		// set defaults
@@ -55,5 +56,13 @@ public class DrawSettings {
 	
 	public Color getStrokeColor() {
 		return strokeColor;
+	}
+	
+	public void setText(String textToAdd) {
+		text = textToAdd;
+	}
+	
+	public String getText() {
+		return text;
 	}
 }
