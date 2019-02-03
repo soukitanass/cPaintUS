@@ -33,19 +33,20 @@ public class ShapesDict extends Observable<IObserver> {
 	public void addShape(Shape shape) {
 		if(shape != null) {
 			shapesDict.put(shape.getShapeId(), shape);
-			notifyAllObservers();
+			notifyAddAllObservers();
 		}
 		else
 			System.out.println("addShape error : Unknown shape");
 	}
 	
 	public void addShapeSilent(Shape shape) {
-		if(shape != null)
+		if(shape != null) {
 			shapesDict.put(shape.getShapeId(), shape);
+		}
 		else
 			System.out.println("addShape error : Unknown shape");
 	}
-	
+		
 	public void addShapeSilentForList(Shape shape) {
 		if(shape != null) {
 			Shape temp = shapeFactory.getShape(shape.getShapeType(), true,0, 0, 0, 0, 0, 1, "#000000", "#000000", null);
@@ -73,7 +74,13 @@ public class ShapesDict extends Observable<IObserver> {
 	@Override
 	public void notifyAllObservers() {
 		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.SHAPES_UPDATED);
+			obs.update(ObservableList.SHAPES_LOADED);
+		}
+	}
+	
+	public void notifyAddAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.SHAPE_ADDED);
 		}
 	}
 }
