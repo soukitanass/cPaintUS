@@ -53,8 +53,6 @@ public class CenterPaneController implements IObserver {
 	
 	private boolean hasBeenDragged;
 
-	private String text;
-
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
 	private EventHandler<MouseEvent> mouseReleasedEventHandler;
@@ -330,13 +328,5 @@ public class CenterPaneController implements IObserver {
 		initializeNewCanvas();
 		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(),
 				(Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
 	}
 }
