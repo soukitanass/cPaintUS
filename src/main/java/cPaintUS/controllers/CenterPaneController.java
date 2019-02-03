@@ -124,7 +124,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
-		case SHAPES_UPDATED:
+		case SHAPES_LOADED:
 			eraseCanvas();
 			refresh();
 			break;
@@ -209,7 +209,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
-	
+		
 	private void editShape() {
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) System.out.println("ERROR: No shape to edit.");
@@ -224,6 +224,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
+			
 		}
 		drawBoundingBox();
 		scrollPaneWidthHandler(scrollPane.getWidth());
@@ -316,7 +317,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 
 		if (newShape != null && persistent) {
 			shapesDict.addShape(newShape);
-			System.out.println(newShape.getShapeId());
+			System.out.println(newShape.getShapeId());			
 		}
 
 		return newShape;

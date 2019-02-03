@@ -306,7 +306,7 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_UPDATED) {
+		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED) {
 			shapeList.getItems().clear();
 			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 			Collections.reverse(shallowCopy);
