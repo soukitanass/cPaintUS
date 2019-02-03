@@ -7,7 +7,6 @@ import cPaintUS.controllers.drawers.DrawerStrategyContext;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.Pointer;
-import cPaintUS.models.observable.IAddTextObserver;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -28,7 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class CenterPaneController implements IObserver,IAddTextObserver {
+public class CenterPaneController implements IObserver {
 
 	@FXML
 	private Canvas baseCanvas;
@@ -49,13 +48,10 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private DrawSettings drawSettings;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
-	private AddTextSingleton addTextSingleton;
 	private DrawerStrategyContext drawerStrategyContext;
 	private ShapeEditor shapeEditor;
 	
 	private boolean hasBeenDragged;
-
-	private String text;
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -71,8 +67,6 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
-		addTextSingleton = AddTextSingleton.getInstance();
-		addTextSingleton.register(this);
 		shapeEditor = ShapeEditor.getInstance();
 		shapeEditor.register(this);
 
@@ -272,6 +266,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		int lineWidth = drawSettings.getLineWidth();
 		Color fillColor = drawSettings.getFillColor();
 		Color strokeColor = drawSettings.getStrokeColor();
+		String text = drawSettings.getText();
 
 		String sfillColor = String.format("#%02X%02X%02X", (int) (fillColor.getRed() * 255),
 				(int) (fillColor.getGreen() * 255), (int) (fillColor.getBlue() * 255));
@@ -334,18 +329,4 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(),
 				(Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	@Override
-	public void update( String text) {
-		setText(text);
-	}
-
 }

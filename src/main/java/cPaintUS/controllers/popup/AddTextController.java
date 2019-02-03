@@ -1,6 +1,6 @@
 package cPaintUS.controllers.popup;
 
-import cPaintUS.controllers.AddTextSingleton;
+import cPaintUS.models.DrawSettings;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -25,10 +25,10 @@ public class AddTextController {
 	@FXML
 	private HBox buttonsHBox;
 
-	private AddTextSingleton addTextSingleton;
+	DrawSettings drawSettings;
 
 	public AddTextController() {
-		addTextSingleton = AddTextSingleton.getInstance();
+		drawSettings = DrawSettings.getInstance();
 	}
 
 	public void setAddDialog(Stage stage) {
@@ -42,7 +42,7 @@ public class AddTextController {
 
 	@FXML
 	public void handleAddTextClick() {
-		addTextSingleton.setText(addText.getText());
+		drawSettings.setText(addText.getText());
 		addDialog.close();
 	}
 
