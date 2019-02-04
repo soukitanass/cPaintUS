@@ -7,7 +7,6 @@ import cPaintUS.controllers.drawers.DrawerStrategyContext;
 import cPaintUS.models.BoundingBox;
 import cPaintUS.models.DrawSettings;
 import cPaintUS.models.Pointer;
-import cPaintUS.models.observable.IAddTextObserver;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
@@ -27,7 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class CenterPaneController implements IObserver,IAddTextObserver {
+public class CenterPaneController implements IObserver {
 
 	@FXML
 	private Canvas baseCanvas;
@@ -48,13 +47,10 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private DrawSettings drawSettings;
 	private ShapeFactory shapeFactory;
 	private ShapesDict shapesDict;
-	private AddTextSingleton addTextSingleton;
 	private DrawerStrategyContext drawerStrategyContext;
 	private ShapeEditor shapeEditor;
 	
 	private boolean hasBeenDragged;
-
-	private String text;
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -70,8 +66,6 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		shapesDict = ShapesDict.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
-		addTextSingleton = AddTextSingleton.getInstance();
-		addTextSingleton.register(this);
 		shapeEditor = ShapeEditor.getInstance();
 		shapeEditor.register(this);
 
@@ -113,6 +107,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		});
 
 		pane.setStyle("-fx-background-color: white");
+		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -123,7 +118,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
-		case SHAPES_UPDATED:
+		case SHAPES_LOADED:
 			eraseCanvas();
 			refresh();
 			break;
@@ -168,8 +163,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private void scrollPaneWidthHandler(double width) {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setWidth(width);
-		if(pane.getWidth() > width) {
-			baseCanvas.setWidth(pane.getWidth());
+		if(pane.getWidth() > width+10) {
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -178,8 +172,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private void scrollPaneHeightHandler(double height) {
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setHeight(height);
-		if(pane.getHeight() > height) {
-			baseCanvas.setHeight(pane.getHeight());
+		if(pane.getHeight() > height+10) {
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -208,7 +201,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
-	
+		
 	private void editShape() {
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) System.out.println("ERROR: No shape to edit.");
@@ -223,6 +216,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
+			
 		}
 		drawBoundingBox();
 		scrollPaneWidthHandler(scrollPane.getWidth());
@@ -271,6 +265,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		int lineWidth = drawSettings.getLineWidth();
 		Color fillColor = drawSettings.getFillColor();
 		Color strokeColor = drawSettings.getStrokeColor();
+		String text = drawSettings.getText();
 
 		String sfillColor = String.format("#%02X%02X%02X", (int) (fillColor.getRed() * 255),
 				(int) (fillColor.getGreen() * 255), (int) (fillColor.getBlue() * 255));
@@ -315,7 +310,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 
 		if (newShape != null && persistent) {
 			shapesDict.addShape(newShape);
-			System.out.println(newShape.getShapeId());
+			System.out.println(newShape.getShapeId());			
 		}
 
 		return newShape;
@@ -333,18 +328,4 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(),
 				(Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	@Override
-	public void update(String text) {
-		setText(text);
-	}
-
 }

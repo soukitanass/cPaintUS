@@ -1,6 +1,8 @@
 package cPaintUS.controllers;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import cPaintUS.controllers.popup.AddTextController;
 import cPaintUS.models.BoundingBox;
@@ -305,9 +307,11 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_UPDATED) {
+		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED) {
 			shapeList.getItems().clear();
-			shapeList.getItems().addAll(shapesDict.getShapesList());
+			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
+			Collections.reverse(shallowCopy);
+			shapeList.getItems().addAll(shallowCopy);
 		}
 	}
 
