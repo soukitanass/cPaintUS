@@ -11,6 +11,8 @@ import cPaintUS.models.LineWidth;
 import cPaintUS.models.observable.IObserver;
 import cPaintUS.models.observable.ObservableList;
 import cPaintUS.models.shapes.Shape;
+import cPaintUS.models.shapes.Shape2D;
+import cPaintUS.models.shapes.ShapeDimension;
 import cPaintUS.models.shapes.ShapeEditor;
 import cPaintUS.models.shapes.ShapeType;
 import cPaintUS.models.shapes.ShapesDict;
@@ -133,13 +135,12 @@ public class LeftPaneController implements IObserver {
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 				editLineWidth.setValue(newShape.getLineWidth() + "px");
 
-				String fillCol = newShape.getFillColor();
-				if (fillCol == null) {
-					editFillColor.setDisable(true);
+				if (newShape.getShapeDimension() == ShapeDimension.Shape1D) {
+					editFillColor.setVisible(false);
 				} else {
-					editFillColor.setDisable(false);
-					editFillColor.setValue(Color.web(fillCol));
+					editFillColor.setValue(Color.web(((Shape2D)newShape).getFillColor()));
 				}
+				
 				editText.setDisable(true);
 				editBtn.setDisable(true);
 				
@@ -207,11 +208,11 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditFillColor() {
-		if (!attributes.isVisible())
+		if (!attributes.isVisible() || shapeToEdit.getShapeDimension() != ShapeDimension.Shape2D)
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
 				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
-		shapeToEdit.setFillColor(color);
+		((Shape2D)shapeToEdit).setFillColor(color);			
 		shapeEditor.edit(shapeToEdit);
 	}
 

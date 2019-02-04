@@ -1,7 +1,6 @@
 package cPaintUS.models;
 
 class FileManagerStrategyTest {
-
 	/*
 	 * private FileManagerStrategy fileManagerStrategy; private final String
 	 * XML_FILE_TO_LOAD_PATH = "xmlFileLoadTest.xml"; private final String

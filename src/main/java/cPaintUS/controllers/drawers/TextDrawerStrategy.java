@@ -1,12 +1,10 @@
 package cPaintUS.controllers.drawers;
 
-import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.Shape;
 import cPaintUS.models.shapes.Text;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
 
 public class TextDrawerStrategy implements IDrawerStrategy{
 

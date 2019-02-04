@@ -1,5 +1,6 @@
 package cPaintUS.controllers.drawers;
 
+import cPaintUS.models.shapes.Line;
 import cPaintUS.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -35,10 +36,11 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case Line:
-			double originX = Math.min(shape.getX(),shape.getWidth()) - shape.getLineWidth()/2;
-			double originY = Math.min(shape.getY(),shape.getHeight()) - shape.getLineWidth()/2;
-			double width = Math.abs(shape.getX()-shape.getWidth());
-			double height = Math.abs(shape.getY()-shape.getHeight());
+			double originX = Math.min(shape.getX(), ((Line)shape).getX2()) - shape.getLineWidth()/2;
+			double originY = Math.min(shape.getY(), ((Line)shape).getY2()) - shape.getLineWidth()/2;
+			double width = shape.getWidth();
+			double height = shape.getHeight();
+
 			activeCanvas.setLayoutX(originX);
 			activeCanvas.setLayoutY(originY);
 			activeCanvas.setWidth(width);

@@ -53,6 +53,8 @@ public class SnapshotSingleton extends Observable<IObserver> {
             e.printStackTrace();
         }
         this.image = SwingFXUtils.toFXImage(image, null);
+        this.picture.setWidth(this.image.getWidth());
+        this.picture.setHeight(this.image.getHeight());
 		notifyAllLoadImage();
 	}
 	
