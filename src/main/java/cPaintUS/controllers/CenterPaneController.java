@@ -108,6 +108,7 @@ public class CenterPaneController implements IObserver {
 		});
 
 		pane.setStyle("-fx-background-color: white");
+		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -118,7 +119,7 @@ public class CenterPaneController implements IObserver {
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
-		case SHAPES_UPDATED:
+		case SHAPES_LOADED:
 			eraseCanvas();
 			refresh();
 			break;
@@ -163,8 +164,7 @@ public class CenterPaneController implements IObserver {
 	private void scrollPaneWidthHandler(double width) {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setWidth(width);
-		if(pane.getWidth() > width) {
-			baseCanvas.setWidth(pane.getWidth());
+		if(pane.getWidth() > width+10) {
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -173,8 +173,7 @@ public class CenterPaneController implements IObserver {
 	private void scrollPaneHeightHandler(double height) {
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setHeight(height);
-		if(pane.getHeight() > height) {
-			baseCanvas.setHeight(pane.getHeight());
+		if(pane.getHeight() > height+10) {
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -203,7 +202,7 @@ public class CenterPaneController implements IObserver {
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
-	
+		
 	private void editShape() {
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) System.out.println("ERROR: No shape to edit.");
@@ -218,6 +217,7 @@ public class CenterPaneController implements IObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
+			
 		}
 		drawBoundingBox();
 		scrollPaneWidthHandler(scrollPane.getWidth());
@@ -311,7 +311,7 @@ public class CenterPaneController implements IObserver {
 
 		if (newShape != null && persistent) {
 			shapesDict.addShape(newShape);
-			System.out.println(newShape.getShapeId());
+			System.out.println(newShape.getShapeId());			
 		}
 
 		return newShape;
