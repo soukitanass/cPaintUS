@@ -48,12 +48,11 @@ public class ShapesDict extends Observable<IObserver> {
 	
 	public void addShapeSilentForList(Shape shape) {
 		if(shape != null) {
-			Shape temp = shapeFactory.getShape(shape.getShapeType(), true,0, 0, 0, 0, 0, 1, "#000000", "#000000", null);
+			Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000", "", "");
 			shape.setShapeId(temp.getShapeId());
 			shape.setZ(shapeFactory.getTotalShapeNb());
 			shapesDict.put(shape.getShapeId(), shape);			
 		}
-			
 		else
 			System.out.println("addShape error : Unknown shape");
 	}
