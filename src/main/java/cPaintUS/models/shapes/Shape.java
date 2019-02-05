@@ -1,51 +1,51 @@
 package cPaintUS.models.shapes;
 
 public abstract class Shape {
+	private ShapeType shapeType;
 	private String shapeId;
 	private double x;
 	private double y;
 	private int z;
-	private double width;
-	private double height;
 	private double rotation;
 	private int lineWidth;
 	private String strokeColor;
-	private ShapeType shapeType;
+	protected ShapeDimension shapeDim;
 
 	public Shape(
+			ShapeType shapeType,
 			String shapeId,
 			double x,
 			double y,
 			int z,
-			double width,
-			double height,
 			double rotation,
 			int lineWidth,
-			String strokeColor,
-			ShapeType shapeType)
+			String strokeColor)
 	{
+		this.shapeType = shapeType;
 		this.shapeId = shapeId;
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.width = width;
-		this.height = height;
 		this.rotation = rotation;
 		this.lineWidth = lineWidth;
 		this.strokeColor = strokeColor;
-		this.shapeType = shapeType;
+	}
+	
+	public Shape() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public ShapeType getShapeType() {
 		return shapeType;
 	}
+	
+	public abstract double getWidth();
+	public abstract void setWidth(double width);
+	public abstract double getHeight();
+	public abstract void setHeight(double height);
 
 	public void setShapeType(ShapeType shapeType) {
 		this.shapeType = shapeType;
-	}
-
-	public Shape() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -84,22 +84,6 @@ public abstract class Shape {
 	public void setZ(int z) {
 		this.z = z;
 	}
-
-	public double getWidth() {
-		return this.width;
-	}
-
-	public void setWidth(double width) {
-		this.width = width;
-	}
-
-	public double getHeight() {
-		return this.height;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
-	}
 	
 	public double getRotation() {
 		return this.rotation;
@@ -125,12 +109,8 @@ public abstract class Shape {
 		this.strokeColor = strokeColor;
 	}
 	
-	public String getFillColor() {
-		return null;
-	}
-	
-	public void setFillColor(String strokeColor) {
-		// do nothing
+	public ShapeDimension getShapeDimension() {
+		return shapeDim;
 	}
 
 }

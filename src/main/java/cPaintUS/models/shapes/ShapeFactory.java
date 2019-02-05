@@ -38,12 +38,15 @@ public class ShapeFactory {
 			boolean persistent,
 			double x,
 			double y,
+			double x2,
+			double y2,
 			double width,
 			double height,
 			double rotation,
 			int lineWidth,
 			String strokeColor,
 			String fillColor,
+			String base64,
 			String text)
 	{
 		String shapeId;
@@ -54,49 +57,46 @@ public class ShapeFactory {
 
 		switch (shapeType) {
 		case Rectangle:
-			shapeId = "Rectangle_" + rectangleNb;
+			shapeId = "Rectangle " + rectangleNb;
 			if (persistent)
 				rectangleNb++;
-			shape = new Rectangle(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor,
-					fillColor,ShapeType.Rectangle);
-			break;
+			shape = new Rectangle(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
+			break; 
 		case Ellipse:
-			shapeId = "Ellipse_" + ellipseNb;
+			shapeId = "Ellipse " + ellipseNb;
 			if (persistent)
 				ellipseNb++;
-			shape = new Ellipse(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, fillColor,ShapeType.Ellipse);
+			shape = new Ellipse(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
 		case Line:
-			shapeId = "Line_" + lineNb;
+			shapeId = "Line " + lineNb;
 			if (persistent)
 				lineNb++;
-			shape = new Line(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor,ShapeType.Line);
+			shape = new Line(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, x2, y2);
 			break;
 		case Pokeball:
-			shapeId = "Pokeball_" + pokeballNb;
+			shapeId = "Pokeball " + pokeballNb;
 			if (persistent)
 				pokeballNb++;
-			shape = new Pokeball(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor,
-					fillColor,ShapeType.Pokeball);
+			shape = new Pokeball(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
 		case Heart:
-			shapeId = "Heart_" + heartNb;
+			shapeId = "Heart " + heartNb;
 			if (persistent)
 				heartNb++;
-			shape = new Heart(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, fillColor, ShapeType.Heart);
+			shape = new Heart(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
 		case Picture:
-			shapeId = "Picture_" + pictureNb;
+			shapeId = "Picture " + pictureNb;
 			if (persistent)
 				pictureNb++;
-			shape = new Picture(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, fillColor, ShapeType.Picture);
+			shape = new Picture(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, base64);
 			break;
 		case Text:
-			shapeId = "Text_" + textNb;
+			shapeId = "Text " + textNb;
 			if (persistent)
 				textNb++;
-			shape = new Text(shapeId, x, y, totalShapeNb, width, height, rotation, lineWidth, strokeColor, fillColor, text,
-					ShapeType.Text);
+			shape = new Text(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, text);
 			break;
 		default:
 			if (persistent)

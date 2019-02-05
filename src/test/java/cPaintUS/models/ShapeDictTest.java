@@ -36,7 +36,7 @@ class ShapeDictTest {
 
 	@Test
 	void addShapeTest() {
-		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff","hh");
+		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
 
@@ -49,7 +49,7 @@ class ShapeDictTest {
 
 	@Test
 	void clearShapesTest() {
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff","hh"));
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh"));
 		shapeDict.clearShapes();
 		assertEquals(0, shapeDict.getShapesList().size());
 	}
@@ -57,7 +57,7 @@ class ShapeDictTest {
 	@Test
 	void addListShapeTest() {
 		List<Shape> actualList = new ArrayList<Shape>();
-		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 1, 10, 100, 1, "#fff", "#fff","hh");
+		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		actualList.add(actual);
 		shapeDict.clearShapes();
 

@@ -1,36 +1,24 @@
 package cPaintUS.models.shapes;
 
-public class Rectangle extends Shape {
-	private String fillColor;
-
+public class Rectangle extends Shape2D {
+	
 	public Rectangle(
+			ShapeType shapeType,
 			String shapeId,
 			double x,
 			double y,
 			int z,
-			double width,
-			double height,
 			double rotation,
 			int lineWidth,
 			String strokeColor,
 			String fillColor,
-			ShapeType shapeType) 
+			double width,
+			double height)
 	{
-		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor,shapeType);
-
-		this.fillColor = fillColor;
+		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 	}
 
 	public Rectangle() {
-	}
-
-	@Override
-	public String getFillColor() {
-		return this.fillColor;
-	}
-
-	@Override
-	public void setFillColor(String fillColor) {
-		this.fillColor = fillColor;
+		
 	}
 }

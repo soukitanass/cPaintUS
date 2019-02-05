@@ -2,41 +2,28 @@ package cPaintUS.models.shapes;
 
 import javafx.scene.paint.Color;
 
-public class Pokeball extends Shape {
-	private String fillColor;
+public class Pokeball extends Shape2D {
 	private Color backColor;
 
 	public Pokeball(
+			ShapeType shapeType,
 			String shapeId,
 			double x,
 			double y,
 			int z,
-			double width,
-			double height,
 			double rotation,
 			int lineWidth,
 			String strokeColor,
 			String fillColor,
-			ShapeType shapeType) 
+			double width,
+			double height)
 	{
-		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor,shapeType);
-
-		this.fillColor = fillColor;
+		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 		this.backColor = Color.WHITE;
 	}
 
 	public Pokeball() {
 
-	}
-
-	@Override
-	public String getFillColor() {
-		return this.fillColor;
-	}
-
-	@Override
-	public void setFillColor(String fillColor) {
-		this.fillColor = fillColor;
 	}
 
 	// Can't modify this property!

@@ -22,7 +22,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -281,32 +280,32 @@ public class CenterPaneController implements IObserver {
 					boundingBox.getOrigin().getY(),
 					boundingBox.getOppositeCorner().getX(),
 					boundingBox.getOppositeCorner().getY(),
+					boundingBox.getWidth(),
+					boundingBox.getHeight(),
 					0,
 					lineWidth,
 					sstrokeColor,
 					sfillColor,
-					null);
-		} else if (shapeType == ShapeType.Text) {
-			if (boundingBox.getWidth() + boundingBox.getHeight() == 0) {
-				newShape = null;
-			} else {
-				newShape = shapeFactory.getShape(
-						shapeType,
-						persistent,
-						boundingBox.getUpLeftCorner().getX(),
-						boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(),
-						boundingBox.getHeight(),
-						0,
-						lineWidth,
-						sstrokeColor,
-						sfillColor,
-						text);
-			}
+					"",
+					text);
+		} else if (shapeType == ShapeType.Text && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
+			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent,
-					boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(),
-					boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, null);
+			newShape = shapeFactory.getShape(
+					shapeType,
+					persistent,
+					boundingBox.getUpLeftCorner().getX(),
+					boundingBox.getUpLeftCorner().getY(),
+					boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(),
+					boundingBox.getWidth(),
+					boundingBox.getHeight(),
+					0,
+					lineWidth,
+					sstrokeColor,
+					sfillColor,
+					"",
+					text);
 		}
 
 		if (newShape != null && persistent) {
