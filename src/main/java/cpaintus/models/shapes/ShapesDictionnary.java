@@ -18,7 +18,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	private ShapeFactory shapeFactory;
 
 	private ShapesDictionnary() {
-		this.shapesDict = new LinkedHashMap<String, Shape>();
+		this.shapesDict = new LinkedHashMap<>();
 		this.shapeFactory = ShapeFactory.getInstance();
 	}
 
