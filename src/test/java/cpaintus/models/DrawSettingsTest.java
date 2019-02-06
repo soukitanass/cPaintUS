@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import cpaintus.models.shapes.ShapeType;
 import javafx.scene.paint.Color;
-
 import cpaintus.models.DrawSettings;
 
 class DrawSettingsTest {
