@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 class FileManagerStrategyTest {
 	/*

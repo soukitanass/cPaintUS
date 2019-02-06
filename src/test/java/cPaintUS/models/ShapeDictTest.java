@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,32 +11,32 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeFactory;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeFactory;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDictionnary;
 
 class ShapeDictTest {
 
-	private ShapesDict shapeDict;
+	private ShapesDictionnary shapeDict;
 	private ShapeFactory shapeFactory;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		shapeDict = ShapesDict.getInstance();
+		shapeDict = ShapesDictionnary.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
 	}
 
 	@Test
 	void getInstanceTest() {
-		assertSame(ShapesDict.getInstance(), shapeDict);
+		assertSame(ShapesDictionnary.getInstance(), shapeDict);
 	}
 
 	@Test
 	void addShapeTest() {
-		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
 
@@ -49,7 +49,7 @@ class ShapeDictTest {
 
 	@Test
 	void clearShapesTest() {
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh"));
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh"));
 		shapeDict.clearShapes();
 		assertEquals(0, shapeDict.getShapesList().size());
 	}
@@ -57,7 +57,7 @@ class ShapeDictTest {
 	@Test
 	void addListShapeTest() {
 		List<Shape> actualList = new ArrayList<Shape>();
-		Shape actual = shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		actualList.add(actual);
 		shapeDict.clearShapes();
 

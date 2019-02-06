@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,8 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.DrawSettings;
+import cpaintus.models.Point;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
 
 class BoundingBoxTest {
 

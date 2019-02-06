@@ -1,5 +1,5 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public enum ShapeDimension {
-	Shape1D, Shape2D
+	SHAPE1D, SHAPE2D
 }

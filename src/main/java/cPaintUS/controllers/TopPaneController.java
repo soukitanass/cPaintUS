@@ -1,12 +1,14 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import cPaintUS.controllers.popup.AboutController;
-import cPaintUS.controllers.popup.NewController;
-import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.popup.AboutController;
+import cpaintus.controllers.popup.NewController;
+import cpaintus.models.savestrategy.FileContext;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,22 +21,23 @@ import javafx.stage.Stage;
 
 public class TopPaneController {
 
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
 	@FXML
 	private MenuBar menuBar;
 
-	private ShapesDict shapesDict;
+	private ShapesDictionnary shapesDict;
 
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		saveCloseSingleton = SaveCloseSingleton.getInstance();
 	}
 
 	@FXML
 	private void handleNewClick() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/New.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/New.fxml"));
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
@@ -56,8 +59,7 @@ public class TopPaneController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 	}
 
@@ -68,7 +70,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleAboutClick() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/About.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/About.fxml"));
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
@@ -83,8 +85,7 @@ public class TopPaneController {
 			controller.setNewDialog(stage);
 			stage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 	}
 
@@ -98,7 +99,7 @@ public class TopPaneController {
 		File selectedFile = fileChooser.showOpenDialog(stage);
 		if (selectedFile != null) {
 			String fileName = selectedFile.getName();
-			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
+			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.load(FileContext.types.XML, selectedFile.getAbsolutePath());
 			} else {

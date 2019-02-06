@@ -1,7 +1,7 @@
-package cPaintUS.controllers.drawers;
+package cpaintus.controllers.drawers;
 
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.Text;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.Text;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

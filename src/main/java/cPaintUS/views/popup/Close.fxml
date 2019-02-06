@@ -5,7 +5,7 @@
 
 <AnchorPane minWidth="200.0" minHeight="100.0"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="cPaintUS.controllers.popup.CloseController">
+	fx:controller="cpaintus.controllers.popup.CloseController">
 
 	<VBox minHeight="100.0" alignment="CENTER" spacing="10">
 		<Label minWidth="200.0" fx:id="title"

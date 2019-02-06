@@ -1,7 +1,7 @@
-package cPaintUS.controllers.drawers;
+package cpaintus.controllers.drawers;
 
-import cPaintUS.models.shapes.Ellipse;
-import cPaintUS.models.shapes.Shape;
+import cpaintus.models.shapes.Ellipse;
+import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

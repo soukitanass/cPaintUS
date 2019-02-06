@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public abstract class Shape {
 	private ShapeType shapeType;
@@ -32,7 +32,7 @@ public abstract class Shape {
 	}
 	
 	public Shape() {
-		// TODO Auto-generated constructor stub
+		// do not remove
 	}
 
 	public ShapeType getShapeType() {

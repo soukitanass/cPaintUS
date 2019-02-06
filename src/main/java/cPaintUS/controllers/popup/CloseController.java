@@ -1,4 +1,4 @@
-package cPaintUS.controllers.popup;
+package cpaintus.controllers.popup;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

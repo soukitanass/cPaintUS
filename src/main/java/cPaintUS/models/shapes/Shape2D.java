@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public abstract class Shape2D extends Shape {
 	private double width;
@@ -19,7 +19,7 @@ public abstract class Shape2D extends Shape {
 			double height) 
 	{
 		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor);
-		this.shapeDim = ShapeDimension.Shape2D;
+		this.shapeDim = ShapeDimension.SHAPE2D;
 		this.fillColor = fillColor;
 		this.width = width;
 		this.height = height;

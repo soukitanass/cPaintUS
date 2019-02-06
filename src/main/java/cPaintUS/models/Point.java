@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 public class Point {
 	private double x;
