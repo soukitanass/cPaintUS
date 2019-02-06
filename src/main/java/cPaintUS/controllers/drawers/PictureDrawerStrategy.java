@@ -1,4 +1,4 @@
-package cPaintUS.controllers.drawers;
+package cpaintus.controllers.drawers;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import cPaintUS.models.shapes.Picture;
-import cPaintUS.models.shapes.Shape;
+import cpaintus.models.shapes.Picture;
+import cpaintus.models.shapes.Shape;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

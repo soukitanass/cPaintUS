@@ -9,7 +9,7 @@
 <AnchorPane minWidth="800.0"
 	xmlns:fx="http://javafx.com/fxml/1"
 	xmlns="http://javafx.com/javafx/9.0.4"
-	fx:controller="cPaintUS.controllers.TopPaneController">
+	fx:controller="cpaintus.controllers.TopPaneController">
 	<children>
 		<MenuBar fx:id="menuBar" AnchorPane.bottomAnchor="0.0"
 			AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"

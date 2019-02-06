@@ -1,6 +1,6 @@
-package cPaintUS.models;
+package cpaintus.models;
 
-import cPaintUS.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapeType;
 import javafx.scene.paint.Color;
 
 public class DrawSettings {

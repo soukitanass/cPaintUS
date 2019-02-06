@@ -1,4 +1,4 @@
-package cPaintUS.models.saveStrategy;
+package cpaintus.models.saveStrategy;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,12 +11,12 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import cPaintUS.controllers.SnapshotSingleton;
-import cPaintUS.models.shapes.Picture;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeFactory;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.SnapshotSingleton;
+import cpaintus.models.shapes.Picture;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeFactory;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDict;
 
 public class PNGStrategy implements FileManagerStrategy {
 

@@ -1,4 +1,4 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cPaintUS.controllers.popup.AddTextController;
-import cPaintUS.models.BoundingBox;
-import cPaintUS.models.DrawSettings;
-import cPaintUS.models.LineWidth;
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.Shape2D;
-import cPaintUS.models.shapes.ShapeDimension;
-import cPaintUS.models.shapes.ShapeEditor;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
-import cPaintUS.models.shapes.Text;
+import cpaintus.controllers.popup.AddTextController;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.DrawSettings;
+import cpaintus.models.LineWidth;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.Shape2D;
+import cpaintus.models.shapes.ShapeDimension;
+import cpaintus.models.shapes.ShapeEditor;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDict;
+import cpaintus.models.shapes.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -322,7 +322,7 @@ public class LeftPaneController implements IObserver {
 	private void handleTextAddClick() {
 
 		drawSettings.setShape(ShapeType.Text);
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/AddText.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/AddText.fxml"));
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();

@@ -1,4 +1,4 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import javafx.fxml.FXML;
 

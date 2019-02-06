@@ -1,4 +1,4 @@
-package cPaintUS.models.saveStrategy;
+package cpaintus.models.saveStrategy;
 
 import java.beans.ExceptionListener;
 import java.beans.XMLDecoder;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapesDict;
 
 public class XMLStrategy implements FileManagerStrategy {
 

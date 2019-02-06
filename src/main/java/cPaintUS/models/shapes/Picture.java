@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public class Picture extends Shape2D {
 	private String base64;

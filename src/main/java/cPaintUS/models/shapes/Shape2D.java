@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public abstract class Shape2D extends Shape {
 	private double width;

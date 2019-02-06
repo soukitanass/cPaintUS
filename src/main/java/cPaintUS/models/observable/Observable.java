@@ -1,4 +1,4 @@
-package cPaintUS.models.observable;
+package cpaintus.models.observable;
 
 import java.util.ArrayList;
 import java.util.List;

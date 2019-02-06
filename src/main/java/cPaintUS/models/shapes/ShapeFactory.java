@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public class ShapeFactory {
 	private static ShapeFactory factory = null;

@@ -1,7 +1,7 @@
-package cPaintUS.controllers.drawers;
+package cpaintus.controllers.drawers;
 
-import cPaintUS.models.shapes.Line;
-import cPaintUS.models.shapes.Shape;
+import cpaintus.models.shapes.Line;
+import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 

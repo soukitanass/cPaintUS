@@ -1,12 +1,12 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.Observable;
-import cPaintUS.models.observable.ObservableList;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.Observable;
+import cpaintus.models.observable.ObservableList;
 
 public class ShapesDict extends Observable<IObserver> {
 	private static ShapesDict instance = null;

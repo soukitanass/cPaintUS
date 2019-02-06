@@ -1,4 +1,4 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cPaintUS.controllers.popup.CloseController;
-import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.popup.CloseController;
+import cpaintus.models.saveStrategy.FileContext;
+import cpaintus.models.shapes.ShapesDict;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,7 +40,7 @@ public class SaveCloseSingleton {
 
 	public void triggerClose() {
 		if (shapesDict.getShapesList().size() != 0) {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/Close.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/Close.fxml"));
 			Parent parent;
 			try {
 				parent = fxmlLoader.load();

@@ -7,7 +7,7 @@
 
 <AnchorPane
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="cPaintUS.controllers.popup.AboutController">
+	fx:controller="cpaintus.controllers.popup.AboutController">
 	<VBox alignment="CENTER">
 		<Label fx:id="description" />
 		<Button fx:id="closeBtn" onAction="#handleCloseClick" text="Close" />

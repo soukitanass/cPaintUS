@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public abstract class Shape1D extends Shape {
 	private double x2;

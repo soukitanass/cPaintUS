@@ -1,14 +1,14 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cPaintUS.controllers.popup.AboutController;
-import cPaintUS.controllers.popup.NewController;
-import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.popup.AboutController;
+import cpaintus.controllers.popup.NewController;
+import cpaintus.models.saveStrategy.FileContext;
+import cpaintus.models.shapes.ShapesDict;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,7 +37,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleNewClick() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/New.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/New.fxml"));
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
@@ -70,7 +70,7 @@ public class TopPaneController {
 
 	@FXML
 	private void handleAboutClick() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/About.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/About.fxml"));
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();

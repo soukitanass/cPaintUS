@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeFactory;
-import cPaintUS.models.shapes.ShapeType;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeFactory;
+import cpaintus.models.shapes.ShapeType;
 
 class ShapeFactoryTest {
 
@@ -27,19 +27,19 @@ class ShapeFactoryTest {
 	@Test
 	void getShapeTest() {
 		Shape actual =  shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
-		assertTrue(actual instanceof cPaintUS.models.shapes.Rectangle);
+		assertTrue(actual instanceof cpaintus.models.shapes.Rectangle);
 		
 		actual =  shapeFactory.getShape(ShapeType.Ellipse, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
-		assertTrue(actual instanceof cPaintUS.models.shapes.Ellipse);
+		assertTrue(actual instanceof cpaintus.models.shapes.Ellipse);
 		
 		actual =  shapeFactory.getShape(ShapeType.Line, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
-		assertTrue(actual instanceof cPaintUS.models.shapes.Line);
+		assertTrue(actual instanceof cpaintus.models.shapes.Line);
 		
 		actual =  shapeFactory.getShape(ShapeType.Heart, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
-		assertTrue(actual instanceof cPaintUS.models.shapes.Heart);
+		assertTrue(actual instanceof cpaintus.models.shapes.Heart);
 		
 		actual =  shapeFactory.getShape(ShapeType.Pokeball, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
-		assertTrue(actual instanceof cPaintUS.models.shapes.Pokeball);
+		assertTrue(actual instanceof cpaintus.models.shapes.Pokeball);
 		
 	}
 

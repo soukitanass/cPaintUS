@@ -1,4 +1,4 @@
-package cPaintUS.controllers.popup;
+package cpaintus.controllers.popup;
 
 
 import javafx.fxml.FXML;
@@ -25,7 +25,7 @@ public class AboutController {
 	private void initialize() {
 		description.setPadding(new Insets(10, 20, 10, 20));
 		description.setWrapText(true);
-		description.setText("Created by cPaintUS team members:\nJean Bilski\nCorentin Chatelin\nNoemie Landry-Boisvert\nSoukaina Nassib\nMarc-Eric Pelletier");
+		description.setText("Created by cpaintus team members:\nJean Bilski\nCorentin Chatelin\nNoemie Landry-Boisvert\nSoukaina Nassib\nMarc-Eric Pelletier");
 		closeBtn.setAlignment(Pos.BOTTOM_CENTER);
 		VBox.setMargin(closeBtn, new Insets(10));
 	}

@@ -1,19 +1,19 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cPaintUS.controllers.drawers.DrawerStrategyContext;
-import cPaintUS.models.BoundingBox;
-import cPaintUS.models.DrawSettings;
-import cPaintUS.models.Pointer;
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeEditor;
-import cPaintUS.models.shapes.ShapeFactory;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.drawers.DrawerStrategyContext;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.DrawSettings;
+import cpaintus.models.Pointer;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeEditor;
+import cpaintus.models.shapes.ShapeFactory;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDict;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

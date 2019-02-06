@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,12 +11,12 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeFactory;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeFactory;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDict;
 
 class ShapeDictTest {
 

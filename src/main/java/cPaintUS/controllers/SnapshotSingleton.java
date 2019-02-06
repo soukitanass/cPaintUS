@@ -1,4 +1,4 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.Observable;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Picture;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.Observable;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Picture;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
