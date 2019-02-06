@@ -1,12 +1,14 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import cPaintUS.controllers.popup.CloseController;
-import cPaintUS.models.saveStrategy.FileContext;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.popup.CloseController;
+import cpaintus.models.savestrategy.FileContext;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,25 +20,27 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SaveCloseSingleton {
-	private SnapshotSingleton snapshotSingleton;
-	private ShapesDict shapesDict;
 
-	private SaveCloseSingleton () {
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private SnapshotSingleton snapshotSingleton;
+	private ShapesDictionnary shapesDict;
+
+	private SaveCloseSingleton() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 	}
 
 	private static class SaveCloseSingletonHelper {
 		private static final SaveCloseSingleton INSTANCE = new SaveCloseSingleton();
 	}
 
-	public static SaveCloseSingleton getInstance () {
+	public static SaveCloseSingleton getInstance() {
 		return SaveCloseSingletonHelper.INSTANCE;
 	}
 
 	public void triggerClose() {
 		if (shapesDict.getShapesList().size() != 0) {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/Close.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/Close.fxml"));
 			Parent parent;
 			try {
 				parent = fxmlLoader.load();
@@ -54,14 +58,13 @@ public class SaveCloseSingleton {
 				}
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Level.INFO, "Error while opening the file ", e);
 			}
 		}
 		System.exit(0);
 	}
 
-	public void handleSave () {
+	public void handleSave() {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save As");
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
@@ -70,7 +73,7 @@ public class SaveCloseSingleton {
 		File selectedFile = chooser.showSaveDialog(stage);
 		if (selectedFile != null) {
 			String fileName = selectedFile.getName();
-			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
+			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 			} else {

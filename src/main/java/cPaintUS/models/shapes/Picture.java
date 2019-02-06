@@ -1,23 +1,23 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
-public class Picture extends Shape {
+public class Picture extends Shape2D {
 	private String base64;
 	
 	public Picture(
+			ShapeType shapeType,
 			String shapeId,
 			double x,
 			double y,
 			int z,
-			double width,
-			double height,
 			double rotation,
 			int lineWidth,
 			String strokeColor,
-			String base64,
-			ShapeType shapeType) 
+			String fillColor,
+			double width,
+			double height,
+			String base64)
 	{
-		super(shapeId, x, y, z, width, height, rotation, lineWidth, strokeColor, shapeType);
-
+		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 		this.setBase64(base64);
 	}
 	

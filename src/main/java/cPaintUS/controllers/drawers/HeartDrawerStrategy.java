@@ -1,7 +1,7 @@
-package cPaintUS.controllers.drawers;
+package cpaintus.controllers.drawers;
 
-import cPaintUS.models.shapes.Heart;
-import cPaintUS.models.shapes.Shape;
+import cpaintus.models.shapes.Heart;
+import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -9,7 +9,8 @@ public class HeartDrawerStrategy implements IDrawerStrategy {
 
 	@Override
 	public void draw(GraphicsContext gc, Shape shape) {
-		drawHeart(gc,shape);
+		drawFillHeart(gc, (Heart) shape);
+		drawStrokeHeart(gc, shape);
 	}
 
 	private void calculHeartShape(double x, double y, double w, double h, double[] xAxis, double[] yTop, double[] yBottom, int size) {
@@ -59,11 +60,6 @@ public class HeartDrawerStrategy implements IDrawerStrategy {
 		gc.strokePolyline(xAxisLeft, yBottomLeft, size/2);
 		gc.strokePolyline(xAxisRight, yTopRight, size%2==1 ? size/2+1 : size/2);
 		gc.strokePolyline(xAxisRight, yBottomRight, size%2==1 ? size/2+1 : size/2);
-	}
-		
-	private void drawHeart(GraphicsContext gc, Shape heart) {
-		drawFillHeart(gc, (Heart)heart);
-		drawStrokeHeart(gc, heart);
 	}
 	
 	private void drawFillHeart(GraphicsContext gc, Heart heart) {

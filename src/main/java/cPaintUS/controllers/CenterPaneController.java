@@ -1,20 +1,19 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cPaintUS.controllers.drawers.DrawerStrategyContext;
-import cPaintUS.models.BoundingBox;
-import cPaintUS.models.DrawSettings;
-import cPaintUS.models.Pointer;
-import cPaintUS.models.observable.IAddTextObserver;
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeEditor;
-import cPaintUS.models.shapes.ShapeFactory;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.controllers.drawers.DrawerStrategyContext;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.DrawSettings;
+import cpaintus.models.Pointer;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeEditor;
+import cpaintus.models.shapes.ShapeFactory;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -23,12 +22,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class CenterPaneController implements IObserver,IAddTextObserver {
+public class CenterPaneController implements IObserver {
 
 	@FXML
 	private Canvas baseCanvas;
@@ -38,24 +36,21 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 
 	@FXML
 	private AnchorPane pane;
-	
+
 	@FXML
 	private ScrollPane scrollPane;
-	
+
 	private Canvas activeCanvas;
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	private DrawSettings drawSettings;
 	private ShapeFactory shapeFactory;
-	private ShapesDict shapesDict;
-	private AddTextSingleton addTextSingleton;
+	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private ShapeEditor shapeEditor;
-	
-	private boolean hasBeenDragged;
 
-	private String text;
+	private boolean hasBeenDragged;
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -68,11 +63,9 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		boundingBox.register(this);
 		drawSettings = DrawSettings.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
-		addTextSingleton = AddTextSingleton.getInstance();
-		addTextSingleton.register(this);
 		shapeEditor = ShapeEditor.getInstance();
 		shapeEditor.register(this);
 
@@ -81,7 +74,6 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				System.out.println("Mouse pressed : " + pane.getChildren().size() + " canevas");
 				boundingBox.setOrigin(e.getX(), e.getY());
 				boundingBox.setVisible(true);
 				boundingBox.setRotation(0);
@@ -91,29 +83,25 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		mouseReleasedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				if (hasBeenDragged == true) {
+				if (hasBeenDragged) {
 					hasBeenDragged = false;
 				} else {
 					boundingBox.setVisible(false);
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				draw(true);
-				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
 			}
 		};
 	}
 
 	@FXML
 	public void initialize() {
-		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-			scrollPaneWidthHandler(newVal.doubleValue());
-		});
+		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> scrollPaneWidthHandler(newVal.doubleValue()));
 
-		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-			scrollPaneHeightHandler(newVal.doubleValue());
-		});
+		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> scrollPaneHeightHandler(newVal.doubleValue()));
 
 		pane.setStyle("-fx-background-color: white");
+		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
@@ -124,7 +112,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
-		case SHAPES_UPDATED:
+		case SHAPES_LOADED:
 			eraseCanvas();
 			refresh();
 			break;
@@ -169,18 +157,16 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 	private void scrollPaneWidthHandler(double width) {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setWidth(width);
-		if(pane.getWidth() > width) {
-			baseCanvas.setWidth(pane.getWidth());
+		if (pane.getWidth() > width + 10) {
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
 	}
-	
+
 	private void scrollPaneHeightHandler(double height) {
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setHeight(height);
-		if(pane.getHeight() > height) {
-			baseCanvas.setHeight(pane.getHeight());
+		if (pane.getHeight() > height + 10) {
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -188,7 +174,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 
 	private void eraseCanvas() {
 		List<Node> canvasList = pane.getChildren();
-		List<Node> canvasToRemove = new ArrayList<Node>();
+		List<Node> canvasToRemove = new ArrayList<>();
 
 		for (int i = 1; i < canvasList.size() - 1; i++) {
 			canvasToRemove.add(canvasList.get(i));
@@ -209,14 +195,16 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
-	
+
 	private void editShape() {
 		Shape shape = shapeEditor.getShapeToEdit();
-		if (shape == null) System.out.println("ERROR: No shape to edit.");
+		if (shape == null) {
+			return;
+		}
 
 		int index = shape.getZ();
 		Canvas canvas = (Canvas) pane.getChildren().get(index);
-		drawerStrategyContext.draw(shape, canvas);	
+		drawerStrategyContext.draw(shape, canvas);
 	}
 
 	public void draw(boolean persistent) {
@@ -224,6 +212,7 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
+
 		}
 		drawBoundingBox();
 		scrollPaneWidthHandler(scrollPane.getWidth());
@@ -240,22 +229,17 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(2,
-					2,
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
+			gc.strokeRect(2, 2, boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
 					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
-			gc.strokeLine(3,3, boundingBox.getWidth()+3, boundingBox.getHeight()+3);
-			gc.strokeLine(boundingBox.getWidth()+3, 3, 3, boundingBox.getHeight()+3);
-			
+			gc.strokeLine(3, 3, boundingBox.getWidth() + 3, boundingBox.getHeight() + 3);
+			gc.strokeLine(boundingBox.getWidth() + 3, 3, 3, boundingBox.getHeight() + 3);
+
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(
-					2,
-					2,
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
+			gc.strokeRect(2, 2, boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
 					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 		}
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
@@ -272,51 +256,29 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		int lineWidth = drawSettings.getLineWidth();
 		Color fillColor = drawSettings.getFillColor();
 		Color strokeColor = drawSettings.getStrokeColor();
+		String text = drawSettings.getText();
 
 		String sfillColor = String.format("#%02X%02X%02X", (int) (fillColor.getRed() * 255),
 				(int) (fillColor.getGreen() * 255), (int) (fillColor.getBlue() * 255));
 		String sstrokeColor = String.format("#%02X%02X%02X", (int) (strokeColor.getRed() * 255),
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
-		if (shapeType == ShapeType.Line) {
-			newShape = shapeFactory.getShape(
-					shapeType,
-					persistent,
-					boundingBox.getOrigin().getX(),
-					boundingBox.getOrigin().getY(),
-					boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(),
-					0,
-					lineWidth,
-					sstrokeColor,
-					sfillColor,
-					null);
-		} else if (shapeType == ShapeType.Text) {
-			if (boundingBox.getWidth() + boundingBox.getHeight() == 0) {
-				newShape = null;
-			} else {
-				newShape = shapeFactory.getShape(
-						shapeType,
-						persistent,
-						boundingBox.getUpLeftCorner().getX(),
-						boundingBox.getUpLeftCorner().getY(),
-						boundingBox.getWidth(),
-						boundingBox.getHeight(),
-						0,
-						lineWidth,
-						sstrokeColor,
-						sfillColor,
-						text);
-			}
+		if (shapeType == ShapeType.LINE) {
+			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getOrigin().getX(),
+					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
+					lineWidth, sstrokeColor, sfillColor, "", text);
+		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
+			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent,
-					boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY(), boundingBox.getWidth(),
-					boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, null);
+			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getUpLeftCorner().getX(),
+					boundingBox.getUpLeftCorner().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
+					lineWidth, sstrokeColor, sfillColor, "", text);
 		}
 
 		if (newShape != null && persistent) {
 			shapesDict.addShape(newShape);
-			System.out.println(newShape.getShapeId());
 		}
 
 		return newShape;
@@ -334,18 +296,4 @@ public class CenterPaneController implements IObserver,IAddTextObserver {
 		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(),
 				(Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
 	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	@Override
-	public void update( String text) {
-		setText(text);
-	}
-
 }

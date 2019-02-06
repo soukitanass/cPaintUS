@@ -1,9 +1,9 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
-import cPaintUS.models.BoundingBox;
-import cPaintUS.models.Pointer;
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.Pointer;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
