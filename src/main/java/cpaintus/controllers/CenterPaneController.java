@@ -40,8 +40,6 @@ public class CenterPaneController implements IObserver {
 	@FXML
 	private ScrollPane scrollPane;
 
-	private Canvas activeCanvas;
-
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	private DrawSettings drawSettings;
@@ -208,7 +206,7 @@ public class CenterPaneController implements IObserver {
 	}
 
 	public void draw(boolean persistent) {
-		activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
+		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);

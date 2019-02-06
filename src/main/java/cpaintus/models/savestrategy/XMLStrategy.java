@@ -16,7 +16,7 @@ import cpaintus.models.shapes.ShapesDictionnary;
 
 public class XMLStrategy implements FileManagerStrategy {
 
-	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static final String ERROR_MESSAGE = "Error while opening the file ";
 	private ShapesDictionnary shapeDict;
 	private List<Shape> shapes;
@@ -36,7 +36,7 @@ public class XMLStrategy implements FileManagerStrategy {
 				encoder = new XMLEncoder(fos);
 				encoder.setExceptionListener(new ExceptionListener() {
 					public void exceptionThrown(Exception e) {
-						LOGGER.log(Level.INFO,ERROR_MESSAGE , e);
+						LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 					}
 				});
 				encoder.writeObject(shapes);
@@ -80,7 +80,7 @@ public class XMLStrategy implements FileManagerStrategy {
 				if (fis != null)
 					fis.close();
 			} catch (IOException ex) {
-				LOGGER.log(Level.INFO,ERROR_MESSAGE, ex);
+				LOGGER.log(Level.INFO, ERROR_MESSAGE, ex);
 			}
 		}
 	}
