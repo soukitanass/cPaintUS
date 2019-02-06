@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="9.0.4" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="cpaintus.models.shapes.Line">
+    <void property="height">
+     <double>13.0</double>
+    </void>
+    <void property="lineWidth">
+     <int>1</int>
+    </void>
+    <void property="shapeId">
+     <string>Line 0</string>
+    </void>
+    <void property="shapeType">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>cpaintus.models.shapes.ShapeType</class>
+      <string>LINE</string>
+     </object>
+    </void>
+    <void property="strokeColor">
+     <string>#000000</string>
+    </void>
+    <void property="width">
+     <double>226.0</double>
+    </void>
+    <void property="x">
+     <double>84.0</double>
+    </void>
+    <void property="x2">
+     <double>310.0</double>
+    </void>
+    <void property="y">
+     <double>100.0</double>
+    </void>
+    <void property="y2">
+     <double>87.0</double>
+    </void>
+    <void property="z">
+     <int>1</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="cpaintus.models.shapes.Heart">
+    <void property="fillColor">
+     <string>#E6804D</string>
+    </void>
+    <void property="height">
+     <double>151.0</double>
+    </void>
+    <void property="lineWidth">
+     <int>1</int>
+    </void>
+    <void property="shapeId">
+     <string>Heart 0</string>
+    </void>
+    <void property="shapeType">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>cpaintus.models.shapes.ShapeType</class>
+      <string>HEART</string>
+     </object>
+    </void>
+    <void property="strokeColor">
+     <string>#000000</string>
+    </void>
+    <void property="width">
+     <double>128.0</double>
+    </void>
+    <void property="x">
+     <double>59.0</double>
+    </void>
+    <void property="y">
+     <double>176.0</double>
+    </void>
+    <void property="z">
+     <int>2</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="cpaintus.models.shapes.Pokeball">
+    <void property="fillColor">
+     <string>#994D66</string>
+    </void>
+    <void property="height">
+     <double>86.0</double>
+    </void>
+    <void property="lineWidth">
+     <int>1</int>
+    </void>
+    <void property="shapeId">
+     <string>Pokeball 0</string>
+    </void>
+    <void property="shapeType">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>cpaintus.models.shapes.ShapeType</class>
+      <string>POKEBALL</string>
+     </object>
+    </void>
+    <void property="strokeColor">
+     <string>#000000</string>
+    </void>
+    <void property="width">
+     <double>165.0</double>
+    </void>
+    <void property="x">
+     <double>248.0</double>
+    </void>
+    <void property="y">
+     <double>155.0</double>
+    </void>
+    <void property="z">
+     <int>3</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
