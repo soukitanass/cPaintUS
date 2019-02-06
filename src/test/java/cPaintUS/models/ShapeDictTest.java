@@ -1,13 +1,9 @@
 package cpaintus.models;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +27,7 @@ class ShapeDictTest {
 
 	@Test
 	void getInstanceTest() {
-		assertSame(ShapesDictionnary.getInstance(), shapeDict);
+		Assertions.assertSame(ShapesDict.getInstance(), shapeDict);
 	}
 
 	@Test
@@ -40,18 +36,25 @@ class ShapeDictTest {
 		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
 
-		assertTrue(shapeDict.getShapesList().contains(actual));
-		assertEquals(1, shapeDict.getShapesList().size());
+		Assertions.assertTrue(shapeDict.getShapesList().contains(actual));
+		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
 		shapeDict.addShape(null);
-		assertEquals(1, shapeDict.getShapesList().size());
+		Assertions.assertEquals(1, shapeDict.getShapesList().size());
+		
+		shapeDict.addShapeSilent(null);
+		Assertions.assertEquals(1, shapeDict.getShapesList().size());
+		
+		shapeDict.addShapeSilentForList(null);
+		Assertions.assertEquals(1, shapeDict.getShapesList().size());
+
 	}
 
 	@Test
 	void clearShapesTest() {
 		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh"));
 		shapeDict.clearShapes();
-		assertEquals(0, shapeDict.getShapesList().size());
+		Assertions.assertEquals(0, shapeDict.getShapesList().size());
 	}
 
 	@Test
@@ -62,7 +65,7 @@ class ShapeDictTest {
 		shapeDict.clearShapes();
 
 		shapeDict.addListShapes(actualList);
-		assertEquals(shapeDict.getShapesList().size(), actualList.size());
+		Assertions.assertEquals(shapeDict.getShapesList().size(), actualList.size());
 	}
 
 	@Test
@@ -75,7 +78,7 @@ class ShapeDictTest {
 
 			}
 		});
-		assertEquals(1, shapeDict.getObserverList().size());
+		Assertions.assertEquals(1, shapeDict.getObserverList().size());
 
 		IObserver observer = new IObserver() {
 
@@ -86,13 +89,13 @@ class ShapeDictTest {
 			}
 		};
 		shapeDict.register(observer);
-		assertEquals(2, shapeDict.getObserverList().size());
+		Assertions.assertEquals(2, shapeDict.getObserverList().size());
 
 		shapeDict.unregister(observer);
-		assertEquals(1, shapeDict.getObserverList().size());
+		Assertions.assertEquals(1, shapeDict.getObserverList().size());
 		
 		shapeDict.unregisterAll();
-		assertTrue(shapeDict.getObserverList().isEmpty());
+		Assertions.assertTrue(shapeDict.getObserverList().isEmpty());
 	}
 
 }

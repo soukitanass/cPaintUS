@@ -1,9 +1,9 @@
 package cpaintus.models;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import cpaintus.models.LineWidth;
 
@@ -18,6 +18,12 @@ class LineWidthTest {
 
 	@Test
 	void getInstanceTest() {
-		assertSame(LineWidth.getInstance(), lineWidth);
+		Assertions.assertSame(LineWidth.getInstance(), lineWidth);
+	}
+	
+	@Test
+	void getListTest () {
+		Assertions.assertEquals(lineWidth.getStrings().size(),4);
+		Assertions.assertEquals(lineWidth.getDefaultString(),"1px");
 	}
 }
