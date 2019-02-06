@@ -3,6 +3,8 @@ package cPaintUS.controllers;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import cPaintUS.controllers.popup.CloseController;
 import cPaintUS.models.saveStrategy.FileContext;
@@ -18,10 +20,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SaveCloseSingleton {
+
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private ShapesDict shapesDict;
 
-	private SaveCloseSingleton () {
+	private SaveCloseSingleton() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
 	}
@@ -30,7 +34,7 @@ public class SaveCloseSingleton {
 		private static final SaveCloseSingleton INSTANCE = new SaveCloseSingleton();
 	}
 
-	public static SaveCloseSingleton getInstance () {
+	public static SaveCloseSingleton getInstance() {
 		return SaveCloseSingletonHelper.INSTANCE;
 	}
 
@@ -54,14 +58,13 @@ public class SaveCloseSingleton {
 				}
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOGGER.log(Level.INFO, "Error while opening the file ", e);
 			}
 		}
 		System.exit(0);
 	}
 
-	public void handleSave () {
+	public void handleSave() {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save As");
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();

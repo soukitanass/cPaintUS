@@ -204,8 +204,11 @@ public class CenterPaneController implements IObserver {
 		
 	private void editShape() {
 		Shape shape = shapeEditor.getShapeToEdit();
-		if (shape == null) System.out.println("ERROR: No shape to edit.");
-
+		if (shape == null) {
+			System.out.println("ERROR: No shape to edit.");
+			return;
+		}
+			
 		int index = shape.getZ();
 		Canvas canvas = (Canvas) pane.getChildren().get(index);
 		drawerStrategyContext.draw(shape, canvas);	

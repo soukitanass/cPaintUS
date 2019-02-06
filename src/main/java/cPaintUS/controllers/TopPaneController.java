@@ -2,6 +2,8 @@ package cPaintUS.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import cPaintUS.controllers.popup.AboutController;
 import cPaintUS.controllers.popup.NewController;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 
 public class TopPaneController {
 
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
 	@FXML
@@ -56,8 +59,7 @@ public class TopPaneController {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 	}
 
@@ -83,8 +85,7 @@ public class TopPaneController {
 			controller.setNewDialog(stage);
 			stage.showAndWait();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 	}
 
@@ -98,7 +99,7 @@ public class TopPaneController {
 		File selectedFile = fileChooser.showOpenDialog(stage);
 		if (selectedFile != null) {
 			String fileName = selectedFile.getName();
-			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
+			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.load(FileContext.types.XML, selectedFile.getAbsolutePath());
 			} else {

@@ -3,6 +3,8 @@ package cPaintUS.controllers;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import cPaintUS.controllers.popup.AddTextController;
 import cPaintUS.models.BoundingBox;
@@ -39,6 +41,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 public class LeftPaneController implements IObserver {
+
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private DrawSettings drawSettings;
 	private ShapesDict shapesDict;
@@ -138,14 +142,14 @@ public class LeftPaneController implements IObserver {
 				if (newShape.getShapeDimension() == ShapeDimension.Shape1D) {
 					editFillColor.setVisible(false);
 				} else {
-					editFillColor.setValue(Color.web(((Shape2D)newShape).getFillColor()));
+					editFillColor.setValue(Color.web(((Shape2D) newShape).getFillColor()));
 				}
-				
+
 				editText.setDisable(true);
 				editBtn.setDisable(true);
-				
-				if(newShape.getShapeType() == ShapeType.Text) {
-					editText.setText(((Text)newShape).getText());
+
+				if (newShape.getShapeType() == ShapeType.Text) {
+					editText.setText(((Text) newShape).getText());
 					editText.setDisable(false);
 					editBtn.setDisable(false);
 				}
@@ -212,7 +216,7 @@ public class LeftPaneController implements IObserver {
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
 				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
-		((Shape2D)shapeToEdit).setFillColor(color);			
+		((Shape2D) shapeToEdit).setFillColor(color);
 		shapeEditor.edit(shapeToEdit);
 	}
 
@@ -333,8 +337,7 @@ public class LeftPaneController implements IObserver {
 			controller.setAddDialog(stage);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 
 	}
