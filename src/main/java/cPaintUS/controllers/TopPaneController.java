@@ -2,6 +2,8 @@ package cPaintUS.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.prefs.Preferences;
 
 import cPaintUS.controllers.popup.AboutController;
 import cPaintUS.controllers.popup.NewController;
@@ -21,6 +23,7 @@ public class TopPaneController {
 
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
+	private Preferences prefs;
 	@FXML
 	private MenuBar menuBar;
 
@@ -30,6 +33,7 @@ public class TopPaneController {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDict.getInstance();
 		saveCloseSingleton = SaveCloseSingleton.getInstance();
+	    prefs = Preferences.userNodeForPackage(this.getClass());
 	}
 
 	@FXML
@@ -92,6 +96,7 @@ public class TopPaneController {
 	private void handleLoadLClick() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
+		fileChooser.setInitialDirectory(new File(prefs.get("Workdir",Paths.get(".").toAbsolutePath().normalize().toString())));
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
 				new ExtensionFilter("PNG Files", "*.png"));
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
@@ -101,8 +106,10 @@ public class TopPaneController {
 			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.load(FileContext.types.XML, selectedFile.getAbsolutePath());
+				prefs.put("Workdir", selectedFile.getParent());
 			} else {
 				FileContext.load(FileContext.types.PNG, selectedFile.getAbsolutePath());
+				prefs.put("Workdir", selectedFile.getParent());
 			}
 		}
 

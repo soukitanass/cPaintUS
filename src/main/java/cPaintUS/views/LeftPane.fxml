@@ -8,7 +8,7 @@
 
 <AnchorPane prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cPaintUS.controllers.LeftPaneController">
 	<children>
-      <VBox prefHeight="520" prefWidth="200.0">
+      <VBox prefHeight="520" prefWidth="202.0">
          <children>
       		<ToolBar>
       			<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
