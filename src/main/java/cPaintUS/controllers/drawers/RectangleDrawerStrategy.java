@@ -1,7 +1,7 @@
-package cPaintUS.controllers.drawers;
+package cpaintus.controllers.drawers;
 
-import cPaintUS.models.shapes.Rectangle;
-import cPaintUS.models.shapes.Shape;
+import cpaintus.models.shapes.Rectangle;
+import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

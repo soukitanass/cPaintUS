@@ -1,4 +1,4 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 public class ShapeFactory {
 	private static ShapeFactory factory = null;
@@ -56,43 +56,43 @@ public class ShapeFactory {
 			totalShapeNb++;
 
 		switch (shapeType) {
-		case Rectangle:
+		case RECTANGLE:
 			shapeId = "Rectangle " + rectangleNb;
 			if (persistent)
 				rectangleNb++;
 			shape = new Rectangle(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break; 
-		case Ellipse:
+		case ELLIPSE:
 			shapeId = "Ellipse " + ellipseNb;
 			if (persistent)
 				ellipseNb++;
 			shape = new Ellipse(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
-		case Line:
+		case LINE:
 			shapeId = "Line " + lineNb;
 			if (persistent)
 				lineNb++;
 			shape = new Line(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, x2, y2);
 			break;
-		case Pokeball:
+		case POKEBALL:
 			shapeId = "Pokeball " + pokeballNb;
 			if (persistent)
 				pokeballNb++;
 			shape = new Pokeball(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
-		case Heart:
+		case HEART:
 			shapeId = "Heart " + heartNb;
 			if (persistent)
 				heartNb++;
 			shape = new Heart(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
-		case Picture:
+		case PICTURE:
 			shapeId = "Picture " + pictureNb;
 			if (persistent)
 				pictureNb++;
 			shape = new Picture(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, base64);
 			break;
-		case Text:
+		case TEXT:
 			shapeId = "Text " + textNb;
 			if (persistent)
 				textNb++;

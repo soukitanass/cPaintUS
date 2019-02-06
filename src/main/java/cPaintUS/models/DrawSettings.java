@@ -1,6 +1,6 @@
-package cPaintUS.models;
+package cpaintus.models;
 
-import cPaintUS.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapeType;
 import javafx.scene.paint.Color;
 
 public class DrawSettings {
@@ -12,7 +12,7 @@ public class DrawSettings {
 	
 	private DrawSettings() {
 		// set defaults
-		shape = ShapeType.Line;
+		shape = ShapeType.LINE;
 		fillColor = Color.BLACK;
 		strokeColor = Color.BLACK;
 		lineWidth = LineWidth.getInstance().getDefault();

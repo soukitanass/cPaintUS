@@ -1,4 +1,4 @@
-package cPaintUS.models.observable;
+package cpaintus.models.observable;
 
 public enum ObservableList {
 	POINTER,

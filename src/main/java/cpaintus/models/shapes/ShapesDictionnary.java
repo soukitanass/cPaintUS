@@ -1,33 +1,37 @@
-package cPaintUS.models.shapes;
+package cpaintus.models.shapes;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.Observable;
-import cPaintUS.models.observable.ObservableList;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.Observable;
+import cpaintus.models.observable.ObservableList;
 
-public class ShapesDict extends Observable<IObserver> {
-	private static ShapesDict instance = null;
+public class ShapesDictionnary extends Observable<IObserver> {
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final String ERROR_MESSAGE = "addShape error : Unknown shape";
+	private static ShapesDictionnary instance = null;
 	private LinkedHashMap<String, Shape> shapesDict;
 	private ShapeFactory shapeFactory;
 
-	private ShapesDict() {
-		this.shapesDict = new LinkedHashMap<String, Shape>();
+	private ShapesDictionnary() {
+		this.shapesDict = new LinkedHashMap<>();
 		this.shapeFactory = ShapeFactory.getInstance();
 	}
 
-	public static ShapesDict getInstance() {
+	public static ShapesDictionnary getInstance() {
 		if (instance == null) {
-			instance = new ShapesDict();
+			instance = new ShapesDictionnary();
 		}
 
 		return instance;
 	}
 
 	public List<Shape> getShapesList() {
-		return new ArrayList<Shape>(shapesDict.values());
+		return new ArrayList<>(shapesDict.values());
 	}
 
 	public void addShape(Shape shape) {
@@ -36,7 +40,7 @@ public class ShapesDict extends Observable<IObserver> {
 			notifyAddAllObservers();
 		}
 		else
-			System.out.println("addShape error : Unknown shape");
+			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 	
 	public void addShapeSilent(Shape shape) {
@@ -44,7 +48,7 @@ public class ShapesDict extends Observable<IObserver> {
 			shapesDict.put(shape.getShapeId(), shape);
 		}
 		else
-			System.out.println("addShape error : Unknown shape");
+			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 		
 	public void addShapeSilentForList(Shape shape) {
@@ -55,7 +59,7 @@ public class ShapesDict extends Observable<IObserver> {
 			shapesDict.put(shape.getShapeId(), shape);			
 		}
 		else
-			System.out.println("addShape error : Unknown shape");
+			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 
 	public void addListShapes(List<Shape> shapesList) {

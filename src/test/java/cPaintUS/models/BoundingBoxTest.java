@@ -1,15 +1,14 @@
-package cPaintUS.models;
+package cpaintus.models;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.DrawSettings;
+import cpaintus.models.Point;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
 
 class BoundingBoxTest {
 
@@ -25,18 +24,18 @@ class BoundingBoxTest {
 
 	@Test
 	void getInstanceTest() {
-		assertSame(BoundingBox.getInstance(), boundingBox);
+		Assertions.assertSame(BoundingBox.getInstance(), boundingBox);
 	}
 	
 	@Test
 	void setOriginTest() {
 		Point expected = new Point(2.0,1.0);
 		boundingBox.setOrigin(expected);
-		assertEquals(expected.getX(),boundingBox.getOrigin().getX());
-		assertEquals(expected.getY(),boundingBox.getOrigin().getY());
+		Assertions.assertEquals(expected.getX(),boundingBox.getOrigin().getX());
+		Assertions.assertEquals(expected.getY(),boundingBox.getOrigin().getY());
 		
-		assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
-		assertEquals(expected.getY(),boundingBox.getOppositeCorner().getY());
+		Assertions.assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
+		Assertions.assertEquals(expected.getY(),boundingBox.getOppositeCorner().getY());
 	}
 	
 	@Test
@@ -44,8 +43,8 @@ class BoundingBoxTest {
 		Point expected = new Point(8.4,7.1);
 		boundingBox.updateBoundingBox(expected);
 		
-		assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
-		assertEquals(expected.getY(),boundingBox.getOppositeCorner().getY());
+		Assertions.assertEquals(expected.getX(),boundingBox.getOppositeCorner().getX());
+		Assertions.assertEquals(expected.getY(),boundingBox.getOppositeCorner().getY());
 	}
 
 	@Test
@@ -54,8 +53,8 @@ class BoundingBoxTest {
 		boundingBox.setOrigin(new Point(15.3,5.8));
 		boundingBox.updateBoundingBox(new Point(4.7,11.3));
 		
-		assertEquals(expected.getX(),boundingBox.getUpLeftCorner().getX());
-		assertEquals(expected.getY(),boundingBox.getUpLeftCorner().getY());
+		Assertions.assertEquals(expected.getX(),boundingBox.getUpLeftCorner().getX());
+		Assertions.assertEquals(expected.getY(),boundingBox.getUpLeftCorner().getY());
 	}
 	
 	@Test
@@ -64,7 +63,7 @@ class BoundingBoxTest {
 		boundingBox.setOrigin(new Point(6.0,9.0));
 		boundingBox.updateBoundingBox(new Point(12.0,5.4));
 		
-		assertEquals(expected, boundingBox.getWidth());
+		Assertions.assertEquals(expected, boundingBox.getWidth());
 	}
 	
 	@Test
@@ -73,13 +72,21 @@ class BoundingBoxTest {
 		boundingBox.setOrigin(8.0,6.0);
 		boundingBox.updateBoundingBox(new Point(12.0,8.0));
 		
-		assertEquals(expected, boundingBox.getHeight());
+		Assertions.assertEquals(expected, boundingBox.getHeight());
 	}
 	
 	@Test
 	void setVisibleTest() {
 		boundingBox.setVisible(true);
-		assertTrue(boundingBox.isVisible());
+		Assertions.assertTrue(boundingBox.isVisible());
+	}
+	
+	@Test
+	void getRotationTest() {
+		double expected = 2.0;
+		boundingBox.setRotation(2.0);
+		Assertions.assertEquals(expected, boundingBox.getRotation());
+		
 	}
 	
 	@Test
@@ -92,7 +99,7 @@ class BoundingBoxTest {
 
 			}
 		});
-		assertEquals(1, boundingBox.getObserverList().size());
+		Assertions.assertEquals(1, boundingBox.getObserverList().size());
 
 		IObserver observer = new IObserver() {
 
@@ -103,12 +110,12 @@ class BoundingBoxTest {
 			}
 		};
 		boundingBox.register(observer);
-		assertEquals(2, boundingBox.getObserverList().size());
+		Assertions.assertEquals(2, boundingBox.getObserverList().size());
 
 		boundingBox.unregister(observer);
-		assertEquals(1, boundingBox.getObserverList().size());
+		Assertions.assertEquals(1, boundingBox.getObserverList().size());
 		
 		boundingBox.unregisterAll();
-		assertTrue(boundingBox.getObserverList().isEmpty());
+		Assertions.assertTrue(boundingBox.getObserverList().isEmpty());
 	}
 }
