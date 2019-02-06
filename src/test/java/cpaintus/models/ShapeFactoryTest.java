@@ -44,6 +44,7 @@ class ShapeFactoryTest {
 		
 		actual =  shapeFactory.getShape(ShapeType.TEXT, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Text); 
+
 	}
 
 }

@@ -1,49 +1,46 @@
-package cPaintUS.models;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package cpaintus.models;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.shapes.Line;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeEditor;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.shapes.Line;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeEditor;
+import cpaintus.models.shapes.ShapesDictionnary;
 
 public class ShapeEditorTest {
-	
+
 	ShapeEditor shapeEditor;
-	ShapesDict shapesDict;
+	ShapesDictionnary shapesDict;
 	BoundingBox boundingBox;
 	Shape shape;
-	
+
 	@BeforeEach
 	public void setup() {
 		shapeEditor = ShapeEditor.getInstance();
 		shape = new Line();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	}
-	
+
 	@Test
-	public void initTest () {
+	public void initTest() {
 		Assertions.assertSame(shapeEditor, ShapeEditor.getInstance());
 	}
-	
+
 	@Test
-	public void editTest () {
+	public void editTest() {
 		shapeEditor.edit(shape);
 		Assertions.assertSame(shapeEditor.getShapeToEdit(), shape);
 		Assertions.assertTrue(shapesDict.getShapesList().contains(shape));
 	}
-	
+
 	@Test
-	public void doneTest () {
+	public void doneTest() {
 		shapeEditor.done();
-		Assertions.assertSame(shapeEditor.getShapeToEdit(),null);
+		Assertions.assertSame(shapeEditor.getShapeToEdit(), null);
 	}
-	
-	
 
 }
