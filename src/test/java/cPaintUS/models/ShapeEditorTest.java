@@ -1,9 +1,10 @@
 package cPaintUS.models;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import cPaintUS.models.shapes.Line;
 import cPaintUS.models.shapes.Shape;
@@ -17,7 +18,7 @@ public class ShapeEditorTest {
 	BoundingBox boundingBox;
 	Shape shape;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		shapeEditor = ShapeEditor.getInstance();
 		shape = new Line();
@@ -27,20 +28,20 @@ public class ShapeEditorTest {
 	
 	@Test
 	public void initTest () {
-		Assert.assertSame(shapeEditor, ShapeEditor.getInstance());
+		Assertions.assertSame(shapeEditor, ShapeEditor.getInstance());
 	}
 	
 	@Test
 	public void editTest () {
 		shapeEditor.edit(shape);
-		Assert.assertSame(shapeEditor.getShapeToEdit(), shape);
-		Assert.assertTrue(shapesDict.getShapesList().contains(shape));
+		Assertions.assertSame(shapeEditor.getShapeToEdit(), shape);
+		Assertions.assertTrue(shapesDict.getShapesList().contains(shape));
 	}
 	
 	@Test
 	public void doneTest () {
 		shapeEditor.done();
-		Assert.assertSame(shapeEditor.getShapeToEdit(),null);
+		Assertions.assertSame(shapeEditor.getShapeToEdit(),null);
 	}
 	
 	

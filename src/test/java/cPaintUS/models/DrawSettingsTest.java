@@ -1,13 +1,9 @@
 package cPaintUS.models;
 
-import static org.junit.Assert.assertSame;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import cPaintUS.models.shapes.Line;
-import cPaintUS.models.shapes.Rectangle;
 import cPaintUS.models.shapes.ShapeType;
 import javafx.scene.paint.Color;
 
@@ -26,21 +22,21 @@ class DrawSettingsTest {
 
 	@Test
 	void getInstanceTest() {
-		assertSame(DrawSettings.getInstance(), drawSettings);		
+		Assertions.assertSame(DrawSettings.getInstance(), drawSettings);		
 	}
 	
 	@Test
 	void setShapeTest() {
 		drawSettings.setShape(ShapeType.Rectangle);
-		assertSame(drawSettings.getShape(),ShapeType.Rectangle);
+		Assertions.assertSame(drawSettings.getShape(),ShapeType.Rectangle);
 	}
 	
 	@Test
 	void colorsTest() {
 		drawSettings.setFillColor(fillcolor);
 		drawSettings.setStrokeColor(strokecolor);
-		assertSame(drawSettings.getFillColor(), fillcolor);
-		assertSame(drawSettings.getStrokeColor(), strokecolor);
+		Assertions.assertSame(drawSettings.getFillColor(), fillcolor);
+		Assertions.assertSame(drawSettings.getStrokeColor(), strokecolor);
 	}
 
 }
