@@ -1,9 +1,0 @@
-package cPaintUS.controllers.drawers;
-
-import cPaintUS.models.shapes.Shape;
-import javafx.scene.canvas.GraphicsContext;
-
-public interface IDrawerStrategy {
-
-	public void draw(GraphicsContext gc, Shape shape);
-}

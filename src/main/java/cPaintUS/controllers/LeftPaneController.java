@@ -1,21 +1,25 @@
-package cPaintUS.controllers;
+package cpaintus.controllers;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
-import cPaintUS.controllers.popup.AddTextController;
-import cPaintUS.models.BoundingBox;
-import cPaintUS.models.DrawSettings;
-import cPaintUS.models.LineWidth;
-import cPaintUS.models.observable.IObserver;
-import cPaintUS.models.observable.ObservableList;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeEditor;
-import cPaintUS.models.shapes.ShapeType;
-import cPaintUS.models.shapes.ShapesDict;
-import cPaintUS.models.shapes.Text;
+import cpaintus.controllers.popup.AddTextController;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.DrawSettings;
+import cpaintus.models.LineWidth;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.Shape2D;
+import cpaintus.models.shapes.ShapeDimension;
+import cpaintus.models.shapes.ShapeEditor;
+import cpaintus.models.shapes.ShapeType;
+import cpaintus.models.shapes.ShapesDictionnary;
+import cpaintus.models.shapes.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -39,8 +43,10 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class LeftPaneController implements IObserver {
 
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
 	private DrawSettings drawSettings;
-	private ShapesDict shapesDict;
+	private ShapesDictionnary shapesDict;
 	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
@@ -84,11 +90,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private TextField rotate;
 
-	public void setRoot(RootController rootController) {
-	}
-
 	public LeftPaneController() {
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
@@ -100,6 +103,8 @@ public class LeftPaneController implements IObserver {
 	private void initialize() {
 		// Add possible shapes to the shape ComboBox
 		shape.getItems().setAll(ShapeType.values());
+		shape.getItems().remove(ShapeType.PICTURE);
+		shape.setValue(ShapeType.LINE);
 		shape.getItems().remove(ShapeType.Picture);
 		shape.setValue(ShapeType.valueOf(prefs.get("shape","LINE")));
 
@@ -136,18 +141,17 @@ public class LeftPaneController implements IObserver {
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 				editLineWidth.setValue(newShape.getLineWidth() + "px");
 
-				String fillCol = newShape.getFillColor();
-				if (fillCol == null) {
-					editFillColor.setDisable(true);
+				if (newShape.getShapeDimension() == ShapeDimension.SHAPE1D) {
+					editFillColor.setVisible(false);
 				} else {
-					editFillColor.setDisable(false);
-					editFillColor.setValue(Color.web(fillCol));
+					editFillColor.setValue(Color.web(((Shape2D) newShape).getFillColor()));
 				}
+
 				editText.setDisable(true);
 				editBtn.setDisable(true);
-				
-				if(newShape.getShapeType() == ShapeType.Text) {
-					editText.setText(((Text)newShape).getText());
+
+				if (newShape.getShapeType() == ShapeType.TEXT) {
+					editText.setText(((Text) newShape).getText());
 					editText.setDisable(false);
 					editBtn.setDisable(false);
 				}
@@ -167,8 +171,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleChangeShape() {
 		drawSettings.setShape(shape.getValue());
-		fillColor.setDisable(shape.getValue() == ShapeType.Line);
-		if (shape.getValue() == ShapeType.Text) {
+		fillColor.setDisable(shape.getValue() == ShapeType.LINE);
+		if (shape.getValue() == ShapeType.TEXT) {
 			handleTextAddClick();
 		}
 		prefs.put("shape",shape.getValue().name());
@@ -214,11 +218,11 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditFillColor() {
-		if (!attributes.isVisible())
+		if (!attributes.isVisible() || shapeToEdit.getShapeDimension() != ShapeDimension.SHAPE2D)
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
 				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
-		shapeToEdit.setFillColor(color);
+		((Shape2D) shapeToEdit).setFillColor(color);
 		shapeEditor.edit(shapeToEdit);
 	}
 
@@ -323,8 +327,8 @@ public class LeftPaneController implements IObserver {
 
 	private void handleTextAddClick() {
 
-		drawSettings.setShape(ShapeType.Text);
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cPaintUS/views/popup/AddText.fxml"));
+		drawSettings.setShape(ShapeType.TEXT);
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/AddText.fxml"));
 		Parent parent;
 		try {
 			parent = fxmlLoader.load();
@@ -339,8 +343,7 @@ public class LeftPaneController implements IObserver {
 			controller.setAddDialog(stage);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 
 	}

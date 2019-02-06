@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.4"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="cpaintus.controllers.CenterPaneController"
+	>
+	<children>
+		<ScrollPane prefHeight="200.0" prefWidth="200.0"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+			fx:id="scrollPane">
+			<content>
+				<AnchorPane fx:id="pane">
+					<children>
+						<Canvas fx:id="baseCanvas" 
+							height="1000.0"
+							width="1000.0"
+							onMouseMoved="#onMouseMoved" 
+							onMouseDragged="#onMouseDragged"
+							AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+							AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Canvas fx:id="boundingBoxCanvas" />
+					</children>
+				</AnchorPane>
+			</content>
+		</ScrollPane>
+	</children>
+</AnchorPane>

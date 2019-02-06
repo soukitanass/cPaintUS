@@ -1,8 +1,7 @@
-package cPaintUS;
+package cpaintus;
 
+import cpaintus.controllers.SaveCloseSingleton;
 import java.util.prefs.Preferences;
-
-import cPaintUS.controllers.SaveCloseSingleton;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
