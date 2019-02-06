@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import cpaintus.controllers.popup.CloseController;
 import cpaintus.models.savestrategy.FileContext;
-import cpaintus.models.shapes.ShapesDict;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,11 +23,11 @@ public class SaveCloseSingleton {
 
 	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
-	private ShapesDict shapesDict;
+	private ShapesDictionnary shapesDict;
 
 	private SaveCloseSingleton() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 	}
 
 	private static class SaveCloseSingletonHelper {

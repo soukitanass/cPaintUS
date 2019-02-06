@@ -16,18 +16,18 @@ import cpaintus.models.shapes.Picture;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
-import cpaintus.models.shapes.ShapesDict;
+import cpaintus.models.shapes.ShapesDictionnary;
 
 public class PNGStrategy implements FileManagerStrategy {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private ShapesDict shapeDict;
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private ShapesDictionnary shapeDict;
 	private ShapeFactory shapeFactory;
 	private BufferedImage bufferedImage;
 	private SnapshotSingleton snapshotSingleton;
 
 	public PNGStrategy() {
-		shapeDict = ShapesDict.getInstance();
+		shapeDict = ShapesDictionnary.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 	}
@@ -59,7 +59,7 @@ public class PNGStrategy implements FileManagerStrategy {
 		try {
 			bytes = Files.readAllBytes(Paths.get(path));
 			String img = Base64.getEncoder().encodeToString(bytes);
-			Shape pic = shapeFactory.getShape(ShapeType.Picture, true, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000",
+			Shape pic = shapeFactory.getShape(ShapeType.PICTURE, true, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000",
 					img, "");
 			snapshotSingleton.setImage((Picture) pic);
 			pic.setHeight(snapshotSingleton.getImage().getHeight());

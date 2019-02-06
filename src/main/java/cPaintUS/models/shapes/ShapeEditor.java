@@ -7,12 +7,12 @@ import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
 
 public class ShapeEditor extends Observable<IObserver> {
-	private ShapesDict shapesDict;
+	private ShapesDictionnary shapesDict;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
 
 	private ShapeEditor() {
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		shapeToEdit = null;
 		boundingBox = BoundingBox.getInstance();
 	}
@@ -35,7 +35,7 @@ public class ShapeEditor extends Observable<IObserver> {
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
 		boundingBox.setRotation(shape.getRotation());
-		if (shape.getShapeType() == ShapeType.Line) {
+		if (shape.getShapeType() == ShapeType.LINE) {
 			boundingBox.updateBoundingBox(new Point(((Line)shape).getX2(),
 					((Line)shape).getY2()));
 		} else {

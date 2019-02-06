@@ -2,7 +2,7 @@ package cpaintus.models.shapes;
 
 public class Text extends Shape2D {
 
-	private String text;
+	private String theText;
 	
 	public Text(
 			ShapeType shapeType,
@@ -19,7 +19,7 @@ public class Text extends Shape2D {
 			String text)
 	{
 		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
-		this.text = text;
+		this.theText = text;
 	}
 	
 	public Text() {
@@ -27,10 +27,10 @@ public class Text extends Shape2D {
 	}
 	
 	public String getText() {
-		return text;
+		return theText;
 	}
 	
 	public void setText(String text) {
-		this.text = text;
+		this.theText = text;
 	}
 }

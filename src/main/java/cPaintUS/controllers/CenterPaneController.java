@@ -13,7 +13,7 @@ import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeEditor;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
-import cpaintus.models.shapes.ShapesDict;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -46,7 +46,7 @@ public class CenterPaneController implements IObserver {
 	private BoundingBox boundingBox;
 	private DrawSettings drawSettings;
 	private ShapeFactory shapeFactory;
-	private ShapesDict shapesDict;
+	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private ShapeEditor shapeEditor;
 
@@ -63,7 +63,7 @@ public class CenterPaneController implements IObserver {
 		boundingBox.register(this);
 		drawSettings = DrawSettings.getInstance();
 		shapeFactory = ShapeFactory.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
 		shapeEditor = ShapeEditor.getInstance();
@@ -263,12 +263,12 @@ public class CenterPaneController implements IObserver {
 		String sstrokeColor = String.format("#%02X%02X%02X", (int) (strokeColor.getRed() * 255),
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
-		if (shapeType == ShapeType.Line) {
+		if (shapeType == ShapeType.LINE) {
 			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getOrigin().getX(),
 					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
 					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
 					lineWidth, sstrokeColor, sfillColor, "", text);
-		} else if (shapeType == ShapeType.Text && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
+		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
 			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getUpLeftCorner().getX(),

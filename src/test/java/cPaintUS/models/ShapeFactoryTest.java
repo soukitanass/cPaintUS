@@ -26,19 +26,19 @@ class ShapeFactoryTest {
 
 	@Test
 	void getShapeTest() {
-		Shape actual =  shapeFactory.getShape(ShapeType.Rectangle, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		Shape actual =  shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		assertTrue(actual instanceof cpaintus.models.shapes.Rectangle);
 		
-		actual =  shapeFactory.getShape(ShapeType.Ellipse, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		actual =  shapeFactory.getShape(ShapeType.ELLIPSE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		assertTrue(actual instanceof cpaintus.models.shapes.Ellipse);
 		
-		actual =  shapeFactory.getShape(ShapeType.Line, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		actual =  shapeFactory.getShape(ShapeType.LINE, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		assertTrue(actual instanceof cpaintus.models.shapes.Line);
 		
-		actual =  shapeFactory.getShape(ShapeType.Heart, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		actual =  shapeFactory.getShape(ShapeType.HEART, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		assertTrue(actual instanceof cpaintus.models.shapes.Heart);
 		
-		actual =  shapeFactory.getShape(ShapeType.Pokeball, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
+		actual =  shapeFactory.getShape(ShapeType.POKEBALL, true, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff", "", "hh");
 		assertTrue(actual instanceof cpaintus.models.shapes.Pokeball);
 		
 	}

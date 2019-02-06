@@ -19,7 +19,7 @@ public abstract class Shape1D extends Shape {
 		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor);
 		this.x2 = x2;
 		this.y2 = y2;
-		this.shapeDim = ShapeDimension.Shape1D;
+		this.shapeDim = ShapeDimension.SHAPE1D;
 	}
 	
 	public Shape1D() {

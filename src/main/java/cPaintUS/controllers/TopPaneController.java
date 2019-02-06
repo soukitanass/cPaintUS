@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import cpaintus.controllers.popup.AboutController;
 import cpaintus.controllers.popup.NewController;
 import cpaintus.models.savestrategy.FileContext;
-import cpaintus.models.shapes.ShapesDict;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,11 +27,11 @@ public class TopPaneController {
 	@FXML
 	private MenuBar menuBar;
 
-	private ShapesDict shapesDict;
+	private ShapesDictionnary shapesDict;
 
 	public TopPaneController() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		saveCloseSingleton = SaveCloseSingleton.getInstance();
 	}
 

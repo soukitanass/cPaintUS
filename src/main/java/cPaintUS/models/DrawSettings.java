@@ -12,7 +12,7 @@ public class DrawSettings {
 	
 	private DrawSettings() {
 		// set defaults
-		shape = ShapeType.Line;
+		shape = ShapeType.LINE;
 		fillColor = Color.BLACK;
 		strokeColor = Color.BLACK;
 		lineWidth = LineWidth.getInstance().getDefault();

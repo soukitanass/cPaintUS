@@ -32,7 +32,7 @@ public abstract class Shape {
 	}
 	
 	public Shape() {
-		// TODO Auto-generated constructor stub
+		// do not remove
 	}
 
 	public ShapeType getShapeType() {

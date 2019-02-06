@@ -12,16 +12,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.ShapesDict;
+import cpaintus.models.shapes.ShapesDictionnary;
 
 public class XMLStrategy implements FileManagerStrategy {
 
 	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private ShapesDict shapeDict;
+	private static final String ERROR_MESSAGE = "Error while opening the file ";
+	private ShapesDictionnary shapeDict;
 	private List<Shape> shapes;
 
 	public XMLStrategy() {
-		shapeDict = ShapesDict.getInstance();
+		shapeDict = ShapesDictionnary.getInstance();
 		shapes = shapeDict.getShapesList();
 	}
 
@@ -35,12 +36,12 @@ public class XMLStrategy implements FileManagerStrategy {
 				encoder = new XMLEncoder(fos);
 				encoder.setExceptionListener(new ExceptionListener() {
 					public void exceptionThrown(Exception e) {
-						System.out.println("Exception! :" + e.toString());
+						LOGGER.log(Level.INFO,ERROR_MESSAGE , e);
 					}
 				});
 				encoder.writeObject(shapes);
 			} catch (FileNotFoundException e) {
-				LOGGER.log(Level.INFO, "Error while opening the file ", e);
+				LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 			} finally {
 				if (encoder != null)
 					encoder.close();
@@ -48,11 +49,11 @@ public class XMLStrategy implements FileManagerStrategy {
 					if (fos != null)
 						fos.close();
 				} catch (IOException ex) {
-					LOGGER.log(Level.INFO, "Error while opening the file ", ex);
+					LOGGER.log(Level.INFO, ERROR_MESSAGE, ex);
 				}
 			}
 		} else {
-			System.out.println("There is no shapes to save !");
+			LOGGER.log(Level.INFO, "There is no shapes to save !");
 		}
 	}
 
@@ -71,7 +72,7 @@ public class XMLStrategy implements FileManagerStrategy {
 			shapeDict.notifyAllObservers();
 
 		} catch (FileNotFoundException e) {
-			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+			LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 		} finally {
 			if (decoder != null)
 				decoder.close();
@@ -79,7 +80,7 @@ public class XMLStrategy implements FileManagerStrategy {
 				if (fis != null)
 					fis.close();
 			} catch (IOException ex) {
-				LOGGER.log(Level.INFO, "Error while opening the file ", ex);
+				LOGGER.log(Level.INFO,ERROR_MESSAGE, ex);
 			}
 		}
 	}
