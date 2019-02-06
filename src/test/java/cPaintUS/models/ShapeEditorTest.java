@@ -1,4 +1,4 @@
-package cPaintUS.models;
+package cpaintus.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import cPaintUS.models.shapes.Line;
-import cPaintUS.models.shapes.Shape;
-import cPaintUS.models.shapes.ShapeEditor;
-import cPaintUS.models.shapes.ShapesDict;
+import cpaintus.models.shapes.Line;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeEditor;
+import cpaintus.models.shapes.ShapesDictionnary;
 
 public class ShapeEditorTest {
 	
 	ShapeEditor shapeEditor;
-	ShapesDict shapesDict;
+	ShapesDictionnary shapesDict;
 	BoundingBox boundingBox;
 	Shape shape;
 	
@@ -22,7 +22,7 @@ public class ShapeEditorTest {
 	public void setup() {
 		shapeEditor = ShapeEditor.getInstance();
 		shape = new Line();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	}
 	
