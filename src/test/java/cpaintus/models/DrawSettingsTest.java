@@ -4,10 +4,10 @@ package cpaintus.models;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import cPaintUS.models.shapes.ShapeType;
-import javafx.scene.paint.Color;
 
 import cpaintus.models.DrawSettings;
+import cpaintus.models.shapes.ShapeType;
+import javafx.scene.paint.Color;
 
 class DrawSettingsTest {
 
@@ -29,8 +29,8 @@ class DrawSettingsTest {
 	
 	@Test
 	void setShapeTest() {
-		drawSettings.setShape(ShapeType.Rectangle);
-		Assertions.assertSame(drawSettings.getShape(),ShapeType.Rectangle);
+		drawSettings.setShape(ShapeType.RECTANGLE);
+		Assertions.assertSame(drawSettings.getShape(),ShapeType.RECTANGLE);
 	}
 	
 	@Test

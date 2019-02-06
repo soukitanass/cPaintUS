@@ -27,7 +27,7 @@ class ShapeDictTest {
 
 	@Test
 	void getInstanceTest() {
-		Assertions.assertSame(ShapesDict.getInstance(), shapeDict);
+		Assertions.assertSame(ShapesDictionnary.getInstance(), shapeDict);
 	}
 
 	@Test
