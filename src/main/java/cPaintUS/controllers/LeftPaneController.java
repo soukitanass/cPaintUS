@@ -101,7 +101,7 @@ public class LeftPaneController implements IObserver {
 		// Add possible shapes to the shape ComboBox
 		shape.getItems().setAll(ShapeType.values());
 		shape.getItems().remove(ShapeType.Picture);
-		shape.setValue(ShapeType.valueOf(prefs.get("shape","Line")));
+		shape.setValue(ShapeType.valueOf(prefs.get("shape","LINE")));
 
 		// Add possible brush sizes to the brushSize ComboBox
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
