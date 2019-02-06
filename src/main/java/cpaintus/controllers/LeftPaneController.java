@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
@@ -49,6 +50,7 @@ public class LeftPaneController implements IObserver {
 	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
+	private Preferences prefs;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -94,6 +96,7 @@ public class LeftPaneController implements IObserver {
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
+	    prefs = Preferences.userNodeForPackage(this.getClass());
 	}
 
 	@FXML
@@ -102,15 +105,17 @@ public class LeftPaneController implements IObserver {
 		shape.getItems().setAll(ShapeType.values());
 		shape.getItems().remove(ShapeType.PICTURE);
 		shape.setValue(ShapeType.LINE);
+		shape.getItems().remove(ShapeType.PICTURE);
+		shape.setValue(ShapeType.valueOf(prefs.get("shape","LINE")));
 
 		// Add possible brush sizes to the brushSize ComboBox
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
-		lineWidth.setValue(LineWidth.getInstance().getDefaultString());
+		lineWidth.setValue(prefs.get("linewidth",LineWidth.getInstance().getDefaultString()));
 
 		// Set ColorPickers default value to black
 		fillColor.setDisable(true);
-		fillColor.setValue(Color.BLACK);
-		strokeColor.setValue(Color.BLACK);
+		fillColor.setValue(Color.valueOf(prefs.get("fillcolor","BLACK")));
+		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor","BLACK")));
 
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		attributes.setVisible(false);
@@ -170,6 +175,7 @@ public class LeftPaneController implements IObserver {
 		if (shape.getValue() == ShapeType.TEXT) {
 			handleTextAddClick();
 		}
+		prefs.put("shape",shape.getValue().name());
 	}
 
 	@FXML
@@ -179,16 +185,19 @@ public class LeftPaneController implements IObserver {
 		int newWidth = Integer.parseInt(widthStr);
 
 		drawSettings.setLineWidth(newWidth);
+		prefs.put("linewidth",widthStr);
 	}
 
 	@FXML
 	private void handleChangeFillColor() {
 		drawSettings.setFillColor(fillColor.getValue());
+		prefs.put("fillcolor",fillColor.getValue().toString());
 	}
 
 	@FXML
 	private void handleChangeStrokeColor() {
 		drawSettings.setStrokeColor(strokeColor.getValue());
+		prefs.put("strokecolor",strokeColor.getValue().toString());
 	}
 
 	@FXML
