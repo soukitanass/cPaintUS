@@ -30,7 +30,7 @@ public class SaveCloseSingleton {
 
 	private SaveCloseSingleton() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
-		shapesDict = ShapesDict.getInstance();
+		shapesDict = ShapesDictionnary.getInstance();
 	    prefs = Preferences.userNodeForPackage(this.getClass());
 		shapesDict = ShapesDictionnary.getInstance();
 	}
