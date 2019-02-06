@@ -18,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class SnapshotSingleton extends Observable<IObserver> {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private AnchorPane snapshotPane;
 	private Image image;
 	private Picture picture;
@@ -45,17 +45,17 @@ public class SnapshotSingleton extends Observable<IObserver> {
 
 	public void setImage(Picture im) {
 		setPicture(im);
-		BufferedImage image = null;
+		BufferedImage imageBuffered = null;
 		byte[] imageByte;
 		try {
 			imageByte = Base64.getDecoder().decode(im.getBase64());
 			ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
-			image = ImageIO.read(bis);
+			imageBuffered = ImageIO.read(bis);
 			bis.close();
 		} catch (Exception e) {
 			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
-		this.image = SwingFXUtils.toFXImage(image, null);
+		this.image = SwingFXUtils.toFXImage(imageBuffered, null);
 		this.picture.setWidth(this.image.getWidth());
 		this.picture.setHeight(this.image.getHeight());
 		notifyAllLoadImage();

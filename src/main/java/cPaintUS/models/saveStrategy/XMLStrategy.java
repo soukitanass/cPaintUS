@@ -1,4 +1,4 @@
-package cpaintus.models.saveStrategy;
+package cpaintus.models.savestrategy;
 
 import java.beans.ExceptionListener;
 import java.beans.XMLDecoder;
@@ -16,7 +16,7 @@ import cpaintus.models.shapes.ShapesDict;
 
 public class XMLStrategy implements FileManagerStrategy {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private ShapesDict shapeDict;
 	private List<Shape> shapes;
 

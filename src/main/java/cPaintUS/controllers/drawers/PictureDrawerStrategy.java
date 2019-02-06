@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 
 public class PictureDrawerStrategy implements IDrawerStrategy {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	@Override
 	public void draw(GraphicsContext gc, Shape shape) {

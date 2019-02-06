@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import cpaintus.controllers.popup.AboutController;
 import cpaintus.controllers.popup.NewController;
-import cpaintus.models.saveStrategy.FileContext;
+import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.ShapesDict;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class TopPaneController {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
 	@FXML

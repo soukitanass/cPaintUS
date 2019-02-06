@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.popup.CloseController;
-import cpaintus.models.saveStrategy.FileContext;
+import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.ShapesDict;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class SaveCloseSingleton {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private ShapesDict shapesDict;
 
@@ -73,7 +73,7 @@ public class SaveCloseSingleton {
 		File selectedFile = chooser.showSaveDialog(stage);
 		if (selectedFile != null) {
 			String fileName = selectedFile.getName();
-			String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length());
+			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 			} else {

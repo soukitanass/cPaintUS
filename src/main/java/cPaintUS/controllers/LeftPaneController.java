@@ -42,7 +42,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class LeftPaneController implements IObserver {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private DrawSettings drawSettings;
 	private ShapesDict shapesDict;
@@ -87,9 +87,6 @@ public class LeftPaneController implements IObserver {
 	private TextField editHeight;
 	@FXML
 	private TextField rotate;
-
-	public void setRoot(RootController rootController) {
-	}
 
 	public LeftPaneController() {
 		shapesDict = ShapesDict.getInstance();

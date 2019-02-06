@@ -1,4 +1,4 @@
-package cpaintus.models.saveStrategy;
+package cpaintus.models.savestrategy;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -36,10 +36,10 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	private AnchorPane pane;
-	
+
 	@FXML
 	private ScrollPane scrollPane;
-	
+
 	private Canvas activeCanvas;
 
 	private Pointer pointer;
@@ -49,7 +49,7 @@ public class CenterPaneController implements IObserver {
 	private ShapesDict shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private ShapeEditor shapeEditor;
-	
+
 	private boolean hasBeenDragged;
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
@@ -74,7 +74,6 @@ public class CenterPaneController implements IObserver {
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				System.out.println("Mouse pressed : " + pane.getChildren().size() + " canevas");
 				boundingBox.setOrigin(e.getX(), e.getY());
 				boundingBox.setVisible(true);
 				boundingBox.setRotation(0);
@@ -84,27 +83,22 @@ public class CenterPaneController implements IObserver {
 		mouseReleasedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				if (hasBeenDragged == true) {
+				if (hasBeenDragged) {
 					hasBeenDragged = false;
 				} else {
 					boundingBox.setVisible(false);
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				draw(true);
-				System.out.println("Mouse released : " + pane.getChildren().size() + " canevas");
 			}
 		};
 	}
 
 	@FXML
 	public void initialize() {
-		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-			scrollPaneWidthHandler(newVal.doubleValue());
-		});
+		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> scrollPaneWidthHandler(newVal.doubleValue()));
 
-		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-			scrollPaneHeightHandler(newVal.doubleValue());
-		});
+		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> scrollPaneHeightHandler(newVal.doubleValue()));
 
 		pane.setStyle("-fx-background-color: white");
 		scrollPane.setStyle("-fx-background: #FFFFFF");
@@ -163,16 +157,16 @@ public class CenterPaneController implements IObserver {
 	private void scrollPaneWidthHandler(double width) {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setWidth(width);
-		if(pane.getWidth() > width+10) {
+		if (pane.getWidth() > width + 10) {
 			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
 	}
-	
+
 	private void scrollPaneHeightHandler(double height) {
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		baseCanvas.setHeight(height);
-		if(pane.getHeight() > height+10) {
+		if (pane.getHeight() > height + 10) {
 			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		}
 		drawBoundingBox();
@@ -180,7 +174,7 @@ public class CenterPaneController implements IObserver {
 
 	private void eraseCanvas() {
 		List<Node> canvasList = pane.getChildren();
-		List<Node> canvasToRemove = new ArrayList<Node>();
+		List<Node> canvasToRemove = new ArrayList<>();
 
 		for (int i = 1; i < canvasList.size() - 1; i++) {
 			canvasToRemove.add(canvasList.get(i));
@@ -201,17 +195,16 @@ public class CenterPaneController implements IObserver {
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
-		
+
 	private void editShape() {
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
-			System.out.println("ERROR: No shape to edit.");
 			return;
 		}
-			
+
 		int index = shape.getZ();
 		Canvas canvas = (Canvas) pane.getChildren().get(index);
-		drawerStrategyContext.draw(shape, canvas);	
+		drawerStrategyContext.draw(shape, canvas);
 	}
 
 	public void draw(boolean persistent) {
@@ -219,7 +212,7 @@ public class CenterPaneController implements IObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
-			
+
 		}
 		drawBoundingBox();
 		scrollPaneWidthHandler(scrollPane.getWidth());
@@ -236,22 +229,17 @@ public class CenterPaneController implements IObserver {
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(2,
-					2,
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
+			gc.strokeRect(2, 2, boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
 					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
-			gc.strokeLine(3,3, boundingBox.getWidth()+3, boundingBox.getHeight()+3);
-			gc.strokeLine(boundingBox.getWidth()+3, 3, 3, boundingBox.getHeight()+3);
-			
+			gc.strokeLine(3, 3, boundingBox.getWidth() + 3, boundingBox.getHeight() + 3);
+			gc.strokeLine(boundingBox.getWidth() + 3, 3, 3, boundingBox.getHeight() + 3);
+
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(
-					2,
-					2,
-					boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
+			gc.strokeRect(2, 2, boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
 					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
 		}
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
@@ -276,44 +264,21 @@ public class CenterPaneController implements IObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.Line) {
-			newShape = shapeFactory.getShape(
-					shapeType,
-					persistent,
-					boundingBox.getOrigin().getX(),
-					boundingBox.getOrigin().getY(),
-					boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(),
-					boundingBox.getWidth(),
-					boundingBox.getHeight(),
-					0,
-					lineWidth,
-					sstrokeColor,
-					sfillColor,
-					"",
-					text);
+			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getOrigin().getX(),
+					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
+					lineWidth, sstrokeColor, sfillColor, "", text);
 		} else if (shapeType == ShapeType.Text && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(
-					shapeType,
-					persistent,
-					boundingBox.getUpLeftCorner().getX(),
-					boundingBox.getUpLeftCorner().getY(),
-					boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(),
-					boundingBox.getWidth(),
-					boundingBox.getHeight(),
-					0,
-					lineWidth,
-					sstrokeColor,
-					sfillColor,
-					"",
-					text);
+			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getUpLeftCorner().getX(),
+					boundingBox.getUpLeftCorner().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
+					lineWidth, sstrokeColor, sfillColor, "", text);
 		}
 
 		if (newShape != null && persistent) {
 			shapesDict.addShape(newShape);
-			System.out.println(newShape.getShapeId());			
 		}
 
 		return newShape;

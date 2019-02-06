@@ -7,7 +7,7 @@ public abstract class Observable<T> {
 	private List<T> observerList;
 
 	public Observable() {
-		this.observerList = new ArrayList<T>();
+		this.observerList = new ArrayList<>();
 	}
 
 	public void register(T obj) {
