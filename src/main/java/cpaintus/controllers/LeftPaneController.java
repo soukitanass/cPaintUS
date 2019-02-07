@@ -113,7 +113,7 @@ public class LeftPaneController implements IObserver {
 		lineWidth.setValue(prefs.get("linewidth",LineWidth.getInstance().getDefaultString()));
 
 		// Set ColorPickers default value to black
-		fillColor.setDisable(true);
+		if (shape.getValue() == ShapeType.LINE) fillColor.setDisable(true);
 		fillColor.setValue(Color.valueOf(prefs.get("fillcolor","BLACK")));
 		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor","BLACK")));
 
