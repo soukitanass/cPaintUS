@@ -7,6 +7,7 @@ public abstract class Shape1D extends Shape {
 	public Shape1D(
 			ShapeType shapeType,
 			String shapeId,
+			int canvasHash,
 			double x,
 			double y,
 			int z,
@@ -16,7 +17,7 @@ public abstract class Shape1D extends Shape {
 			double x2,
 			double y2)
 	{
-		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor);
+		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor);
 		this.x2 = x2;
 		this.y2 = y2;
 		this.shapeDim = ShapeDimension.SHAPE1D;

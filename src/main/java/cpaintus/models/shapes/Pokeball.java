@@ -8,6 +8,7 @@ public class Pokeball extends Shape2D {
 	public Pokeball(
 			ShapeType shapeType,
 			String shapeId,
+			int canvasHash,
 			double x,
 			double y,
 			int z,
@@ -18,7 +19,7 @@ public class Pokeball extends Shape2D {
 			double width,
 			double height)
 	{
-		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 		this.backColor = Color.WHITE;
 	}
 
