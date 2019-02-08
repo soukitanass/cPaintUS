@@ -5,6 +5,7 @@ public class Line extends Shape1D {
 	public Line(
 			ShapeType shapeType,
 			String shapeId,
+			int canvasHash,
 			double x,
 			double y,
 			int z,
@@ -14,7 +15,7 @@ public class Line extends Shape1D {
 			double x2,
 			double y2) 
 	{
-		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, x2, y2);
+		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, x2, y2);
 	}
 
 	public Line() {
