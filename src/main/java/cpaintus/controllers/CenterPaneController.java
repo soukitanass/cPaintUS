@@ -72,7 +72,6 @@ public class CenterPaneController implements IObserver {
 		shapeEditor.register(this);
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
-		shapesGroup = new ShapesGroup();
 
 		hasBeenDragged = false;
 		selectShapes = false;
@@ -169,6 +168,7 @@ public class CenterPaneController implements IObserver {
 			draw(false);
 		} else {
 			drawBoundingBox();
+			selectShapes = false;
 		}
 
 	}
@@ -216,13 +216,22 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void editShape() {
+		int index;
+		Canvas canvas;
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
 			return;
 		}
-
-		int index = shape.getZ();
-		Canvas canvas = (Canvas) pane.getChildren().get(index);
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape sh : shapesGroup.getShapes()) {
+				index = sh.getZ();
+				canvas = (Canvas) pane.getChildren().get(index);
+				drawerStrategyContext.draw(sh, canvas);
+			}
+			return;
+		}
+		index = shape.getZ();
+		canvas = (Canvas) pane.getChildren().get(index);
 		drawerStrategyContext.draw(shape, canvas);
 	}
 
@@ -317,7 +326,7 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void selectShapes() {
-
+		shapesGroup = new ShapesGroup();
 		for (Shape shape : shapesDict.getShapesList()) {
 			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
@@ -325,6 +334,7 @@ public class CenterPaneController implements IObserver {
 				shapesGroup.add(shape);
 			}
 		}
+		shapesDict.addShape(shapesGroup);
 	}
 
 	private boolean comparePoints(Point a, Point b) {

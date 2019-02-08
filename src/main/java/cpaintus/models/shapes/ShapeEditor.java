@@ -24,30 +24,30 @@ public class ShapeEditor extends Observable<IObserver> {
 	public static ShapeEditor getInstance() {
 		return SingletonHelper.INSTANCE;
 	}
-	
+
 	public void edit(Shape shape) {
+		System.out.println("we are editing" + shape.getShapeType());
 		shapeToEdit = shape;
 		shapesDict.addShapeSilent(shape);
 		updateBoundingBox(shape);
+		System.out.println("notifying");
 		notifyAllObservers();
 	}
-	
+
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
 		boundingBox.setRotation(shape.getRotation());
 		if (shape.getShapeType() == ShapeType.LINE) {
-			boundingBox.updateBoundingBox(new Point(((Line)shape).getX2(),
-					((Line)shape).getY2()));
+			boundingBox.updateBoundingBox(new Point(((Line) shape).getX2(), ((Line) shape).getY2()));
 		} else {
-			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(),
-					shape.getY() + shape.getHeight()));
+			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
 	}
-	
+
 	public void done() {
 		shapeToEdit = null;
 	}
-	
+
 	public Shape getShapeToEdit() {
 		return shapeToEdit;
 	}
