@@ -9,5 +9,5 @@ public enum ObservableList {
 	EDIT_SHAPE,
 	DRAW_SETTINGS,
 	MENU_ERASE,
-	LOAD_IMAGE,
+	LOAD_IMAGE, SELECT_SHAPES,
 }

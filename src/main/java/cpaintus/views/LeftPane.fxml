@@ -29,6 +29,7 @@
       					<ColorPicker fx:id="strokeColor" onAction="#handleChangeStrokeColor" prefWidth="110.0" />
       				</HBox>
       				<Button fx:id="eraseAllBtn" onAction="#handleEraseAllClick" prefWidth="188.0" text="Erase All" />
+      				<Button fx:id="selectBtn" onAction="#handleSelectClick" prefWidth="188.0" text="Select" />
       			</VBox>
       		</ToolBar>
             <ListView fx:id="shapeList" prefHeight="200.0" prefWidth="200.0">

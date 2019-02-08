@@ -41,7 +41,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
-public class LeftPaneController implements IObserver {
+public class LeftPaneController  implements IObserver {
 
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -51,6 +51,7 @@ public class LeftPaneController implements IObserver {
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
 	private Preferences prefs;
+	private SelectShapesSingleton selectShapesSingleton;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -97,6 +98,7 @@ public class LeftPaneController implements IObserver {
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	    prefs = Preferences.userNodeForPackage(this.getClass());
+	    selectShapesSingleton = SelectShapesSingleton.getInstance();
 	}
 
 	@FXML
@@ -347,4 +349,10 @@ public class LeftPaneController implements IObserver {
 		}
 
 	}
+	
+	@FXML
+	private void handleSelectClick() {
+		selectShapesSingleton.notifyAllObservers();
+	}
+	
 }

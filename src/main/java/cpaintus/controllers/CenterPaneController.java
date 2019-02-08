@@ -6,7 +6,9 @@ import java.util.List;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
+import cpaintus.models.Point;
 import cpaintus.models.Pointer;
+import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
@@ -47,8 +49,10 @@ public class CenterPaneController implements IObserver {
 	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private ShapeEditor shapeEditor;
-
+	private SelectShapesSingleton selectShapesSingleton;
 	private boolean hasBeenDragged;
+	private boolean selectShapes;
+	private ShapesGroup shapesGroup;
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -66,8 +70,12 @@ public class CenterPaneController implements IObserver {
 		SnapshotSingleton.getInstance().register(this);
 		shapeEditor = ShapeEditor.getInstance();
 		shapeEditor.register(this);
+		selectShapesSingleton = SelectShapesSingleton.getInstance();
+		selectShapesSingleton.register(this);
+		shapesGroup = new ShapesGroup();
 
 		hasBeenDragged = false;
+		selectShapes = false;
 
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
@@ -87,7 +95,13 @@ public class CenterPaneController implements IObserver {
 					boundingBox.setVisible(false);
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
-				draw(true);
+				if (!selectShapes) {
+					draw(true);
+				} else {
+					selectShapes();
+					boundingBox.setVisible(true);
+				}
+
 			}
 		};
 	}
@@ -127,6 +141,9 @@ public class CenterPaneController implements IObserver {
 		case BOUNDING_BOX:
 			drawBoundingBox();
 			break;
+		case SELECT_SHAPES:
+			selectShapes = true;
+			break;
 		default:
 			break;
 		}
@@ -135,7 +152,6 @@ public class CenterPaneController implements IObserver {
 	@FXML
 	public void eraseAll() {
 		eraseCanvas();
-
 		shapesDict.clearShapes();
 	}
 
@@ -149,7 +165,12 @@ public class CenterPaneController implements IObserver {
 		hasBeenDragged = true;
 		pointer.setCursorPoint(event.getX(), event.getY());
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
-		draw(false);
+		if (!selectShapes) {
+			draw(false);
+		} else {
+			drawBoundingBox();
+		}
+
 	}
 
 	private void scrollPaneWidthHandler(double width) {
@@ -293,5 +314,24 @@ public class CenterPaneController implements IObserver {
 		initializeNewCanvas();
 		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(),
 				(Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+	}
+
+	private void selectShapes() {
+
+		for (Shape shape : shapesDict.getShapesList()) {
+			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
+					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
+					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()) {
+				shapesGroup.add(shape);
+			}
+		}
+	}
+
+	private boolean comparePoints(Point a, Point b) {
+		if (a.getX() >= b.getX() && a.getY() >= b.getY()) {
+			return true;
+		}
+		return false;
+
 	}
 }
