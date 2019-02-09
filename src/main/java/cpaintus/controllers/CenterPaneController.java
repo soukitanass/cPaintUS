@@ -232,17 +232,6 @@ public class CenterPaneController implements IObserver {
 			System.err.println("No shape to edit. Aborting edit.");
 			return;
 		}
-
-		int hash = shape.getCanvasHash();
-		Canvas canvas = (Canvas) pane.getChildren().stream()
-				.filter(child -> hash == child.hashCode())
-				.findAny()
-				.orElse(null);
-		if (canvas == null) {
-			System.err.println("Canvas to edit not found. Aborting edit.");
-			return;
-		}
-
 		if (shape.getShapeType() == ShapeType.GROUP) {
 			for (Shape sh : shapesGroup.getShapes()) {
 				index = sh.getZ();
@@ -251,6 +240,14 @@ public class CenterPaneController implements IObserver {
 			}
 			return;
 		}
+
+		int hash = shape.getCanvasHash();
+		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
+		if (canvas == null) {
+			System.err.println("Canvas to edit not found. Aborting edit.");
+			return;
+		}
+
 		index = shape.getZ();
 		canvas = (Canvas) pane.getChildren().get(index);
 		drawerStrategyContext.draw(shape, canvas);
