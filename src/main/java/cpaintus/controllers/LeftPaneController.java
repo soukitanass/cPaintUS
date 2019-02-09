@@ -175,7 +175,6 @@ public class LeftPaneController implements IObserver {
 				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
 				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
 				attributes.setVisible(true);
-				System.out.println("que des set" + shapeToEdit.getShapeType());
 				shapeEditor.edit(shapeToEdit);
 			}
 		});
@@ -330,7 +329,8 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED || obs == ObservableList.SHAPE_REMOVED) {
+		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED
+				|| obs == ObservableList.SHAPE_REMOVED) {
 			shapeList.getItems().clear();
 			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 			Collections.reverse(shallowCopy);

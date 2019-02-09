@@ -240,7 +240,6 @@ public class CenterPaneController implements IObserver {
 			}
 			return;
 		}
-
 		int hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		if (canvas == null) {
