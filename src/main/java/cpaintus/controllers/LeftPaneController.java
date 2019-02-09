@@ -31,6 +31,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToolBar;
@@ -51,6 +53,7 @@ public class LeftPaneController implements IObserver {
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
 	private Preferences prefs;
+	private ChangeListener<Integer> editZListener;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -84,6 +87,8 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private TextField editY;
 	@FXML
+	private Spinner<Integer> editZ;
+	@FXML
 	private TextField editWidth;
 	@FXML
 	private TextField editHeight;
@@ -97,6 +102,12 @@ public class LeftPaneController implements IObserver {
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	    prefs = Preferences.userNodeForPackage(this.getClass());
+	    editZListener = new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+				handleEditZ(newValue);
+			}
+	    };
 	}
 
 	@FXML
@@ -117,11 +128,11 @@ public class LeftPaneController implements IObserver {
 		fillColor.setValue(Color.valueOf(prefs.get("fillcolor","BLACK")));
 		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor","BLACK")));
 
-		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		attributes.setVisible(false);
-
+		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editY.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+		editZ.valueProperty().addListener(editZListener);
 		editWidth.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editHeight.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -131,10 +142,7 @@ public class LeftPaneController implements IObserver {
 			@Override
 			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
 				boundingBox.setVisible(newShape != null);
-				if (newShape == null) {
-					attributes.setVisible(false);
-					return;
-				}
+				attributes.setVisible(false);
 
 				shapeToEdit = newShape;
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
@@ -159,11 +167,15 @@ public class LeftPaneController implements IObserver {
 				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
 				editX.setText(String.valueOf((int) Math.round(newShape.getX())));
 				editY.setText(String.valueOf((int) Math.round(newShape.getY())));
+				
+				SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shapesDict.getShapesList().size(), shapeToEdit.getZ());
+		        editZ.setValueFactory(valueFactory);
+				
 				editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
 				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
-				attributes.setVisible(true);
 				shapeEditor.edit(newShape);
+				attributes.setVisible(true);
 			}
 		});
 	}
@@ -274,6 +286,15 @@ public class LeftPaneController implements IObserver {
 		int newY = Integer.parseInt(editY.getText());
 		shapeToEdit.setY(newY);
 		shapeEditor.edit(shapeToEdit);
+	}
+	
+	private void handleEditZ(int newZ) {
+		if (!attributes.isVisible())
+			return;
+		if (shapeToEdit.getZ() == newZ)
+			return;
+		shapeToEdit.setZ(newZ);
+		shapeEditor.editZ(shapeToEdit);
 	}
 
 	@FXML

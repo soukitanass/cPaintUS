@@ -52,7 +52,7 @@ public class ShapeFactory {
 	{
 		String shapeId;
 		Shape shape;
-
+		
 		if (persistent)
 			totalShapeNb++;
 

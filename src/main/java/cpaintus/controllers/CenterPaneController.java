@@ -211,7 +211,39 @@ public class CenterPaneController implements IObserver {
 			return;
 		}
 
-		drawerStrategyContext.draw(shape, canvas);
+		if (shapeEditor.edittingZ()) editShapeZ(shape.getZ(), canvas);
+		else drawerStrategyContext.draw(shape, canvas);
+	}
+	
+	private void editShapeZ(int z, Node node) {
+		List<Node> nodes = pane.getChildren();
+		int newZ = z;
+		int prevZ = nodes.indexOf(node);
+		
+		nodes.remove(prevZ);
+		nodes.add(newZ, node);
+		
+		// Z index of some shapes have changed! Edit them.
+		int start;
+		int end;
+		
+		if (prevZ < newZ) {
+			start = prevZ;
+			end = newZ;
+		} else {
+			start = newZ + 1;
+			end = prevZ + 1;
+		}
+		
+		for (int i = start; i < end; i++) {
+			int hash = nodes.get(i).hashCode();
+			Shape shape = shapesDict.getShapesList().stream()
+				.filter(s -> hash == s.getCanvasHash())
+				.findAny()
+				.orElse(null);
+			if (shape != null) shape.setZ(i);
+		}
+	
 	}
 
 	public void draw(boolean persistent) {

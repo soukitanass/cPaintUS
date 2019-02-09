@@ -8,7 +8,7 @@
 
 <AnchorPane prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cpaintus.controllers.LeftPaneController">
 	<children>
-      <VBox prefHeight="520" prefWidth="200.0">
+      <VBox prefHeight="770" prefWidth="200.0">
          <children>
       		<ToolBar>
       			<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
@@ -53,9 +53,8 @@
       				</HBox>
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Edit Text: " />
-      					<TextField fx:id="editText" prefWidth="110.0" />
-      					<Button fx:id="editBtn" layoutX="65.0" layoutY="140.0"
-							onAction="#handleEditText" prefWidth="65.0" text="Edit" />
+      					<TextField fx:id="editText" prefWidth="65.0" />
+      					<Button fx:id="editBtn" onAction="#handleEditText" prefWidth="40.0" text="Edit" />
       				</HBox>
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="X: " />
@@ -64,6 +63,10 @@
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Y: " />
       					<TextField fx:id="editY" onAction="#handleEditY" prefWidth="110.0" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Label prefWidth="78.0" text="Z: " />
+      					<Spinner fx:id="editZ" prefWidth="110.0" />
       				</HBox>
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Width: " />
