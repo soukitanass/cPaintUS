@@ -36,6 +36,7 @@ public class ShapeFactory {
 	public Shape getShape(
 			ShapeType shapeType,
 			boolean persistent,
+			int canvasHash,
 			double x,
 			double y,
 			double x2,
@@ -60,43 +61,43 @@ public class ShapeFactory {
 			shapeId = "Rectangle " + rectangleNb;
 			if (persistent)
 				rectangleNb++;
-			shape = new Rectangle(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
+			shape = new Rectangle(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break; 
 		case ELLIPSE:
 			shapeId = "Ellipse " + ellipseNb;
 			if (persistent)
 				ellipseNb++;
-			shape = new Ellipse(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
+			shape = new Ellipse(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
 		case LINE:
 			shapeId = "Line " + lineNb;
 			if (persistent)
 				lineNb++;
-			shape = new Line(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, x2, y2);
+			shape = new Line(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, x2, y2);
 			break;
 		case POKEBALL:
 			shapeId = "Pokeball " + pokeballNb;
 			if (persistent)
 				pokeballNb++;
-			shape = new Pokeball(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
+			shape = new Pokeball(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
 		case HEART:
 			shapeId = "Heart " + heartNb;
 			if (persistent)
 				heartNb++;
-			shape = new Heart(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
+			shape = new Heart(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height);
 			break;
 		case PICTURE:
 			shapeId = "Picture " + pictureNb;
 			if (persistent)
 				pictureNb++;
-			shape = new Picture(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, base64);
+			shape = new Picture(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, base64);
 			break;
 		case TEXT:
 			shapeId = "Text " + textNb;
 			if (persistent)
 				textNb++;
-			shape = new Text(shapeType, shapeId, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, text);
+			shape = new Text(shapeType, shapeId, canvasHash, x, y, totalShapeNb, rotation, lineWidth, strokeColor, fillColor, width, height, text);
 			break;
 		default:
 			if (persistent)

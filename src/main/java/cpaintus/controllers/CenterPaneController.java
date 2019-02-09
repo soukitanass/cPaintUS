@@ -229,8 +229,20 @@ public class CenterPaneController implements IObserver {
 		Canvas canvas;
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
+			System.err.println("No shape to edit. Aborting edit.");
 			return;
 		}
+
+		int hash = shape.getCanvasHash();
+		Canvas canvas = (Canvas) pane.getChildren().stream()
+				.filter(child -> hash == child.hashCode())
+				.findAny()
+				.orElse(null);
+		if (canvas == null) {
+			System.err.println("Canvas to edit not found. Aborting edit.");
+			return;
+		}
+
 		if (shape.getShapeType() == ShapeType.GROUP) {
 			for (Shape sh : shapesGroup.getShapes()) {
 				index = sh.getZ();
@@ -246,7 +258,7 @@ public class CenterPaneController implements IObserver {
 
 	public void draw(boolean persistent) {
 		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
-		Shape shape = createShape(persistent);
+		Shape shape = createShape(persistent, activeCanvas.hashCode());
 		if (shape != null) {
 			drawerStrategyContext.draw(shape, activeCanvas);
 
@@ -282,7 +294,7 @@ public class CenterPaneController implements IObserver {
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
 	}
 
-	private Shape createShape(boolean persistent) {
+	private Shape createShape(boolean persistent, int canvasHash) {
 		if (!hasBeenDragged && boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
 			pane.getChildren().remove(pane.getChildren().size() - 2);
 			return null;
@@ -301,14 +313,14 @@ public class CenterPaneController implements IObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.LINE) {
-			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getOrigin().getX(),
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getOrigin().getX(),
 					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
 					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
 					lineWidth, sstrokeColor, sfillColor, "", text);
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, boundingBox.getUpLeftCorner().getX(),
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getUpLeftCorner().getX(),
 					boundingBox.getUpLeftCorner().getY(), boundingBox.getOppositeCorner().getX(),
 					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
 					lineWidth, sstrokeColor, sfillColor, "", text);
@@ -330,8 +342,10 @@ public class CenterPaneController implements IObserver {
 
 	private void loadImage() {
 		initializeNewCanvas();
-		drawerStrategyContext.draw(SnapshotSingleton.getInstance().getPicture(),
-				(Canvas) pane.getChildren().get(pane.getChildren().size() - 2));
+		Shape picture = SnapshotSingleton.getInstance().getPicture();
+		Canvas canvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
+		picture.setCanvasHash(canvas.hashCode());
+		drawerStrategyContext.draw(picture, canvas);
 	}
 
 	private void selectShapes() {

@@ -5,6 +5,9 @@ public abstract class Shape {
 	private String shapeId;
 	protected double x;
 	protected double y;
+
+	private int canvasHash;
+
 	private int z;
 	private double rotation;
 	private int lineWidth;
@@ -14,6 +17,7 @@ public abstract class Shape {
 	public Shape(
 			ShapeType shapeType,
 			String shapeId,
+			int canvasHash,
 			double x,
 			double y,
 			int z,
@@ -23,6 +27,7 @@ public abstract class Shape {
 	{
 		this.shapeType = shapeType;
 		this.shapeId = shapeId;
+		this.canvasHash = canvasHash;
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -59,6 +64,14 @@ public abstract class Shape {
 	
 	public String getShapeId() {
 		return this.shapeId;
+	}
+	
+	public void setCanvasHash(int hash) {
+		this.canvasHash = hash;
+	}
+	
+	public int getCanvasHash() {
+		return this.canvasHash;
 	}
 
 	public double getX() {
