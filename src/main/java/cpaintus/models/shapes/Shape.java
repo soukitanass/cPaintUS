@@ -3,8 +3,8 @@ package cpaintus.models.shapes;
 public abstract class Shape {
 	private ShapeType shapeType;
 	private String shapeId;
-	private double x;
-	private double y;
+	protected double x;
+	protected double y;
 	private int z;
 	private double rotation;
 	private int lineWidth;

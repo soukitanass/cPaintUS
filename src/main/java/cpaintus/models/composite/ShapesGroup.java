@@ -15,6 +15,8 @@ public class ShapesGroup extends Shape2D {
 	public ShapesGroup() {
 		setShapeId("test");
 		setShapeType(ShapeType.GROUP);
+		this.shapeDim = ShapeDimension.SHAPE2D;
+
 	}
 
 	public void add(Shape s) {
@@ -56,22 +58,34 @@ public class ShapesGroup extends Shape2D {
 	@Override
 	public void setHeight(double height) {
 		for (Shape shape : shapes) {
-			shape.setWidth(height);
+			shape.setHeight(height);
 		}
 
 	}
 
-	/*public void setX(double x) {
+	public void setXGroup(double x) {
+		this.x = x;
+	}
+
+	public void setYGroup(double y) {
+		this.y = y;
+	}
+
+	public void setX(double x) {
+		double marge = getX() - x;
+		setXGroup(x);
 		for (Shape shape : shapes) {
-			shape.setX(x);
+			shape.setX(shape.getX() - marge);
 		}
 	}
 
 	public void setY(double y) {
+		double marge = getY() - y;
+		setYGroup(y);
 		for (Shape shape : shapes) {
-			shape.setY(y);
+			shape.setY(shape.getY() - marge);
 		}
-	}*/
+	}
 
 	public void setRotation(double rotation) {
 		for (Shape shape : shapes) {

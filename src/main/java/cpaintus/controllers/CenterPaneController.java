@@ -168,7 +168,6 @@ public class CenterPaneController implements IObserver {
 			draw(false);
 		} else {
 			drawBoundingBox();
-			selectShapes = false;
 		}
 
 	}
@@ -327,14 +326,20 @@ public class CenterPaneController implements IObserver {
 
 	private void selectShapes() {
 		shapesGroup = new ShapesGroup();
+		shapesGroup.setXGroup(boundingBox.getUpLeftCorner().getX());
+		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
 		for (Shape shape : shapesDict.getShapesList()) {
+			//calcul à revoir 
 			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
 					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()) {
 				shapesGroup.add(shape);
 			}
 		}
-		shapesDict.addShape(shapesGroup);
+		if (!shapesGroup.getShapes().isEmpty()) {
+			shapesDict.addShape(shapesGroup);
+			selectShapes = false;
+		}
 	}
 
 	private boolean comparePoints(Point a, Point b) {
