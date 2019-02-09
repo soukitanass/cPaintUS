@@ -1,8 +1,8 @@
 package cpaintus.models.shapes;
 
 public abstract class Shape2D extends Shape {
-	private double width;
-	private double height;
+	protected double width;
+	protected double height;
 	private String fillColor;
 
 	public Shape2D(

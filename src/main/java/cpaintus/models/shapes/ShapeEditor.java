@@ -26,11 +26,9 @@ public class ShapeEditor extends Observable<IObserver> {
 	}
 
 	public void edit(Shape shape) {
-		System.out.println("we are editing" + shape.getShapeType());
 		shapeToEdit = shape;
 		shapesDict.addShapeSilent(shape);
 		updateBoundingBox(shape);
-		System.out.println("notifying");
 		notifyAllObservers();
 	}
 

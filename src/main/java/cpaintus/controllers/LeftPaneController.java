@@ -45,6 +45,8 @@ import javafx.util.converter.IntegerStringConverter;
 public class LeftPaneController implements IObserver {
 
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final String SELECT_LABEL = "Select";
+	private static final String UNSELECT_LABEL = "Unselect";
 
 	private DrawSettings drawSettings;
 	private ShapesDictionnary shapesDict;
@@ -66,6 +68,8 @@ public class LeftPaneController implements IObserver {
 	private Button eraseAllBtn;
 	@FXML
 	private Button editBtn;
+	@FXML
+	private Button selectBtn;
 	@FXML
 	private ListView<Shape> shapeList;
 
@@ -326,7 +330,7 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED) {
+		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED || obs == ObservableList.SHAPE_REMOVED) {
 			shapeList.getItems().clear();
 			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 			Collections.reverse(shallowCopy);
@@ -359,7 +363,14 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleSelectClick() {
-		selectShapesSingleton.notifyAllObservers();
+		if (selectBtn.getText().equals(SELECT_LABEL)) {
+			selectShapesSingleton.notifyAllObservers();
+			selectBtn.setText(UNSELECT_LABEL);
+		} else {
+			selectShapesSingleton.notifyUnselectObsevers();
+			selectBtn.setText(SELECT_LABEL);
+		}
+
 	}
 
 }

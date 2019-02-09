@@ -13,10 +13,9 @@ public class ShapesGroup extends Shape2D {
 	private List<Shape> shapes = new ArrayList<>();
 
 	public ShapesGroup() {
-		setShapeId("test");
+		setShapeId("Group");
 		setShapeType(ShapeType.GROUP);
 		this.shapeDim = ShapeDimension.SHAPE2D;
-
 	}
 
 	public void add(Shape s) {
@@ -35,10 +34,19 @@ public class ShapesGroup extends Shape2D {
 		return shapes;
 	}
 
+	public void setHeightGroup(double height) {
+		this.height = height;
+
+	}
+
+	public void setWidthGroup(double width) {
+		this.width = width;
+
+	}
+
 	@Override
 	public double getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return width;
 	}
 
 	@Override
@@ -46,13 +54,11 @@ public class ShapesGroup extends Shape2D {
 		for (Shape shape : shapes) {
 			shape.setWidth(width);
 		}
-
 	}
 
 	@Override
 	public double getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return height;
 	}
 
 	@Override

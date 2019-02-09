@@ -27,5 +27,10 @@ public class SelectShapesSingleton extends Observable<CenterPaneController> {
 		}
 
 	}
+	public void notifyUnselectObsevers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.UNSELECT_SHAPES);
+		}
+	}
 
 }
