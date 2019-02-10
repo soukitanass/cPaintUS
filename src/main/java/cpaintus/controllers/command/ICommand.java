@@ -1,4 +1,4 @@
-package cpaintus.models.command;
+package cpaintus.controllers.command;
 
 public interface ICommand {
 	public void execute();

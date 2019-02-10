@@ -7,6 +7,7 @@ import java.util.prefs.Preferences;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AboutController;
 import cpaintus.controllers.popup.NewController;
 import cpaintus.models.savestrategy.FileContext;
@@ -27,6 +28,7 @@ public class TopPaneController {
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
 	private Preferences prefs;
+	private Invoker invoker;
 	@FXML
 	private MenuBar menuBar;
 
@@ -37,6 +39,17 @@ public class TopPaneController {
 		shapesDict = ShapesDictionnary.getInstance();
 		saveCloseSingleton = SaveCloseSingleton.getInstance();
 	    prefs = Preferences.userNodeForPackage(this.getClass());
+	    invoker = Invoker.getInstance();
+	}
+	
+	@FXML
+	private void handleUndo () {
+		invoker.undo();
+	}
+	
+	@FXML
+	private void handleRedo () {
+		invoker.redo();
 	}
 
 	@FXML
