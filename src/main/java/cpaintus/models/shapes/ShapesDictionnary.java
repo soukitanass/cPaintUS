@@ -35,30 +35,28 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void addShape(Shape shape) {
-		if(shape != null) {
+		if (shape != null) {
 			shapesDict.put(shape.getShapeId(), shape);
 			notifyAddAllObservers();
-		}
-		else
+		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
-	
+
 	public void addShapeSilent(Shape shape) {
-		if(shape != null) {
+		if (shape != null) {
 			shapesDict.put(shape.getShapeId(), shape);
-		}
-		else
+		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
-		
+
 	public void addShapeSilentForList(Shape shape) {
-		if(shape != null) {
-			Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000", "", "");
+		if (shape != null) {
+			Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000",
+					"#000000", "", "");
 			shape.setShapeId(temp.getShapeId());
 			shape.setZ(shapeFactory.getTotalShapeNb());
-			shapesDict.put(shape.getShapeId(), shape);			
-		}
-		else
+			shapesDict.put(shape.getShapeId(), shape);
+		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 
@@ -80,22 +78,22 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			obs.update(ObservableList.SHAPES_LOADED);
 		}
 	}
-	
+
 	public void notifyAddAllObservers() {
 		for (IObserver obs : getObserverList()) {
 			obs.update(ObservableList.SHAPE_ADDED);
 		}
 	}
-	
+
 	public void notifyRemoveAllObservers() {
 		for (IObserver obs : getObserverList()) {
 			obs.update(ObservableList.SHAPE_REMOVED);
 		}
 	}
-	
+
 	public void removeShapeByType(ShapeType shapeType) {
-		for(Shape shape: getShapesList()) {
-			if(shape.getShapeType() == shapeType) {
+		for (Shape shape : getShapesList()) {
+			if (shape.getShapeType() == shapeType) {
 				shapesDict.remove(shape.getShapeId(), shape);
 			}
 		}

@@ -158,6 +158,7 @@ public class CenterPaneController implements IObserver {
 		selectShapes = false;
 		shapesDict.removeShapeByType(ShapeType.GROUP);
 		boundingBox.setVisible(false);
+		eraseCanvas();
 		refresh();
 	}
 
