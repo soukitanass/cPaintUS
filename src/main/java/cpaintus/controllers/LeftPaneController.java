@@ -147,10 +147,13 @@ public class LeftPaneController implements IObserver {
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
 			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
+				if(newShape == null ) {
+					return;
+				}
 				boundingBox.setVisible(newShape != null);
 				attributes.setVisible(false);
 				shapeToEdit = newShape;
-				if (newShape.getShapeType() == ShapeType.GROUP) {
+				if ( newShape.getShapeType() == ShapeType.GROUP) {
 					Shape firstShape = ((ShapesGroup) newShape).getShapes().get(0);
 					newShape = firstShape;
 				}

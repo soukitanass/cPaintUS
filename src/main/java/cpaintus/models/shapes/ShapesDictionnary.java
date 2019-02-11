@@ -100,5 +100,6 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			}
 		}
 		notifyRemoveAllObservers();
+		System.out.println(getShapesList().size());
 	}
 }
