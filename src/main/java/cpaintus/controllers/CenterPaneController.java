@@ -42,7 +42,6 @@ public class CenterPaneController implements IObserver {
 	@FXML
 	private ScrollPane scrollPane;
 
-	private DrawCommand drawCommand;
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	private DrawSettings drawSettings;
@@ -71,7 +70,6 @@ public class CenterPaneController implements IObserver {
 		shapeEditor = ShapeEditor.getInstance();
 		shapeEditor.register(this);
 		invoker = Invoker.getInstance();
-		drawCommand = new DrawCommand();
 
 		hasBeenDragged = false;
 
@@ -215,10 +213,7 @@ public class CenterPaneController implements IObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			if (persistent) {
-				drawCommand = new DrawCommand();
-				drawCommand.setPane(pane);
-				drawCommand.setShape(shape);
-				drawCommand.setPremierefois(true);
+				DrawCommand drawCommand = new DrawCommand(pane, shape);
 				invoker.execute(drawCommand);
 			} else {
 				Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);

@@ -77,28 +77,6 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	public void removeShape (Shape shape) {
 		if(shapesDict.containsKey(shape.getShapeId())) {
 			shapesDict.remove(shape.getShapeId());
-			shapeFactory.setTotalShapeNb(shapeFactory.getTotalShapeNb());
-			if (shape.getShapeType() == ShapeType.LINE) {
-				shapeFactory.setLineNb(shapeFactory.getLineNb()-1);
-			}
-			else if (shape.getShapeType() == ShapeType.ELLIPSE) {
-				shapeFactory.setEllipseNb(shapeFactory.getEllipseNb()-1);
-			}
-			else if (shape.getShapeType() == ShapeType.HEART) {
-				shapeFactory.setHeartNb(shapeFactory.getHeartNb()-1);
-			}
-			else if (shape.getShapeType() == ShapeType.PICTURE) {
-				shapeFactory.setPictureNb(shapeFactory.getPictureNb()-1);
-			}
-			else if (shape.getShapeType() == ShapeType.POKEBALL) {
-				shapeFactory.setPokeballNb(shapeFactory.getPokeballNb()-1);
-			}
-			else if (shape.getShapeType() == ShapeType.RECTANGLE) {
-				shapeFactory.setRectangleNb(shapeFactory.getRectangleNb()-1);
-			}
-			else if (shape.getShapeType() == ShapeType.TEXT) {
-				shapeFactory.setTextNb(shapeFactory.getTextNb()-1);
-			}
 		}
 		notifyAllObservers();
 	}
