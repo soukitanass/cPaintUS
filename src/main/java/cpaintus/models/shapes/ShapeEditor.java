@@ -10,11 +10,13 @@ public class ShapeEditor extends Observable<IObserver> {
 	private ShapesDictionnary shapesDict;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
+	private Boolean edittingZ;
 
 	private ShapeEditor() {
 		shapesDict = ShapesDictionnary.getInstance();
 		shapeToEdit = null;
 		boundingBox = BoundingBox.getInstance();
+		edittingZ = false;
 	}
 
 	private static class SingletonHelper {
@@ -31,7 +33,11 @@ public class ShapeEditor extends Observable<IObserver> {
 		updateBoundingBox(shape);
 		notifyAllObservers();
 	}
-
+	
+	public void editZ(Shape shape) {
+		edittingZ = true;
+		edit(shape);
+	}
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
 		boundingBox.setRotation(shape.getRotation());
@@ -44,10 +50,15 @@ public class ShapeEditor extends Observable<IObserver> {
 
 	public void done() {
 		shapeToEdit = null;
+		edittingZ = false;
 	}
 
 	public Shape getShapeToEdit() {
 		return shapeToEdit;
+	}
+	
+	public Boolean edittingZ() {
+		return edittingZ;
 	}
 
 	@Override
