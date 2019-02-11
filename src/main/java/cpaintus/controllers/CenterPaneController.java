@@ -153,8 +153,8 @@ public class CenterPaneController implements IObserver {
 	private void onMouseDragged(MouseEvent event) {
 		hasBeenDragged = true;
 		pointer.setCursorPoint(event.getX(), event.getY());
-		boundingBox.updateBoundingBox(pointer.getCursorPoint());
 		draw(false);
+		boundingBox.updateBoundingBox(pointer.getCursorPoint());
 	}
 
 	private void scrollPaneWidthHandler(double width) {
@@ -213,6 +213,7 @@ public class CenterPaneController implements IObserver {
 		Shape shape = createShape(persistent);
 		if (shape != null) {
 			if (persistent) {
+				pane.getChildren().remove(pane.getChildren().size() - 2);
 				DrawCommand drawCommand = new DrawCommand(pane, shape);
 				invoker.execute(drawCommand);
 			} else {
