@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.command.DrawCommand;
+import cpaintus.controllers.command.EditZCommand;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
@@ -107,10 +108,7 @@ public class CenterPaneController implements IObserver {
 				} else {
 					selectShapes();
 					boundingBox.setVisible(true);
-				}
-
-				draw(true);
-				
+				}				
 			}
 		};
 	}
@@ -261,44 +259,24 @@ public class CenterPaneController implements IObserver {
 	}
 	
 	private void editShapeZ(int z, Node node) {
-		List<Node> nodes = pane.getChildren();
-		int newZ = z;
-		int prevZ = nodes.indexOf(node);
 		
-		nodes.remove(prevZ);
-		nodes.add(newZ, node);
-		
-		// Z index of some shapes have changed! Edit them.
-		int start;
-		int end;
-		
-		if (prevZ < newZ) {
-			start = prevZ;
-			end = newZ;
-		} else {
-			start = newZ + 1;
-			end = prevZ + 1;
-		}
-		
-		for (int i = start; i < end; i++) {
-			int hash = nodes.get(i).hashCode();
-			Shape shape = shapesDict.getShapesList().stream()
-				.filter(s -> hash == s.getCanvasHash())
-				.findAny()
-				.orElse(null);
-			if (shape != null) shape.setZ(i);
-		}
+		EditZCommand editZCommand = new EditZCommand();
+		editZCommand.setNewZ(z);
+		editZCommand.setNode(node);
+		editZCommand.setPane(pane);
+		editZCommand.setOldZ(pane.getChildren().indexOf(node));
+		invoker.execute(editZCommand);
 
 	}
 
 	public void draw(boolean persistent) {
+		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
 		Shape shape = createShape(persistent, activeCanvas.hashCode());
 		if (shape != null) {
 			if (persistent) {
 				DrawCommand drawCommand = new DrawCommand(pane, shape);
 				invoker.execute(drawCommand);
 			} else {
-				Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
 				drawerStrategyContext.draw(shape, activeCanvas);
 			}
 		}
