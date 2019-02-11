@@ -7,6 +7,7 @@ public class Text extends Shape2D {
 	public Text(
 			ShapeType shapeType,
 			String shapeId,
+			int canvasHash,
 			double x,
 			double y,
 			int z,
@@ -18,7 +19,7 @@ public class Text extends Shape2D {
 			double height,
 			String text)
 	{
-		super(shapeType, shapeId, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 		this.theText = text;
 	}
 	

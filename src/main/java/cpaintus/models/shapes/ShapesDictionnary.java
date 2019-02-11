@@ -53,7 +53,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		
 	public void addShapeSilentForList(Shape shape) {
 		if(shape != null) {
-			Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000", "", "");
+			Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000", "", "");
 			shape.setShapeId(temp.getShapeId());
 			shape.setZ(shapeFactory.getTotalShapeNb());
 			shapesDict.put(shape.getShapeId(), shape);			
@@ -93,5 +93,20 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		for (IObserver obs : getObserverList()) {
 			obs.update(ObservableList.SHAPE_ADDED);
 		}
+	}
+	
+	public void notifyRemoveAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.SHAPE_REMOVED);
+		}
+	}
+	
+	public void removeShapeByType(ShapeType shapeType) {
+		for(Shape shape: getShapesList()) {
+			if(shape.getShapeType() == shapeType) {
+				shapesDict.remove(shape.getShapeId(), shape);
+			}
+		}
+		notifyRemoveAllObservers();
 	}
 }

@@ -28,6 +28,7 @@ public class TopPaneController {
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
 	private Preferences prefs;
+	private static final String WORKDIR = "Workdir";
 	private Invoker invoker;
 	@FXML
 	private MenuBar menuBar;
@@ -110,7 +111,7 @@ public class TopPaneController {
 	private void handleLoadLClick() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
-		fileChooser.setInitialDirectory(new File(prefs.get("Workdir",Paths.get(".").toAbsolutePath().normalize().toString())));
+		fileChooser.setInitialDirectory(new File(prefs.get(WORKDIR,Paths.get(".").toAbsolutePath().normalize().toString())));
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
 				new ExtensionFilter("PNG Files", "*.png"));
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
@@ -120,10 +121,10 @@ public class TopPaneController {
 			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.load(FileContext.types.XML, selectedFile.getAbsolutePath());
-				prefs.put("Workdir", selectedFile.getParent());
+				prefs.put(WORKDIR, selectedFile.getParent());
 			} else {
 				FileContext.load(FileContext.types.PNG, selectedFile.getAbsolutePath());
-				prefs.put("Workdir", selectedFile.getParent());
+				prefs.put(WORKDIR, selectedFile.getParent());
 			}
 		}
 
