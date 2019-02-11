@@ -25,6 +25,7 @@ public class SaveCloseSingleton {
 	private Preferences prefs;
 
 	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final String WORKDIR = "Workdir";
 	private SnapshotSingleton snapshotSingleton;
 	private ShapesDictionnary shapesDict;
 
@@ -71,7 +72,7 @@ public class SaveCloseSingleton {
 
 	public void handleSave() {
 		FileChooser chooser = new FileChooser();
-		chooser.setInitialDirectory(new File(prefs.get("Workdir",Paths.get(".").toAbsolutePath().normalize().toString())));
+		chooser.setInitialDirectory(new File(prefs.get(WORKDIR,Paths.get(".").toAbsolutePath().normalize().toString())));
 		chooser.setTitle("Save As");
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
 		chooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
@@ -82,12 +83,12 @@ public class SaveCloseSingleton {
 			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
-				prefs.put("Workdir", selectedFile.getParent());
+				prefs.put(WORKDIR, selectedFile.getParent());
 			} else {
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
 				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
-				prefs.put("Workdir", selectedFile.getParent());
+				prefs.put(WORKDIR, selectedFile.getParent());
 			}
 		}
 	}

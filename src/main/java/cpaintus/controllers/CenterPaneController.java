@@ -2,6 +2,8 @@ package cpaintus.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
@@ -30,6 +32,7 @@ import javafx.scene.paint.Color;
 
 public class CenterPaneController implements IObserver {
 
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	@FXML
 	private Canvas baseCanvas;
 
@@ -229,7 +232,7 @@ public class CenterPaneController implements IObserver {
 		Canvas canvas;
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
-			System.err.println("No shape to edit. Aborting edit.");
+			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit.");
 			return;
 		}
 		if (shape.getShapeType() == ShapeType.GROUP) {
@@ -243,7 +246,7 @@ public class CenterPaneController implements IObserver {
 		int hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		if (canvas == null) {
-			System.err.println("Canvas to edit not found. Aborting edit.");
+			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit.");
 			return;
 		}
 
@@ -351,7 +354,6 @@ public class CenterPaneController implements IObserver {
 		shapesGroup.setHeightGroup(boundingBox.getHeight());
 		shapesGroup.setWidthGroup(boundingBox.getWidth());
 		for (Shape shape : shapesDict.getShapesList()) {
-			// calcul à revoir
 			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
 					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()) {
@@ -365,10 +367,7 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private boolean comparePoints(Point a, Point b) {
-		if (a.getX() >= b.getX() && a.getY() >= b.getY()) {
-			return true;
-		}
-		return false;
+			return (a.getX() >= b.getX() && a.getY() >= b.getY());
 
 	}
 }

@@ -60,7 +60,7 @@ public class DrawSettings {
 	
 	public void setStrokeColor(Color selectedStrokeColor) {
 		strokeColor = selectedStrokeColor;
-		prefs.put("strokeColor",strokeColor.toString());
+		prefs.put("strokecolor",strokeColor.toString());
 	}
 	
 	public Color getStrokeColor() {
