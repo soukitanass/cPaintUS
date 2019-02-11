@@ -108,6 +108,7 @@ public class LeftPaneController implements IObserver {
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	    prefs = Preferences.userNodeForPackage(this.getClass());
+	    selectShapesSingleton = SelectShapesSingleton.getInstance();
 	    editZListener = new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
