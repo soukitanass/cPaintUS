@@ -11,6 +11,7 @@ import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
 import cpaintus.models.LineWidth;
+import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
@@ -46,6 +47,8 @@ import javafx.util.converter.IntegerStringConverter;
 public class LeftPaneController implements IObserver {
 
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final String SELECT_LABEL = "Select";
+	private static final String UNSELECT_LABEL = "Unselect";
 
 	private DrawSettings drawSettings;
 	private ShapesDictionnary shapesDict;
@@ -54,6 +57,7 @@ public class LeftPaneController implements IObserver {
 	private BoundingBox boundingBox;
 	private Preferences prefs;
 	private ChangeListener<Integer> editZListener;
+	private SelectShapesSingleton selectShapesSingleton;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -67,6 +71,8 @@ public class LeftPaneController implements IObserver {
 	private Button eraseAllBtn;
 	@FXML
 	private Button editBtn;
+	@FXML
+	private Button selectBtn;
 	@FXML
 	private ListView<Shape> shapeList;
 
@@ -117,16 +123,17 @@ public class LeftPaneController implements IObserver {
 		shape.getItems().remove(ShapeType.PICTURE);
 		shape.setValue(ShapeType.LINE);
 		shape.getItems().remove(ShapeType.PICTURE);
-		shape.setValue(ShapeType.valueOf(prefs.get("shape","LINE")));
+		shape.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
 
 		// Add possible brush sizes to the brushSize ComboBox
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
-		lineWidth.setValue(prefs.get("linewidth",LineWidth.getInstance().getDefaultString()));
+		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
 
 		// Set ColorPickers default value to black
-		if (shape.getValue() == ShapeType.LINE) fillColor.setDisable(true);
-		fillColor.setValue(Color.valueOf(prefs.get("fillcolor","BLACK")));
-		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor","BLACK")));
+		if (shape.getValue() == ShapeType.LINE)
+			fillColor.setDisable(true);
+		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
+		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
 
 		attributes.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
@@ -143,8 +150,12 @@ public class LeftPaneController implements IObserver {
 			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
 				boundingBox.setVisible(newShape != null);
 				attributes.setVisible(false);
-
 				shapeToEdit = newShape;
+				if (newShape.getShapeType() == ShapeType.GROUP) {
+					Shape firstShape = ((ShapesGroup) newShape).getShapes().get(0);
+					newShape = firstShape;
+				}
+
 				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 				editLineWidth.setValue(newShape.getLineWidth() + "px");
@@ -174,8 +185,8 @@ public class LeftPaneController implements IObserver {
 				editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
 				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
-				shapeEditor.edit(newShape);
 				attributes.setVisible(true);
+				shapeEditor.edit(shapeToEdit);
 			}
 		});
 	}
@@ -187,7 +198,7 @@ public class LeftPaneController implements IObserver {
 		if (shape.getValue() == ShapeType.TEXT) {
 			handleTextAddClick();
 		}
-		prefs.put("shape",shape.getValue().name());
+		prefs.put("shape", shape.getValue().name());
 	}
 
 	@FXML
@@ -197,19 +208,19 @@ public class LeftPaneController implements IObserver {
 		int newWidth = Integer.parseInt(widthStr);
 
 		drawSettings.setLineWidth(newWidth);
-		prefs.put("linewidth",widthStr);
+		prefs.put("linewidth", widthStr);
 	}
 
 	@FXML
 	private void handleChangeFillColor() {
 		drawSettings.setFillColor(fillColor.getValue());
-		prefs.put("fillcolor",fillColor.getValue().toString());
+		prefs.put("fillcolor", fillColor.getValue().toString());
 	}
 
 	@FXML
 	private void handleChangeStrokeColor() {
 		drawSettings.setStrokeColor(strokeColor.getValue());
-		prefs.put("strokecolor",strokeColor.getValue().toString());
+		prefs.put("strokecolor", strokeColor.getValue().toString());
 	}
 
 	@FXML
@@ -338,7 +349,8 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED) {
+		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED
+				|| obs == ObservableList.SHAPE_REMOVED) {
 			shapeList.getItems().clear();
 			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 			Collections.reverse(shallowCopy);
@@ -368,4 +380,17 @@ public class LeftPaneController implements IObserver {
 		}
 
 	}
+
+	@FXML
+	private void handleSelectClick() {
+		if (selectBtn.getText().equals(SELECT_LABEL)) {
+			selectShapesSingleton.notifyAllObservers();
+			selectBtn.setText(UNSELECT_LABEL);
+		} else {
+			selectShapesSingleton.notifyUnselectObsevers();
+			selectBtn.setText(SELECT_LABEL);
+		}
+
+	}
+
 }

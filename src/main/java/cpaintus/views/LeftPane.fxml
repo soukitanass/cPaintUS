@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cpaintus.controllers.LeftPaneController">
+<AnchorPane prefWidth="202.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cpaintus.controllers.LeftPaneController">
 	<children>
-      <VBox prefHeight="770" prefWidth="200.0">
+      <VBox prefHeight="770" prefWidth="202.0">
          <children>
       		<ToolBar>
       			<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
@@ -29,6 +29,7 @@
       					<ColorPicker fx:id="strokeColor" onAction="#handleChangeStrokeColor" prefWidth="110.0" />
       				</HBox>
       				<Button fx:id="eraseAllBtn" onAction="#handleEraseAllClick" prefWidth="188.0" text="Erase All" />
+      				<Button fx:id="selectBtn" onAction="#handleSelectClick" prefWidth="188.0" text="Select" />
       			</VBox>
       		</ToolBar>
             <ListView fx:id="shapeList" prefHeight="200.0" prefWidth="200.0">
