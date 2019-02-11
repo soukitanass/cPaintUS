@@ -231,7 +231,7 @@ public class CenterPaneController implements IObserver {
 		Canvas canvas;
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
-			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit.");
+			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because shape is null.");
 			return;
 		}
 		if (shape.getShapeType() == ShapeType.GROUP) {
@@ -244,8 +244,8 @@ public class CenterPaneController implements IObserver {
 		}
 		int hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
-		if (canvas == null) {
-			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit.");
+		if (canvas == null)  {
+			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because canvas is null.");
 			return;
 		}
 

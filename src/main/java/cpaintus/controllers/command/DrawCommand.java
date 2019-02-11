@@ -29,6 +29,7 @@ public class DrawCommand implements ICommand{
 			newCanvas.setBlendMode(BlendMode.SRC_OVER);
 			pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 			activeCanvas = newCanvas;
+			shape.setCanvasHash(activeCanvas.hashCode());
 			shapesDict.addShape(shape);
 			drawerStrategyContext.draw(shape, activeCanvas);
 			System.out.println(pane.getChildren().size());
