@@ -4,7 +4,6 @@ import cpaintus.models.shapes.Line;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 
 public class DrawerStrategyContext {

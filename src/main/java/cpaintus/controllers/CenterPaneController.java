@@ -299,7 +299,7 @@ public class CenterPaneController implements IObserver {
 	}
 
 	/*
-	 * The bounding box position and size are the shape sizes, therefore it must be drawn around that
+	 * The bounding box position and size are the shape sizes, therefore it must be drawn around that.
 	 */
 	private void drawBoundingBox() {
 		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - 4);
