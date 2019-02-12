@@ -107,9 +107,10 @@ public class LeftPaneController implements IObserver {
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
-		prefs = Preferences.userNodeForPackage(this.getClass());
-		selectShapesSingleton = SelectShapesSingleton.getInstance();
-		editZListener = new ChangeListener<Integer>() {
+	    prefs = Preferences.userNodeForPackage(this.getClass());
+	    selectShapesSingleton = SelectShapesSingleton.getInstance();
+	    selectShapesSingleton.register(this);
+	    editZListener = new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
 				handleEditZ(newValue);
@@ -148,11 +149,11 @@ public class LeftPaneController implements IObserver {
 		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
 			@Override
 			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
+				boundingBox.setVisible(newShape != null);
 				if (newShape == null) {
+					attributes.setVisible(false);
 					return;
 				}
-				boundingBox.setVisible(newShape != null);
-				attributes.setVisible(false);
 				shapeToEdit = newShape;
 				if (newShape.getShapeType() == ShapeType.GROUP) {
 					Shape firstShape = ((ShapesGroup) newShape).getShapes().get(0);
@@ -363,13 +364,36 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED
-				|| obs == ObservableList.SHAPE_REMOVED) {
-			shapeList.getItems().clear();
-			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
-			Collections.reverse(shallowCopy);
-			shapeList.getItems().addAll(shallowCopy);
+		switch(obs) {
+		case SHAPE_ADDED:
+			updateList();
+			selectLastItem(true);
+			break;
+		case SHAPES_LOADED:
+		case SHAPE_REMOVED:
+			updateList();
+			break;
+		case UNSELECT_SHAPE:
+			selectLastItem(false);			
+			break;
+		default:
+			break;
 		}
+	}
+	
+	private void updateList() {
+		shapeList.getItems().clear();
+		List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
+		Collections.reverse(shallowCopy);
+		shapeList.getItems().addAll(shallowCopy);
+	}
+	
+	private void selectLastItem(boolean shouldSelect) {
+		if (!shapeList.getItems().isEmpty() && shouldSelect) {
+			shapeList.getSelectionModel().select(shapeList.getItems().get(0));				
+		} else {
+			shapeList.getSelectionModel().select(null);
+		}				
 	}
 
 	private void handleTextAddClick() {
@@ -398,7 +422,6 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleSelectClick() {
 		selectShapesSingleton.notifyAllObservers();
-
 	}
 
 	@FXML

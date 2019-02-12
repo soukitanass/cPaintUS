@@ -95,6 +95,7 @@ public class CenterPaneController implements IObserver {
 					hasBeenDragged = false;
 				} else {
 					boundingBox.setVisible(false);
+					selectShapesSingleton.notifyUnselectShapeObservers();
 				}
 				boundingBox.updateBoundingBox(pointer.getCursorPoint());
 				if (!selectShapes) {
@@ -143,10 +144,10 @@ public class CenterPaneController implements IObserver {
 		case BOUNDING_BOX:
 			drawBoundingBox();
 			break;
-		case SELECT_SHAPES:
+		case GROUP_SHAPES:
 			selectShapes = true;
 			break;
-		case UNSELECT_SHAPES:
+		case UNGROUP_SHAPES:
 			unselectShapes();
 			break;
 		default:

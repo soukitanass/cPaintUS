@@ -4,7 +4,7 @@ import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
 
-public class SelectShapesSingleton extends Observable<CenterPaneController> {
+public class SelectShapesSingleton extends Observable<IObserver> {
 
 	private static SelectShapesSingleton instance = null;
 
@@ -23,13 +23,19 @@ public class SelectShapesSingleton extends Observable<CenterPaneController> {
 	@Override
 	public void notifyAllObservers() {
 		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.SELECT_SHAPES);
+			obs.update(ObservableList.GROUP_SHAPES);
 		}
-
 	}
-	public void notifyUnselectObsevers() {
+	
+	public void notifyUngroupObservers() {
 		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.UNSELECT_SHAPES);
+			obs.update(ObservableList.UNGROUP_SHAPES);
+		}
+	}
+	
+	public void notifyUnselectShapeObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.UNSELECT_SHAPE);
 		}
 	}
 
