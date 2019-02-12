@@ -229,44 +229,51 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void editShape() {
-		int index;
 		Canvas canvas;
+		int hash;
 		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
-			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit.");
+			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
 			return;
 		}
 		if (shape.getShapeType() == ShapeType.GROUP) {
-			for (Shape sh : shapesGroup.getShapes()) {
-				index = sh.getZ();
-				canvas = (Canvas) pane.getChildren().get(index);
+			for (Shape sh : ((ShapesGroup) shape).getShapes()) {
+				int ha = sh.getCanvasHash();
+				canvas = (Canvas) pane.getChildren().stream().filter(child -> ha == child.hashCode()).findAny()
+						.orElse(null);
+				if (canvas == null) {
+					LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
+					return;
+				}
 				drawerStrategyContext.draw(sh, canvas);
 			}
 			return;
 		}
-		int hash = shape.getCanvasHash();
+		hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		if (canvas == null) {
-			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit.");
+			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
 			return;
 		}
 
-		if (shapeEditor.edittingZ()) editShapeZ(shape.getZ(), canvas);
-		else drawerStrategyContext.draw(shape, canvas);
+		if (shapeEditor.edittingZ())
+			editShapeZ(shape.getZ(), canvas);
+		else
+			drawerStrategyContext.draw(shape, canvas);
 	}
-	
+
 	private void editShapeZ(int z, Node node) {
 		List<Node> nodes = pane.getChildren();
 		int newZ = z;
 		int prevZ = nodes.indexOf(node);
-		
+
 		nodes.remove(prevZ);
 		nodes.add(newZ, node);
-		
+
 		// Z index of some shapes have changed! Edit them.
 		int start;
 		int end;
-		
+
 		if (prevZ < newZ) {
 			start = prevZ;
 			end = newZ;
@@ -274,14 +281,13 @@ public class CenterPaneController implements IObserver {
 			start = newZ + 1;
 			end = prevZ + 1;
 		}
-		
+
 		for (int i = start; i < end; i++) {
 			int hash = nodes.get(i).hashCode();
-			Shape shape = shapesDict.getShapesList().stream()
-				.filter(s -> hash == s.getCanvasHash())
-				.findAny()
-				.orElse(null);
-			if (shape != null) shape.setZ(i);
+			Shape shape = shapesDict.getShapesList().stream().filter(s -> hash == s.getCanvasHash()).findAny()
+					.orElse(null);
+			if (shape != null)
+				shape.setZ(i);
 		}
 
 	}
@@ -379,31 +385,31 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void selectShapes() {
-		
+
 		shapesGroup = new ShapesGroup();
 		shapesGroup.clear();
-		System.out.println(shapesGroup.getShapeId());
 		shapesGroup.setXGroup(boundingBox.getUpLeftCorner().getX());
 		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
 		shapesGroup.setHeightGroup(boundingBox.getHeight());
 		shapesGroup.setWidthGroup(boundingBox.getWidth());
+		shapesGroup.setCanvasHash(boundingBox.hashCode());
 		for (Shape shape : shapesDict.getShapesList()) {
 			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
-					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()) {
+					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()
+					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
+					&&  shape.getY() + shape.getHeight() <= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
 				shapesGroup.add(shape);
 			}
 		}
 		if (!shapesGroup.getShapes().isEmpty()) {
-			System.out.println("adding shapes in dic");
 			shapesDict.addShape(shapesGroup);
-			System.out.println(shapesDict.getShapesList().size());
-			selectShapes = false;
 		}
+		selectShapes = false;
 	}
 
 	private boolean comparePoints(Point a, Point b) {
-			return (a.getX() >= b.getX() && a.getY() >= b.getY());
+		return (a.getX() >= b.getX() && a.getY() >= b.getY());
 
 	}
 }

@@ -14,21 +14,20 @@ public class ShapesGroup extends Shape2D {
 	private static int groupNb = 0;
 
 	public ShapesGroup() {
-		setShapeId("Group_" + groupNb++);
+		setShapeId("Group " + groupNb++);
 		setShapeType(ShapeType.GROUP);
 		this.shapeDim = ShapeDimension.SHAPE2D;
 	}
 
-	public void add(Shape s) {
-		this.shapes.add(s);
+	public void add(Shape shape) {
+		this.shapes.add(shape);
 	}
 
-	public void remove(Shape s) {
-		shapes.remove(s);
+	public void remove(Shape shape) {
+		shapes.remove(shape);
 	}
 
 	public void clear() {
-		groupNb = 0;
 		this.shapes.clear();
 	}
 
