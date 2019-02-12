@@ -148,10 +148,10 @@ public class LeftPaneController implements IObserver {
 			@Override
 			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
 				if(newShape == null ) {
+					attributes.setVisible(false);
 					return;
 				}
 				boundingBox.setVisible(newShape != null);
-				attributes.setVisible(false);
 				shapeToEdit = newShape;
 				if ( newShape.getShapeType() == ShapeType.GROUP) {
 					Shape firstShape = ((ShapesGroup) newShape).getShapes().get(0);
@@ -351,12 +351,17 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		if (obs == ObservableList.SHAPES_LOADED || obs == ObservableList.SHAPE_ADDED
+		if (obs == ObservableList.SHAPES_LOADED 
+				|| obs == ObservableList.SHAPE_ADDED 
 				|| obs == ObservableList.SHAPE_REMOVED) {
 			shapeList.getItems().clear();
 			List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 			Collections.reverse(shallowCopy);
 			shapeList.getItems().addAll(shallowCopy);
+			
+			if (obs == ObservableList.SHAPE_ADDED && !shallowCopy.isEmpty()) {
+				shapeList.getSelectionModel().select(shallowCopy.get(0));				
+			}
 		}
 	}
 
