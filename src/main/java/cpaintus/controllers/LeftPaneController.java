@@ -385,13 +385,14 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleSelectClick() {
-		if (selectBtn.getText().equals(SELECT_LABEL)) {
-			selectShapesSingleton.notifyAllObservers();
-			selectBtn.setText(UNSELECT_LABEL);
-		} else {
-			selectShapesSingleton.notifyUnselectObsevers();
-			selectBtn.setText(SELECT_LABEL);
-		}
+		selectShapesSingleton.notifyAllObservers();
+		/*
+		 * if (selectBtn.getText().equals(SELECT_LABEL)) {
+		 * selectShapesSingleton.notifyAllObservers();
+		 * selectBtn.setText(UNSELECT_LABEL); } else {
+		 * selectShapesSingleton.notifyUnselectObsevers();
+		 * selectBtn.setText(SELECT_LABEL); }
+		 */
 
 	}
 

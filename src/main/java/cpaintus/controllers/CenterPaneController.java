@@ -379,7 +379,10 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void selectShapes() {
+		
 		shapesGroup = new ShapesGroup();
+		shapesGroup.clear();
+		System.out.println(shapesGroup.getShapeId());
 		shapesGroup.setXGroup(boundingBox.getUpLeftCorner().getX());
 		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
 		shapesGroup.setHeightGroup(boundingBox.getHeight());
@@ -392,7 +395,9 @@ public class CenterPaneController implements IObserver {
 			}
 		}
 		if (!shapesGroup.getShapes().isEmpty()) {
+			System.out.println("adding shapes in dic");
 			shapesDict.addShape(shapesGroup);
+			System.out.println(shapesDict.getShapesList().size());
 			selectShapes = false;
 		}
 	}
