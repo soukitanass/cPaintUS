@@ -14,8 +14,8 @@ public class TextDrawerStrategy implements IDrawerStrategy{
 		gc.setStroke(Color.web(shape.getStrokeColor()));
 		gc.setLineWidth(shape.getLineWidth());
 		gc.setFill(Color.web(((Text) shape).getFillColor()));
-		gc.fillText( ((Text)shape).getText(), 2, shape.getHeight()*3/4, shape.getWidth());
-		gc.strokeText( ((Text)shape).getText(), 2, shape.getHeight()*3/4, shape.getWidth());
+		gc.fillText(((Text)shape).getText(), shape.getLineWidth()/2, shape.getHeight()*3/4, shape.getWidth() - shape.getLineWidth());
+		gc.strokeText(((Text)shape).getText(), shape.getLineWidth()/2, shape.getHeight()*3/4, shape.getWidth() - shape.getLineWidth());
 		
 	}
 

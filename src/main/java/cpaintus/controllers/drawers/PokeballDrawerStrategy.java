@@ -25,7 +25,7 @@ public class PokeballDrawerStrategy implements IDrawerStrategy {
 		double width = shape.getWidth();
 		double height = shape.getHeight();
 		
-		double lineWidth = shape.getLineWidth();
+		int lineWidth = shape.getLineWidth();
 		
 		// Colored top of the ball
 		gc.fillArc(lineWidth/2,
