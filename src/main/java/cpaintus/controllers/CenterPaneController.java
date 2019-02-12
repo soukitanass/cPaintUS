@@ -132,7 +132,7 @@ public class CenterPaneController implements IObserver {
 			refresh();
 			break;
 		case EDIT_SHAPE:
-			editShape();
+			editShape(shapeEditor.getShapeToEdit());
 			shapeEditor.done();
 			break;
 		case LOAD_IMAGE:
@@ -229,26 +229,17 @@ public class CenterPaneController implements IObserver {
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
-	private void editShape() {
+	private void editShape(Shape shape) {
 		Canvas canvas;
 		int hash;
-		Shape shape = shapeEditor.getShapeToEdit();
 		if (shape == null) {
 			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
 			return;
 		}
 		if (shape.getShapeType() == ShapeType.GROUP) {
 			for (Shape sh : ((ShapesGroup) shape).getShapes()) {
-				int ha = sh.getCanvasHash();
-				canvas = (Canvas) pane.getChildren().stream().filter(child -> ha == child.hashCode()).findAny()
-						.orElse(null);
-				if (canvas == null) {
-					LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
-					return;
-				}
-				drawerStrategyContext.draw(sh, canvas);
+				editShape(sh);
 			}
-			return;
 		}
 		hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
@@ -399,7 +390,8 @@ public class CenterPaneController implements IObserver {
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
 					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
-					&&  shape.getY() + shape.getHeight() <= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
+					&& shape.getY() + shape.getHeight() <= boundingBox.getUpLeftCorner().getY()
+							+ boundingBox.getHeight()) {
 				shapesGroup.add(shape);
 			}
 		}
