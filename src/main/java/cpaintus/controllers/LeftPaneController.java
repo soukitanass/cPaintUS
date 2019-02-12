@@ -426,7 +426,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleUnSelectClick() {
-		selectShapesSingleton.notifyUnselectObsevers();
+		selectShapesSingleton.notifyUngroupObservers();
 		attributes.setVisible(false);
 	}
 
