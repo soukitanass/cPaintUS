@@ -4,6 +4,7 @@ import cpaintus.models.shapes.Line;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.StrokeLineCap;
 
 public class DrawerStrategyContext {
 	
@@ -26,6 +27,8 @@ public class DrawerStrategyContext {
 		activeCanvas.setHeight(shape.getHeight()+shape.getLineWidth());
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+		gc.setLineCap(StrokeLineCap.ROUND);
+		
 		switch (shape.getShapeType()) {
 		case RECTANGLE:
 			drawerStrategy = new RectangleDrawerStrategy();

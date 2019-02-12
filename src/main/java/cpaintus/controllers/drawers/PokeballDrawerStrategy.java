@@ -16,50 +16,54 @@ public class PokeballDrawerStrategy implements IDrawerStrategy {
 		drawPokeball(gc,shape);
 	}
 	
-	private void drawPokeball(GraphicsContext gc,Shape shape) {
+	private void drawPokeball(GraphicsContext gc, Shape shape) {
 		double ratioBetweenCircles = 0.25;
 		double halfOfRatio = ratioBetweenCircles/2;
 		double startingCornerRatio = 0.5 - halfOfRatio;
 		double endingCornerRatio = 0.5 + halfOfRatio;
 		
-		double width = shape.getWidth() - (shape.getLineWidth()/2);
-		double height = shape.getHeight() - (shape.getLineWidth()/2);
+		double width = shape.getWidth();
+		double height = shape.getHeight();
+		
+		double lineWidth = shape.getLineWidth();
 		
 		// Colored top of the ball
-		gc.fillArc(shape.getLineWidth()/2,
-				shape.getLineWidth()/2,
-				width,
-				height,
+		gc.fillArc(lineWidth/2,
+				lineWidth/2,
+				width - lineWidth,
+				height - lineWidth,
 				0, 180, ArcType.ROUND);
 
 		gc.setFill(Color.WHITE);
 		// White bottom of the ball
-		gc.fillArc(shape.getLineWidth()/2,
-				shape.getLineWidth()/2,
-				width,
-				height,
+		gc.fillArc(lineWidth/2,
+				lineWidth/2,
+				width - lineWidth,
+				height - lineWidth,
 				0, -180, ArcType.ROUND);
 		// White circle in center
-		gc.fillOval(width * startingCornerRatio,
-				height * startingCornerRatio,
-				width * ratioBetweenCircles,
-				height * ratioBetweenCircles);
+		gc.fillOval(width * startingCornerRatio + lineWidth/2,
+				height * startingCornerRatio + lineWidth/2,
+				width * ratioBetweenCircles - lineWidth,
+				height * ratioBetweenCircles - lineWidth);
 		// Biggest circle
-		gc.strokeOval(shape.getLineWidth()/2, shape.getLineWidth()/2,
-				width, height);
+		gc.strokeOval(lineWidth/2, 
+				lineWidth/2,
+				width - lineWidth,
+				height - lineWidth);
 		// Smallest circle
-		gc.strokeOval((shape.getLineWidth()/2 + width) * startingCornerRatio,
-				(shape.getLineWidth()/2 + height) * startingCornerRatio,
-				width * ratioBetweenCircles,
-				height * ratioBetweenCircles);
+		gc.strokeOval(width * startingCornerRatio + lineWidth/2,
+				height * startingCornerRatio + lineWidth/2,
+				width * ratioBetweenCircles - lineWidth,
+				height * ratioBetweenCircles - lineWidth);
 		// Two lines on the sides
-		gc.strokeLine(shape.getLineWidth()/2,
+		gc.strokeLine(lineWidth/2,
 				height * 0.5,
-				width * startingCornerRatio,
+				width * startingCornerRatio + lineWidth/2,
 				height * 0.5);
-		gc.strokeLine(shape.getWidth() * endingCornerRatio,
+		gc.strokeLine(width * endingCornerRatio - lineWidth/2,
 				height * 0.5,
-				width,
+				width - lineWidth/2,
 				height * 0.5);
 	}
 }
