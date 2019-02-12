@@ -70,4 +70,5 @@ public abstract class Shape1D extends Shape {
 	public void setY2(double y2) {
 		this.y2 = y2;
 	}
+	
 }

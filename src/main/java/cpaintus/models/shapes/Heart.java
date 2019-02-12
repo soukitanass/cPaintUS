@@ -23,4 +23,22 @@ public class Heart extends Shape2D {
 	public Heart() {
 		
 	}
+	
+	@Override
+	public Heart makeCopy() {
+		Heart heart = new Heart(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				this.getRotation(),
+				this.getLineWidth(),
+				this.getStrokeColor(),
+				this.getFillColor(),
+				this.getWidth(),
+				this.getHeight());
+		return heart;
+	}
 }

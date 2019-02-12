@@ -33,4 +33,23 @@ public class Picture extends Shape2D {
 	public void setBase64(String base64) {
 		this.base64 = base64;
 	}
+	
+	@Override
+	public Picture makeCopy() {
+		Picture picture = new Picture(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				this.getRotation(),
+				this.getLineWidth(),
+				this.getStrokeColor(),
+				this.getFillColor(),
+				this.getWidth(),
+				this.getHeight(),
+				this.getBase64());
+		return picture;
+	}
 }

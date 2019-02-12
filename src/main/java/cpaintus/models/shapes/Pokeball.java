@@ -31,4 +31,22 @@ public class Pokeball extends Shape2D {
 	public Color getBackColor() {
 		return this.backColor;
 	}
+	
+	@Override
+	public Pokeball makeCopy() {
+		Pokeball pokeball = new Pokeball(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				this.getRotation(),
+				this.getLineWidth(),
+				this.getStrokeColor(),
+				this.getFillColor(),
+				this.getWidth(),
+				this.getHeight());
+		return pokeball;
+	}
 }

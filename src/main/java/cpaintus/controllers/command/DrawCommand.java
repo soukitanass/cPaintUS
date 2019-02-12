@@ -32,13 +32,10 @@ public class DrawCommand implements ICommand{
 			shape.setCanvasHash(activeCanvas.hashCode());
 			shapesDict.addShape(shape);
 			drawerStrategyContext.draw(shape, activeCanvas);
-			System.out.println(pane.getChildren().size());
-			System.out.println(activeCanvas.toString());
 		}	
 	}
 	
 	public void undo() {
-		System.out.println("Active Canvas Undo : " + activeCanvas.toString());
 		pane.getChildren().remove(activeCanvas);
 		shapesDict.removeShape(shape);
 	}

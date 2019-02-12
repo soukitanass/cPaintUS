@@ -21,4 +21,21 @@ public class Line extends Shape1D {
 	public Line() {
 		
 	}
+	
+	@Override
+	public Line makeCopy() {
+		Line line = new Line(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				this.getRotation(),
+				this.getLineWidth(),
+				this.getStrokeColor(),
+				this.getWidth(),
+				this.getHeight());
+		return line;
+	}
 }

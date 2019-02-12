@@ -250,7 +250,7 @@ public class CenterPaneController implements IObserver {
 		}
 
 		if (shapeEditor.edittingZ()) editShapeZ(shape.getZ(), canvas);
-		else drawerStrategyContext.draw(shape, canvas);
+		//else drawerStrategyContext.draw(shape, canvas);
 	}
 	
 	private void editShapeZ(int z, Node node) {

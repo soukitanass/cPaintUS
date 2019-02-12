@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
+import cpaintus.controllers.command.EditCommand;
+import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
@@ -58,6 +60,7 @@ public class LeftPaneController implements IObserver {
 	private Preferences prefs;
 	private ChangeListener<Integer> editZListener;
 	private SelectShapesSingleton selectShapesSingleton;
+	private Invoker invoker;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -102,6 +105,7 @@ public class LeftPaneController implements IObserver {
 	private TextField rotate;
 
 	public LeftPaneController() {
+		invoker = Invoker.getInstance();
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
@@ -234,8 +238,12 @@ public class LeftPaneController implements IObserver {
 		// Extract the integer in the string
 		String widthStr = editLineWidth.getValue().replaceAll("[^0-9]", "");
 		int newWidth = Integer.parseInt(widthStr);
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setLineWidth(newWidth);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@FXML
@@ -244,8 +252,12 @@ public class LeftPaneController implements IObserver {
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
 				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		((Shape2D) shapeToEdit).setFillColor(color);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@FXML
@@ -255,8 +267,12 @@ public class LeftPaneController implements IObserver {
 		String color = String.format("#%02X%02X%02X", (int) (editStrokeColor.getValue().getRed() * 255),
 				(int) (editStrokeColor.getValue().getGreen() * 255),
 				(int) (editStrokeColor.getValue().getBlue() * 255));
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setStrokeColor(color);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@FXML
@@ -268,8 +284,12 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		String editedText = editText.getText();
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		((Text) shapeToEdit).setText(editedText);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@FXML
@@ -281,8 +301,13 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		int newX = Integer.parseInt(editX.getText());
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setX(newX);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
+		
 	}
 
 	@FXML
@@ -294,8 +319,12 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		int newY = Integer.parseInt(editY.getText());
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setY(newY);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 	
 	private void handleEditZ(int newZ) {
@@ -316,8 +345,12 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		int newWidth = Integer.parseInt(editWidth.getText());
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setWidth(newWidth);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@FXML
@@ -329,8 +362,12 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		int newHeight = Integer.parseInt(editHeight.getText());
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setHeight(newHeight);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@FXML
@@ -342,8 +379,12 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		int newRotation = Integer.parseInt(rotate.getText());
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
+		editCommand.setOldShape(oldShape);
 		shapeToEdit.setRotation(newRotation);
-		shapeEditor.edit(shapeToEdit);
+		editCommand.setShapeToEdit(shapeToEdit);
+		invoker.execute(editCommand);
 	}
 
 	@Override

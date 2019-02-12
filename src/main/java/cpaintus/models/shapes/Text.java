@@ -34,4 +34,23 @@ public class Text extends Shape2D {
 	public void setText(String text) {
 		this.theText = text;
 	}
+	
+	@Override
+	public Text makeCopy() {
+		Text text = new Text(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				this.getX(),
+				this.getY(),
+				this.getZ(),
+				this.getRotation(),
+				this.getLineWidth(),
+				this.getStrokeColor(),
+				this.getFillColor(),
+				this.getWidth(),
+				this.getHeight(),
+				this.getText());
+		return text;
+	}
 }
