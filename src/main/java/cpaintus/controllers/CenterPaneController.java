@@ -378,31 +378,27 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void selectShapes() {
-
 		shapesGroup = new ShapesGroup();
 		shapesGroup.clear();
 		shapesGroup.setXGroup(boundingBox.getUpLeftCorner().getX());
 		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
 		shapesGroup.setHeightGroup(boundingBox.getHeight());
 		shapesGroup.setWidthGroup(boundingBox.getWidth());
+
 		for (Shape shape : shapesDict.getShapesList()) {
-			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
-					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
-					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()
-					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
-					&& shape.getY() + shape.getHeight() <= boundingBox.getUpLeftCorner().getY()
-							+ boundingBox.getHeight()) {
+			if (shape.getUpLeftCorner().getX() >= boundingBox.getUpLeftCorner().getX()
+					&& shape.getUpLeftCorner().getY() >= boundingBox.getUpLeftCorner().getY()
+					&& shape.getUpLeftCorner().getX() + shape.getWidth()
+					<= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
+					&& shape.getUpLeftCorner().getY() + shape.getHeight()
+					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
 				shapesGroup.add(shape);
 			}
+
 		}
 		if (!shapesGroup.getShapes().isEmpty()) {
 			shapesDict.addShape(shapesGroup);
 		}
 		selectShapes = false;
-	}
-
-	private boolean comparePoints(Point a, Point b) {
-		return (a.getX() >= b.getX() && a.getY() >= b.getY());
-
 	}
 }

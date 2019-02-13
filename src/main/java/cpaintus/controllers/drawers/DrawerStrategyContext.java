@@ -36,8 +36,8 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case LINE:
-			double originX = Math.min(shape.getX(), ((Line)shape).getX2()) - shape.getLineWidth()/2;
-			double originY = Math.min(shape.getY(), ((Line)shape).getY2()) - shape.getLineWidth()/2;
+			double originX = shape.getUpLeftCorner().getX() - shape.getLineWidth()/2;
+			double originY = shape.getUpLeftCorner().getY() - shape.getLineWidth()/2;
 			double width = shape.getWidth();
 			double height = shape.getHeight();
 
