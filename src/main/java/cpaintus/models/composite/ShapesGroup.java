@@ -79,18 +79,18 @@ public class ShapesGroup extends Shape2D {
 	}
 
 	public void setX(double x) {
-		double marge = getX() - x;
+		double marge = getUpLeftCorner().getX() - x;
 		setXGroup(x);
 		for (Shape shape : shapes) {
-			shape.setX(shape.getX() - marge);
+			shape.setUpLeftCornerX(shape.getUpLeftCorner().getX() - marge);
 		}
 	}
 
 	public void setY(double y) {
-		double marge = getY() - y;
+		double marge = getUpLeftCorner().getY() - y;
 		setYGroup(y);
 		for (Shape shape : shapes) {
-			shape.setY(shape.getY() - marge);
+			shape.setUpLeftCornerY(shape.getUpLeftCorner().getY() - marge);
 		}
 	}
 
