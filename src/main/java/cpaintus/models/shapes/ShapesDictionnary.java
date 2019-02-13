@@ -16,6 +16,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	private static ShapesDictionnary instance = null;
 	private LinkedHashMap<String, Shape> shapesDict;
 	private ShapeFactory shapeFactory;
+	private String lastCreatedShapeId;
 
 	private ShapesDictionnary() {
 		this.shapesDict = new LinkedHashMap<>();
@@ -41,49 +42,41 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	public List<Shape> getShapesList() {
 		return new ArrayList<>(shapesDict.values());
 	}
-
+	
+	public Shape getLastCreatedShape() {
+		return shapesDict.get(lastCreatedShapeId);
+	}
+	
 	public void addShape(Shape shape) {
-		if (shape != null) {
-			shapesDict.put(shape.getShapeId(), shape);
-			notifyAddAllObservers();
-		} else
-			LOGGER.log(Level.INFO, ERROR_MESSAGE);
+		addShape(shape, true);
 	}
 
-	public void addShapeSilent(Shape shape) {
+	public void addShape(Shape shape, boolean shouldNotify) {
 		if (shape != null) {
+			lastCreatedShapeId = shape.getShapeId();
 			shapesDict.put(shape.getShapeId(), shape);
-		} else
-			LOGGER.log(Level.INFO, ERROR_MESSAGE);
-	}
-
-	public void addShapeSilentForList(Shape shape) {
-		if (shape != null) {
-			Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000",
-					"#000000", "", "");
-			shape.setShapeId(temp.getShapeId());
-			shape.setZ(shapeFactory.getTotalShapeNb());
-			shapesDict.put(shape.getShapeId(), shape);
+			if (shouldNotify)
+				notifyAddAllObservers();
 		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 
 	public void addListShapes(List<Shape> shapesList) {
 		for (Shape shape : shapesList) {
-			this.addShapeSilentForList(shape);
+			if (shape != null) {
+				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000",
+						"#000000", "", "");
+				shape.setShapeId(temp.getShapeId());
+				shape.setZ(shapeFactory.getTotalShapeNb());
+				shapesDict.put(shape.getShapeId(), shape);
+			} else
+				LOGGER.log(Level.INFO, ERROR_MESSAGE);
 		}
 	}
 
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
-		notifyAllObservers();
-	}
-	
-	public void removeShape (Shape shape) {
-		if(shapesDict.containsKey(shape.getShapeId())) {
-			shapesDict.remove(shape.getShapeId());
-		}
 		notifyAllObservers();
 	}
 	
@@ -105,5 +98,17 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		for (IObserver obs : getObserverList()) {
 			obs.update(ObservableList.SHAPE_REMOVED);
 		}
+	}
+
+	public void removeShape(Shape shape) {
+		removeShape(shape, true);
+	}
+
+	public void removeShape(Shape shape, boolean shouldNotify) {
+    if(shapesDict.containsKey(shape.getShapeId())) {
+			shapesDict.remove(shape.getShapeId());
+		}
+		if (shouldNotify)
+			notifyRemoveAllObservers();
 	}
 }
