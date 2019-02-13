@@ -240,6 +240,7 @@ public class CenterPaneController implements IObserver {
 			for (Shape sh : ((ShapesGroup) shape).getShapes()) {
 				editShape(sh);
 			}
+			return;
 		}
 		hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
