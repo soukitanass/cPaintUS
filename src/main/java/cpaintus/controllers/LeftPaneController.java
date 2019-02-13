@@ -2,6 +2,7 @@ package cpaintus.controllers;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,8 +55,9 @@ public class LeftPaneController implements IObserver {
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
 	private Preferences prefs;
-	private ChangeListener<Integer> editZListener;
 	private SelectShapesSingleton selectShapesSingleton;
+	private ChangeListener<Integer> editZListener;
+	private ChangeListener<Shape> selectShapeListener;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -107,15 +109,24 @@ public class LeftPaneController implements IObserver {
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
+
 		prefs = Preferences.userNodeForPackage(this.getClass());
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
-		editZListener = new ChangeListener<Integer>() {
+	    
+	    editZListener = new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
 				handleEditZ(newValue);
 			}
 		};
+	    
+	    selectShapeListener = new ChangeListener<Shape>() {
+			@Override
+			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
+				handleSelectShape(newShape);		
+			}
+	    };
 	}
 
 	@FXML
@@ -131,79 +142,22 @@ public class LeftPaneController implements IObserver {
 		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
 
 		// Set ColorPickers default value to black
-		if (shape.getValue() == ShapeType.LINE)
-			fillColor.setDisable(true);
+		fillColor.setDisable(shape.getValue() == ShapeType.LINE);
 		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
 		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
 
+		// Attributes table
 		attributes.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editY.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-		editZ.valueProperty().addListener(editZListener);
 		editWidth.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editHeight.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-
-		// Event listener when shape is selected
-		shapeList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Shape>() {
-			@Override
-			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
-				boundingBox.setVisible(newShape != null);
-				if (newShape == null) {
-					attributes.setVisible(false);
-					return;
-				}
-				shapeToEdit = newShape;
-				if (newShape.getShapeType() == ShapeType.GROUP) {
-					Shape firstShape = ((ShapesGroup) newShape).getShapes().get(0);
-					newShape = firstShape;
-				}
-
-				attributesLabel.setText(shapeToEdit.getShapeId() + " Attributes:");
-				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
-				editLineWidth.setValue(newShape.getLineWidth() + "px");
-
-				if (newShape.getShapeDimension() == ShapeDimension.SHAPE1D) {
-					editFillColor.setVisible(false);
-				} else {
-					editFillColor.setValue(Color.web(((Shape2D) newShape).getFillColor()));
-				}
-				editText.setDisable(true);
-				editBtn.setDisable(true);
-
-				if (newShape.getShapeType() == ShapeType.TEXT) {
-					editText.setText(((Text) newShape).getText());
-					editText.setDisable(false);
-					editBtn.setDisable(false);
-				}
-
-				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
-				editX.setText(String.valueOf((int) Math.round(newShape.getX())));
-				editY.setText(String.valueOf((int) Math.round(newShape.getY())));
-
-				SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-						shapesDict.getShapesList().size(), shapeToEdit.getZ());
-				editZ.setValueFactory(valueFactory);
-
-				editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
-				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
-				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
-				boolean isGroup = shapeToEdit.getShapeType() == ShapeType.GROUP;
-				editFillColor.setDisable(isGroup);
-				editStrokeColor.setDisable(isGroup);
-				editLineWidth.setDisable(isGroup);
-				editZ.setDisable(isGroup);
-				editWidth.setDisable(isGroup);
-				editHeight.setDisable(isGroup);
-				rotate.setDisable(isGroup);
-				unselectBtn.setManaged(isGroup);
-				unselectBtn.setVisible(isGroup);
-
-				attributes.setVisible(true);
-				shapeEditor.edit(shapeToEdit);
-			}
-		});
+		
+		// Add event listeners
+		editZ.valueProperty().addListener(editZListener);
+		shapeList.getSelectionModel().selectedItemProperty().addListener(selectShapeListener);
 	}
 
 	@FXML
@@ -241,6 +195,62 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleEraseAllClick() {
 		SnapshotSingleton.getInstance().eraseAll();
+	}
+	
+	private void handleSelectShape(Shape newShape) {		
+		boundingBox.setVisible(newShape != null);
+		if (newShape == null) {
+			attributes.setVisible(false);
+			return;
+		}
+		shapeToEdit = newShape;
+		if (newShape.getShapeType() == ShapeType.GROUP) {
+			Shape firstShape = ((ShapesGroup) newShape).getShapes().get(0);
+			newShape = firstShape;
+		}
+
+		attributesLabel.setText(shapeToEdit.getShapeId() + " Attributes:");
+		attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
+		editLineWidth.setValue(newShape.getLineWidth() + "px");
+
+		if (newShape.getShapeDimension() == ShapeDimension.SHAPE1D) {
+			editFillColor.setVisible(false);
+		} else {
+			editFillColor.setValue(Color.web(((Shape2D) newShape).getFillColor()));
+		}
+		editText.setDisable(true);
+		editBtn.setDisable(true);
+
+		if (newShape.getShapeType() == ShapeType.TEXT) {
+			editText.setText(((Text) newShape).getText());
+			editText.setDisable(false);
+			editBtn.setDisable(false);
+		}
+
+		editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
+		editX.setText(String.valueOf((int) Math.round(newShape.getX())));
+		editY.setText(String.valueOf((int) Math.round(newShape.getY())));
+
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+				shapesDict.getShapesList().size(), shapeToEdit.getZ());
+		editZ.setValueFactory(valueFactory);
+
+		editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
+		editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
+		rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
+		boolean isGroup = shapeToEdit.getShapeType() == ShapeType.GROUP;
+		editFillColor.setDisable(isGroup);
+		editStrokeColor.setDisable(isGroup);
+		editLineWidth.setDisable(isGroup);
+		editZ.setDisable(isGroup);
+		editWidth.setDisable(isGroup);
+		editHeight.setDisable(isGroup);
+		rotate.setDisable(isGroup);
+		unselectBtn.setManaged(isGroup);
+		unselectBtn.setVisible(isGroup);
+
+		attributes.setVisible(true);
+		shapeEditor.edit(shapeToEdit);
 	}
 
 	@FXML
@@ -321,6 +331,10 @@ public class LeftPaneController implements IObserver {
 			return;
 		shapeToEdit.setZ(newZ);
 		shapeEditor.editZ(shapeToEdit);
+		
+		// Update list order and select edited shape
+		updateList();
+		shapeList.getSelectionModel().select(shapeToEdit);
 	}
 
 	@FXML
@@ -384,7 +398,12 @@ public class LeftPaneController implements IObserver {
 	private void updateList() {
 		shapeList.getItems().clear();
 		List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
-		Collections.reverse(shallowCopy);
+		Collections.sort(shallowCopy, new Comparator<Shape>() {
+			@Override
+			public int compare(Shape s1, Shape s2) {
+				return s2.getZ() - s1.getZ();
+			}
+		});
 		shapeList.getItems().addAll(shallowCopy);
 	}
 
@@ -418,7 +437,7 @@ public class LeftPaneController implements IObserver {
 		}
 
 	}
-
+	
 	@FXML
 	private void handleSelectClick() {
 		selectShapesSingleton.notifyAllObservers();
@@ -430,5 +449,4 @@ public class LeftPaneController implements IObserver {
 		selectShapesSingleton.notifyUngroupObservers();
 		attributes.setVisible(false);
 	}
-
 }
