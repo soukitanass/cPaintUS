@@ -477,7 +477,6 @@ public class LeftPaneController implements IObserver {
 	}
 
 	private void handleTextAddClick() {
-
 		drawSettings.setShape(ShapeType.TEXT);
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/AddText.fxml"));
 		Parent parent;
@@ -507,10 +506,8 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleUnSelectClick() {
-		selectShapesSingleton.setSelectedShape(shapeList.getSelectionModel().getSelectedItem());
+		selectShapesSingleton.setSelectedShape(tree.getSelectionModel().getSelectedItem().getValue());
 		selectShapesSingleton.notifyUngroupObservers();
 		attributes.setVisible(false);
 	}
-=======
->>>>>>> Vue en arbre pour les groupes
 }
