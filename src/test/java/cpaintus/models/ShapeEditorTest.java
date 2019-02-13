@@ -34,7 +34,6 @@ public class ShapeEditorTest {
 	public void editTest() {
 		shapeEditor.edit(shape);
 		Assertions.assertSame(shapeEditor.getShapeToEdit(), shape);
-		Assertions.assertTrue(shapesDict.getShapesList().contains(shape));
 	}
 
 	@Test
