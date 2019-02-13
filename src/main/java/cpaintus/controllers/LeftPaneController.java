@@ -1,6 +1,7 @@
 package cpaintus.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -39,6 +40,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -54,11 +57,12 @@ public class LeftPaneController implements IObserver {
 	private ShapesDictionnary shapesDict;
 	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
+	private TreeItem<Shape> selectedTreeItem;
 	private BoundingBox boundingBox;
 	private Preferences prefs;
 	private SelectShapesSingleton selectShapesSingleton;
 	private ChangeListener<Integer> editZListener;
-	private ChangeListener<Shape> selectShapeListener;
+	private ChangeListener<TreeItem<Shape>> selectShapeListener;
 	private boolean isGrouping;
 
 	@FXML
@@ -78,7 +82,7 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Button unselectBtn;
 	@FXML
-	private ListView<Shape> shapeList;
+	private TreeView<Shape> tree;
 
 	@FXML
 	private ToolBar attributes;
@@ -141,10 +145,15 @@ public class LeftPaneController implements IObserver {
 			}
 		};
 	    
-	    selectShapeListener = new ChangeListener<Shape>() {
+	    selectShapeListener = new ChangeListener<TreeItem<Shape>>() {
 			@Override
-			public void changed(ObservableValue<? extends Shape> observable, Shape oldShape, Shape newShape) {
-				handleSelectShape(newShape);		
+			public void changed(ObservableValue<? extends TreeItem<Shape>> observable, TreeItem<Shape> oldItem,
+					TreeItem<Shape> newItem) {
+				if (newItem == null) return;
+
+				selectedTreeItem = newItem;
+				handleSelectShape(newItem.getValue());
+				
 			}
 	    };
 	    
@@ -153,22 +162,22 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void initialize() {
-		// Add possible shapes to the shape ComboBox
+		// Shape settings
 		shape.getItems().setAll(ShapeType.values());
 		shape.getItems().remove(ShapeType.PICTURE);
 		shape.getItems().remove(ShapeType.GROUP);
 		shape.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
 
-		// Add possible brush sizes to the brushSize ComboBox
+		// Line width setting
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
-
-		// Set ColorPickers default value to black
+		
+		// Color settings
 		fillColor.setDisable(shape.getValue() == ShapeType.LINE);
 		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
 		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
 
-		// Attributes table
+		// Attributes
 		attributes.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -190,7 +199,7 @@ public class LeftPaneController implements IObserver {
 
 		// Add event listeners
 		editZ.valueProperty().addListener(editZListener);
-		shapeList.getSelectionModel().selectedItemProperty().addListener(selectShapeListener);
+		tree.getSelectionModel().selectedItemProperty().addListener(selectShapeListener);
 	}
 
 	@FXML
@@ -365,7 +374,6 @@ public class LeftPaneController implements IObserver {
 		
 		// Update list order and select edited shape
 		updateList();
-		shapeList.getSelectionModel().select(shapeToEdit);
 	}
 
 	@FXML
@@ -428,32 +436,47 @@ public class LeftPaneController implements IObserver {
 	}
 
 	private void updateList() {
-		shapeList.getItems().clear();
-		List<Shape> shallowCopy = shapesDict.getShapesList();
+		if (tree.getRoot() == null) {
+			tree.setRoot(new TreeItem<Shape>());
+			tree.setShowRoot(false);
+		}
+		
+		tree.getRoot().getChildren().clear();
+		buildTree(tree.getRoot(), shapesDict.getShapesList());
+	}
+	
+	private void buildTree(TreeItem<Shape> root, List<Shape> shapes) {
+		List<Shape> shallowCopy = shapes.subList(0, shapes.size());
 		Collections.sort(shallowCopy, new Comparator<Shape>() {
 			@Override
 			public int compare(Shape s1, Shape s2) {
 				return s2.getZ() - s1.getZ();
 			}
 		});
-		shapeList.getItems().addAll(shallowCopy);
+		
+		List<TreeItem<Shape>> children = root.getChildren();
+		for (Shape shape : shapes) {
+			TreeItem<Shape> item = new TreeItem<Shape>(shape);
+			if (shape.getShapeType() == ShapeType.GROUP)
+				buildTree(item, ((ShapesGroup) shape).getShapes());
+			children.add(item);
+		}
 	}
 
 	private void selectLastItem(boolean shouldSelect) {
-		if (!shapeList.getItems().isEmpty() && shouldSelect) {
+		if (!tree.getRoot().getChildren().isEmpty() && shouldSelect) {
 			if (isGrouping) {
 				Shape lastGroupCreated = shapesDict.getLastCreatedShape();
-				shapeList.getSelectionModel().select(lastGroupCreated);		
+				//tree.getSelectionModel().select(lastGroupCreated);		
 			} else {
-				shapeList.getSelectionModel().select(shapeList.getItems().get(0));				
+				tree.getSelectionModel().select(tree.getRoot().getChildren().get(0));				
 			}
 		} else {
-			shapeList.getSelectionModel().select(null);
+			tree.getSelectionModel().select(null);
 		}
 	}
 
 	private void handleTextAddClick() {
-
 		drawSettings.setShape(ShapeType.TEXT);
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/AddText.fxml"));
 		Parent parent;
@@ -483,7 +506,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleUnSelectClick() {
-		selectShapesSingleton.setSelectedShape(shapeList.getSelectionModel().getSelectedItem());
+		selectShapesSingleton.setSelectedShape(tree.getSelectionModel().getSelectedItem().getValue());
 		selectShapesSingleton.notifyUngroupObservers();
 		attributes.setVisible(false);
 	}
