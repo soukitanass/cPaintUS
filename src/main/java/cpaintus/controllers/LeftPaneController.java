@@ -79,7 +79,6 @@ public class LeftPaneController implements IObserver {
 	private Button selectBtn;
 	@FXML
 	private ListView<Shape> shapeList;
-
 	@FXML
 	private ToolBar attributes;
 	@FXML
@@ -249,6 +248,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setLineWidth(newWidth);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 
 	@FXML
@@ -263,6 +263,7 @@ public class LeftPaneController implements IObserver {
 		((Shape2D) shapeToEdit).setFillColor(color);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 
 	@FXML
@@ -278,6 +279,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setStrokeColor(color);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 
 	@FXML
@@ -295,6 +297,7 @@ public class LeftPaneController implements IObserver {
 		((Text) shapeToEdit).setText(editedText);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 
 	@FXML
@@ -312,6 +315,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setX(newX);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 		
 	}
 
@@ -330,6 +334,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setY(newY);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 	
 	private void handleEditZ(int newZ) {
@@ -341,6 +346,7 @@ public class LeftPaneController implements IObserver {
 		editZCommand.setNewZ(newZ);
 		editZCommand.setShape(shapeToEdit);
 		invoker.execute(editZCommand);
+
 	}
 
 	@FXML
@@ -358,6 +364,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setWidth(newWidth);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 
 	@FXML
@@ -375,6 +382,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setHeight(newHeight);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
+
 	}
 
 	@FXML
@@ -399,6 +407,7 @@ public class LeftPaneController implements IObserver {
 		switch(obs) {
 		case SHAPE_ADDED:
 			updateList();
+			InvokerUpdateSingleton.getInstance().setShapeList(shapeList);
 			selectLastItem(true);
 			break;
 		case SHAPES_LOADED:

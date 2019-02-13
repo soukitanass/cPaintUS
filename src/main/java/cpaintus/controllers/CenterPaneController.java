@@ -174,6 +174,7 @@ public class CenterPaneController implements IObserver {
 		EraseAllCommand eraseAllCommand = new EraseAllCommand();
 		eraseAllCommand.setPane(pane);
 		invoker.execute(eraseAllCommand);
+		
 	}
 
 	@FXML

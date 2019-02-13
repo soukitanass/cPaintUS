@@ -47,15 +47,11 @@ public class EditZCommand implements ICommand {
 			this.setup();
 		}
 		changeOrder(newZ,oldZ);
-		System.out.println("Hauteur modifiée : " + pane.getChildren().indexOf(activeCanvas));
 	}
 
 	public void undo() {
-		System.out.println("Hauteur actuelle : " + pane.getChildren().indexOf(activeCanvas));
 		firstTime = false;
 		changeOrder(oldZ,newZ);
-		System.out.println("Hauteur modifiée : " + pane.getChildren().indexOf(activeCanvas));
-
 	}
 	
 	private void changeOrder (int changingZ, int changedZ) {

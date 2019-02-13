@@ -49,11 +49,13 @@ public class TopPaneController {
 	@FXML
 	private void handleUndo () {
 		invoker.undo();
+		InvokerUpdateSingleton.getInstance().updateList();
 	}
 	
 	@FXML
 	private void handleRedo () {
 		invoker.redo();
+		InvokerUpdateSingleton.getInstance().updateList();
 	}
 
 	@FXML
