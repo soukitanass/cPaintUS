@@ -169,8 +169,6 @@ public class LeftPaneController implements IObserver {
 				} else {
 					editFillColor.setValue(Color.web(((Shape2D) newShape).getFillColor()));
 				}
-				unselectBtn.setManaged(false);
-				unselectBtn.setVisible(false);
 				editText.setDisable(true);
 				editBtn.setDisable(true);
 
@@ -191,17 +189,17 @@ public class LeftPaneController implements IObserver {
 				editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
 				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
-				if (shapeToEdit.getShapeType() == ShapeType.GROUP) {
-					editFillColor.setDisable(true);
-					editStrokeColor.setDisable(true);
-					editLineWidth.setDisable(true);
-					editZ.setDisable(true);
-					editWidth.setDisable(true);
-					editHeight.setDisable(true);
-					rotate.setDisable(true);
-					unselectBtn.setManaged(true);
-					unselectBtn.setVisible(true);
-				}
+				boolean isGroup = shapeToEdit.getShapeType() == ShapeType.GROUP;
+				editFillColor.setDisable(isGroup);
+				editStrokeColor.setDisable(isGroup);
+				editLineWidth.setDisable(isGroup);
+				editZ.setDisable(isGroup);
+				editWidth.setDisable(isGroup);
+				editHeight.setDisable(isGroup);
+				rotate.setDisable(isGroup);
+				unselectBtn.setManaged(isGroup);
+				unselectBtn.setVisible(isGroup);
+
 				attributes.setVisible(true);
 				shapeEditor.edit(shapeToEdit);
 			}
