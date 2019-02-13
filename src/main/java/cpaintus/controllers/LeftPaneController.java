@@ -60,7 +60,6 @@ public class LeftPaneController implements IObserver {
 	private Preferences prefs;
 	private SelectShapesSingleton selectShapesSingleton;
 	private ChangeListener<Integer> editZListener;
-	private SelectShapesSingleton selectShapesSingleton;
 	private Invoker invoker;
 	private ChangeListener<Shape> selectShapeListener;
 
@@ -366,13 +365,10 @@ public class LeftPaneController implements IObserver {
 		if (shapeToEdit.getZ() == newZ)
 			return;
 		EditZCommand editZCommand = new EditZCommand();
+		shapeToEdit.setZ(newZ);
 		editZCommand.setNewZ(newZ);
 		editZCommand.setShape(shapeToEdit);
 		invoker.execute(editZCommand);
-
-		updateList();
-		shapeList.getSelectionModel().select(shapeToEdit);
-		shapeToEdit.setZ(newZ);
 	}
 
 	@FXML
@@ -433,8 +429,8 @@ public class LeftPaneController implements IObserver {
 		switch (obs) {
 		case SHAPE_ADDED:
 			updateList();
-			InvokerUpdateSingleton.getInstance().setShapeList(shapeList);
 			selectLastItem(true);
+			InvokerUpdateSingleton.getInstance().setShapeList(shapeList);
 			break;
 		case SHAPES_LOADED:
 		case SHAPE_REMOVED:

@@ -33,10 +33,12 @@ public class InvokerUpdateSingleton {
 	}
 
 	public void updateList() {
+		Shape shape =  shapeList.getSelectionModel().getSelectedItem();
 		shapeList.getItems().clear();
 		List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 		Collections.reverse(shallowCopy);
 		shapeList.getItems().addAll(shallowCopy);
+		shapeList.getSelectionModel().select(shape);
 	}
 	
 
