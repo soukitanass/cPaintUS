@@ -297,29 +297,37 @@ public class CenterPaneController implements IObserver {
 		scrollPaneHeightHandler(scrollPane.getHeight());
 	}
 
+	/*
+	 * The bounding box position and size are the shape sizes, therefore it must be drawn around that.
+	 */
 	private void drawBoundingBox() {
-		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - (1 + drawSettings.getLineWidth() / 2) - 3);
-		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - (1 + drawSettings.getLineWidth() / 2) - 3);
-		boundingBoxCanvas.setWidth(boundingBox.getWidth() + drawSettings.getLineWidth() + 8);
-		boundingBoxCanvas.setHeight(boundingBox.getHeight() + drawSettings.getLineWidth() + 8);
+		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - 4);
+		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - 4);
+		boundingBoxCanvas.setWidth(boundingBox.getWidth() + 8);
+		boundingBoxCanvas.setHeight(boundingBox.getHeight() + 8);
+		
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
+		
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
-					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
+			gc.strokeRect(2, 2, boundingBox.getWidth() + 4,
+					boundingBox.getHeight() + 4);
+			
+			// Gray lines making an X in the center
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
-			gc.strokeLine(3, 3, boundingBox.getWidth() + 3, boundingBox.getHeight() + 3);
-			gc.strokeLine(boundingBox.getWidth() + 3, 3, 3, boundingBox.getHeight() + 3);
+			gc.strokeLine(3, 3, boundingBox.getWidth() + 5, boundingBox.getHeight() + 5);
+			gc.strokeLine(boundingBox.getWidth() + 5, 3, 3, boundingBox.getHeight() + 5);
 
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + (1 + drawSettings.getLineWidth() / 2) + 2,
-					boundingBox.getHeight() + (1 + drawSettings.getLineWidth() / 2) + 2);
+			gc.strokeRect(2, 2, boundingBox.getWidth() + 4,
+					boundingBox.getHeight() + 4);
 		}
+		
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
 	}
 

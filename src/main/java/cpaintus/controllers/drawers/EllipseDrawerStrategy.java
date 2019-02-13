@@ -12,8 +12,8 @@ public class EllipseDrawerStrategy implements IDrawerStrategy {
 		gc.setStroke(Color.web(shape.getStrokeColor()));
 		gc.setLineWidth(shape.getLineWidth());
 		gc.setFill(Color.web(((Ellipse) shape).getFillColor()));
-		gc.fillOval(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth()/2, shape.getHeight()- shape.getLineWidth()/2);
-		gc.strokeOval(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth()- shape.getLineWidth()/2, shape.getHeight()- shape.getLineWidth()/2);
+		gc.fillOval(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth(), shape.getHeight() - shape.getLineWidth());
+		gc.strokeOval(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth(), shape.getHeight() - shape.getLineWidth());
 	}
 
 }

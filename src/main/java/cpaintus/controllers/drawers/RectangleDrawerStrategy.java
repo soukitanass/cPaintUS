@@ -12,8 +12,8 @@ public class RectangleDrawerStrategy implements IDrawerStrategy {
 		gc.setStroke(Color.web(shape.getStrokeColor()));
 		gc.setLineWidth(shape.getLineWidth());
 		gc.setFill(Color.web(((Rectangle) shape).getFillColor()));
-		gc.fillRect(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth()-shape.getLineWidth()/2, shape.getHeight()-shape.getLineWidth()/2);
-		gc.strokeRect(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth()-shape.getLineWidth()/2, shape.getHeight()-shape.getLineWidth()/2);
+		gc.fillRect(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth(), shape.getHeight() - shape.getLineWidth());
+		gc.strokeRect(shape.getLineWidth()/2, shape.getLineWidth()/2, shape.getWidth() - shape.getLineWidth(), shape.getHeight() - shape.getLineWidth());
 	}
 
 }

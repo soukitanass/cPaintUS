@@ -4,6 +4,7 @@ import cpaintus.models.shapes.Line;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.StrokeLineCap;
 
 public class DrawerStrategyContext {
 	
@@ -20,12 +21,15 @@ public class DrawerStrategyContext {
 
 	public void draw(Shape shape, Canvas activeCanvas) {
 		IDrawerStrategy drawerStrategy;
-		activeCanvas.setLayoutX(shape.getX()-(shape.getLineWidth()/2));
-		activeCanvas.setLayoutY(shape.getY()-(shape.getLineWidth()/2));
-		activeCanvas.setWidth(shape.getWidth()+shape.getLineWidth());
-		activeCanvas.setHeight(shape.getHeight()+shape.getLineWidth());
+		activeCanvas.setLayoutX(shape.getX());
+		activeCanvas.setLayoutY(shape.getY());
+		activeCanvas.setWidth(shape.getWidth());
+		activeCanvas.setHeight(shape.getHeight());
+		
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+		gc.setLineCap(StrokeLineCap.ROUND);
+		
 		switch (shape.getShapeType()) {
 		case RECTANGLE:
 			drawerStrategy = new RectangleDrawerStrategy();
@@ -36,15 +40,9 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case LINE:
-			double originX = shape.getUpLeftCorner().getX() - shape.getLineWidth()/2;
-			double originY = shape.getUpLeftCorner().getY() - shape.getLineWidth()/2;
-			double width = shape.getWidth();
-			double height = shape.getHeight();
-
-			activeCanvas.setLayoutX(originX);
-			activeCanvas.setLayoutY(originY);
-			activeCanvas.setWidth(width);
-			activeCanvas.setHeight(height);
+			activeCanvas.setLayoutX(shape.getUpLeftCorner().getX());
+			activeCanvas.setLayoutY(shape.getUpLeftCorner().getY());
+			
 			drawerStrategy = new LineDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
