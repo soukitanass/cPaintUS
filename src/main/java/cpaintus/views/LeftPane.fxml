@@ -43,19 +43,19 @@
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Button fx:id="unselectBtn" onAction="#handleUnSelectClick" prefWidth="188.0" text="Unselect" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editLineWidthSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Brush Size: " />
       					<ComboBox fx:id="editLineWidth" onAction="#handleEditLineWidth" prefWidth="110.0" promptText="Choose" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editFillColorSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Fill Color: " />
       					<ColorPicker fx:id="editFillColor" onAction="#handleEditFillColor" prefWidth="110.0" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editStrokeColorSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Stroke Color: " />
       					<ColorPicker fx:id="editStrokeColor" onAction="#handleEditStrokeColor" prefWidth="110.0" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editTextSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Edit Text: " />
       					<TextField fx:id="editText" prefWidth="65.0" />
       					<Button fx:id="editBtn" onAction="#handleEditText" prefWidth="40.0" text="Edit" />
@@ -68,19 +68,19 @@
       					<Label prefWidth="78.0" text="Y: " />
       					<TextField fx:id="editY" onAction="#handleEditY" prefWidth="110.0" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editZSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Z: " />
       					<Spinner fx:id="editZ" prefWidth="110.0" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editWidthSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Width: " />
       					<TextField fx:id="editWidth" onAction="#handleEditWidth" prefWidth="110.0" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editHeightSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Height: " />
       					<TextField fx:id="editHeight" onAction="#handleEditHeight" prefWidth="110.0" />
       				</HBox>
-      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      				<HBox fx:id="editRotateSection" alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Rotation: " />
       					<TextField fx:id="rotate" onAction="#handleRotate" prefWidth="110.0" />
       				</HBox>

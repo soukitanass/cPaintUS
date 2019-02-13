@@ -403,7 +403,7 @@ public class CenterPaneController implements IObserver {
 					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
 
 				shapesGroup.add(shape);
-				shapesDict.removeShape(shape);
+				shapesDict.removeShape(shape, false);
 				x = Math.min(x, shape.getUpLeftCorner().getX());
 				y = Math.min(y,  shape.getUpLeftCorner().getY());
 				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
