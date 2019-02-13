@@ -32,11 +32,7 @@
       				<Button fx:id="selectBtn" onAction="#handleSelectClick" prefWidth="188.0" text="Select" />
       			</VBox>
       		</ToolBar>
-            <ListView fx:id="shapeList" prefHeight="200.0" prefWidth="200.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ListView>
+            <TreeView fx:id="tree" prefHeight="200.0" prefWidth="200.0" />
             <ToolBar fx:id="attributes">
       			<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
       				<Label fx:id="attributesLabel" />
