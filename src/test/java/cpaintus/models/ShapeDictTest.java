@@ -45,10 +45,10 @@ class ShapeDictTest {
 		shapeDict.addShape(null);
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
-		shapeDict.addShapeSilent(null);
+		shapeDict.addShape(null, false);
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
-		shapeDict.addShapeSilentForList(null);
+		shapeDict.addListShapes(new ArrayList<Shape>());
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
 	}
