@@ -128,5 +128,13 @@ public abstract class Shape {
 	public ShapeDimension getShapeDimension() {
 		return shapeDim;
 	}
+	
+	public void setUpLeftCornerX(double x) {
+		this.setX(x);
+	}
+	
+	public void setUpLeftCornerY(double y) {
+		this.setY(y);
+	}
 
 }

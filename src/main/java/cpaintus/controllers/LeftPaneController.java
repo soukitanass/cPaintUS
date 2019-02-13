@@ -228,8 +228,8 @@ public class LeftPaneController implements IObserver {
 		}
 
 		editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
-		editX.setText(String.valueOf((int) Math.round(newShape.getX())));
-		editY.setText(String.valueOf((int) Math.round(newShape.getY())));
+		editX.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getX())));
+		editY.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getY())));
 
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
 				shapesDict.getShapesList().size(), shapeToEdit.getZ());
@@ -303,11 +303,11 @@ public class LeftPaneController implements IObserver {
 		if (!attributes.isVisible())
 			return;
 		if (editX.getText() == null || editX.getText().trim().isEmpty()) {
-			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getX())));
+			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getX())));
 			return;
 		}
 		int newX = Integer.parseInt(editX.getText());
-		shapeToEdit.setX(newX);
+		shapeToEdit.setUpLeftCornerX(newX);
 		shapeEditor.edit(shapeToEdit);
 	}
 
@@ -316,11 +316,11 @@ public class LeftPaneController implements IObserver {
 		if (!attributes.isVisible())
 			return;
 		if (editY.getText() == null || editY.getText().trim().isEmpty()) {
-			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getY())));
+			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getY())));
 			return;
 		}
 		int newY = Integer.parseInt(editY.getText());
-		shapeToEdit.setY(newY);
+		shapeToEdit.setUpLeftCornerY(newY);
 		shapeEditor.edit(shapeToEdit);
 	}
 
