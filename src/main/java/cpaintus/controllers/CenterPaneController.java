@@ -148,19 +148,21 @@ public class CenterPaneController implements IObserver {
 			selectShapes = true;
 			break;
 		case UNGROUP_SHAPES:
-			unselectShapes(selectShapesSingleton.getSelectedShape());
+			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
+				unselectShapes((ShapesGroup)selectShapesSingleton.getSelectedShape());
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void unselectShapes(Shape shape) {
+	private void unselectShapes(ShapesGroup group) {
 		selectShapes = false;
-		shapesDict.removeShape(shape);
+		shapesDict.removeShape(group);
+		for (Shape shape : group.getShapes()) {
+			shapesDict.addShape(shape);
+		}
 		boundingBox.setVisible(false);
-		eraseCanvas();
-		refresh();
 	}
 
 	@FXML
@@ -387,11 +389,10 @@ public class CenterPaneController implements IObserver {
 
 	private void selectShapes() {
 		shapesGroup = new ShapesGroup();
-		shapesGroup.clear();
-		shapesGroup.setXGroup(boundingBox.getUpLeftCorner().getX());
-		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
-		shapesGroup.setHeightGroup(boundingBox.getHeight());
-		shapesGroup.setWidthGroup(boundingBox.getWidth());
+		double x = Double.MAX_VALUE;
+		double y = Double.MAX_VALUE;
+		double x2 = 0;
+		double y2 = 0;
 
 		for (Shape shape : shapesDict.getShapesList()) {
 			if (shape.getUpLeftCorner().getX() >= boundingBox.getUpLeftCorner().getX()
@@ -400,10 +401,21 @@ public class CenterPaneController implements IObserver {
 					<= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
 					&& shape.getUpLeftCorner().getY() + shape.getHeight()
 					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
-				shapesGroup.add(shape);
-			}
 
+				shapesGroup.add(shape);
+				shapesDict.removeShape(shape);
+				x = Math.min(x, shape.getUpLeftCorner().getX());
+				y = Math.min(y,  shape.getUpLeftCorner().getY());
+				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
+				y2 = Math.max(y2, shape.getUpLeftCorner().getY() + shape.getHeight());
+			}
 		}
+
+		shapesGroup.setXGroup(x);
+		shapesGroup.setYGroup(y);
+		shapesGroup.setWidthGroup(x2 - x);
+		shapesGroup.setHeightGroup(y2 - y);
+
 		if (!shapesGroup.getShapes().isEmpty()) {
 			shapesDict.addShape(shapesGroup);
 		}
