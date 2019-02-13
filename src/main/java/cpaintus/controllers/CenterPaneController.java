@@ -101,10 +101,10 @@ public class CenterPaneController implements IObserver {
 				if (!selectShapes) {
 					draw(true);
 				} else {
+					removeLastAddedCanvas();
 					selectShapes();
 					boundingBox.setVisible(true);
 				}
-
 			}
 		};
 	}
@@ -335,7 +335,7 @@ public class CenterPaneController implements IObserver {
 
 	private Shape createShape(boolean persistent, int canvasHash) {
 		if (!hasBeenDragged && boundingBox.getWidth() + boundingBox.getHeight() == 0 && pane.getChildren().size() > 2) {
-			pane.getChildren().remove(pane.getChildren().size() - 2);
+			removeLastAddedCanvas();
 			return null;
 		}
 
@@ -371,6 +371,10 @@ public class CenterPaneController implements IObserver {
 
 		return newShape;
 	}
+	
+	private void removeLastAddedCanvas() {
+		pane.getChildren().remove(pane.getChildren().size() - 2);
+	}
 
 	public void refresh() {
 		for (Shape shape : shapesDict.getShapesList()) {
@@ -403,7 +407,7 @@ public class CenterPaneController implements IObserver {
 					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
 
 				shapesGroup.add(shape);
-				shapesDict.removeShape(shape);
+				shapesDict.removeShape(shape, false);
 				x = Math.min(x, shape.getUpLeftCorner().getX());
 				y = Math.min(y,  shape.getUpLeftCorner().getY());
 				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
