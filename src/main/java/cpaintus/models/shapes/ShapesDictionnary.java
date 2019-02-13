@@ -91,12 +91,8 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 	}
 
-	public void removeShapeByType(ShapeType shapeType) {
-		for (Shape shape : getShapesList()) {
-			if (shape.getShapeType() == shapeType) {
-				shapesDict.remove(shape.getShapeId(), shape);
-			}
-		}
+	public void removeShape(Shape shape) {
+		shapesDict.remove(shape.getShapeId(), shape);
 		notifyRemoveAllObservers();
 	}
 }

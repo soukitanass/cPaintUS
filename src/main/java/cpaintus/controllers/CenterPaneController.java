@@ -148,16 +148,16 @@ public class CenterPaneController implements IObserver {
 			selectShapes = true;
 			break;
 		case UNGROUP_SHAPES:
-			unselectShapes();
+			unselectShapes(selectShapesSingleton.getSelectedShape());
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void unselectShapes() {
+	private void unselectShapes(Shape shape) {
 		selectShapes = false;
-		shapesDict.removeShapeByType(ShapeType.GROUP);
+		shapesDict.removeShape(shape);
 		boundingBox.setVisible(false);
 		eraseCanvas();
 		refresh();
@@ -384,7 +384,6 @@ public class CenterPaneController implements IObserver {
 		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
 		shapesGroup.setHeightGroup(boundingBox.getHeight());
 		shapesGroup.setWidthGroup(boundingBox.getWidth());
-		shapesGroup.setCanvasHash(boundingBox.hashCode());
 		for (Shape shape : shapesDict.getShapesList()) {
 			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
 					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
