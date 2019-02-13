@@ -148,19 +148,21 @@ public class CenterPaneController implements IObserver {
 			selectShapes = true;
 			break;
 		case UNGROUP_SHAPES:
-			unselectShapes(selectShapesSingleton.getSelectedShape());
+			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
+				unselectShapes((ShapesGroup)selectShapesSingleton.getSelectedShape());
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void unselectShapes(Shape shape) {
+	private void unselectShapes(ShapesGroup group) {
 		selectShapes = false;
-		shapesDict.removeShape(shape);
+		shapesDict.removeShape(group);
+		for (Shape shape : group.getShapes()) {
+			shapesDict.addShape(shape);
+		}
 		boundingBox.setVisible(false);
-		eraseCanvas();
-		refresh();
 	}
 
 	@FXML
@@ -401,6 +403,7 @@ public class CenterPaneController implements IObserver {
 					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
 
 				shapesGroup.add(shape);
+				shapesDict.removeShape(shape);
 				x = Math.min(x, shape.getUpLeftCorner().getX());
 				y = Math.min(y,  shape.getUpLeftCorner().getY());
 				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
