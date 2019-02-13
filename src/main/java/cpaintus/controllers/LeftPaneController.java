@@ -465,9 +465,9 @@ public class LeftPaneController implements IObserver {
 	public void update(ObservableList obs) {
 		switch (obs) {
 		case SHAPE_ADDED:
+			InvokerUpdateSingleton.getInstance().setShapeTree(tree);
 			updateList();
 			selectLastItem(true);
-			InvokerUpdateSingleton.getInstance().setShapeList(shapeList);
 			isGrouping = false;
 			break;
 		case SHAPES_LOADED:
