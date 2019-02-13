@@ -231,7 +231,7 @@ public class LeftPaneController implements IObserver {
 		editX.setText(String.valueOf((int) Math.round(newShape.getX())));
 		editY.setText(String.valueOf((int) Math.round(newShape.getY())));
 
-		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
 				shapesDict.getShapesList().size(), shapeToEdit.getZ());
 		editZ.setValueFactory(valueFactory);
 
