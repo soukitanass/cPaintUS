@@ -1,5 +1,7 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public abstract class Shape1D extends Shape {
 	private double x2;
 	private double y2;
@@ -71,4 +73,9 @@ public abstract class Shape1D extends Shape {
 		this.y2 = y2;
 	}
 	
+	@Override
+	public Point getUpLeftCorner() {
+		return new Point(Math.min(x, x2),
+				Math.min(y, y2));
+	}
 }

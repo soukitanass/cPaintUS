@@ -11,6 +11,7 @@ import cpaintus.models.shapes.ShapeType;
 public class ShapesGroup extends Shape2D {
 
 	private List<Shape> shapes = new ArrayList<>();
+	private static int groupNb = 0;
 
 	public ShapesGroup(
 			ShapeType shapeType,
@@ -33,17 +34,17 @@ public class ShapesGroup extends Shape2D {
 	}
 	
 	public ShapesGroup() {
-		setShapeId("Group");
+		setShapeId("Group " + groupNb++);
 		setShapeType(ShapeType.GROUP);
 		this.shapeDim = ShapeDimension.SHAPE2D;
 	}
 
-	public void add(Shape s) {
-		this.shapes.add(s);
+	public void add(Shape shape) {
+		this.shapes.add(shape);
 	}
 
-	public void remove(Shape s) {
-		shapes.remove(s);
+	public void remove(Shape shape) {
+		shapes.remove(shape);
 	}
 
 	public void clear() {

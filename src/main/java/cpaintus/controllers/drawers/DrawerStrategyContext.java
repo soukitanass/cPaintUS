@@ -40,11 +40,8 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case LINE:
-			double originX = Math.min(shape.getX(), ((Line)shape).getX2());
-			double originY = Math.min(shape.getY(), ((Line)shape).getY2());
-
-			activeCanvas.setLayoutX(originX);
-			activeCanvas.setLayoutY(originY);
+			activeCanvas.setLayoutX(shape.getUpLeftCorner().getX());
+			activeCanvas.setLayoutY(shape.getUpLeftCorner().getY());
 			
 			drawerStrategy = new LineDrawerStrategy();
 			drawerStrategy.draw(gc, shape);

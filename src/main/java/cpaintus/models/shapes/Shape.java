@@ -1,5 +1,7 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public abstract class Shape {
 	private ShapeType shapeType;
 	private String shapeId;
@@ -48,6 +50,7 @@ public abstract class Shape {
 	public abstract void setWidth(double width);
 	public abstract double getHeight();
 	public abstract void setHeight(double height);
+	public abstract Point getUpLeftCorner();
 
 	public void setShapeType(ShapeType shapeType) {
 		this.shapeType = shapeType;

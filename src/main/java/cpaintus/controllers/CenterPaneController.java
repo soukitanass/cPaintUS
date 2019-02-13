@@ -138,7 +138,7 @@ public class CenterPaneController implements IObserver {
 			refresh();
 			break;
 		case EDIT_SHAPE:
-			editShape();
+			editShape(shapeEditor.getShapeToEdit());
 			shapeEditor.done();
 			break;
 		case LOAD_IMAGE:
@@ -154,19 +154,21 @@ public class CenterPaneController implements IObserver {
 			selectShapes = true;
 			break;
 		case UNGROUP_SHAPES:
-			unselectShapes();
+			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
+				unselectShapes((ShapesGroup)selectShapesSingleton.getSelectedShape());
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void unselectShapes() {
+	private void unselectShapes(ShapesGroup group) {
 		selectShapes = false;
-		shapesDict.removeShapeByType(ShapeType.GROUP);
+		shapesDict.removeShape(group);
+		for (Shape shape : group.getShapes()) {
+			shapesDict.addShape(shape);
+		}
 		boundingBox.setVisible(false);
-		eraseCanvas();
-		refresh();
 	}
 
 	@FXML
@@ -231,19 +233,16 @@ public class CenterPaneController implements IObserver {
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
-	private void editShape() {
-		int index;
+	private void editShape(Shape shape) {
 		Canvas canvas;
-		Shape shape = shapeEditor.getShapeToEdit();
+		int hash;
 		if (shape == null) {
 			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because shape is null.");
 			return;
 		}
 		if (shape.getShapeType() == ShapeType.GROUP) {
-			for (Shape sh : shapesGroup.getShapes()) {
-				index = sh.getZ();
-				canvas = (Canvas) pane.getChildren().get(index);
-				drawerStrategyContext.draw(sh, canvas);
+			for (Shape sh : ((ShapesGroup) shape).getShapes()) {
+				editShape(sh);
 			}
 			return;
 		}
@@ -352,25 +351,36 @@ public class CenterPaneController implements IObserver {
 
 	private void selectShapes() {
 		shapesGroup = new ShapesGroup();
-		shapesGroup.setXGroup(boundingBox.getUpLeftCorner().getX());
-		shapesGroup.setYGroup(boundingBox.getUpLeftCorner().getY());
-		shapesGroup.setHeightGroup(boundingBox.getHeight());
-		shapesGroup.setWidthGroup(boundingBox.getWidth());
+		double x = Double.MAX_VALUE;
+		double y = Double.MAX_VALUE;
+		double x2 = 0;
+		double y2 = 0;
+
 		for (Shape shape : shapesDict.getShapesList()) {
-			if (comparePoints(new Point(shape.getX(), shape.getY()), boundingBox.getUpLeftCorner())
-					&& shape.getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
-					&& shape.getY() >= boundingBox.getUpLeftCorner().getY()) {
+			if (shape.getUpLeftCorner().getX() >= boundingBox.getUpLeftCorner().getX()
+					&& shape.getUpLeftCorner().getY() >= boundingBox.getUpLeftCorner().getY()
+					&& shape.getUpLeftCorner().getX() + shape.getWidth()
+					<= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
+					&& shape.getUpLeftCorner().getY() + shape.getHeight()
+					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
+
 				shapesGroup.add(shape);
+				shapesDict.removeShape(shape);
+				x = Math.min(x, shape.getUpLeftCorner().getX());
+				y = Math.min(y,  shape.getUpLeftCorner().getY());
+				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
+				y2 = Math.max(y2, shape.getUpLeftCorner().getY() + shape.getHeight());
 			}
 		}
+
+		shapesGroup.setXGroup(x);
+		shapesGroup.setYGroup(y);
+		shapesGroup.setWidthGroup(x2 - x);
+		shapesGroup.setHeightGroup(y2 - y);
+
 		if (!shapesGroup.getShapes().isEmpty()) {
 			shapesDict.addShape(shapesGroup);
-			selectShapes = false;
 		}
-	}
-
-	private boolean comparePoints(Point a, Point b) {
-			return (a.getX() >= b.getX() && a.getY() >= b.getY());
-
+		selectShapes = false;
 	}
 }

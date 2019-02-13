@@ -41,6 +41,9 @@
       			<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
       				<Label fx:id="attributesLabel" />
       				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+      					<Button fx:id="unselectBtn" onAction="#handleUnSelectClick" prefWidth="188.0" text="Unselect" />
+      				</HBox>
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       					<Label prefWidth="78.0" text="Brush Size: " />
       					<ComboBox fx:id="editLineWidth" onAction="#handleEditLineWidth" prefWidth="110.0" promptText="Choose" />
       				</HBox>
