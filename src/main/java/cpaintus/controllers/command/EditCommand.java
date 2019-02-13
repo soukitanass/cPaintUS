@@ -44,7 +44,7 @@ public class EditCommand implements ICommand {
 	}
 	
 	public void execute() {
-		shapesDictionnary.addShapeSilent(shapeToEdit);
+		shapesDictionnary.addShape(shapeToEdit,false);
 		int hash = shapeToEdit.getCanvasHash();
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		if (activeCanvas == null)  {
@@ -56,7 +56,7 @@ public class EditCommand implements ICommand {
 	}
 
 	public void undo() {
-		shapesDictionnary.addShapeSilent(oldShape);
+		shapesDictionnary.addShape(oldShape,false);
 		int hash = oldShape.getCanvasHash();
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		if (activeCanvas == null)  {
