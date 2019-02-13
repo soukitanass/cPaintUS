@@ -30,6 +30,14 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		return instance;
 	}
 
+	public LinkedHashMap<String, Shape> getShapesDict() {
+		return shapesDict;
+	}
+
+	public void setShapesDict(LinkedHashMap<String, Shape> shapesDict) {
+		this.shapesDict = shapesDict;
+	}
+
 	public List<Shape> getShapesList() {
 		return new ArrayList<>(shapesDict.values());
 	}

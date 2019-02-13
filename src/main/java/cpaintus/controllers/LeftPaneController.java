@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
 import cpaintus.controllers.command.EditCommand;
+import cpaintus.controllers.command.EditZCommand;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
@@ -332,8 +333,10 @@ public class LeftPaneController implements IObserver {
 			return;
 		if (shapeToEdit.getZ() == newZ)
 			return;
-		shapeToEdit.setZ(newZ);
-		shapeEditor.editZ(shapeToEdit);
+		EditZCommand editZCommand = new EditZCommand();
+		editZCommand.setNewZ(newZ);
+		editZCommand.setShape(shapeToEdit);
+		invoker.execute(editZCommand);
 	}
 
 	@FXML

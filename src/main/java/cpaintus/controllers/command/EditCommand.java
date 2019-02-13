@@ -47,8 +47,6 @@ public class EditCommand implements ICommand {
 		shapesDictionnary.addShapeSilent(shapeToEdit);
 		int hash = shapeToEdit.getCanvasHash();
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
-		System.out.println("Edit Active Canvas n°" + activeCanvas.hashCode());
-		System.out.println("LineWidth : " + shapeToEdit.getLineWidth());
 		if (activeCanvas == null)  {
 			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because canvas is null.");
 			return;
@@ -61,8 +59,6 @@ public class EditCommand implements ICommand {
 		shapesDictionnary.addShapeSilent(oldShape);
 		int hash = oldShape.getCanvasHash();
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
-		System.out.println("Edit Active Canvas n°" + activeCanvas.hashCode());
-		System.out.println("LineWidth : " + oldShape.getLineWidth());
 		if (activeCanvas == null)  {
 			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because canvas is null.");
 			return;

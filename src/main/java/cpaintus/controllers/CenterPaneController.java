@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import cpaintus.controllers.command.DrawCommand;
 import cpaintus.controllers.command.EditZCommand;
+import cpaintus.controllers.command.EraseAllCommand;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
@@ -168,8 +169,9 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	public void eraseAll() {
-		eraseCanvas();
-		shapesDict.clearShapes();
+		EraseAllCommand eraseAllCommand = new EraseAllCommand();
+		eraseAllCommand.setPane(pane);
+		invoker.execute(eraseAllCommand);
 	}
 
 	@FXML
@@ -242,26 +244,6 @@ public class CenterPaneController implements IObserver {
 			}
 			return;
 		}
-		int hash = shape.getCanvasHash();
-		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
-		if (canvas == null)  {
-			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because canvas is null.");
-			return;
-		}
-
-		if (shapeEditor.edittingZ()) editShapeZ(shape.getZ(), canvas);
-		//else drawerStrategyContext.draw(shape, canvas);
-	}
-	
-	private void editShapeZ(int z, Node node) {
-		
-		EditZCommand editZCommand = new EditZCommand();
-		editZCommand.setNewZ(z);
-		editZCommand.setNode(node);
-		editZCommand.setPane(pane);
-		editZCommand.setOldZ(pane.getChildren().indexOf(node));
-		invoker.execute(editZCommand);
-
 	}
 
 	public void draw(boolean persistent) {

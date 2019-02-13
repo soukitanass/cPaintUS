@@ -24,19 +24,12 @@ public class Invoker {
 		}
 		commands.add(c);
 		index++;
-		for (int i = 0; i<commands.size(); i++) {
-			System.out.println(" Commande " + i + ": " + commands.get(i).hashCode());
-		}
 	}
 	
 	public void undo () {
 		if (index >= 0) {
 			commands.get(index).undo();
 			index--;
-			System.out.println("Undo");
-			for (int i = 0; i<commands.size(); i++) {
-				System.out.println(" Commande " + i + ": " + commands.get(i).hashCode());
-			}
 		}
 	}
 	
@@ -44,10 +37,6 @@ public class Invoker {
 		if (index < commands.size()-1) {
 			index++; 
 			commands.get(index).execute();
-			System.out.println("Redo");
-			for (int i = 0; i<commands.size(); i++) {
-				System.out.println(" Commande " + i + ": " + commands.get(i).hashCode());
-			}
 		}
 	}
 
