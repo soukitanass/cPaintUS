@@ -1,5 +1,7 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public class Text extends Shape2D {
 
 	private String theText;
@@ -8,8 +10,7 @@ public class Text extends Shape2D {
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
 			int lineWidth,
@@ -19,7 +20,7 @@ public class Text extends Shape2D {
 			double height,
 			String text)
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 		this.theText = text;
 	}
 	

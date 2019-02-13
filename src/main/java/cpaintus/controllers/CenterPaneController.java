@@ -149,7 +149,7 @@ public class CenterPaneController implements IObserver {
 			break;
 		case UNGROUP_SHAPES:
 			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
-				unselectShapes((ShapesGroup)selectShapesSingleton.getSelectedShape());
+				unselectShapes((ShapesGroup) selectShapesSingleton.getSelectedShape());
 			break;
 		default:
 			break;
@@ -300,23 +300,23 @@ public class CenterPaneController implements IObserver {
 	}
 
 	/*
-	 * The bounding box position and size are the shape sizes, therefore it must be drawn around that.
+	 * The bounding box position and size are the shape sizes, therefore it must be
+	 * drawn around that.
 	 */
 	private void drawBoundingBox() {
 		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - 4);
 		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - 4);
 		boundingBoxCanvas.setWidth(boundingBox.getWidth() + 8);
 		boundingBoxCanvas.setHeight(boundingBox.getHeight() + 8);
-		
+
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-		
+
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + 4,
-					boundingBox.getHeight() + 4);
-			
+			gc.strokeRect(2, 2, boundingBox.getWidth() + 4, boundingBox.getHeight() + 4);
+
 			// Gray lines making an X in the center
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
@@ -326,10 +326,9 @@ public class CenterPaneController implements IObserver {
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + 4,
-					boundingBox.getHeight() + 4);
+			gc.strokeRect(2, 2, boundingBox.getWidth() + 4, boundingBox.getHeight() + 4);
 		}
-		
+
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
 	}
 
@@ -352,17 +351,17 @@ public class CenterPaneController implements IObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.LINE) {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getOrigin().getX(),
-					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
-					lineWidth, sstrokeColor, sfillColor, "", text);
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
+					new Point(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY()),
+					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
+					boundingBox.getWidth(), boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, "", text);
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getUpLeftCorner().getX(),
-					boundingBox.getUpLeftCorner().getY(), boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
-					lineWidth, sstrokeColor, sfillColor, "", text);
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
+					new Point(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY()),
+					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
+					boundingBox.getWidth(), boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, "", text);
 		}
 
 		if (newShape != null && persistent) {
@@ -371,7 +370,7 @@ public class CenterPaneController implements IObserver {
 
 		return newShape;
 	}
-	
+
 	private void removeLastAddedCanvas() {
 		pane.getChildren().remove(pane.getChildren().size() - 2);
 	}
@@ -401,15 +400,15 @@ public class CenterPaneController implements IObserver {
 		for (Shape shape : shapesDict.getShapesList()) {
 			if (shape.getUpLeftCorner().getX() >= boundingBox.getUpLeftCorner().getX()
 					&& shape.getUpLeftCorner().getY() >= boundingBox.getUpLeftCorner().getY()
-					&& shape.getUpLeftCorner().getX() + shape.getWidth()
-					<= boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth()
-					&& shape.getUpLeftCorner().getY() + shape.getHeight()
-					<= boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight()) {
+					&& shape.getUpLeftCorner().getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX()
+							+ boundingBox.getWidth()
+					&& shape.getUpLeftCorner().getY() + shape.getHeight() <= boundingBox.getUpLeftCorner().getY()
+							+ boundingBox.getHeight()) {
 
 				shapesGroup.add(shape);
 				shapesDict.removeShape(shape, false);
 				x = Math.min(x, shape.getUpLeftCorner().getX());
-				y = Math.min(y,  shape.getUpLeftCorner().getY());
+				y = Math.min(y, shape.getUpLeftCorner().getY());
 				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
 				y2 = Math.max(y2, shape.getUpLeftCorner().getY() + shape.getHeight());
 			}

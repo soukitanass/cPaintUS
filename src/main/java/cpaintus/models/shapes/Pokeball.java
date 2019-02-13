@@ -1,5 +1,6 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
 import javafx.scene.paint.Color;
 
 public class Pokeball extends Shape2D {
@@ -9,8 +10,7 @@ public class Pokeball extends Shape2D {
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
 			int lineWidth,
@@ -19,7 +19,7 @@ public class Pokeball extends Shape2D {
 			double width,
 			double height)
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 		this.backColor = Color.WHITE;
 	}
 

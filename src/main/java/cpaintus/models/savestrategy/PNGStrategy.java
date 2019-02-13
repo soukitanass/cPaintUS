@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import cpaintus.controllers.SnapshotSingleton;
+import cpaintus.models.Point;
 import cpaintus.models.shapes.Picture;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeFactory;
@@ -59,7 +60,7 @@ public class PNGStrategy implements FileManagerStrategy {
 		try {
 			bytes = Files.readAllBytes(Paths.get(path));
 			String img = Base64.getEncoder().encodeToString(bytes);
-			Shape pic = shapeFactory.getShape(ShapeType.PICTURE, true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000", "#000000",
+			Shape pic = shapeFactory.getShape(ShapeType.PICTURE, true, 0, new Point(0,0), new Point(0,0), 0, 0, 0, 1, "#000000", "#000000",
 					img, "");
 			snapshotSingleton.setImage((Picture) pic);
 			pic.setHeight(snapshotSingleton.getImage().getHeight());

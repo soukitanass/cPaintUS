@@ -39,7 +39,7 @@ class FileManagerStrategyTest {
 	void testSaveXML() {
 		fileManagerStrategy = new XMLStrategy();
 		shapesDict.clearShapes();
-		shapesDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 3333, 11, 1, 10, 100, 1, 2, 7, "#00000",
+		shapesDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(3333, 11), new Point(1, 10), 100, 1, 2, 7, "#00000",
 				"#00000", null, "test"));
 		fileManagerStrategy.save(resolvePath(XML_FILE_TO_SAVE_PATH));
 		shapesDict.clearShapes();

@@ -20,8 +20,7 @@ public abstract class Shape {
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
 			int lineWidth,
@@ -30,8 +29,8 @@ public abstract class Shape {
 		this.shapeType = shapeType;
 		this.shapeId = shapeId;
 		this.canvasHash = canvasHash;
-		this.x = x;
-		this.y = y;
+		this.x = position.getX();
+		this.y = position.getY();
 		this.z = z;
 		this.rotation = rotation;
 		this.lineWidth = lineWidth;
