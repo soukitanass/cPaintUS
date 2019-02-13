@@ -29,7 +29,7 @@ public class ShapeEditor extends Observable<IObserver> {
 
 	public void edit(Shape shape) {
 		shapeToEdit = shape;
-		shapesDict.addShapeSilent(shape);
+		shapesDict.addShape(shape, false);
 		updateBoundingBox(shape);
 		notifyAllObservers();
 	}
