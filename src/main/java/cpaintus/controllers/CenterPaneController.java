@@ -279,7 +279,7 @@ public class CenterPaneController implements IObserver {
 
 		for (int i = start; i < end; i++) {
 			int hash = nodes.get(i).hashCode();
-			Shape shape = shapesDict.getShapesList().stream().filter(s -> hash == s.getCanvasHash()).findAny()
+			Shape shape = shapesDict.getFullShapesList().stream().filter(s -> hash == s.getCanvasHash()).findAny()
 					.orElse(null);
 			if (shape != null)
 				shape.setZ(i);
