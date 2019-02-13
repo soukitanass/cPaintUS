@@ -10,6 +10,8 @@ import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
 
+import cpaintus.models.composite.ShapesGroup;
+
 public class ShapesDictionnary extends Observable<IObserver> {
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static final String ERROR_MESSAGE = "addShape error : Unknown shape";
@@ -35,10 +37,29 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		return new ArrayList<>(shapesDict.values());
 	}
 	
+	public List<Shape> getFullShapesList() {
+		List<Shape> fullList = new ArrayList<Shape>();
+		List<Shape> list = getShapesList();
+		
+		appendChildren(fullList, list);
+		
+		return fullList;
+	}
+	
+	private void appendChildren(List<Shape> fullList, List<Shape> list) {
+		for (Shape shape : list) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				appendChildren(fullList, ((ShapesGroup) shape).getShapes());
+			} else {
+				fullList.add(shape);
+			}
+		}
+	}
+	
 	public Shape getLastCreatedShape() {
 		return shapesDict.get(lastCreatedShapeId);
 	}
-	
+
 	public void addShape(Shape shape) {
 		addShape(shape, true);
 	}

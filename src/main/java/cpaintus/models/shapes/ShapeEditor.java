@@ -26,10 +26,14 @@ public class ShapeEditor extends Observable<IObserver> {
 	public static ShapeEditor getInstance() {
 		return SingletonHelper.INSTANCE;
 	}
+	
+	public void select(Shape shape) {
+		
+	}
 
 	public void edit(Shape shape) {
 		shapeToEdit = shape;
-		shapesDict.addShape(shape, false);
+		// shapesDict.addShape(shape, false);
 		updateBoundingBox(shape);
 		notifyAllObservers();
 	}
@@ -38,6 +42,7 @@ public class ShapeEditor extends Observable<IObserver> {
 		edittingZ = true;
 		edit(shape);
 	}
+
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
 		boundingBox.setRotation(shape.getRotation());
