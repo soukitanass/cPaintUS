@@ -129,6 +129,16 @@ public abstract class Shape {
 		return shapeDim;
 	}
 	
+
 	public abstract Shape makeCopy();
+
+	public void setUpLeftCornerX(double x) {
+		this.setX(x);
+	}
+	
+	public void setUpLeftCornerY(double y) {
+		this.setY(y);
+	}
+
 
 }

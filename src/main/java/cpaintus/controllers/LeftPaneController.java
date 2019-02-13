@@ -245,8 +245,8 @@ public class LeftPaneController implements IObserver {
 		// Always shown attributes
 		attributesLabel.setText(newShape.getShapeId() + " Attributes:");
 		attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
-		editX.setText(String.valueOf((int) Math.round(newShape.getX())));
-		editY.setText(String.valueOf((int) Math.round(newShape.getY())));
+		editX.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getX())));
+		editY.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getY())));
 		// Attributes shown on specific ShapeTypes
 		boolean isGroup = newShape.getShapeType() == ShapeType.GROUP;
 		boolean showFillColor = !isGroup
@@ -357,18 +357,16 @@ public class LeftPaneController implements IObserver {
 		if (!attributes.isVisible())
 			return;
 		if (editX.getText() == null || editX.getText().trim().isEmpty()) {
-			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getX())));
+			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getX())));
 			return;
 		}
 		int newX = Integer.parseInt(editX.getText());
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
-		shapeToEdit.setX(newX);
+		shapeToEdit.setUpLeftCornerX(newX);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
-
-		
 	}
 
 	@FXML
@@ -376,14 +374,14 @@ public class LeftPaneController implements IObserver {
 		if (!attributes.isVisible())
 			return;
 		if (editY.getText() == null || editY.getText().trim().isEmpty()) {
-			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getY())));
+			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getY())));
 			return;
 		}
 		int newY = Integer.parseInt(editY.getText());
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
-		shapeToEdit.setY(newY);
+		shapeToEdit.setUpLeftCornerY(newY);
 		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 

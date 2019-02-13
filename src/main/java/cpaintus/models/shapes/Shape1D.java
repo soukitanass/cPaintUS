@@ -78,4 +78,18 @@ public abstract class Shape1D extends Shape {
 		return new Point(Math.min(x, x2),
 				Math.min(y, y2));
 	}
+
+	@Override
+	public void setUpLeftCornerX(double x) {
+		double diffX = getUpLeftCorner().getX() - x;
+		this.x -= diffX;
+		this.x2 -= diffX;
+	}
+
+	@Override
+	public void setUpLeftCornerY(double y) {
+		double diffY = getUpLeftCorner().getY() - y;
+		this.y -= diffY;
+		this.y2 -= diffY;
+	}
 }
