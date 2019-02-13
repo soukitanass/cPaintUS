@@ -47,8 +47,6 @@ import javafx.util.converter.IntegerStringConverter;
 public class LeftPaneController implements IObserver {
 
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private static final String SELECT_LABEL = "Select";
-	private static final String UNSELECT_LABEL = "Unselect";
 
 	private DrawSettings drawSettings;
 	private ShapesDictionnary shapesDict;
@@ -73,6 +71,8 @@ public class LeftPaneController implements IObserver {
 	private Button editBtn;
 	@FXML
 	private Button selectBtn;
+	@FXML
+	private Button unselectBtn;
 	@FXML
 	private ListView<Shape> shapeList;
 
@@ -107,15 +107,15 @@ public class LeftPaneController implements IObserver {
 		drawSettings = DrawSettings.getInstance();
 		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
-	    prefs = Preferences.userNodeForPackage(this.getClass());
-	    selectShapesSingleton = SelectShapesSingleton.getInstance();
-	    selectShapesSingleton.register(this);
-	    editZListener = new ChangeListener<Integer>() {
+		prefs = Preferences.userNodeForPackage(this.getClass());
+		selectShapesSingleton = SelectShapesSingleton.getInstance();
+		selectShapesSingleton.register(this);
+		editZListener = new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
 				handleEditZ(newValue);
 			}
-	    };
+		};
 	}
 
 	@FXML
@@ -123,6 +123,7 @@ public class LeftPaneController implements IObserver {
 		// Add possible shapes to the shape ComboBox
 		shape.getItems().setAll(ShapeType.values());
 		shape.getItems().remove(ShapeType.PICTURE);
+		shape.getItems().remove(ShapeType.GROUP);
 		shape.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
 
 		// Add possible brush sizes to the brushSize ComboBox
@@ -159,7 +160,7 @@ public class LeftPaneController implements IObserver {
 					newShape = firstShape;
 				}
 
-				attributesLabel.setText(newShape.getShapeId() + " Attributes:");
+				attributesLabel.setText(shapeToEdit.getShapeId() + " Attributes:");
 				attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 				editLineWidth.setValue(newShape.getLineWidth() + "px");
 
@@ -168,7 +169,6 @@ public class LeftPaneController implements IObserver {
 				} else {
 					editFillColor.setValue(Color.web(((Shape2D) newShape).getFillColor()));
 				}
-
 				editText.setDisable(true);
 				editBtn.setDisable(true);
 
@@ -181,13 +181,25 @@ public class LeftPaneController implements IObserver {
 				editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
 				editX.setText(String.valueOf((int) Math.round(newShape.getX())));
 				editY.setText(String.valueOf((int) Math.round(newShape.getY())));
-				
-				SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shapesDict.getShapesList().size(), shapeToEdit.getZ());
-		        editZ.setValueFactory(valueFactory);
-				
+
+				SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+						shapesDict.getShapesList().size(), shapeToEdit.getZ());
+				editZ.setValueFactory(valueFactory);
+
 				editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 				editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
 				rotate.setText(String.valueOf((int) Math.round(newShape.getRotation())));
+				boolean isGroup = shapeToEdit.getShapeType() == ShapeType.GROUP;
+				editFillColor.setDisable(isGroup);
+				editStrokeColor.setDisable(isGroup);
+				editLineWidth.setDisable(isGroup);
+				editZ.setDisable(isGroup);
+				editWidth.setDisable(isGroup);
+				editHeight.setDisable(isGroup);
+				rotate.setDisable(isGroup);
+				unselectBtn.setManaged(isGroup);
+				unselectBtn.setVisible(isGroup);
+
 				attributes.setVisible(true);
 				shapeEditor.edit(shapeToEdit);
 			}
@@ -301,7 +313,7 @@ public class LeftPaneController implements IObserver {
 		shapeToEdit.setY(newY);
 		shapeEditor.edit(shapeToEdit);
 	}
-	
+
 	private void handleEditZ(int newZ) {
 		if (!attributes.isVisible())
 			return;
@@ -352,7 +364,7 @@ public class LeftPaneController implements IObserver {
 
 	@Override
 	public void update(ObservableList obs) {
-		switch(obs) {
+		switch (obs) {
 		case SHAPE_ADDED:
 			updateList();
 			selectLastItem(true);
@@ -362,26 +374,26 @@ public class LeftPaneController implements IObserver {
 			updateList();
 			break;
 		case UNSELECT_SHAPE:
-			selectLastItem(false);			
+			selectLastItem(false);
 			break;
 		default:
 			break;
 		}
 	}
-	
+
 	private void updateList() {
 		shapeList.getItems().clear();
 		List<Shape> shallowCopy = shapesDict.getShapesList().subList(0, shapesDict.getShapesList().size());
 		Collections.reverse(shallowCopy);
 		shapeList.getItems().addAll(shallowCopy);
 	}
-	
+
 	private void selectLastItem(boolean shouldSelect) {
 		if (!shapeList.getItems().isEmpty() && shouldSelect) {
-			shapeList.getSelectionModel().select(shapeList.getItems().get(0));				
+			shapeList.getSelectionModel().select(shapeList.getItems().get(0));
 		} else {
 			shapeList.getSelectionModel().select(null);
-		}				
+		}
 	}
 
 	private void handleTextAddClick() {
@@ -409,14 +421,14 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleSelectClick() {
-		if (selectBtn.getText().equals(SELECT_LABEL)) {
-			selectShapesSingleton.notifyAllObservers();
-			selectBtn.setText(UNSELECT_LABEL);
-		} else {
-			selectShapesSingleton.notifyUngroupObservers();
-			selectBtn.setText(SELECT_LABEL);
-		}
+		selectShapesSingleton.notifyAllObservers();
+	}
 
+	@FXML
+	private void handleUnSelectClick() {
+		selectShapesSingleton.setSelectedShape(shapeList.getSelectionModel().getSelectedItem());
+		selectShapesSingleton.notifyUngroupObservers();
+		attributes.setVisible(false);
 	}
 
 }

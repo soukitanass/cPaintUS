@@ -1,5 +1,7 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public abstract class Shape2D extends Shape {
 	protected double width;
 	protected double height;
@@ -48,6 +50,11 @@ public abstract class Shape2D extends Shape {
 	@Override
 	public void setHeight(double height) {
 		this.height = height;
+	}
+	
+	@Override
+	public Point getUpLeftCorner() {
+		return new Point(x, y);
 	}
 	
 	public String getFillColor() {
