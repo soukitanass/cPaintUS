@@ -88,7 +88,6 @@ public class LeftPaneController implements IObserver {
 	private ToolBar attributes;
 	@FXML
 	private Label attributesLabel;
-	
 	@FXML
 	private HBox editLineWidthSection;
 	@FXML
@@ -105,7 +104,6 @@ public class LeftPaneController implements IObserver {
 	private HBox editHeightSection;
 	@FXML
 	private HBox editRotateSection;
-	
 	@FXML
 	private ComboBox<String> editLineWidth;
 	@FXML
