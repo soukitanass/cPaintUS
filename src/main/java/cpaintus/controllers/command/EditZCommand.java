@@ -73,7 +73,7 @@ public class EditZCommand implements ICommand {
 		
 		for (int i = start; i < end; i++) {
 			int hash = nodes.get(i).hashCode();
-			Shape shape = shapesDictionnary.getShapesList().stream()
+			Shape shape = shapesDictionnary.getFullShapesList().stream()
 				.filter(s -> hash == s.getCanvasHash())
 				.findAny()
 				.orElse(null);
