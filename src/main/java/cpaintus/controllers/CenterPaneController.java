@@ -189,8 +189,13 @@ public class CenterPaneController implements IObserver {
 	private void onMouseDragged(MouseEvent event) {
 		hasBeenDragged = true;
 		pointer.setCursorPoint(event.getX(), event.getY());
-		draw(false);
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
+		if (!selectShapes) {
+			draw(false);
+		} else {
+			drawBoundingBox();
+		}
+
 	}
 
 	private void scrollPaneWidthHandler(double width) {
