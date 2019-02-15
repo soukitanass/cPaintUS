@@ -40,9 +40,9 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -57,7 +57,6 @@ public class LeftPaneController implements IObserver {
 	private DrawSettings drawSettings;
 	private ShapesDictionnary shapesDict;
 	private Shape shapeToEdit;
-	private TreeItem<Shape> selectedTreeItem;
 	private BoundingBox boundingBox;
 	private Preferences prefs;
 	private SelectShapesSingleton selectShapesSingleton;
@@ -88,7 +87,7 @@ public class LeftPaneController implements IObserver {
 	private ToolBar attributes;
 	@FXML
 	private Label attributesLabel;
-	
+
 	@FXML
 	private HBox editLineWidthSection;
 	@FXML
@@ -105,7 +104,7 @@ public class LeftPaneController implements IObserver {
 	private HBox editHeightSection;
 	@FXML
 	private HBox editRotateSection;
-	
+
 	@FXML
 	private ComboBox<String> editLineWidth;
 	@FXML
@@ -137,27 +136,28 @@ public class LeftPaneController implements IObserver {
 		prefs = Preferences.userNodeForPackage(this.getClass());
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
-	    
-	    editZListener = new ChangeListener<Integer>() {
+
+		editZListener = new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
 				handleEditZ(newValue);
 			}
 		};
-	    
-	    selectShapeListener = new ChangeListener<TreeItem<Shape>>() {
+
+		selectShapeListener = new ChangeListener<TreeItem<Shape>>() {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Shape>> observable, TreeItem<Shape> oldItem,
 					TreeItem<Shape> newItem) {
-				if (newItem == null) return;
+				if (newItem == null) {
+					return;
+				}
 
-				selectedTreeItem = newItem;
 				handleSelectShape(newItem.getValue());
-				
+
 			}
-	    };
-	    
-	    isGrouping = false;
+		};
+
+		isGrouping = false;
 	}
 
 	@FXML
@@ -171,7 +171,7 @@ public class LeftPaneController implements IObserver {
 		// Line width setting
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
-		
+
 		// Color settings
 		fillColor.setDisable(shape.getValue() == ShapeType.LINE);
 		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
@@ -185,8 +185,8 @@ public class LeftPaneController implements IObserver {
 		editWidth.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editHeight.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-		
-		// Bind managed to visibility		
+
+		// Bind managed to visibility
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
 		editLineWidthSection.managedProperty().bind(editLineWidthSection.visibleProperty());
 		editStrokeColorSection.managedProperty().bind(editStrokeColorSection.visibleProperty());
@@ -238,8 +238,8 @@ public class LeftPaneController implements IObserver {
 	private void handleEraseAllClick() {
 		SnapshotSingleton.getInstance().eraseAll();
 	}
-	
-	private void handleSelectShape(Shape newShape) {		
+
+	private void handleSelectShape(Shape newShape) {
 		boundingBox.setVisible(newShape != null);
 		if (newShape == null) {
 			attributes.setVisible(false);
@@ -254,10 +254,8 @@ public class LeftPaneController implements IObserver {
 		editY.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getY())));
 		// Attributes shown on specific ShapeTypes
 		boolean isGroup = newShape.getShapeType() == ShapeType.GROUP;
-		boolean showFillColor = !isGroup
-				&& newShape.getShapeDimension() != ShapeDimension.SHAPE1D;
-		boolean showText = !isGroup
-				&& newShape.getShapeType() == ShapeType.TEXT;
+		boolean showFillColor = !isGroup && newShape.getShapeDimension() != ShapeDimension.SHAPE1D;
+		boolean showText = !isGroup && newShape.getShapeType() == ShapeType.TEXT;
 
 		// Set the attributes visibility
 		unselectBtn.setVisible(isGroup);
@@ -401,6 +399,7 @@ public class LeftPaneController implements IObserver {
 		editZCommand.setNewZ(newZ);
 		editZCommand.setShape(shapeToEdit);
 		invoker.execute(editZCommand);
+		updateList();
 	}
 
 	@FXML
@@ -482,23 +481,23 @@ public class LeftPaneController implements IObserver {
 			tree.setRoot(new TreeItem<Shape>());
 			tree.setShowRoot(false);
 		}
-		
+
 		tree.getRoot().getChildren().clear();
 		buildTree(tree.getRoot(), shapesDict.getShapesList());
 	}
-	
+
 	private void buildTree(TreeItem<Shape> root, List<Shape> shapes) {
 		List<Shape> shallowCopy = shapes.subList(0, shapes.size());
-		Collections.sort(shallowCopy, new Comparator<Shape>() {
+		Collections.sort(shallowCopy, new Comparator<>() {
 			@Override
 			public int compare(Shape s1, Shape s2) {
 				return s2.getZ() - s1.getZ();
 			}
 		});
-		
+
 		List<TreeItem<Shape>> children = root.getChildren();
 		for (Shape shape : shapes) {
-			TreeItem<Shape> item = new TreeItem<Shape>(shape);
+			TreeItem<Shape> item = new TreeItem<>(shape);
 			if (shape.getShapeType() == ShapeType.GROUP)
 				buildTree(item, ((ShapesGroup) shape).getShapes());
 			children.add(item);
@@ -508,10 +507,8 @@ public class LeftPaneController implements IObserver {
 	private void selectLastItem(boolean shouldSelect) {
 		if (!tree.getRoot().getChildren().isEmpty() && shouldSelect) {
 			if (isGrouping) {
-				Shape lastGroupCreated = shapesDict.getLastCreatedShape();
-				//tree.getSelectionModel().select(lastGroupCreated);		
 			} else {
-				tree.getSelectionModel().select(tree.getRoot().getChildren().get(0));				
+				tree.getSelectionModel().select(tree.getRoot().getChildren().get(0));
 			}
 		} else {
 			tree.getSelectionModel().select(null);
@@ -539,7 +536,7 @@ public class LeftPaneController implements IObserver {
 		}
 
 	}
-	
+
 	@FXML
 	private void handleSelectClick() {
 		isGrouping = true;

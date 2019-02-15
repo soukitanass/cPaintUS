@@ -46,7 +46,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 	
 	public List<Shape> getFullShapesList() {
-		List<Shape> fullList = new ArrayList<Shape>();
+		List<Shape> fullList = new ArrayList<>();
 		List<Shape> list = getShapesList();
 		
 		appendChildren(fullList, list);

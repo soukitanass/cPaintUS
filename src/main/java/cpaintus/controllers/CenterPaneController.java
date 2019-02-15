@@ -14,7 +14,6 @@ import cpaintus.controllers.command.UngroupCommand;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
-import cpaintus.models.Point;
 import cpaintus.models.Pointer;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
@@ -157,7 +156,7 @@ public class CenterPaneController implements IObserver {
 			break;
 		case UNGROUP_SHAPES:
 			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
-				unselectShapes((ShapesGroup)selectShapesSingleton.getSelectedShape());
+				unselectShapes((ShapesGroup) selectShapesSingleton.getSelectedShape());
 			break;
 		default:
 			break;
@@ -271,23 +270,23 @@ public class CenterPaneController implements IObserver {
 	}
 
 	/*
-	 * The bounding box position and size are the shape sizes, therefore it must be drawn around that.
+	 * The bounding box position and size are the shape sizes, therefore it must be
+	 * drawn around that.
 	 */
 	private void drawBoundingBox() {
 		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - 4);
 		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - 4);
 		boundingBoxCanvas.setWidth(boundingBox.getWidth() + 8);
 		boundingBoxCanvas.setHeight(boundingBox.getHeight() + 8);
-		
+
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-		
+
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + 4,
-					boundingBox.getHeight() + 4);
-			
+			gc.strokeRect(2, 2, boundingBox.getWidth() + 4, boundingBox.getHeight() + 4);
+
 			// Gray lines making an X in the center
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
@@ -297,10 +296,9 @@ public class CenterPaneController implements IObserver {
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + 4,
-					boundingBox.getHeight() + 4);
+			gc.strokeRect(2, 2, boundingBox.getWidth() + 4, boundingBox.getHeight() + 4);
 		}
-		
+
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
 	}
 
@@ -338,7 +336,7 @@ public class CenterPaneController implements IObserver {
 
 		return newShape;
 	}
-	
+
 	private void removeLastAddedCanvas() {
 		pane.getChildren().remove(pane.getChildren().size() - 2);
 	}
