@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
-import cpaintus.models.Point;
 import cpaintus.models.Pointer;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
@@ -57,7 +56,7 @@ public class CenterPaneController implements IObserver {
 	private SelectShapesSingleton selectShapesSingleton;
 	private boolean hasBeenDragged;
 	private boolean selectShapes;
-	private ShapesGroup shapesGroup;
+	
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -393,7 +392,7 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void selectShapes() {
-		shapesGroup = new ShapesGroup();
+		ShapesGroup shapesGroup = new ShapesGroup();
 		double x = Double.MAX_VALUE;
 		double y = Double.MAX_VALUE;
 		double x2 = 0;
