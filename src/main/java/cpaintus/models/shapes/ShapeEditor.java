@@ -7,13 +7,11 @@ import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
 
 public class ShapeEditor extends Observable<IObserver> {
-	private ShapesDictionnary shapesDict;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
 	private Boolean edittingZ;
 
 	private ShapeEditor() {
-		shapesDict = ShapesDictionnary.getInstance();
 		shapeToEdit = null;
 		boundingBox = BoundingBox.getInstance();
 		edittingZ = false;
@@ -32,7 +30,7 @@ public class ShapeEditor extends Observable<IObserver> {
 		updateBoundingBox(shape);
 		notifyAllObservers();
 	}
-	
+
 	public void editZ(Shape shape) {
 		edittingZ = true;
 		edit(shape);
@@ -56,7 +54,7 @@ public class ShapeEditor extends Observable<IObserver> {
 	public Shape getShapeToEdit() {
 		return shapeToEdit;
 	}
-	
+
 	public Boolean edittingZ() {
 		return edittingZ;
 	}

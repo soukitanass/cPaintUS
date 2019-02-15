@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
+import cpaintus.models.Point;
 import cpaintus.models.Pointer;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
