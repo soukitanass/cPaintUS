@@ -1,7 +1,6 @@
 package cpaintus.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -36,7 +35,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -58,7 +56,6 @@ public class LeftPaneController implements IObserver {
 
 	private DrawSettings drawSettings;
 	private ShapesDictionnary shapesDict;
-	private ShapeEditor shapeEditor;
 	private Shape shapeToEdit;
 	private TreeItem<Shape> selectedTreeItem;
 	private BoundingBox boundingBox;
@@ -464,8 +461,8 @@ public class LeftPaneController implements IObserver {
 	public void update(ObservableList obs) {
 		switch (obs) {
 		case SHAPE_ADDED:
-			InvokerUpdateSingleton.getInstance().setShapeTree(tree);
 			updateList();
+			InvokerUpdateSingleton.getInstance().setShapeTree(tree);
 			selectLastItem(true);
 			isGrouping = false;
 			break;
