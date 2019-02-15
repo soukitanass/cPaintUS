@@ -132,7 +132,6 @@ public class LeftPaneController implements IObserver {
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
-		shapeEditor = ShapeEditor.getInstance();
 		boundingBox = BoundingBox.getInstance();
 
 		prefs = Preferences.userNodeForPackage(this.getClass());
