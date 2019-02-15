@@ -29,6 +29,13 @@ public class Invoker {
 	public void undo () {
 		if (index >= 0) {
 			commands.get(index).undo();
+			for (ICommand command : commands) {
+				System.out.println(command);
+				if (command instanceof EditZCommand) {
+					System.out.println(((EditZCommand) command).getShapeAttr());
+				}
+			}
+			System.out.println("Current : " + commands.get(index));
 			index--;
 		}
 	}
@@ -36,6 +43,10 @@ public class Invoker {
 	public void redo () {
 		if (index < commands.size()-1) {
 			index++; 
+			for (ICommand command : commands) {
+				System.out.println(command);
+			}
+			System.out.println("Current : " + commands.get(index));
 			commands.get(index).execute();
 		}
 	}

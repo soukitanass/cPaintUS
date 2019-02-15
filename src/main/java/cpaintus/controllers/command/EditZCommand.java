@@ -20,6 +20,10 @@ public class EditZCommand implements ICommand {
 	private AnchorPane pane;
 	private SnapshotSingleton snapshotSingleton;
 	
+	public Shape getShapeAttr() {
+		return shapeAttr;
+	}
+	
 	public void setShape(Shape shape) {
 		this.shapeAttr = shape;
 	}

@@ -293,7 +293,6 @@ public class LeftPaneController implements IObserver {
 		}
 
 		attributes.setVisible(true);
-		shapeEditor.edit(shapeToEdit);
 	}
 
 	@FXML

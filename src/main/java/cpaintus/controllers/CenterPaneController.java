@@ -63,7 +63,6 @@ public class CenterPaneController implements IObserver {
 
 	private boolean hasBeenDragged;
 	private boolean selectShapes;
-	private ShapesGroup shapesGroup;
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -361,6 +360,7 @@ public class CenterPaneController implements IObserver {
 
 	private void selectShapes() {
 		GroupCommand groupCommand = new GroupCommand();
+		groupCommand.setFirst(true);
 		invoker.execute(groupCommand);
 		selectShapes = false;
 	}
