@@ -77,7 +77,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	public void addListShapes(List<Shape> shapesList) {
 		for (Shape shape : shapesList) {
 			if (shape != null) {
-				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0,new Point(0,0), new Point(0,0), 0, 0, 0, 1, "#000000",
+				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0,new Point(0,0), new Point(0,0),new Size(0, 0), 0, new Stroke(1, "#000000"),
 						"#000000", "", "");
 				shape.setShapeId(temp.getShapeId());
 				shape.setZ(shapeFactory.getTotalShapeNb());

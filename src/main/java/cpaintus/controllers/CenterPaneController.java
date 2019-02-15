@@ -18,6 +18,8 @@ import cpaintus.models.shapes.ShapeEditor;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
+import cpaintus.models.shapes.Size;
+import cpaintus.models.shapes.Stroke;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -354,14 +356,14 @@ public class CenterPaneController implements IObserver {
 			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
 					new Point(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY()),
 					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
-					boundingBox.getWidth(), boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, "", text);
+					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
 			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
 					new Point(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY()),
 					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
-					boundingBox.getWidth(), boundingBox.getHeight(), 0, lineWidth, sstrokeColor, sfillColor, "", text);
+					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
 		}
 
 		if (newShape != null && persistent) {

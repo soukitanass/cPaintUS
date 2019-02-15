@@ -12,14 +12,12 @@ public class Picture extends Shape2D {
 			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height,
+			Size size,
 			String base64)
 	{
-		super(shapeType, shapeId, canvasHash,position, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash,position, z, rotation, stroke, fillColor, size);
 		this.setBase64(base64);
 	}
 	

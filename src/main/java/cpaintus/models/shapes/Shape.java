@@ -23,8 +23,7 @@ public abstract class Shape {
 			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor)
+			Stroke stroke)
 	{
 		this.shapeType = shapeType;
 		this.shapeId = shapeId;
@@ -33,8 +32,8 @@ public abstract class Shape {
 		this.y = position.getY();
 		this.z = z;
 		this.rotation = rotation;
-		this.lineWidth = lineWidth;
-		this.strokeColor = strokeColor;
+		this.lineWidth = stroke.getLinewidth();
+		this.strokeColor = stroke.getStrokeColor();
 	}
 	
 	public Shape() {

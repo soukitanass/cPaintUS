@@ -13,14 +13,12 @@ public class Text extends Shape2D {
 			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height,
+			Size size,
 			String text)
 	{
-		super(shapeType, shapeId, canvasHash, position, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
 		this.theText = text;
 	}
 	

@@ -13,11 +13,10 @@ public abstract class Shape1D extends Shape {
 			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			Point position2)
 	{
-		super(shapeType, shapeId, canvasHash, position, z, rotation, lineWidth, strokeColor);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke);
 		this.x2 = position2.getX();
 		this.y2 = position2.getY();
 		this.shapeDim = ShapeDimension.SHAPE1D;

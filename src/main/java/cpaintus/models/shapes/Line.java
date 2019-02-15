@@ -11,11 +11,10 @@ public class Line extends Shape1D {
 			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			Point position2) 
 	{
-		super(shapeType, shapeId, canvasHash, position, z, rotation, lineWidth, strokeColor, position2);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, position2);
 	}
 
 	public Line() {

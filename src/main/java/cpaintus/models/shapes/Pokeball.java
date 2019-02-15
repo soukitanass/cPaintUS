@@ -13,13 +13,11 @@ public class Pokeball extends Shape2D {
 			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height)
+			Size size)
 	{
-		super(shapeType, shapeId, canvasHash, position, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
 		this.backColor = Color.WHITE;
 	}
 
