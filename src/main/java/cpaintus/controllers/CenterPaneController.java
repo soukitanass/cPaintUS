@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.command.DrawCommand;
-import cpaintus.controllers.command.EditZCommand;
 import cpaintus.controllers.command.EraseAllCommand;
 import cpaintus.controllers.command.GroupCommand;
 import cpaintus.controllers.command.Invoker;

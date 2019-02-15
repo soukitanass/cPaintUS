@@ -33,6 +33,8 @@ public class Invoker {
 				System.out.println(command);
 				if (command instanceof EditZCommand) {
 					System.out.println(((EditZCommand) command).getShapeAttr());
+					System.out.println(((EditZCommand) command).getNewZ());
+					System.out.println(((EditZCommand) command).getOldZ());
 				}
 			}
 			System.out.println("Current : " + commands.get(index));
