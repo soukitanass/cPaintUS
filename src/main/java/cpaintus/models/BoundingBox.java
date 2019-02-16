@@ -122,4 +122,21 @@ public class BoundingBox extends Observable<IObserver> {
 	public void setRotation(double rotation) {
 		this.rotation = rotation;
 	}
+	
+
+	public Boolean getGridMod() {
+		return gridMod;
+	}
+
+	public void setGridMod(Boolean gridMod) {
+		this.gridMod = gridMod;
+	}
+
+	public double getGridStep() {
+		return gridStep;
+	}
+
+	public void setGridStep(double gridStep) {
+		this.gridStep = gridStep;
+	}
 }

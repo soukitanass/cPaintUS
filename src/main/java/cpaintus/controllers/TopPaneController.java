@@ -8,9 +8,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.popup.AboutController;
+import cpaintus.controllers.popup.GridController;
 import cpaintus.controllers.popup.NewController;
 import cpaintus.controllers.popup.PopupBuilder;
 import cpaintus.controllers.popup.PopupEnvironment;
+import cpaintus.models.BoundingBox;
 import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXML;
@@ -88,6 +90,22 @@ public class TopPaneController {
 		}
 	}
 
+	@FXML
+	private void handleGridClick() {
+		try {
+			this.popupBuilder.setWindowName("Grid");
+			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/Grid.fxml");
+			PopupEnvironment popupEnvironment = this.popupBuilder.build();
+			
+			GridController controller = popupEnvironment.getFxmlLoader().getController();
+			controller.setNewDialog(popupEnvironment.getStage());
+			
+			popupEnvironment.getStage().showAndWait();
+		} catch (IOException e) {
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+		}
+	}
+	
 	@FXML
 	private void handleLoadLClick() {
 		FileChooser fileChooser = new FileChooser();
