@@ -209,6 +209,28 @@ public class LeftPaneController implements IObserver {
 		}
 		prefs.put("shape", shape.getValue().name());
 	}
+	
+	private void handleTextAddClick() {
+		drawSettings.setShape(ShapeType.TEXT);
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/AddText.fxml"));
+		Parent parent;
+		try {
+			parent = fxmlLoader.load();
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Add Text");
+			stage.setScene(scene);
+			stage.setResizable(false);
+
+			AddTextController controller = fxmlLoader.getController();
+			controller.setAddDialog(stage);
+			stage.show();
+		} catch (IOException e) {
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+		}
+
+	}
 
 	@FXML
 	private void handleChangeLineWidth() {
@@ -230,6 +252,19 @@ public class LeftPaneController implements IObserver {
 	private void handleChangeStrokeColor() {
 		drawSettings.setStrokeColor(strokeColor.getValue());
 		prefs.put("strokecolor", strokeColor.getValue().toString());
+	}
+	
+	@FXML
+	private void handleSelectClick() {
+		isGrouping = true;
+		selectShapesSingleton.notifyAllObservers();
+	}
+
+	@FXML
+	private void handleUnSelectClick() {
+		selectShapesSingleton.setSelectedShape(tree.getSelectionModel().getSelectedItem().getValue());
+		selectShapesSingleton.notifyUngroupObservers();
+		attributes.setVisible(false);
 	}
 
 	@FXML
@@ -462,46 +497,17 @@ public class LeftPaneController implements IObserver {
 	private void selectLastItem(boolean shouldSelect) {
 		if (!tree.getRoot().getChildren().isEmpty() && shouldSelect) {
 			if (isGrouping) {
+				ShapesGroup shapeToSelect = selectShapesSingleton.getLastCreatedGroup();
+				TreeItem<Shape> itemToSelect = tree.getRoot().getChildren().stream()
+						  .filter(item -> shapeToSelect == item.getValue())
+						  .findAny()
+						  .orElse(null);
+				if (itemToSelect != null) tree.getSelectionModel().select(itemToSelect);
 			} else {
 				tree.getSelectionModel().select(tree.getRoot().getChildren().get(0));
 			}
 		} else {
 			tree.getSelectionModel().select(null);
 		}
-	}
-
-	private void handleTextAddClick() {
-		drawSettings.setShape(ShapeType.TEXT);
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/AddText.fxml"));
-		Parent parent;
-		try {
-			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent);
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Add Text");
-			stage.setScene(scene);
-			stage.setResizable(false);
-
-			AddTextController controller = fxmlLoader.getController();
-			controller.setAddDialog(stage);
-			stage.show();
-		} catch (IOException e) {
-			LOGGER.log(Level.INFO, "Error while opening the file ", e);
-		}
-
-	}
-
-	@FXML
-	private void handleSelectClick() {
-		isGrouping = true;
-		selectShapesSingleton.notifyAllObservers();
-	}
-
-	@FXML
-	private void handleUnSelectClick() {
-		selectShapesSingleton.setSelectedShape(tree.getSelectionModel().getSelectedItem().getValue());
-		selectShapesSingleton.notifyUngroupObservers();
-		attributes.setVisible(false);
 	}
 }

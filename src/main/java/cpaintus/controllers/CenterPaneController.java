@@ -419,6 +419,7 @@ public class CenterPaneController implements IObserver {
 		shapesGroup.setHeightGroup(y2 - y);
 
 		if (!shapesGroup.getShapes().isEmpty()) {
+			selectShapesSingleton.setLastCreatedGroup(shapesGroup);
 			shapesDict.addShape(shapesGroup);
 		}
 		selectShapes = false;
