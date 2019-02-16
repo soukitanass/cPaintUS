@@ -24,8 +24,8 @@ public class BoundingBox extends Observable<IObserver> {
 		oppositeCorner = new Point();
 		rotation = 0;
 		
-		gridStep = 50;
-		gridMod = true;
+		gridStep = 25;
+		gridMod = false;
 	}
 
 	public static BoundingBox getInstance() {
@@ -130,6 +130,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridMod(Boolean gridMod) {
 		this.gridMod = gridMod;
+		notifyAllObservers();
 	}
 
 	public double getGridStep() {
@@ -138,5 +139,6 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridStep(double gridStep) {
 		this.gridStep = gridStep;
+		notifyAllObservers();
 	}
 }

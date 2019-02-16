@@ -53,6 +53,7 @@ public class GridController {
 		    }
 		});
 		activateGridControl.setSelected(this.boundingBox.getGridMod());
+		gridStepControl.setDisable(!this.boundingBox.getGridMod());
 		
 		if(boundingBox.getGridStep() < 1)
 			boundingBox.setGridStep(1);
