@@ -50,7 +50,7 @@ public class SaveCloseSingleton {
 		return SaveCloseSingletonHelper.INSTANCE;
 	}
 
-	public void triggerClose() {
+	public boolean triggerClose() {
 		if (shapesDict.getShapesList().size() != 0 && !shapesDict.getShapesList().equals(localShapeDict)) {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/Close.fxml"));
 			Parent parent;
@@ -69,14 +69,15 @@ public class SaveCloseSingleton {
 					if (controller.isYesClicked()) {
 						this.handleSave();
 					}
-					System.exit(0);
-				} else if (controller.isCancelClicked()) {
+					return true;
 				}
+				return false;
 
 			} catch (IOException e) {
 				LOGGER.log(Level.INFO, "Error while opening the file ", e);
 			}
 		}
+		return false;
 	}
 
 	public void handleSave() {
@@ -99,8 +100,8 @@ public class SaveCloseSingleton {
 				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
 				prefs.put(WORKDIR, selectedFile.getParent());
 			}
+			updateLocalShapeDict();
 		}
-		updateLocalShapeDict();
 	}
 	
 	private void updateLocalShapeDict () {

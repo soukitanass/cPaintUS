@@ -3,6 +3,8 @@ package cpaintus;
 import cpaintus.controllers.SaveCloseSingleton;
 import java.util.prefs.Preferences;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +23,13 @@ public class Main extends Application {
 		primaryStage.setMinWidth(800);
 		primaryStage.setMinHeight(600);
 		primaryStage.show();
-		primaryStage.setOnCloseRequest((WindowEvent event) -> SaveCloseSingleton.getInstance().triggerClose());
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	        public void handle(WindowEvent ev) {
+	            if (!SaveCloseSingleton.getInstance().triggerClose()) {
+	                ev.consume();
+	            }
+	        }
+	    });
 		primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> prefs.putDouble("width", (double) newVal));
 		primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> prefs.putDouble("height", (double) newVal));
 	}

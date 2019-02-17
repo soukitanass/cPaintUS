@@ -50,8 +50,8 @@ public class CloseController {
 	
 	@FXML
 	public void handleCancelClick() {
-		isCancelClicked = true;
 		newDialog.close();
+		isCancelClicked = true;
 	}
 	
 	@FXML
