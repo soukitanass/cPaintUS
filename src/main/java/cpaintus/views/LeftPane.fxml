@@ -138,5 +138,8 @@
 				</Accordion>
 			</children>
 		</VBox>
+      				</HBox>
+      					<Button fx:id="deleteBtn" onAction="#handleDeleteClick" prefWidth="188.0" text="Delete" />
+      				<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
 	</children>
 </AnchorPane>
