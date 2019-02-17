@@ -323,12 +323,13 @@ public class LeftPaneController implements IObserver {
 
 	private void handleSelectShape(Shape newShape) {
 		isUpdatingAttributes = true;
-
+			
 		boundingBox.setVisible(newShape != null);
 		if (newShape == null) {
 			attributes.setVisible(false);
 			return;
 		}
+		attributes.setVisible(true);
 		shapeToEdit = newShape;
 
 		// Always shown attributes
@@ -336,6 +337,7 @@ public class LeftPaneController implements IObserver {
 		attributesLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 		editX.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getX())));
 		editY.setText(String.valueOf((int) Math.round(newShape.getUpLeftCorner().getY())));
+
 		// Attributes shown on specific ShapeTypes
 		boolean isGroup = newShape.getShapeType() == ShapeType.GROUP;
 		boolean showFillColor = !isGroup && newShape.getShapeDimension() != ShapeDimension.SHAPE1D;
@@ -357,8 +359,11 @@ public class LeftPaneController implements IObserver {
 		if (!isGroup) {
 			editLineWidth.setValue(newShape.getLineWidth() + "px");
 			editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
-			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
-					shapesDict.getFullShapesList().size(), shapeToEdit.getZ(), 1);
+			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+					1,
+					shapesDict.getFullShapesList().size(),
+					shapeToEdit.getZ(),
+					1);
 			editZ.setValueFactory(valueFactory);
 			editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 			editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
@@ -372,7 +377,6 @@ public class LeftPaneController implements IObserver {
 		}
 
 		isUpdatingAttributes = false;
-		attributes.setVisible(true);
 	}
 
 	@FXML
