@@ -61,6 +61,7 @@ public class LeftPaneController implements IObserver {
 	private ChangeListener<Integer> editZListener;
 	private ChangeListener<TreeItem<Shape>> selectShapeListener;
 	private boolean isGrouping;
+	private boolean isUpdatingAttributes;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -273,11 +274,14 @@ public class LeftPaneController implements IObserver {
 	}
 
 	private void handleSelectShape(Shape newShape) {
+		isUpdatingAttributes = true;
+	
 		boundingBox.setVisible(newShape != null);
 		if (newShape == null) {
 			attributes.setVisible(false);
 			return;
 		}
+		attributes.setVisible(true);
 		shapeToEdit = newShape;
 
 		// Always shown attributes
@@ -306,8 +310,11 @@ public class LeftPaneController implements IObserver {
 		if (!isGroup) {
 			editLineWidth.setValue(newShape.getLineWidth() + "px");
 			editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
-			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-					shapesDict.getShapesList().size(), shapeToEdit.getZ());
+			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
+					1,
+					shapesDict.getFullShapesList().size(),
+					shapeToEdit.getZ(),
+					1);
 			editZ.setValueFactory(valueFactory);
 			editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 			editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
@@ -320,13 +327,13 @@ public class LeftPaneController implements IObserver {
 			}
 		}
 
-		attributes.setVisible(true);
+		isUpdatingAttributes = false;
 		shapeEditor.edit(shapeToEdit);
 	}
 
 	@FXML
 	private void handleEditLineWidth() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		// Extract the integer in the string
 		String widthStr = editLineWidth.getValue().replaceAll("[^0-9]", "");
@@ -337,7 +344,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditFillColor() {
-		if (!attributes.isVisible() || shapeToEdit.getShapeDimension() != ShapeDimension.SHAPE2D)
+		if (isUpdatingAttributes || shapeToEdit.getShapeDimension() != ShapeDimension.SHAPE2D)
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editFillColor.getValue().getRed() * 255),
 				(int) (editFillColor.getValue().getGreen() * 255), (int) (editFillColor.getValue().getBlue() * 255));
@@ -347,7 +354,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditStrokeColor() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		String color = String.format("#%02X%02X%02X", (int) (editStrokeColor.getValue().getRed() * 255),
 				(int) (editStrokeColor.getValue().getGreen() * 255),
@@ -358,7 +365,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditText() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (editText.getText() == null || editText.getText() == "") {
 			editText.setText(((Text) shapeToEdit).getText());
@@ -371,7 +378,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditX() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (editX.getText() == null || editX.getText().trim().isEmpty()) {
 			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getX())));
@@ -384,7 +391,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditY() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (editY.getText() == null || editY.getText().trim().isEmpty()) {
 			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getY())));
@@ -396,20 +403,22 @@ public class LeftPaneController implements IObserver {
 	}
 
 	private void handleEditZ(int newZ) {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (shapeToEdit.getZ() == newZ)
 			return;
+		System.out.println("EditZ");
 		shapeToEdit.setZ(newZ);
 		shapeEditor.editZ(shapeToEdit);
 
 		// Update list order and select edited shape
 		updateList();
+		selectItem(shapeToEdit);
 	}
 
 	@FXML
 	private void handleEditWidth() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (editWidth.getText() == null || editWidth.getText().trim().isEmpty()) {
 			editWidth.setText(String.valueOf((int) Math.round(shapeToEdit.getWidth())));
@@ -422,7 +431,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleEditHeight() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (editHeight.getText() == null || editHeight.getText().trim().isEmpty()) {
 			editHeight.setText(String.valueOf((int) Math.round(shapeToEdit.getHeight())));
@@ -435,7 +444,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleRotate() {
-		if (!attributes.isVisible())
+		if (isUpdatingAttributes)
 			return;
 		if (rotate.getText() == null || rotate.getText().trim().isEmpty()) {
 			rotate.setText(String.valueOf((int) Math.round(shapeToEdit.getRotation())));
@@ -492,22 +501,27 @@ public class LeftPaneController implements IObserver {
 				buildTree(item, ((ShapesGroup) shape).getShapes());
 			children.add(item);
 		}
+		
 	}
 
 	private void selectLastItem(boolean shouldSelect) {
 		if (!tree.getRoot().getChildren().isEmpty() && shouldSelect) {
 			if (isGrouping) {
 				ShapesGroup shapeToSelect = selectShapesSingleton.getLastCreatedGroup();
-				TreeItem<Shape> itemToSelect = tree.getRoot().getChildren().stream()
-						  .filter(item -> shapeToSelect == item.getValue())
-						  .findAny()
-						  .orElse(null);
-				if (itemToSelect != null) tree.getSelectionModel().select(itemToSelect);
+				selectItem(shapeToSelect);
 			} else {
 				tree.getSelectionModel().select(tree.getRoot().getChildren().get(0));
 			}
 		} else {
 			tree.getSelectionModel().select(null);
 		}
+	}
+	
+	private void selectItem(Shape shapeToSelect) {
+		TreeItem<Shape> itemToSelect = tree.getRoot().getChildren().stream()
+				  .filter(item -> shapeToSelect == item.getValue())
+				  .findAny()
+				  .orElse(null);
+		if (itemToSelect != null) tree.getSelectionModel().select(itemToSelect);
 	}
 }
