@@ -5,7 +5,7 @@ import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
 
-public class UngroupCommand implements ICommand {
+public class UngroupCommand extends Command {
 
 	private ShapesGroup shapesGroup;
 	private ShapesDictionnary shapesDict;
@@ -17,6 +17,7 @@ public class UngroupCommand implements ICommand {
 
 	
 	public UngroupCommand() {
+		setCommandID("Ungroup");
 		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	}

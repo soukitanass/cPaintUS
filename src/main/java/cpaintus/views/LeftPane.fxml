@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefWidth="202.0"
+<AnchorPane prefWidth="204.0"
 	xmlns="http://javafx.com/javafx/9.0.4"
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="cpaintus.controllers.LeftPaneController">
 	<children>
 		<VBox prefHeight="620" prefWidth="204.0">
 			<children>
-				<Accordion >
+				<Accordion expandedPane="$default" >
 					<panes>
-						<TitledPane animated="false">
+						<TitledPane text="Draw Settings" fx:id="default" >
 							<ToolBar>
 								<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
@@ -47,11 +47,11 @@
 								</VBox>
 							</ToolBar>
 						</TitledPane>
-						<TitledPane>
+						<TitledPane text="Shapes">
 							<TreeView fx:id="tree" prefHeight="200.0"
 								prefWidth="200.0" />
 						</TitledPane>
-						<TitledPane>
+						<TitledPane text="Edit Attributes">
 							<ToolBar fx:id="attributes">
 								<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
 									<Label fx:id="attributesLabel" />
@@ -122,6 +122,18 @@
 								</VBox>
 							</ToolBar>
 						</TitledPane>
+						<TitledPane text="Command History">
+							<VBox>
+								<HBox>
+									<ListView fx:id="commandes" prefHeight="200.0"
+									prefWidth="200.0" />
+								</HBox>
+								<HBox>								
+									<Button fx:id="undoUntilBtn" onAction="#handleUndoUntilClick"
+												prefWidth="188.0" text="Revert" />
+								</HBox>								
+							</VBox>
+						</TitledPane>	
 					</panes>
 				</Accordion>
 			</children>

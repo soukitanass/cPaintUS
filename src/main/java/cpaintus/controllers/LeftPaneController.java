@@ -10,6 +10,7 @@ import java.util.prefs.Preferences;
 
 import cpaintus.controllers.command.EditCommand;
 import cpaintus.controllers.command.EditZCommand;
+import cpaintus.controllers.command.Command;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
@@ -21,10 +22,10 @@ import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.Shape2D;
 import cpaintus.models.shapes.ShapeDimension;
-import cpaintus.models.shapes.ShapeEditor;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
 import cpaintus.models.shapes.Text;
+import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -48,7 +51,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.collections.ListChangeListener;
 
 public class LeftPaneController implements IObserver {
 
@@ -63,7 +68,10 @@ public class LeftPaneController implements IObserver {
 	private ChangeListener<Integer> editZListener;
 	private Invoker invoker;
 	private ChangeListener<TreeItem<Shape>> selectShapeListener;
+	private ListChangeListener<Command> addedActionListener;
+	private ChangeListener<Command> selectCommandListener;
 	private boolean isGrouping;
+	private Command commandToUndoUntil;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -80,14 +88,17 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Button selectBtn;
 	@FXML
+	private Button undoUntilBtn;
+	@FXML
 	private Button unselectBtn;
 	@FXML
 	private TreeView<Shape> tree;
 	@FXML
+	private ListView<Command> commandes;
+	@FXML
 	private ToolBar attributes;
 	@FXML
 	private Label attributesLabel;
-
 	@FXML
 	private HBox editLineWidthSection;
 	@FXML
@@ -104,7 +115,6 @@ public class LeftPaneController implements IObserver {
 	private HBox editHeightSection;
 	@FXML
 	private HBox editRotateSection;
-
 	@FXML
 	private ComboBox<String> editLineWidth;
 	@FXML
@@ -128,6 +138,7 @@ public class LeftPaneController implements IObserver {
 
 	public LeftPaneController() {
 		invoker = Invoker.getInstance();
+		invoker.register(this);
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		drawSettings = DrawSettings.getInstance();
@@ -157,7 +168,25 @@ public class LeftPaneController implements IObserver {
 			}
 		};
 
+		addedActionListener = new ListChangeListener<Command>() {
+			@Override
+			public void onChanged(Change<? extends Command> c) {
+				while (c.next()) {
+					updateListCommand();
+				}
+			}
+		};
+
+		selectCommandListener = new ChangeListener<Command>() {
+			@Override
+			public void changed(ObservableValue<? extends Command> observable, Command oldValue, Command newValue) {
+				System.out.println("Selectionnée :" + newValue);
+				commandToUndoUntil = newValue;
+			}
+		};
+
 		isGrouping = false;
+
 	}
 
 	@FXML
@@ -200,6 +229,16 @@ public class LeftPaneController implements IObserver {
 		// Add event listeners
 		editZ.valueProperty().addListener(editZListener);
 		tree.getSelectionModel().selectedItemProperty().addListener(selectShapeListener);
+		Invoker.getInstance().getCommands().addListener(addedActionListener);
+		commandes.getSelectionModel().selectedItemProperty().addListener(selectCommandListener);
+
+		// Set CellFactory ListView
+		commandes.setCellFactory(new Callback<ListView<Command>, ListCell<Command>>() {
+			@Override
+			public ListCell<Command> call(ListView<Command> lv) {
+				return new CommandListCell();
+			}
+		});
 	}
 
 	@FXML
@@ -471,6 +510,9 @@ public class LeftPaneController implements IObserver {
 		case UNSELECT_SHAPE:
 			selectLastItem(false);
 			break;
+		case CHANGEDCOMMAND:
+			selectUndo();
+			break;
 		default:
 			break;
 		}
@@ -549,4 +591,42 @@ public class LeftPaneController implements IObserver {
 		selectShapesSingleton.notifyUngroupObservers();
 		attributes.setVisible(false);
 	}
+
+	@FXML
+	private void handleUndoUntilClick() {
+		if (commandToUndoUntil != null) {
+			int indexToUndo = invoker.getCommands().indexOf(commandToUndoUntil);
+			if (indexToUndo < invoker.getIndex()) {
+				while (indexToUndo < invoker.getIndex()) {
+					invoker.undo();
+				}
+			} else if (indexToUndo > invoker.getIndex()) {
+				while (indexToUndo > invoker.getIndex()) {
+					invoker.redo();
+				}
+			}
+		}
+		commandes.getSelectionModel().select(commandToUndoUntil);
+	}
+
+	private void updateListCommand() {
+		commandes.setItems(invoker.getCommands());
+	}
+
+	private void selectUndo() {
+		commandes.getSelectionModel().select(invoker.getIndex());
+	}
+
+	private class CommandListCell extends ListCell<Command> {
+		@Override
+		protected void updateItem(Command command, boolean empty) {
+			super.updateItem(command, empty);
+			setText(null);
+			if (!empty && command != null) {
+				final String text = command.getCommandID();
+				setText(text);
+			}
+		}
+	}
+
 }

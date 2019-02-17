@@ -15,7 +15,7 @@ import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 
-public class EditCommand implements ICommand {
+public class EditCommand extends Command {
 	
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
@@ -28,6 +28,7 @@ public class EditCommand implements ICommand {
 	private AnchorPane pane; 
 	
 	public EditCommand () {
+		setCommandID("Edit :" + shapeToEdit);
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();

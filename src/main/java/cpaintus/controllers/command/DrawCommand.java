@@ -7,7 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.AnchorPane;
 
-public class DrawCommand implements ICommand{
+public class DrawCommand extends Command{
 	
 	private AnchorPane pane;
 	private Canvas activeCanvas;
@@ -16,6 +16,7 @@ public class DrawCommand implements ICommand{
 	private ShapesDictionnary shapesDict;
 
 	public DrawCommand (AnchorPane pane, Shape shape) {
+		setCommandID("Draw : " + shape);
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		shapesDict = ShapesDictionnary.getInstance();
 		this.pane = pane;

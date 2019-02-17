@@ -9,7 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 
-public class EditZCommand implements ICommand {
+public class EditZCommand extends Command {
 	
 	private boolean firstTime = true;
 	private int newZ;
@@ -49,6 +49,7 @@ public class EditZCommand implements ICommand {
 	}
 
 	public EditZCommand () {
+		setCommandID("Edit Z :" + shapeAttr);
 		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();

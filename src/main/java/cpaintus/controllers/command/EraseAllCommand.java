@@ -10,7 +10,7 @@ import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-public class EraseAllCommand implements ICommand {
+public class EraseAllCommand extends Command {
 
 	private Node boundingBoxNode;
 	private Node baseCanvasNode;
@@ -21,6 +21,7 @@ public class EraseAllCommand implements ICommand {
 	private ShapesDictionnary shapesDictionnary;
 
 	public EraseAllCommand() {
+		setCommandID("EraseAll");
 		boundingBox = BoundingBox.getInstance();
 		shapesDictionnary = ShapesDictionnary.getInstance();
 	}

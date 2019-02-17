@@ -5,7 +5,7 @@ import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
 
-public class GroupCommand implements ICommand {
+public class GroupCommand extends Command {
 
 	private ShapesGroup shapesGroup;
 	private ShapesDictionnary shapesDict;
@@ -13,6 +13,7 @@ public class GroupCommand implements ICommand {
 	private boolean firstime = false;
 
 	public GroupCommand() {
+		setCommandID("Group");
 		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
 	}
