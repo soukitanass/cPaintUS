@@ -61,6 +61,7 @@ public class LeftPaneController implements IObserver {
 	private ChangeListener<Integer> editZListener;
 	private ChangeListener<TreeItem<Shape>> selectShapeListener;
 	private boolean isGrouping;
+	private DeleteShapeSingleton deleteShapeSingleton;
 
 	@FXML
 	private ComboBox<ShapeType> shape;
@@ -78,6 +79,8 @@ public class LeftPaneController implements IObserver {
 	private Button selectBtn;
 	@FXML
 	private Button unselectBtn;
+	@FXML
+	private Button deleteBtn;
 	@FXML
 	private TreeView<Shape> tree;
 
@@ -134,6 +137,8 @@ public class LeftPaneController implements IObserver {
 		prefs = Preferences.userNodeForPackage(this.getClass());
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
+		deleteShapeSingleton = DeleteShapeSingleton.getInstance();
+		deleteShapeSingleton.register(this);
 
 		editZListener = new ChangeListener<Integer>() {
 			@Override
@@ -186,6 +191,7 @@ public class LeftPaneController implements IObserver {
 
 		// Bind managed to visibility
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
+		deleteBtn.managedProperty().bind(deleteBtn.visibleProperty());
 		editLineWidthSection.managedProperty().bind(editLineWidthSection.visibleProperty());
 		editStrokeColorSection.managedProperty().bind(editStrokeColorSection.visibleProperty());
 		editZSection.managedProperty().bind(editZSection.visibleProperty());
@@ -258,6 +264,7 @@ public class LeftPaneController implements IObserver {
 
 		// Set the attributes visibility
 		unselectBtn.setVisible(isGroup);
+		deleteBtn.setVisible(!isGroup);
 		editLineWidthSection.setVisible(!isGroup);
 		editStrokeColorSection.setVisible(!isGroup);
 		editZSection.setVisible(!isGroup);
@@ -504,4 +511,13 @@ public class LeftPaneController implements IObserver {
 		selectShapesSingleton.notifyUngroupObservers();
 		attributes.setVisible(false);
 	}
+	
+	@FXML 
+	private void handleDeleteClick() {
+		deleteShapeSingleton.setShapeToDelete(tree.getSelectionModel().getSelectedItem().getValue());
+		deleteShapeSingleton.notifyAllObservers();
+		attributes.setVisible(false);
+		
+	}
 }
+
