@@ -17,9 +17,11 @@ import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
 import cpaintus.models.LineWidth;
+import cpaintus.models.Point;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
+import cpaintus.models.shapes.Line;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.Shape2D;
 import cpaintus.models.shapes.ShapeDimension;
@@ -323,7 +325,7 @@ public class LeftPaneController implements IObserver {
 
 	private void handleSelectShape(Shape newShape) {
 		isUpdatingAttributes = true;
-			
+
 		boundingBox.setVisible(newShape != null);
 		if (newShape == null) {
 			attributes.setVisible(false);
@@ -359,11 +361,8 @@ public class LeftPaneController implements IObserver {
 		if (!isGroup) {
 			editLineWidth.setValue(newShape.getLineWidth() + "px");
 			editStrokeColor.setValue(Color.web(newShape.getStrokeColor()));
-			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(
-					1,
-					shapesDict.getFullShapesList().size(),
-					shapeToEdit.getZ(),
-					1);
+			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
+					shapesDict.getFullShapesList().size(), shapeToEdit.getZ(), 1);
 			editZ.setValueFactory(valueFactory);
 			editWidth.setText(String.valueOf((int) Math.round(newShape.getWidth())));
 			editHeight.setText(String.valueOf((int) Math.round(newShape.getHeight())));
@@ -377,6 +376,7 @@ public class LeftPaneController implements IObserver {
 		}
 
 		isUpdatingAttributes = false;
+		updateBoundingBox(newShape);
 	}
 
 	@FXML
@@ -463,10 +463,11 @@ public class LeftPaneController implements IObserver {
 		} else {
 			EditGroupCommand editGroupCommand = new EditGroupCommand();
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
-			editGroupCommand.setOldShape(oldShape);
-			shapeToEdit.setUpLeftCornerX(newX);
-			editGroupCommand.setShapeToEdit(shapeToEdit);
+			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
+			((ShapesGroup) shapeToEdit).setX(newX);
+			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
 			invoker.execute(editGroupCommand);
+			updateBoundingBox(shapeToEdit);
 		}
 	}
 
@@ -479,24 +480,23 @@ public class LeftPaneController implements IObserver {
 			return;
 		}
 		int newY = Integer.parseInt(editY.getText());
+		EditCommand editCommand = new EditCommand();
+		Shape oldShape = shapeToEdit.makeCopy();
 		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
-			EditCommand editCommand = new EditCommand();
-			Shape oldShape = shapeToEdit.makeCopy();
-			if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
-				editCommand.setOldShape(oldShape);
-				shapeToEdit.setUpLeftCornerY(newY);
-				editCommand.setShapeToEdit(shapeToEdit);
-				invoker.execute(editCommand);
-			} else {
-				EditGroupCommand editGroupCommand = new EditGroupCommand();
-				editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
-				editGroupCommand.setOldShape(oldShape);
-				shapeToEdit.setUpLeftCornerY(newY);
-				editGroupCommand.setShapeToEdit(shapeToEdit);
-				invoker.execute(editGroupCommand);
-			}
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.setUpLeftCornerY(newY);
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
+			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
+			((ShapesGroup) shapeToEdit).setY(newY);
+			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			invoker.execute(editGroupCommand);
+			updateBoundingBox(shapeToEdit);
+
 		}
-		
 	}
 
 	private void handleEditZ(int newZ) {
@@ -571,7 +571,6 @@ public class LeftPaneController implements IObserver {
 		switch (obs) {
 		case SHAPE_ADDED:
 			updateList();
-			InvokerUpdateSingleton.getInstance().setShapeTree(tree);
 			selectLastItem(true);
 			isGrouping = false;
 			break;
@@ -681,6 +680,16 @@ public class LeftPaneController implements IObserver {
 				final String text = command.getCommandID();
 				setText(text);
 			}
+		}
+	}
+
+	private void updateBoundingBox(Shape shape) {
+		boundingBox.setOrigin(shape.getX(), shape.getY());
+		boundingBox.setRotation(shape.getRotation());
+		if (shape.getShapeType() == ShapeType.LINE) {
+			boundingBox.updateBoundingBox(new Point(((Line) shape).getX2(), ((Line) shape).getY2()));
+		} else {
+			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
 	}
 

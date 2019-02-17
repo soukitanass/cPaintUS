@@ -2,6 +2,7 @@ package cpaintus.controllers.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.SnapshotSingleton;
@@ -18,10 +19,16 @@ import javafx.scene.layout.AnchorPane;
 
 public class EditGroupCommand extends Command {
 
-	private EditCommand command; 
-	private Shape shapeToEdit; 
-	private Shape oldShape;
-	
+	private EditCommand command;
+	private List<Shape> shapeToEdit;
+	private List<Shape> oldShape;
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private SnapshotSingleton snapshotSingleton;
+	private Canvas activeCanvas;
+	private DrawerStrategyContext drawerStrategyContext;
+	private ShapesDictionnary shapesDictionnary;
+	private AnchorPane pane;
+
 	public EditCommand getCommand() {
 		return command;
 	}
@@ -29,36 +36,57 @@ public class EditGroupCommand extends Command {
 	public void setCommand(EditCommand command) {
 		this.command = command;
 	}
-	
-	public void setShapeToEdit(Shape shapeToEdit) {
+
+	public List<Shape> getShapeToEdit() {
+		return shapeToEdit;
+	}
+
+	public void setShapeToEdit(List<Shape> shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
 	}
 
-	public void setOldShape(Shape oldShape) {
+	public List<Shape> getOldShape() {
+		return oldShape;
+	}
+
+	public void setOldShape(List<Shape> oldShape) {
 		this.oldShape = oldShape;
 	}
-	
-	public EditGroupCommand () {
+
+	public EditGroupCommand() {
 		command = new EditCommand();
+		drawerStrategyContext = DrawerStrategyContext.getInstance();
+		shapesDictionnary = ShapesDictionnary.getInstance();
+		snapshotSingleton = SnapshotSingleton.getInstance();
+		pane = snapshotSingleton.getSnapshotPane();
 	}
-	
+
 	@Override
 	public void execute() {
-		int iterations = ((ShapesGroup) shapeToEdit).getShapes().size();
-		for (int i = 0; i < iterations; i++) {
-			command.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes().get(i));
-			command.execute();
-		}	
+		for (int i = 0; i < shapeToEdit.size(); i++) {
+			int hash = shapeToEdit.get(i).getCanvasHash();
+			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
+					.orElse(null);
+			if (activeCanvas == null) {
+				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
+				return;
+			}
+			drawerStrategyContext.draw(shapeToEdit.get(i), activeCanvas);
+		}
 	}
 
 	@Override
 	public void undo() {
-		int iterations = ((ShapesGroup) oldShape).getShapes().size();
-		for (int i = 0; i < iterations; i++) {
-			command.setShapeToEdit(((ShapesGroup) oldShape).getShapes().get(i));
-			command.execute();
-		}	
+		for (int i = 0; i < oldShape.size(); i++) {
+			int hash = oldShape.get(i).getCanvasHash();
+			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
+					.orElse(null);
+			if (activeCanvas == null) {
+				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
+				return;
+			}
+			drawerStrategyContext.draw(oldShape.get(i), activeCanvas);
+		}
 	}
-
 
 }

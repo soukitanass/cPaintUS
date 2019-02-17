@@ -28,11 +28,20 @@ public class EditCommand extends Command {
 	private AnchorPane pane; 
 	
 	public EditCommand () {
+		setCommandID("Edit : " + oldShape);
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
+	}
+	
+	public Shape getShapeToEdit() {
+		return shapeToEdit;
+	}
+
+	public Shape getOldShape() {
+		return oldShape;
 	}
 	
 	public void setShapeToEdit(Shape shapeToEdit) {
