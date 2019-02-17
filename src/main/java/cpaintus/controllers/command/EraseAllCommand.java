@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import cpaintus.controllers.InvokerUpdateSingleton;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
@@ -45,7 +46,7 @@ public class EraseAllCommand extends Command {
 		pane.getChildren().add(baseCanvasNode);
 		pane.getChildren().add(boundingBoxNode);
 		boundingBox.setVisible(false);
-		shapesDictionnary.clearShapes();
+		shapesDictionnary.clearShapesTempo();
 	}
 
 	public void undo() {
@@ -57,6 +58,7 @@ public class EraseAllCommand extends Command {
 		conservedList.clear();
 		boundingBox.setVisible(true);
 		shapesDictionnary.setShapesDict(shapesDict);
+		
 	}
 
 }

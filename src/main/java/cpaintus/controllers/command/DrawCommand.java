@@ -34,10 +34,12 @@ public class DrawCommand extends Command{
 			shapesDict.addShape(shape);
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}	
+		System.out.println(pane.getChildren());
 	}
 	
 	public void undo() {
 		pane.getChildren().remove(activeCanvas);
 		shapesDict.removeShape(shape);
 	}
+	
 }

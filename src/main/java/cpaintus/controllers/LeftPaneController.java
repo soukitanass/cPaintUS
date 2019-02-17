@@ -11,6 +11,7 @@ import java.util.prefs.Preferences;
 import cpaintus.controllers.command.EditCommand;
 import cpaintus.controllers.command.EditGroupCommand;
 import cpaintus.controllers.command.EditZCommand;
+import cpaintus.controllers.command.EraseShapeCommand;
 import cpaintus.controllers.command.Command;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
@@ -75,7 +76,6 @@ public class LeftPaneController implements IObserver {
 	private ChangeListener<Command> selectCommandListener;
 	private boolean isGrouping;
 	private Command commandToUndoUntil;
-	private DeleteShapeSingleton deleteShapeSingleton;
 	private boolean isUpdatingAttributes;
 
 	@FXML
@@ -154,8 +154,6 @@ public class LeftPaneController implements IObserver {
 		prefs = Preferences.userNodeForPackage(this.getClass());
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
-		deleteShapeSingleton = DeleteShapeSingleton.getInstance();
-		deleteShapeSingleton.register(this);
 
 		editZListener = new ChangeListener<Integer>() {
 			@Override
@@ -575,6 +573,7 @@ public class LeftPaneController implements IObserver {
 			isGrouping = false;
 			break;
 		case SHAPES_LOADED:
+			break;
 		case SHAPE_REMOVED:
 			updateList();
 			break;
@@ -597,6 +596,7 @@ public class LeftPaneController implements IObserver {
 
 		tree.getRoot().getChildren().clear();
 		buildTree(tree.getRoot(), shapesDict.getShapesList());
+		InvokerUpdateSingleton.getInstance().setTree(tree);
 	}
 
 	private void buildTree(TreeItem<Shape> root, List<Shape> shapes) {
@@ -640,10 +640,9 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleDeleteClick() {
-		deleteShapeSingleton.setShapeToDelete(tree.getSelectionModel().getSelectedItem().getValue());
-		deleteShapeSingleton.notifyAllObservers();
-		attributes.setVisible(false);
-
+		EraseShapeCommand eraseShapeCommand = new EraseShapeCommand();
+		eraseShapeCommand.setShapeToDelete(tree.getSelectionModel().getSelectedItem().getValue());
+		invoker.execute(eraseShapeCommand);
 	}
 
 	@FXML

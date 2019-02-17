@@ -102,7 +102,7 @@ public class ShapeFactory {
 		Shape shape;
 
 		if (persistent)
-			totalShapeNb++;
+			++totalShapeNb;
 
 		switch (shapeType) {
 		case RECTANGLE:

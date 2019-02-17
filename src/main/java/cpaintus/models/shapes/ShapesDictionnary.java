@@ -95,12 +95,15 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 	}
 
+	public void clearShapesTempo() {
+		shapesDict.clear();
+	}
+	
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
 		notifyAllObservers();
 	}
-	
 
 	@Override
 	public void notifyAllObservers() {

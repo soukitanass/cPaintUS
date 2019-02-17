@@ -47,11 +47,13 @@ public class TopPaneController {
 	@FXML
 	private void handleUndo () {
 		invoker.undo();
+		InvokerUpdateSingleton.getInstance().updateTree();;
 	}
 	
 	@FXML
 	private void handleRedo () {
 		invoker.redo();
+		InvokerUpdateSingleton.getInstance().updateTree();;
 	}
 
 	@FXML

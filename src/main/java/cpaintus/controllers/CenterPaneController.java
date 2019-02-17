@@ -62,7 +62,6 @@ public class CenterPaneController implements IObserver {
 
 	private boolean hasBeenDragged;
 	private boolean selectShapes;
-	private DeleteShapeSingleton deleteShapeSingleton;
 	
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
@@ -82,8 +81,6 @@ public class CenterPaneController implements IObserver {
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
 		invoker = Invoker.getInstance();
-		deleteShapeSingleton = DeleteShapeSingleton.getInstance();
-		deleteShapeSingleton.register(this);
 
 		hasBeenDragged = false;
 		selectShapes = false;
@@ -155,9 +152,6 @@ public class CenterPaneController implements IObserver {
 		case UNGROUP_SHAPES:
 			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
 				unselectShapes((ShapesGroup) selectShapesSingleton.getSelectedShape());
-			break;
-		case DELETE_SHAPE:
-			deleteShape(deleteShapeSingleton.getShapeToDelete());
 			break;
 		default:
 			break;
