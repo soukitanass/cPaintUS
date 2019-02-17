@@ -27,14 +27,11 @@ public class Line extends Shape1D {
 				this.getShapeType(),
 				this.getShapeId(),
 				this.getCanvasHash(),
-				this.getX(),
-				this.getY(),
+				new Point(this.getX(),this.getY()),
 				this.getZ(),
 				this.getRotation(),
-				this.getLineWidth(),
-				this.getStrokeColor(),
-				this.getWidth(),
-				this.getHeight());
+				new Stroke(this.getLineWidth(),this.getStrokeColor()),
+				new Point(this.getX2(),getY2()));
 		return line;
 	}
 }

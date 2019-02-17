@@ -39,15 +39,12 @@ public class Picture extends Shape2D {
 				this.getShapeType(),
 				this.getShapeId(),
 				this.getCanvasHash(),
-				this.getX(),
-				this.getY(),
+				new Point(this.getX(),this.getY()),
 				this.getZ(),
 				this.getRotation(),
-				this.getLineWidth(),
-				this.getStrokeColor(),
+				new Stroke(this.getLineWidth(),this.getStrokeColor()),
 				this.getFillColor(),
-				this.getWidth(),
-				this.getHeight(),
+				new Size(this.getWidth(), this.getHeight()),
 				this.getBase64());
 		return picture;
 	}
