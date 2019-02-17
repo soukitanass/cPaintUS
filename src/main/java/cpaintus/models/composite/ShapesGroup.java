@@ -14,9 +14,10 @@ public class ShapesGroup extends Shape2D {
 	private static int groupNb = 0;
 
 	public ShapesGroup() {
-		setShapeId("Group " + groupNb++);
+		setShapeId("Group " + groupNb);
 		setShapeType(ShapeType.GROUP);
 		this.shapeDim = ShapeDimension.SHAPE2D;
+		groupNb++;
 	}
 
 	public void add(Shape shape) {
@@ -124,6 +125,11 @@ public class ShapesGroup extends Shape2D {
 	@Override
 	public ShapesGroup makeCopy() {
 		ShapesGroup group = new ShapesGroup();
+			--groupNb;
+			group.setShapeId("Group " + groupNb);
+			group.setShapeType(ShapeType.GROUP);
+			group.shapeDim = ShapeDimension.SHAPE2D;
+			group.shapes = this.shapes;
 		return group;
 	}
 }

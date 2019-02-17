@@ -28,7 +28,6 @@ public class EditCommand extends Command {
 	private AnchorPane pane; 
 	
 	public EditCommand () {
-		setCommandID("Edit :" + shapeToEdit);
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
