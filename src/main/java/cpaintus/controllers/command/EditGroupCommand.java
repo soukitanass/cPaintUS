@@ -18,16 +18,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class EditGroupCommand extends Command {
 
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private SnapshotSingleton snapshotSingleton;
 	private EditCommand command; 
-	private BoundingBox boundingBox;
 	private Shape shapeToEdit; 
 	private Shape oldShape;
-	private Canvas activeCanvas;
-	private DrawerStrategyContext drawerStrategyContext;
-	private ShapesDictionnary shapesDictionnary;
-	private AnchorPane pane;
 	
 	public EditCommand getCommand() {
 		return command;
@@ -46,11 +39,6 @@ public class EditGroupCommand extends Command {
 	}
 	
 	public EditGroupCommand () {
-		drawerStrategyContext = DrawerStrategyContext.getInstance();
-		shapesDictionnary = ShapesDictionnary.getInstance();
-		snapshotSingleton = SnapshotSingleton.getInstance();
-		boundingBox = BoundingBox.getInstance();
-		pane = snapshotSingleton.getSnapshotPane();
 		command = new EditCommand();
 	}
 	
