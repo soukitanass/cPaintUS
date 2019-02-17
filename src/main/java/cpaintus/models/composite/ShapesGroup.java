@@ -13,26 +13,6 @@ public class ShapesGroup extends Shape2D {
 	private List<Shape> shapes = new ArrayList<>();
 	private static int groupNb = 0;
 
-	public ShapesGroup(
-			ShapeType shapeType,
-			String shapeId,
-			int canvasHash,
-			double x,
-			double y,
-			int z,
-			double rotation,
-			int lineWidth,
-			String strokeColor,
-			String fillColor,
-			double width,
-			double height)
-	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
-		setShapeId("Group");
-		setShapeType(ShapeType.GROUP);
-		this.shapeDim = ShapeDimension.SHAPE2D;
-	}
-	
 	public ShapesGroup() {
 		setShapeId("Group " + groupNb++);
 		setShapeType(ShapeType.GROUP);
@@ -143,19 +123,7 @@ public class ShapesGroup extends Shape2D {
 	
 	@Override
 	public ShapesGroup makeCopy() {
-		ShapesGroup group = new ShapesGroup(
-				this.getShapeType(),
-				this.getShapeId(),
-				this.getCanvasHash(),
-				this.getX(),
-				this.getY(),
-				this.getZ(),
-				this.getRotation(),
-				this.getLineWidth(),
-				this.getStrokeColor(),
-				this.getFillColor(),
-				this.getWidth(),
-				this.getHeight());
+		ShapesGroup group = new ShapesGroup();
 		return group;
 	}
 }

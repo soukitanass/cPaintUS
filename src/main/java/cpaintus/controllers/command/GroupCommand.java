@@ -1,5 +1,6 @@
 package cpaintus.controllers.command;
 
+import cpaintus.controllers.SelectShapesSingleton;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
@@ -10,12 +11,14 @@ public class GroupCommand extends Command {
 	private ShapesGroup shapesGroup;
 	private ShapesDictionnary shapesDict;
 	private BoundingBox boundingBox;
+	private SelectShapesSingleton selectShapesSingleton;
 	private boolean firstime = false;
 
 	public GroupCommand() {
 		setCommandID("Group");
 		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
+		selectShapesSingleton = SelectShapesSingleton.getInstance();
 	}
 
 	public void setFirst(boolean first) {
@@ -27,7 +30,7 @@ public class GroupCommand extends Command {
 		System.out.println(firstime);
 		if (firstime) {
 			System.out.println("blabla");
-			shapesGroup = new ShapesGroup();
+			ShapesGroup shapesGroup = new ShapesGroup();
 			double x = Double.MAX_VALUE;
 			double y = Double.MAX_VALUE;
 			double x2 = 0;
@@ -56,6 +59,7 @@ public class GroupCommand extends Command {
 			shapesGroup.setHeightGroup(y2 - y);
 
 			if (!shapesGroup.getShapes().isEmpty()) {
+				selectShapesSingleton.setLastCreatedGroup(shapesGroup);
 				shapesDict.addShape(shapesGroup);
 			}
 			

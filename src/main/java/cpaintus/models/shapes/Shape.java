@@ -126,7 +126,6 @@ public abstract class Shape {
 	public ShapeDimension getShapeDimension() {
 		return shapeDim;
 	}
-	
 
 	public abstract Shape makeCopy();
 
