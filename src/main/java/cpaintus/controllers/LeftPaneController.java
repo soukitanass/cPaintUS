@@ -329,7 +329,6 @@ public class LeftPaneController implements IObserver {
 			attributes.setVisible(false);
 			return;
 		}
-		attributes.setVisible(true);
 		shapeToEdit = newShape;
 
 		// Always shown attributes
