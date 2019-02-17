@@ -1,5 +1,6 @@
 package cpaintus.controllers.command;
 
+import cpaintus.controllers.InvokerUpdateSingleton;
 import cpaintus.controllers.SelectShapesSingleton;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
@@ -28,7 +29,7 @@ public class GroupCommand extends Command {
 	@Override
 	public void execute() {
 		if (firstime) {
-			ShapesGroup shapesGroup = new ShapesGroup();
+			shapesGroup = new ShapesGroup();
 			double x = Double.MAX_VALUE;
 			double y = Double.MAX_VALUE;
 			double x2 = 0;
@@ -69,6 +70,7 @@ public class GroupCommand extends Command {
 				shapesDict.addShape(shapesGroup);
 			}
 		}
+		InvokerUpdateSingleton.getInstance().updateList();
 	}
 
 	@Override
@@ -79,6 +81,7 @@ public class GroupCommand extends Command {
 		}
 		boundingBox.setVisible(false);
 		firstime = false;
+		InvokerUpdateSingleton.getInstance().updateList();
 	}
 
 }
