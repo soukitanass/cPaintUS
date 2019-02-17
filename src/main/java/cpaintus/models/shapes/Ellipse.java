@@ -1,22 +1,21 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public class Ellipse extends Shape2D {
 
 	public Ellipse(
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height)
+			Size size)
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
 	}
 
 	public Ellipse() {

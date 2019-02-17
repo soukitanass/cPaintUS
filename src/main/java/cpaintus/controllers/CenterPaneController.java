@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
+import cpaintus.models.Point;
 import cpaintus.models.Pointer;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
@@ -17,6 +18,8 @@ import cpaintus.models.shapes.ShapeEditor;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
+import cpaintus.models.shapes.Size;
+import cpaintus.models.shapes.Stroke;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -350,17 +353,17 @@ public class CenterPaneController implements IObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.LINE) {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getOrigin().getX(),
-					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
-					lineWidth, sstrokeColor, sfillColor, "", text);
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
+					new Point(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY()),
+					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
+					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getUpLeftCorner().getX(),
-					boundingBox.getUpLeftCorner().getY(), boundingBox.getOppositeCorner().getX(),
-					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
-					lineWidth, sstrokeColor, sfillColor, "", text);
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
+					new Point(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY()),
+					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
+					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
 		}
 
 		if (newShape != null && persistent) {

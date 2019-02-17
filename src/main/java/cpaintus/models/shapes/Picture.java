@@ -1,5 +1,7 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public class Picture extends Shape2D {
 	private String base64;
 	
@@ -7,18 +9,15 @@ public class Picture extends Shape2D {
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height,
+			Size size,
 			String base64)
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash,position, z, rotation, stroke, fillColor, size);
 		this.setBase64(base64);
 	}
 	
