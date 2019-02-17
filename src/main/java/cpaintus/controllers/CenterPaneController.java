@@ -259,6 +259,7 @@ public class CenterPaneController implements IObserver {
 			}
 			return;
 		}
+
 		hash = shape.getCanvasHash();
 		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		if (canvas == null) {
@@ -435,6 +436,7 @@ public class CenterPaneController implements IObserver {
 		shapesGroup.setHeightGroup(y2 - y);
 
 		if (!shapesGroup.getShapes().isEmpty()) {
+			selectShapesSingleton.setLastCreatedGroup(shapesGroup);
 			shapesDict.addShape(shapesGroup);
 		}
 		selectShapes = false;
