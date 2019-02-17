@@ -19,7 +19,6 @@ import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.ShapeEditor;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
@@ -58,7 +57,6 @@ public class CenterPaneController implements IObserver {
 	private ShapeFactory shapeFactory;
 	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
-	private ShapeEditor shapeEditor;
 	private SelectShapesSingleton selectShapesSingleton;
 	private Invoker invoker;
 
@@ -81,8 +79,6 @@ public class CenterPaneController implements IObserver {
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
-		shapeEditor = ShapeEditor.getInstance();
-		shapeEditor.register(this);
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
 		invoker = Invoker.getInstance();
@@ -143,10 +139,6 @@ public class CenterPaneController implements IObserver {
 		case SHAPES_LOADED:
 			eraseCanvas();
 			refresh();
-			break;
-		case EDIT_SHAPE:
-			editShape(shapeEditor.getShapeToEdit());
-			shapeEditor.done();
 			break;
 		case LOAD_IMAGE:
 			loadImage();
@@ -251,21 +243,6 @@ public class CenterPaneController implements IObserver {
 		newCanvas.setMouseTransparent(true);
 		newCanvas.setBlendMode(BlendMode.SRC_OVER);
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
-	}
-
-	private void editShape(Shape shape) {
-		Canvas canvas;
-		int hash;
-		if (shape == null) {
-			LOGGER.log(Level.INFO,"No shape to edit. Aborting edit because shape is null.");
-			return;
-		}
-		if (shape.getShapeType() == ShapeType.GROUP) {
-			for (Shape sh : ((ShapesGroup) shape).getShapes()) {
-				editShape(sh);
-			}
-			return;
-		}
 	}
 
 	public void draw(boolean persistent) {
