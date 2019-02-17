@@ -27,9 +27,7 @@ public class GroupCommand extends Command {
 
 	@Override
 	public void execute() {
-		System.out.println(firstime);
 		if (firstime) {
-			System.out.println("blabla");
 			ShapesGroup shapesGroup = new ShapesGroup();
 			double x = Double.MAX_VALUE;
 			double y = Double.MAX_VALUE;
