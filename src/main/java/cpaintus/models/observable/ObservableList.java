@@ -14,5 +14,5 @@ public enum ObservableList {
 	GROUP_SHAPES, 
 	UNGROUP_SHAPES, 
 	SHAPE_REMOVED, 
-	DELETE_SHAPE,
+	CHANGEDCOMMAND,
 }

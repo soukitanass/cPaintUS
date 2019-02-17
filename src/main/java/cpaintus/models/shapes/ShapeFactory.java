@@ -16,6 +16,66 @@ public class ShapeFactory {
 	public int getTotalShapeNb() {
 		return totalShapeNb;
 	}
+	
+	public int getRectangleNb() {
+		return rectangleNb;
+	}
+
+	public int getEllipseNb() {
+		return ellipseNb;
+	}
+
+	public int getLineNb() {
+		return lineNb;
+	}
+
+	public int getPokeballNb() {
+		return pokeballNb;
+	}
+
+	public int getHeartNb() {
+		return heartNb;
+	}
+
+	public int getPictureNb() {
+		return pictureNb;
+	}
+
+	public int getTextNb() {
+		return textNb;
+	}
+
+	public void setRectangleNb(int rectangleNb) {
+		this.rectangleNb = rectangleNb;
+	}
+
+	public void setEllipseNb(int ellipseNb) {
+		this.ellipseNb = ellipseNb;
+	}
+
+	public void setLineNb(int lineNb) {
+		this.lineNb = lineNb;
+	}
+
+	public void setPokeballNb(int pokeballNb) {
+		this.pokeballNb = pokeballNb;
+	}
+
+	public void setHeartNb(int heartNb) {
+		this.heartNb = heartNb;
+	}
+
+	public void setPictureNb(int pictureNb) {
+		this.pictureNb = pictureNb;
+	}
+
+	public void setTextNb(int textNb) {
+		this.textNb = textNb;
+	}
+
+	public void setTotalShapeNb(int totalShapeNb) {
+		this.totalShapeNb = totalShapeNb;
+	}
 
 	private ShapeFactory() {
 		rectangleNb = 0;
@@ -42,7 +102,7 @@ public class ShapeFactory {
 		Shape shape;
 
 		if (persistent)
-			totalShapeNb++;
+			++totalShapeNb;
 
 		switch (shapeType) {
 		case RECTANGLE:

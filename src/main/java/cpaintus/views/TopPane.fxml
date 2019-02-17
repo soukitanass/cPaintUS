@@ -39,6 +39,16 @@
 							onAction="#handleAboutClick" />
 					</items>
 				</Menu>
+				<Menu mnemonicParsing="false" text="Edition">
+					<items>
+						<MenuItem mnemonicParsing="false" text="Undo"
+							onAction="#handleUndo" />
+					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" text="Redo"
+							onAction="#handleRedo" />					
+					</items>
+				</Menu>
 			</menus>
 		</MenuBar>
 	</children>

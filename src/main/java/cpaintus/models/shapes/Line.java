@@ -20,4 +20,18 @@ public class Line extends Shape1D {
 	public Line() {
 		
 	}
+	
+	@Override
+	public Line makeCopy() {
+		Line line = new Line(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				new Point(this.getX(),this.getY()),
+				this.getZ(),
+				this.getRotation(),
+				new Stroke(this.getLineWidth(),this.getStrokeColor()),
+				new Point(this.getX2(),getY2()));
+		return line;
+	}
 }

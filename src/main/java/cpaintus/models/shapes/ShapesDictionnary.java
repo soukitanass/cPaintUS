@@ -33,6 +33,14 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		return instance;
 	}
 
+	public LinkedHashMap<String, Shape> getShapesDict() {
+		return shapesDict;
+	}
+
+	public void setShapesDict(LinkedHashMap<String, Shape> shapesDict) {
+		this.shapesDict = shapesDict;
+	}
+
 	public List<Shape> getShapesList() {
 		return new ArrayList<>(shapesDict.values());
 	}
@@ -87,6 +95,10 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 	}
 
+	public void clearShapesTempo() {
+		shapesDict.clear();
+	}
+	
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
@@ -117,7 +129,9 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void removeShape(Shape shape, boolean shouldNotify) {
-		shapesDict.remove(shape.getShapeId(), shape);
+    if(shapesDict.containsKey(shape.getShapeId())) {
+			shapesDict.remove(shape.getShapeId());
+		}
 		if (shouldNotify)
 			notifyRemoveAllObservers();
 	}
