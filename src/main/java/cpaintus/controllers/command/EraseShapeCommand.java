@@ -1,12 +1,5 @@
 package cpaintus.controllers.command;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;

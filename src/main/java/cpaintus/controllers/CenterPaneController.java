@@ -2,8 +2,6 @@ package cpaintus.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import cpaintus.controllers.command.DrawCommand;
 import cpaintus.controllers.command.EraseAllCommand;
@@ -38,7 +36,6 @@ import javafx.scene.paint.Color;
 
 public class CenterPaneController implements IObserver {
 
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	@FXML
 	private Canvas baseCanvas;
 
@@ -62,7 +59,6 @@ public class CenterPaneController implements IObserver {
 
 	private boolean hasBeenDragged;
 	private boolean selectShapes;
-	
 
 	private EventHandler<MouseEvent> mousePressedEventHandler;
 
@@ -110,7 +106,7 @@ public class CenterPaneController implements IObserver {
 					removeLastAddedCanvas();
 					selectShapes();
 					boundingBox.setVisible(true);
-				}				
+				}
 			}
 		};
 	}
@@ -160,13 +156,6 @@ public class CenterPaneController implements IObserver {
 		}
 	}
 
-	private void deleteShape(Shape shapeToDelete) {
-		shapesDict.removeShape(shapeToDelete);
-		boundingBox.setVisible(false);
-		eraseCanvas();
-		refresh();
-	}
-
 	private void unselectShapes(ShapesGroup group) {
 		selectShapes = false;
 		UngroupCommand ungroupCommand = new UngroupCommand();
@@ -179,7 +168,7 @@ public class CenterPaneController implements IObserver {
 		EraseAllCommand eraseAllCommand = new EraseAllCommand();
 		eraseAllCommand.setPane(pane);
 		invoker.execute(eraseAllCommand);
-		
+
 	}
 
 	@FXML
@@ -313,14 +302,16 @@ public class CenterPaneController implements IObserver {
 			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
 					new Point(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY()),
 					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
-					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
+					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor),
+					sfillColor, "", text);
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
 			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
 					new Point(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY()),
 					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
-					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
+					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor),
+					sfillColor, "", text);
 		}
 
 		return newShape;

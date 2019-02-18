@@ -49,11 +49,11 @@ public class SelectShapesSingleton extends Observable<IObserver> {
 	public Shape getSelectedShape() {
 		return selectedShape;
 	}
-	
+
 	public void setLastCreatedGroup(ShapesGroup group) {
 		lastCreatedGroup = group;
 	}
-	
+
 	public ShapesGroup getLastCreatedGroup() {
 		return lastCreatedGroup;
 	}
