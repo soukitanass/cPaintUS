@@ -34,6 +34,7 @@ public class EditZCommand extends Command {
 	
 	public void setShape(Shape shape) {
 		this.shapeAttr = shape;
+		setCommandID("Edit Z :" + new String(shapeAttr.toString()));
 	}
 	
 	public void setNewZ(int newZ) {
@@ -49,7 +50,6 @@ public class EditZCommand extends Command {
 	}
 
 	public EditZCommand () {
-		setCommandID("Edit Z :" + shapeAttr);
 		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
