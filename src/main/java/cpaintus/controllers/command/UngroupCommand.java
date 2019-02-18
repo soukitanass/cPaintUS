@@ -36,18 +36,7 @@ public class UngroupCommand extends Command {
 
 	@Override
 	public void undo() {
-		for (Shape shape : shapesGroup.getShapes()) {
-			shapesDict.removeShape(shape, false);
-		}
-		
-		if (this.parents.size() != 0) {
-			for (ShapesGroup parent : this.parents) {
-				parent.add(shapesGroup);
-				shapesDict.addShape(parent); // To trigger event in left pane
-			}
-		} else {
-			shapesDict.addShape(shapesGroup);
-		}
+		shapesDict.addShape(this.shapesGroup, this.parents);
 	}
 
 }

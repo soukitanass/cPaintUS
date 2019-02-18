@@ -21,10 +21,22 @@ public class ShapesGroup extends Shape2D {
 	}
 
 	public void add(Shape shape) {
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape child : ((ShapesGroup) shape).getShapes()) {
+				this.shapes.remove(child);
+			}
+		}
+		
 		this.shapes.add(shape);
 	}
 
 	public void remove(Shape shape) {
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape child : ((ShapesGroup) shape).getShapes()) {
+				this.shapes.add(child);
+			}
+		}
+		
 		shapes.remove(shape);
 	}
 

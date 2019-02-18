@@ -47,14 +47,7 @@ public class EraseShapeCommand extends Command {
 	@Override
 	public void undo() {
 		if(this.shapeToDelete != null && this.activeCanvas != null) {
-			if (this.parents.size() != 0) {
-				for (ShapesGroup parent : this.parents) {
-					parent.add(shapeToDelete);
-					shapesDictionnary.addShape(parent); // To trigger event in left pane
-				}
-			} else {
-				shapesDictionnary.addShape(shapeToDelete);
-			}
+			shapesDictionnary.addShape(this.shapeToDelete, this.parents);
 			drawerStrategyContext.draw(shapeToDelete, activeCanvas);
 		}
 	}

@@ -69,7 +69,25 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void addShape(Shape shape) {
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape child : ((ShapesGroup) shape).getShapes()) {
+				removeShape(child, false);
+				System.out.println("Yo remove child!");
+			}
+		}
+		
 		addShape(shape, true);
+	}
+	
+	public void addShape(Shape shape, List<ShapesGroup> parents) {
+		if (parents.size() != 0) {
+			for (ShapesGroup parent : parents) {
+				parent.add(shape);
+			}
+			notifyAddAllObservers();
+		} else {
+			addShape(shape);
+		}
 	}
 
 	public void addShape(Shape shape, boolean shouldNotify) {
@@ -144,17 +162,9 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			parent.remove(shape);
 		}
 		
-		if (shape.getShapeType() == ShapeType.GROUP) {
-			if (parents.size() != 0) {
-				for (ShapesGroup parent : parents) {
-					for (Shape s : ((ShapesGroup) shape).getShapes()) {
-						parent.add(s);
-					}
-				}
-			} else {
-				for (Shape s : ((ShapesGroup) shape).getShapes()) {
-					addShape(s);
-				}
+		if (shape.getShapeType() == ShapeType.GROUP && parents.size() == 0) {
+			for (Shape s : ((ShapesGroup) shape).getShapes()) {
+				addShape(s);
 			}
 		}
 
