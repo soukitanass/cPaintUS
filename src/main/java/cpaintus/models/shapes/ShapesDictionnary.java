@@ -69,13 +69,15 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void addShape(Shape shape) {
-		if (shape.getShapeType() == ShapeType.GROUP) {
-			for (Shape child : ((ShapesGroup) shape).getShapes()) {
-				removeShape(child, false);
+		if (shape != null) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				for (Shape child : ((ShapesGroup) shape).getShapes()) {
+					removeShape(child, false);
+				}
 			}
+
+			addShape(shape, true);
 		}
-		
-		addShape(shape, true);
 	}
 	
 	public void addShape(Shape shape, List<ShapesGroup> parents) {
