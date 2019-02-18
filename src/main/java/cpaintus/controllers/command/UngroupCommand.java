@@ -25,9 +25,6 @@ public class UngroupCommand extends Command {
 	@Override
 	public void execute() {
 		shapesDict.removeShape(shapesGroup);
-		for (Shape shape : shapesGroup.getShapes()) {
-			shapesDict.addShape(shape);
-		}
 		boundingBox.setVisible(false);
 	}
 

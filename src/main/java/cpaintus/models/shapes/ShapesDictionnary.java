@@ -123,8 +123,28 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			obs.update(ObservableList.SHAPE_REMOVED);
 		}
 	}
+	
+	public void removeShapeFromGroups(Shape shapeToRemove, List<Shape> shapesList) {
+		for (Shape shape : shapesList) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				if (((ShapesGroup) shape).getShapes().contains(shapeToRemove)) {
+					((ShapesGroup) shape).remove(shapeToRemove);
+				}
+
+				removeShapeFromGroups(shapeToRemove, ((ShapesGroup) shape).getShapes());
+			}
+		}
+	}
 
 	public void removeShape(Shape shape) {
+		removeShapeFromGroups(shape, getShapesList());
+		
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape s : ((ShapesGroup) shape).getShapes()) {
+				addShape(s);
+			}
+		}
+
 		removeShape(shape, true);
 	}
 
