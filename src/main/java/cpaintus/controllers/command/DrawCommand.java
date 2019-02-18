@@ -16,7 +16,7 @@ public class DrawCommand extends Command{
 	private ShapesDictionnary shapesDict;
 
 	public DrawCommand (AnchorPane pane, Shape shape) {
-		setCommandID("Draw : " + shape);
+		setCommandID("Draw : " + new String (shape.toString()));
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		shapesDict = ShapesDictionnary.getInstance();
 		this.pane = pane;

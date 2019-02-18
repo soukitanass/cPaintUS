@@ -53,7 +53,7 @@ public class EraseShapeCommand extends Command {
 	
 	public void setShapeToDelete(Shape shapeToDelete) {
 		this.shapeToDelete = shapeToDelete;
-		setCommandID("Erase : "+ shapeToDelete);
+		setCommandID("Erase : "+ new String (shapeToDelete.toString()));
 	}
 	
 	
