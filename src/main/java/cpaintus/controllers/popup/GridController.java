@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class GridController {
 
-	private Stage newDialog;private boolean isYesClicked = false;
+	private Stage newDialog;
 	@FXML
 	private CheckBox activateGridControl;
 	@FXML
