@@ -145,8 +145,16 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 		
 		if (shape.getShapeType() == ShapeType.GROUP) {
-			for (Shape s : ((ShapesGroup) shape).getShapes()) {
-				addShape(s);
+			if (parents.size() != 0) {
+				for (ShapesGroup parent : parents) {
+					for (Shape s : ((ShapesGroup) shape).getShapes()) {
+						parent.add(s);
+					}
+				}
+			} else {
+				for (Shape s : ((ShapesGroup) shape).getShapes()) {
+					addShape(s);
+				}
 			}
 		}
 
