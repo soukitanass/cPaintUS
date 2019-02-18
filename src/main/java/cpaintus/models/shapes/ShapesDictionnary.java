@@ -124,6 +124,18 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 	}
 	
+	public void findParents(Shape child, List<Shape> shapesList, List<ShapesGroup> parents) {
+		for (Shape shape : shapesList) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				if (((ShapesGroup) shape).getShapes().contains(child)) {
+					parents.add((ShapesGroup) shape);
+				}
+				
+				findParents(child, ((ShapesGroup) shape).getShapes(), parents);
+			}
+		}
+	}
+	
 	public void removeShapeFromGroups(Shape shapeToRemove, List<Shape> shapesList) {
 		for (Shape shape : shapesList) {
 			if (shape.getShapeType() == ShapeType.GROUP) {
@@ -137,7 +149,12 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void removeShape(Shape shape) {
-		removeShapeFromGroups(shape, getShapesList());
+		List<ShapesGroup> parents = new ArrayList<ShapesGroup>();
+		findParents(shape, getShapesList(), parents);
+		
+		for (ShapesGroup parent : parents) {
+			parent.remove(shape);
+		}
 		
 		if (shape.getShapeType() == ShapeType.GROUP) {
 			for (Shape s : ((ShapesGroup) shape).getShapes()) {

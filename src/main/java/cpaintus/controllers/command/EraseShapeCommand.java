@@ -1,8 +1,11 @@
 package cpaintus.controllers.command;
 
+import java.util.ArrayList;
+import java.util.List;
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
+import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.canvas.Canvas;
@@ -16,6 +19,7 @@ public class EraseShapeCommand extends Command {
 	private AnchorPane pane; 
 	private Canvas activeCanvas;
 	private Shape shapeToDelete;
+	private List<ShapesGroup> parents;
 	private ShapesDictionnary shapesDictionnary;
 	private DrawerStrategyContext drawerStrategyContext;
 	
@@ -32,6 +36,10 @@ public class EraseShapeCommand extends Command {
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+		
+		parents = new ArrayList<ShapesGroup>();
+		shapesDictionnary.findParents(shapeToDelete, shapesDictionnary.getShapesList(), parents);
+		
 		shapesDictionnary.removeShape(shapeToDelete);
 		boundingBox.setVisible(false);
 	}
@@ -39,7 +47,15 @@ public class EraseShapeCommand extends Command {
 	@Override
 	public void undo() {
 		if(this.shapeToDelete != null && this.activeCanvas != null) {
-			shapesDictionnary.addShape(shapeToDelete);
+			if (this.parents.size() != 0) {
+				for (ShapesGroup parent : this.parents) {
+					parent.add(shapeToDelete);
+					shapesDictionnary.addShape(parent); // To trigger event in left pane
+				}
+			}
+			else {
+				shapesDictionnary.addShape(shapeToDelete);
+			}
 			drawerStrategyContext.draw(shapeToDelete, activeCanvas);
 		}
 	}
