@@ -706,66 +706,55 @@ public class LeftPaneController implements IObserver {
 			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
 	}
-
-	@FXML
-	private void handleTopClick() {
+	
+	private void shapeAlignment(Direction direction, double newVal) {
 		if (isUpdatingAttributes)
 			return;
-		double newY = boundingBox.getUpLeftCorner().getY();
 		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
 			EditCommand editCommand = new EditCommand();
 			Shape oldShape = shape.makeCopy();
 			editCommand.setOldShape(oldShape);
-			shape.setY(newY);
+			switch (direction) {
+			case TOP:
+			case BUTTOM:
+				shape.setY(newVal);
+				break;
+			case RIGHT:
+			case LEFT:
+				shape.setX(newVal);
+				break;
+			default:
+				break;
+			}
+			
 			editCommand.setShapeToEdit(shape);
 			invoker.execute(editCommand);
 		}
+	}
+
+	@FXML
+	private void handleTopClick() {
+		double newY = boundingBox.getUpLeftCorner().getY();
+		shapeAlignment(Direction.TOP, newY);
 
 	}
 
 	@FXML
 	private void handleRightClick() {
-		if (isUpdatingAttributes)
-			return;
 		double newX = boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth();
-		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
-			EditCommand editCommand = new EditCommand();
-			Shape oldShape = shape.makeCopy();
-			editCommand.setOldShape(oldShape);
-			shape.setX(newX);
-			editCommand.setShapeToEdit(shape);
-			invoker.execute(editCommand);
-		}
+		shapeAlignment(Direction.RIGHT, newX);
 	}
 
 	@FXML
 	private void handleButtomClick() {
-		if (isUpdatingAttributes)
-			return;
-		double newY = boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight();
-		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
-			EditCommand editCommand = new EditCommand();
-			Shape oldShape = shape.makeCopy();
-			editCommand.setOldShape(oldShape);
-			shape.setY(newY);
-			editCommand.setShapeToEdit(shape);
-			invoker.execute(editCommand);
-		}
+		double newY = boundingBox.getUpLeftCorner().getY();
+		shapeAlignment(Direction.BUTTOM, newY);
 	}
 
 	@FXML
 	private void handleLeftClick() {
-		if (isUpdatingAttributes)
-			return;
 		double newX = boundingBox.getUpLeftCorner().getX();
-		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
-			EditCommand editCommand = new EditCommand();
-			Shape oldShape = shape.makeCopy();
-			editCommand.setOldShape(oldShape);
-			shape.setX(newX);
-			editCommand.setShapeToEdit(shape);
-			invoker.execute(editCommand);
-		}
+		shapeAlignment(Direction.LEFT, newX);
 	}
 
 }
