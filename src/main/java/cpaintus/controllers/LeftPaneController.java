@@ -716,7 +716,7 @@ public class LeftPaneController implements IObserver {
 			editCommand.setOldShape(oldShape);
 			switch (direction) {
 			case TOP:
-			case BUTTOM:
+			case BOTTOM:
 				shape.setY(newVal);
 				break;
 			case RIGHT:
