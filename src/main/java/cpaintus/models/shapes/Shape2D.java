@@ -11,21 +11,18 @@ public abstract class Shape2D extends Shape {
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height) 
+			Size size) 
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor);
+		super(shapeType, shapeId, canvasHash,position, z, rotation, stroke);
 		this.shapeDim = ShapeDimension.SHAPE2D;
 		this.fillColor = fillColor;
-		this.width = width;
-		this.height = height;
+		this.width = size.getWidth();
+		this.height = size.getHeight();
 	}
 	
 	public Shape2D() {
