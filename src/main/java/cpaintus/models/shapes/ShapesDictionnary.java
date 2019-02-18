@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
-
+import cpaintus.models.Point;
 import cpaintus.models.composite.ShapesGroup;
 
 public class ShapesDictionnary extends Observable<IObserver> {
@@ -33,12 +33,20 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		return instance;
 	}
 
+	public LinkedHashMap<String, Shape> getShapesDict() {
+		return shapesDict;
+	}
+
+	public void setShapesDict(LinkedHashMap<String, Shape> shapesDict) {
+		this.shapesDict = shapesDict;
+	}
+
 	public List<Shape> getShapesList() {
 		return new ArrayList<>(shapesDict.values());
 	}
 	
 	public List<Shape> getFullShapesList() {
-		List<Shape> fullList = new ArrayList<Shape>();
+		List<Shape> fullList = new ArrayList<>();
 		List<Shape> list = getShapesList();
 		
 		appendChildren(fullList, list);
@@ -77,7 +85,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	public void addListShapes(List<Shape> shapesList) {
 		for (Shape shape : shapesList) {
 			if (shape != null) {
-				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, 0, 0, 0, 0, 0, 0, 0, 1, "#000000",
+				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0,new Point(0,0), new Point(0,0),new Size(0, 0), 0, new Stroke(1, "#000000"),
 						"#000000", "", "");
 				shape.setShapeId(temp.getShapeId());
 				shape.setZ(shapeFactory.getTotalShapeNb());
@@ -87,6 +95,10 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 	}
 
+	public void clearShapesTempo() {
+		shapesDict.clear();
+	}
+	
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
@@ -117,7 +129,9 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void removeShape(Shape shape, boolean shouldNotify) {
-		shapesDict.remove(shape.getShapeId(), shape);
+    if(shapesDict.containsKey(shape.getShapeId())) {
+			shapesDict.remove(shape.getShapeId());
+		}
 		if (shouldNotify)
 			notifyRemoveAllObservers();
 	}

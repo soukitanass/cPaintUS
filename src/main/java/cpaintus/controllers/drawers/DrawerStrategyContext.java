@@ -1,6 +1,5 @@
 package cpaintus.controllers.drawers;
 
-import cpaintus.models.shapes.Line;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

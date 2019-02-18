@@ -1,5 +1,6 @@
 package cpaintus.controllers;
 
+import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
@@ -9,6 +10,7 @@ public class SelectShapesSingleton extends Observable<IObserver> {
 
 	private static SelectShapesSingleton instance = null;
 	private Shape selectedShape;
+	private ShapesGroup lastCreatedGroup;
 
 	private SelectShapesSingleton() {
 	}
@@ -46,6 +48,14 @@ public class SelectShapesSingleton extends Observable<IObserver> {
 
 	public Shape getSelectedShape() {
 		return selectedShape;
+	}
+
+	public void setLastCreatedGroup(ShapesGroup group) {
+		lastCreatedGroup = group;
+	}
+
+	public ShapesGroup getLastCreatedGroup() {
+		return lastCreatedGroup;
 	}
 
 }

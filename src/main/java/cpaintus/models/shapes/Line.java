@@ -1,24 +1,37 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public class Line extends Shape1D {
 
 	public Line(
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
-			double x2,
-			double y2) 
+			Stroke stroke,
+			Point position2) 
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, x2, y2);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, position2);
 	}
 
 	public Line() {
 		
+	}
+	
+	@Override
+	public Line makeCopy() {
+		Line line = new Line(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				new Point(this.getX(),this.getY()),
+				this.getZ(),
+				this.getRotation(),
+				new Stroke(this.getLineWidth(),this.getStrokeColor()),
+				new Point(this.getX2(),getY2()));
+		return line;
 	}
 }

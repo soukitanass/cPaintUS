@@ -15,6 +15,8 @@ import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
+import cpaintus.models.shapes.Size;
+import cpaintus.models.shapes.Stroke;
 
 class ShapeDictTest {
 
@@ -34,7 +36,7 @@ class ShapeDictTest {
 
 	@Test
 	void addShapeTest() {
-		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff",
+		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff",
 				"", "hh");
 		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
@@ -55,7 +57,7 @@ class ShapeDictTest {
 
 	@Test
 	void clearShapesTest() {
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 0, 11, 0, 0, 1, 10, 100, 1, "#fff",
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100, new Stroke(1, "#fff"),
 				"#fff", "", "hh"));
 		shapeDict.clearShapes();
 		Assertions.assertEquals(0, shapeDict.getShapesList().size());
@@ -64,7 +66,8 @@ class ShapeDictTest {
 	@Test
 	void addListShapeTest() {
 		List<Shape> actualList = new ArrayList<Shape>();
-		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, 0, 11, 0, 0, 1, 10, 100, 1, "#fff", "#fff",
+		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff",
 				"", "hh");
 		actualList.add(actual);
 		shapeDict.clearShapes();
@@ -105,13 +108,13 @@ class ShapeDictTest {
 
 	void addShapes() {
 		shapeDict.clearShapes();
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 3, 6, 11, 0, 0, 200, 10, 0, 1, "#ff1ff",
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11),new Point(0,0), new Size(200, 10), 0, new Stroke(1, "#fff"),
 				"#fff56", "", "test"));
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.ELLIPSE, true, 5, 7, 11, 0, 0, 220, 100, 30, 2, "#fff98",
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0,0), new Size(220, 100), 30, new Stroke(2, "#fff98"),
 				"#ff678", "", "test"));
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.HEART, true, 3, 22, 11, 0, 0, 320, 130, 100, 6, "#fff45",
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0,0), new Size(320, 130), 100, new Stroke(6, "#fff45"),
 				"#f678f", "", "test"));
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.HEART, true, 3, 22, 11, 0, 0, 320, 130, 100, 6, "#fff45",
+		shapeDict.addShape(shapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0,0), new Size(320, 130), 100,new Stroke(6, "#fff45"),
 				"#f678f", "", "test"));
 		assertEquals(4, shapeDict.getShapesList().size());
 	}
