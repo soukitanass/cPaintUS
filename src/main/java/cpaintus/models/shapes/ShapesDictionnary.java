@@ -72,7 +72,6 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		if (shape.getShapeType() == ShapeType.GROUP) {
 			for (Shape child : ((ShapesGroup) shape).getShapes()) {
 				removeShape(child, false);
-				System.out.println("Yo remove child!");
 			}
 		}
 		
