@@ -13,6 +13,7 @@
 		<HBox minWidth="200.0" alignment="CENTER" spacing="10">
 			<Button fx:id="yesBtn" onAction="#handleYesClick" text="Yes" />
 			<Button fx:id="noBtn" onAction="#handleNoClick" text="No" />
+			<Button fx:id="cancelBtn" onAction ="#handleCancelClick" text="Cancel"/>
 		</HBox>
 	</VBox>
 </AnchorPane>

@@ -9,6 +9,8 @@ public class CloseController {
 
 	private Stage newDialog;
 	private boolean isYesClicked = false;
+	private boolean isCancelClicked = false;
+	private boolean isNoClicked = false;
 
 	@FXML
 	private Label title;
@@ -20,10 +22,19 @@ public class CloseController {
 	public void setNewDialog(Stage stage) {
 		this.newDialog = stage;
 	}
+	
+	public boolean isNoClicked() {
+		return isNoClicked;
+	}
 
 	public boolean isYesClicked() {
 		return this.isYesClicked;
 	}
+	
+	public boolean isCancelClicked() {
+		return this.isCancelClicked;
+	}
+
 
 	@FXML
 	public void handleYesClick() {
@@ -34,8 +45,15 @@ public class CloseController {
 	@FXML
 	public void handleNoClick() {
 		newDialog.close();
+		isNoClicked = true;
 	}
-
+	
+	@FXML
+	public void handleCancelClick() {
+		newDialog.close();
+		isCancelClicked = true;
+	}
+	
 	@FXML
 	public void initialize() {
 		title.setStyle("-fx-font-size: 24px");
