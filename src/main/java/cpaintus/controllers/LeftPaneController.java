@@ -8,11 +8,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
+import cpaintus.controllers.command.Command;
 import cpaintus.controllers.command.EditCommand;
 import cpaintus.controllers.command.EditGroupCommand;
 import cpaintus.controllers.command.EditZCommand;
 import cpaintus.controllers.command.EraseShapeCommand;
-import cpaintus.controllers.command.Command;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
@@ -29,9 +29,9 @@ import cpaintus.models.shapes.ShapeDimension;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
 import cpaintus.models.shapes.Text;
-import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,7 +57,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
-import javafx.collections.ListChangeListener;
 
 public class LeftPaneController implements IObserver {
 
@@ -98,6 +97,14 @@ public class LeftPaneController implements IObserver {
 	private Button unselectBtn;
 	@FXML
 	private Button deleteBtn;
+	@FXML
+	private Button topBtn;
+	@FXML
+	private Button rightBtn;
+	@FXML
+	private Button buttomBtn;
+	@FXML
+	private Button leftBtn;
 	@FXML
 	private TreeView<Shape> tree;
 	@FXML
@@ -225,6 +232,10 @@ public class LeftPaneController implements IObserver {
 		// Bind managed to visibility
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
 		deleteBtn.managedProperty().bind(deleteBtn.visibleProperty());
+		topBtn.managedProperty().bind(topBtn.visibleProperty());
+		rightBtn.managedProperty().bind(rightBtn.visibleProperty());
+		buttomBtn.managedProperty().bind(buttomBtn.visibleProperty());
+		leftBtn.managedProperty().bind(leftBtn.visibleProperty());
 		editLineWidthSection.managedProperty().bind(editLineWidthSection.visibleProperty());
 		editStrokeColorSection.managedProperty().bind(editStrokeColorSection.visibleProperty());
 		editZSection.managedProperty().bind(editZSection.visibleProperty());
@@ -346,6 +357,10 @@ public class LeftPaneController implements IObserver {
 		// Set the attributes visibility
 		unselectBtn.setVisible(isGroup);
 		deleteBtn.setVisible(!isGroup);
+		topBtn.setVisible(isGroup);
+		rightBtn.setVisible(isGroup);
+		buttomBtn.setVisible(isGroup);
+		leftBtn.setVisible(isGroup);
 		editLineWidthSection.setVisible(!isGroup);
 		editStrokeColorSection.setVisible(!isGroup);
 		editZSection.setVisible(!isGroup);
@@ -689,6 +704,67 @@ public class LeftPaneController implements IObserver {
 			boundingBox.updateBoundingBox(new Point(((Line) shape).getX2(), ((Line) shape).getY2()));
 		} else {
 			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
+		}
+	}
+
+	@FXML
+	private void handleTopClick() {
+		if (isUpdatingAttributes)
+			return;
+		double newY = boundingBox.getUpLeftCorner().getY();
+		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shape.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shape.setY(newY);
+			editCommand.setShapeToEdit(shape);
+			invoker.execute(editCommand);
+		}
+
+	}
+
+	@FXML
+	private void handleRightClick() {
+		if (isUpdatingAttributes)
+			return;
+		double newX = boundingBox.getUpLeftCorner().getX() + boundingBox.getWidth();
+		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shape.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shape.setX(newX);
+			editCommand.setShapeToEdit(shape);
+			invoker.execute(editCommand);
+		}
+	}
+
+	@FXML
+	private void handleButtomClick() {
+		if (isUpdatingAttributes)
+			return;
+		double newY = boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight();
+		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shape.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shape.setY(newY);
+			editCommand.setShapeToEdit(shape);
+			invoker.execute(editCommand);
+		}
+	}
+
+	@FXML
+	private void handleLeftClick() {
+		if (isUpdatingAttributes)
+			return;
+		double newX = boundingBox.getUpLeftCorner().getX();
+		for (Shape shape : ((ShapesGroup) shapeToEdit).getShapes()) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shape.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shape.setX(newX);
+			editCommand.setShapeToEdit(shape);
+			invoker.execute(editCommand);
 		}
 	}
 

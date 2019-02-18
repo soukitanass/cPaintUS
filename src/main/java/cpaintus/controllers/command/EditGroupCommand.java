@@ -1,19 +1,12 @@
 package cpaintus.controllers.command;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
-import cpaintus.models.BoundingBox;
-import cpaintus.models.Point;
-import cpaintus.models.composite.ShapesGroup;
-import cpaintus.models.shapes.Line;
 import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.ShapeType;
-import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 
@@ -26,7 +19,6 @@ public class EditGroupCommand extends Command {
 	private SnapshotSingleton snapshotSingleton;
 	private Canvas activeCanvas;
 	private DrawerStrategyContext drawerStrategyContext;
-	private ShapesDictionnary shapesDictionnary;
 	private AnchorPane pane;
 
 	public EditCommand getCommand() {
@@ -43,7 +35,7 @@ public class EditGroupCommand extends Command {
 
 	public void setShapeToEdit(List<Shape> shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("EditGroup" + new String (shapeToEdit.toString()));
+		setCommandID("EditGroup" + new String(shapeToEdit.toString()));
 	}
 
 	public List<Shape> getOldShape() {
@@ -57,7 +49,6 @@ public class EditGroupCommand extends Command {
 	public EditGroupCommand() {
 		command = new EditCommand();
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
-		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
 	}
