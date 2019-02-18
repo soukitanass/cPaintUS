@@ -26,6 +26,7 @@ class PointerTest {
 	
 	@Test
 	void observerRegisterUnregisterTest() {
+		pointer.unregisterAll();
 		pointer.register(new IObserver() {
 
 			@Override

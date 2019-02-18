@@ -42,8 +42,8 @@ class FileManagerStrategyTest {
 		fileManagerStrategy = new XMLStrategy();
 		shapesDict.clearShapes();
 		shapesDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(3333, 11), new Point(1, 10),
-				new Size(100, 1), 2,new Stroke( 7, "#00000"),
-				"#00000", null, "test"));
+				new Size(100, 1), 2,new Stroke( 7, "#000000"),
+				"#000000", null, "test"));
 		fileManagerStrategy.save(resolvePath(XML_FILE_TO_SAVE_PATH));
 		shapesDict.clearShapes();
 		fileManagerStrategy.load(resolvePath(XML_FILE_TO_SAVE_PATH));

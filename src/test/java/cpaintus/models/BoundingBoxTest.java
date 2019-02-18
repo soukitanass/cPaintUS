@@ -91,6 +91,7 @@ class BoundingBoxTest {
 	
 	@Test
 	void observerRegisterUnregisterTest() {
+		boundingBox.unregisterAll();
 		boundingBox.register(new IObserver() {
 
 			@Override

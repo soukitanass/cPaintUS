@@ -1,11 +1,13 @@
 package cpaintus.views;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
@@ -75,6 +77,13 @@ class ShapeTestFX {
 		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
 
 		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
+
+		try {
+			FxToolkit.cleanupStages();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

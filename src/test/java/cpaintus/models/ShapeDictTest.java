@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ class ShapeDictTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		shapeDict = ShapesDictionnary.getInstance();
+		shapeDict.unregisterAll();
 		shapeFactory = ShapeFactory.getInstance();
 	}
 
@@ -41,10 +43,10 @@ class ShapeDictTest {
 		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
 
-		shapeDict.addShape(null);	
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
-
 		Assertions.assertTrue(shapeDict.getShapesList().contains(actual));
+
+		shapeDict.addShape(null);	
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
 		shapeDict.addShape(null, false);

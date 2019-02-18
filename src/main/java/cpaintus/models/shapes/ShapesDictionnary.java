@@ -77,18 +77,22 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			}
 
 			addShape(shape, true);
-		}
+		} else
+			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 	
 	public void addShape(Shape shape, List<ShapesGroup> parents) {
-		if (parents.size() != 0) {
-			for (ShapesGroup parent : parents) {
-				parent.add(shape);
+		if (shape != null && parents != null) {
+			if (parents.size() != 0) {
+				for (ShapesGroup parent : parents) {
+					parent.add(shape);
+				}
+				notifyAddAllObservers();
+			} else {
+				addShape(shape);
 			}
-			notifyAddAllObservers();
-		} else {
-			addShape(shape);
-		}
+		} else
+			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 
 	public void addShape(Shape shape, boolean shouldNotify) {
