@@ -5,25 +5,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cpaintus.controllers.command.DrawCommand;
-import cpaintus.controllers.command.EraseAllCommand;
-import cpaintus.controllers.command.GroupCommand;
-import cpaintus.controllers.command.Invoker;
-import cpaintus.controllers.command.UngroupCommand;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
-import cpaintus.models.Point;
 import cpaintus.models.Pointer;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeEditor;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
-import cpaintus.models.shapes.Size;
-import cpaintus.models.shapes.Stroke;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -57,9 +50,8 @@ public class CenterPaneController implements IObserver {
 	private ShapeFactory shapeFactory;
 	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
+	private ShapeEditor shapeEditor;
 	private SelectShapesSingleton selectShapesSingleton;
-	private Invoker invoker;
-
 	private boolean hasBeenDragged;
 	private boolean selectShapes;
 	
@@ -78,9 +70,10 @@ public class CenterPaneController implements IObserver {
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
+		shapeEditor = ShapeEditor.getInstance();
+		shapeEditor.register(this);
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
-		invoker = Invoker.getInstance();
 
 		hasBeenDragged = false;
 		selectShapes = false;
@@ -110,7 +103,7 @@ public class CenterPaneController implements IObserver {
 					removeLastAddedCanvas();
 					selectShapes();
 					boundingBox.setVisible(true);
-				}				
+				}
 			}
 		};
 	}
@@ -138,6 +131,10 @@ public class CenterPaneController implements IObserver {
 			eraseCanvas();
 			refresh();
 			break;
+		case EDIT_SHAPE:
+			editShape(shapeEditor.getShapeToEdit());
+			shapeEditor.done();
+			break;
 		case LOAD_IMAGE:
 			loadImage();
 			break;
@@ -160,26 +157,19 @@ public class CenterPaneController implements IObserver {
 		}
 	}
 
-	private void deleteShape(Shape shapeToDelete) {
-		shapesDict.removeShape(shapeToDelete);
-		boundingBox.setVisible(false);
-		eraseCanvas();
-		refresh();
-	}
-
 	private void unselectShapes(ShapesGroup group) {
 		selectShapes = false;
-		UngroupCommand ungroupCommand = new UngroupCommand();
-		ungroupCommand.setShapesGroup(group);
-		invoker.execute(ungroupCommand);
+		shapesDict.removeShape(group);
+		for (Shape shape : group.getShapes()) {
+			shapesDict.addShape(shape);
+		}
+		boundingBox.setVisible(false);
 	}
 
 	@FXML
 	public void eraseAll() {
-		EraseAllCommand eraseAllCommand = new EraseAllCommand();
-		eraseAllCommand.setPane(pane);
-		invoker.execute(eraseAllCommand);
-		
+		eraseCanvas();
+		shapesDict.clearShapes();
 	}
 
 	@FXML
@@ -229,6 +219,7 @@ public class CenterPaneController implements IObserver {
 		for (Node canvas : canvasToRemove) {
 			canvasList.remove(canvas);
 		}
+
 		boundingBox.setVisible(false);
 		scrollPaneWidthHandler(pane.getWidth());
 		scrollPaneHeightHandler(pane.getHeight());
@@ -241,17 +232,68 @@ public class CenterPaneController implements IObserver {
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
+	private void editShape(Shape shape) {
+		Canvas canvas;
+		int hash;
+		if (shape == null) {
+			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
+			return;
+		}
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape sh : ((ShapesGroup) shape).getShapes()) {
+				editShape(sh);
+			}
+			return;
+		}
+		hash = shape.getCanvasHash();
+		canvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
+		if (canvas == null) {
+			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit.");
+			return;
+		}
+
+		if (shapeEditor.edittingZ())
+			editShapeZ(shape.getZ(), canvas);
+		else
+			drawerStrategyContext.draw(shape, canvas);
+	}
+
+	private void editShapeZ(int z, Node node) {
+		List<Node> nodes = pane.getChildren();
+		int newZ = z;
+		int prevZ = nodes.indexOf(node);
+
+		nodes.remove(prevZ);
+		nodes.add(newZ, node);
+
+		// Z index of some shapes have changed! Edit them.
+		int start;
+		int end;
+
+		if (prevZ < newZ) {
+			start = prevZ;
+			end = newZ;
+		} else {
+			start = newZ + 1;
+			end = prevZ + 1;
+		}
+
+		for (int i = start; i < end; i++) {
+			int hash = nodes.get(i).hashCode();
+			Shape shape = shapesDict.getFullShapesList().stream().filter(s -> hash == s.getCanvasHash()).findAny()
+					.orElse(null);
+			if (shape != null)
+				shape.setZ(i);
+		}
+
+	}
+
 	public void draw(boolean persistent) {
 		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
 		Shape shape = createShape(persistent, activeCanvas.hashCode());
 		if (shape != null) {
-			if (persistent) {
-				pane.getChildren().remove(pane.getChildren().size() - 2);
-				DrawCommand drawCommand = new DrawCommand(pane, shape);
-				invoker.execute(drawCommand);
-			} else {
-				drawerStrategyContext.draw(shape, activeCanvas);
-			}
+			drawerStrategyContext.draw(shape, activeCanvas);
+
 		}
 		drawBoundingBox();
 		scrollPaneWidthHandler(scrollPane.getWidth());
@@ -310,17 +352,21 @@ public class CenterPaneController implements IObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.LINE) {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
-					new Point(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY()),
-					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
-					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getOrigin().getX(),
+					boundingBox.getOrigin().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
+					lineWidth, sstrokeColor, sfillColor, "", text);
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
-					new Point(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY()),
-					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
-					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor), sfillColor, "", text);
+			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash, boundingBox.getUpLeftCorner().getX(),
+					boundingBox.getUpLeftCorner().getY(), boundingBox.getOppositeCorner().getX(),
+					boundingBox.getOppositeCorner().getY(), boundingBox.getWidth(), boundingBox.getHeight(), 0,
+					lineWidth, sstrokeColor, sfillColor, "", text);
+		}
+
+		if (newShape != null && persistent) {
+			shapesDict.addShape(newShape);
 		}
 
 		return newShape;
@@ -346,9 +392,37 @@ public class CenterPaneController implements IObserver {
 	}
 
 	private void selectShapes() {
-		GroupCommand groupCommand = new GroupCommand();
-		groupCommand.setFirst(true);
-		invoker.execute(groupCommand);
+		ShapesGroup shapesGroup = new ShapesGroup();
+		double x = Double.MAX_VALUE;
+		double y = Double.MAX_VALUE;
+		double x2 = 0;
+		double y2 = 0;
+
+		for (Shape shape : shapesDict.getShapesList()) {
+			if (shape.getUpLeftCorner().getX() >= boundingBox.getUpLeftCorner().getX()
+					&& shape.getUpLeftCorner().getY() >= boundingBox.getUpLeftCorner().getY()
+					&& shape.getUpLeftCorner().getX() + shape.getWidth() <= boundingBox.getUpLeftCorner().getX()
+							+ boundingBox.getWidth()
+					&& shape.getUpLeftCorner().getY() + shape.getHeight() <= boundingBox.getUpLeftCorner().getY()
+							+ boundingBox.getHeight()) {
+
+				shapesGroup.add(shape);
+				shapesDict.removeShape(shape, false);
+				x = Math.min(x, shape.getUpLeftCorner().getX());
+				y = Math.min(y, shape.getUpLeftCorner().getY());
+				x2 = Math.max(x2, shape.getUpLeftCorner().getX() + shape.getWidth());
+				y2 = Math.max(y2, shape.getUpLeftCorner().getY() + shape.getHeight());
+			}
+		}
+
+		shapesGroup.setXGroup(x);
+		shapesGroup.setYGroup(y);
+		shapesGroup.setWidthGroup(x2 - x);
+		shapesGroup.setHeightGroup(y2 - y);
+
+		if (!shapesGroup.getShapes().isEmpty()) {
+			shapesDict.addShape(shapesGroup);
+		}
 		selectShapes = false;
 	}
 	
