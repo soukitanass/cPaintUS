@@ -14,17 +14,12 @@ import cpaintus.controllers.popup.GridController;
 import cpaintus.controllers.popup.NewController;
 import cpaintus.controllers.popup.PopupBuilder;
 import cpaintus.controllers.popup.PopupEnvironment;
-import cpaintus.models.BoundingBox;
 import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
