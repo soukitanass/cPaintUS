@@ -24,6 +24,7 @@ import org.testfx.framework.junit5.Start;
 
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
+import cpaintus.models.DrawSettings;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
@@ -41,6 +42,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -84,10 +86,17 @@ class ShapeTestFX {
 
 	@Test
 	void createShapeTestFX(FxRobot robot) {
+		DrawSettings drawSettings = DrawSettings.getInstance();
+		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
+		drawSettings.setShape(ShapeType.POKEBALL);
 		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
-		AnchorPane leftPane = robot.lookup("#leftPane").queryAs(AnchorPane.class);
+//		AnchorPane leftPane = robot.lookup("#leftPane").queryAs(AnchorPane.class);
+		Scene centerPaneScene = centerPane.getScene();
+		
+		robot.drag(centerPaneScene, MouseButton.PRIMARY).dropTo(centerPane.getBoundsInLocal().getMaxX(),
+				centerPane.getBoundsInLocal().getMaxY());
 
-		Assertions.assertTrue(true);
+		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
 	}
 
 }
