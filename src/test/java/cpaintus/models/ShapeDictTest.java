@@ -44,9 +44,6 @@ class ShapeDictTest {
 		Assertions.assertTrue(shapeDict.getShapesList().contains(actual));
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
-		shapeDict.addShape(null);
-		Assertions.assertEquals(1, shapeDict.getShapesList().size());
-
 		shapeDict.addShape(null, false);
 		Assertions.assertEquals(1, shapeDict.getShapesList().size());
 
