@@ -52,8 +52,7 @@ public class EraseShapeCommand extends Command {
 					parent.add(shapeToDelete);
 					shapesDictionnary.addShape(parent); // To trigger event in left pane
 				}
-			}
-			else {
+			} else {
 				shapesDictionnary.addShape(shapeToDelete);
 			}
 			drawerStrategyContext.draw(shapeToDelete, activeCanvas);

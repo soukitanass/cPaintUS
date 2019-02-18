@@ -136,18 +136,6 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		}
 	}
 	
-	public void removeShapeFromGroups(Shape shapeToRemove, List<Shape> shapesList) {
-		for (Shape shape : shapesList) {
-			if (shape.getShapeType() == ShapeType.GROUP) {
-				if (((ShapesGroup) shape).getShapes().contains(shapeToRemove)) {
-					((ShapesGroup) shape).remove(shapeToRemove);
-				}
-
-				removeShapeFromGroups(shapeToRemove, ((ShapesGroup) shape).getShapes());
-			}
-		}
-	}
-
 	public void removeShape(Shape shape) {
 		List<ShapesGroup> parents = new ArrayList<ShapesGroup>();
 		findParents(shape, getShapesList(), parents);
