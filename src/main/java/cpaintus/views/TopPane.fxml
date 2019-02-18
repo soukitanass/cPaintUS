@@ -17,15 +17,15 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" text="New"
+						<MenuItem mnemonicParsing="false" text="New..."
 							onAction="#handleNewClick" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" text="Import"
+						<MenuItem mnemonicParsing="false" text="Import..."
 							onAction="#handleLoadLClick" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" text="Save"
+						<MenuItem mnemonicParsing="false" text="Save..."
 							onAction="#handleSaveClick" />
 					</items>
 					<items>
@@ -33,20 +33,16 @@
 							onAction="#handleExitClick" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Help">
+				<Menu mnemonicParsing="false" text="Edit">
 					<items>
-						<MenuItem mnemonicParsing="false" text="About"
-							onAction="#handleAboutClick" />
+						<MenuItem mnemonicParsing="false" text="Grid..."
+							onAction="#handleGridClick" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Edition">
+				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem mnemonicParsing="false" text="Undo"
-							onAction="#handleUndo" />
-					</items>
-					<items>
-						<MenuItem mnemonicParsing="false" text="Redo"
-							onAction="#handleRedo" />					
+						<MenuItem mnemonicParsing="false" text="About..."
+							onAction="#handleAboutClick" />
 					</items>
 				</Menu>
 			</menus>

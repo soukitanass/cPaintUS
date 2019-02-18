@@ -1,39 +1,25 @@
 package cpaintus.models.shapes;
 
-import cpaintus.models.Point;
-
 public class Ellipse extends Shape2D {
 
 	public Ellipse(
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			Point position,
+			double x,
+			double y,
 			int z,
 			double rotation,
-			Stroke stroke,
+			int lineWidth,
+			String strokeColor,
 			String fillColor,
-			Size size)
+			double width,
+			double height)
 	{
-		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
+		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
 	}
 
 	public Ellipse() {
 		
-	}
-	
-	@Override
-	public Ellipse makeCopy() {
-		Ellipse ellipse = new Ellipse(
-				this.getShapeType(),
-				this.getShapeId(),
-				this.getCanvasHash(),
-				new Point(this.getX(),this.getY()),
-				this.getZ(),
-				this.getRotation(),
-				new Stroke(this.getLineWidth(),this.getStrokeColor()),
-				this.getFillColor(),
-				new Size(this.getWidth(), this.getHeight()));
-		return ellipse;
 	}
 }
