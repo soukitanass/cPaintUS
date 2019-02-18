@@ -10,17 +10,16 @@ import java.util.logging.Logger;
 
 import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AboutController;
+import cpaintus.controllers.popup.GridController;
 import cpaintus.controllers.popup.NewController;
+import cpaintus.controllers.popup.PopupBuilder;
+import cpaintus.controllers.popup.PopupEnvironment;
 import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TopPaneController {
@@ -31,6 +30,7 @@ public class TopPaneController {
 	private Preferences prefs;
 	private static final String WORKDIR = "Workdir";
 	private Invoker invoker;
+	private PopupBuilder popupBuilder;
 	@FXML
 	private MenuBar menuBar;
 
@@ -42,6 +42,7 @@ public class TopPaneController {
 		saveCloseSingleton = SaveCloseSingleton.getInstance();
 	    prefs = Preferences.userNodeForPackage(this.getClass());
 	    invoker = Invoker.getInstance();
+	    popupBuilder = new PopupBuilder();
 	}
 
 	@FXML
@@ -58,21 +59,16 @@ public class TopPaneController {
 
 	@FXML
 	private void handleNewClick() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/New.fxml"));
-		Parent parent;
 		try {
-			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent);
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("New");
-			stage.setScene(scene);
-			stage.setResizable(false);
-
-			NewController controller = fxmlLoader.getController();
-			controller.setNewDialog(stage);
+			this.popupBuilder.setWindowName("New");
+			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/New.fxml");
+			PopupEnvironment popupEnvironment = this.popupBuilder.build();
+			
+			NewController controller = popupEnvironment.getFxmlLoader().getController();
+			controller.setNewDialog(popupEnvironment.getStage());
+			
 			if (!shapesDict.getShapesList().isEmpty()) {
-				stage.showAndWait();
+				popupEnvironment.getStage().showAndWait();
 				if (controller.isYesClicked()) {
 					this.handleSaveClick();
 				}
@@ -91,25 +87,36 @@ public class TopPaneController {
 
 	@FXML
 	private void handleAboutClick() {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/About.fxml"));
-		Parent parent;
 		try {
-			parent = fxmlLoader.load();
-			Scene scene = new Scene(parent);
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("About");
-			stage.setScene(scene);
-			stage.setResizable(false);
+			
+			this.popupBuilder.setWindowName("About");
+			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/About.fxml");
+			PopupEnvironment popupEnvironment = this.popupBuilder.build();
 
-			AboutController controller = fxmlLoader.getController();
-			controller.setNewDialog(stage);
-			stage.showAndWait();
+			AboutController controller = popupEnvironment.getFxmlLoader().getController();
+			controller.setNewDialog(popupEnvironment.getStage());
+			popupEnvironment.getStage().showAndWait();
 		} catch (IOException e) {
 			LOGGER.log(Level.INFO, "Error while opening the file ", e);
 		}
 	}
 
+	@FXML
+	private void handleGridClick() {
+		try {
+			this.popupBuilder.setWindowName("Grid");
+			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/Grid.fxml");
+			PopupEnvironment popupEnvironment = this.popupBuilder.build();
+			
+			GridController controller = popupEnvironment.getFxmlLoader().getController();
+			controller.setNewDialog(popupEnvironment.getStage());
+			
+			popupEnvironment.getStage().showAndWait();
+		} catch (IOException e) {
+			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+		}
+	}
+	
 	@FXML
 	private void handleLoadLClick() {
 		FileChooser fileChooser = new FileChooser();

@@ -17,26 +17,20 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" text="New"
+						<MenuItem mnemonicParsing="false" text="New..."
 							onAction="#handleNewClick" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" text="Import"
+						<MenuItem mnemonicParsing="false" text="Import..."
 							onAction="#handleLoadLClick" />
 					</items>
 					<items>
-						<MenuItem mnemonicParsing="false" text="Save"
+						<MenuItem mnemonicParsing="false" text="Save..."
 							onAction="#handleSaveClick" />
 					</items>
 					<items>
 						<MenuItem mnemonicParsing="false" text="Close"
 							onAction="#handleExitClick" />
-					</items>
-				</Menu>
-				<Menu mnemonicParsing="false" text="Help">
-					<items>
-						<MenuItem mnemonicParsing="false" text="About"
-							onAction="#handleAboutClick" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Edition">
@@ -48,7 +42,18 @@
 						<MenuItem mnemonicParsing="false" text="Redo"
 							onAction="#handleRedo" />					
 					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" text="Grid..."
+							onAction="#handleGridClick" />
+					</items>
 				</Menu>
+				<Menu mnemonicParsing="false" text="Help">
+					<items>
+						<MenuItem mnemonicParsing="false" text="About..."
+							onAction="#handleAboutClick" />
+					</items>
+				</Menu>
+				
 			</menus>
 		</MenuBar>
 	</children>

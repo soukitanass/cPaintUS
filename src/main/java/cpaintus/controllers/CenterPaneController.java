@@ -128,6 +128,7 @@ public class CenterPaneController implements IObserver {
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 		boundingBoxCanvas.setMouseTransparent(true);
 		SnapshotSingleton.getInstance().setSnapshotPane(pane);
+		drawGrid();
 	}
 
 	@Override
@@ -144,6 +145,7 @@ public class CenterPaneController implements IObserver {
 			eraseAll();
 			break;
 		case BOUNDING_BOX:
+			drawGrid();
 			drawBoundingBox();
 			break;
 		case GROUP_SHAPES:
@@ -348,5 +350,21 @@ public class CenterPaneController implements IObserver {
 		groupCommand.setFirst(true);
 		invoker.execute(groupCommand);
 		selectShapes = false;
+	}
+	
+	private void drawGrid() {
+		GraphicsContext gc = this.baseCanvas.getGraphicsContext2D();
+		gc.setFill(Color.WHITE);
+		gc.fillRect(0, 0, this.baseCanvas.getWidth(), this.baseCanvas.getHeight());
+		if(!this.boundingBox.getGridMod())
+			return;
+		gc.setStroke(Color.LIGHTGRAY);
+		gc.setLineWidth(1);
+		for(int i = 0; i < this.baseCanvas.getWidth(); i = i + (int)this.boundingBox.getGridStep()) {
+			gc.strokeLine(i, 0, i, this.baseCanvas.getHeight());
+		}
+		for(int i = 0; i < this.baseCanvas.getHeight(); i = i + (int)this.boundingBox.getGridStep()) {
+			gc.strokeLine(0, i, this.baseCanvas.getWidth(), i);
+		}
 	}
 }
