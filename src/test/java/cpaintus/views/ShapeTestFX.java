@@ -1,50 +1,31 @@
 package cpaintus.views;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.prefs.Preferences;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxRobotContext;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.models.DrawSettings;
-import cpaintus.models.observable.IObserver;
-import cpaintus.models.observable.ObservableList;
-import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
-import cpaintus.models.shapes.Size;
-import cpaintus.models.shapes.Stroke;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 @ExtendWith(ApplicationExtension.class)
 class ShapeTestFX {
@@ -86,15 +67,12 @@ class ShapeTestFX {
 
 	@Test
 	void createShapeTestFX(FxRobot robot) {
-		DrawSettings drawSettings = DrawSettings.getInstance();
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
+		DrawSettings drawSettings = DrawSettings.getInstance();
 		drawSettings.setShape(ShapeType.POKEBALL);
-		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
-//		AnchorPane leftPane = robot.lookup("#leftPane").queryAs(AnchorPane.class);
-		Scene centerPaneScene = centerPane.getScene();
 		
-		robot.drag(centerPaneScene, MouseButton.PRIMARY).dropTo(centerPane.getBoundsInLocal().getMaxX(),
-				centerPane.getBoundsInLocal().getMaxY());
+		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);		
+		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
 
 		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
 	}
