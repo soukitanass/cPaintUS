@@ -20,22 +20,20 @@ public abstract class Shape {
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor)
+			Stroke stroke)
 	{
 		this.shapeType = shapeType;
 		this.shapeId = shapeId;
 		this.canvasHash = canvasHash;
-		this.x = x;
-		this.y = y;
+		this.x = position.getX();
+		this.y = position.getY();
 		this.z = z;
 		this.rotation = rotation;
-		this.lineWidth = lineWidth;
-		this.strokeColor = strokeColor;
+		this.lineWidth = stroke.getLinewidth();
+		this.strokeColor = stroke.getStrokeColor();
 	}
 	
 	public Shape() {
@@ -128,7 +126,9 @@ public abstract class Shape {
 	public ShapeDimension getShapeDimension() {
 		return shapeDim;
 	}
-	
+
+	public abstract Shape makeCopy();
+
 	public void setUpLeftCornerX(double x) {
 		this.setX(x);
 	}
@@ -136,5 +136,6 @@ public abstract class Shape {
 	public void setUpLeftCornerY(double y) {
 		this.setY(y);
 	}
+
 
 }

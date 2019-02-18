@@ -1,25 +1,39 @@
 package cpaintus.models.shapes;
 
+import cpaintus.models.Point;
+
 public class Rectangle extends Shape2D {
 	
 	public Rectangle(
 			ShapeType shapeType,
 			String shapeId,
 			int canvasHash,
-			double x,
-			double y,
+			Point position,
 			int z,
 			double rotation,
-			int lineWidth,
-			String strokeColor,
+			Stroke stroke,
 			String fillColor,
-			double width,
-			double height)
+			Size size)
 	{
-		super(shapeType, shapeId, canvasHash, x, y, z, rotation, lineWidth, strokeColor, fillColor, width, height);
+		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
 	}
 
 	public Rectangle() {
 		
+	}
+	
+	@Override
+	public Rectangle makeCopy() {
+		Rectangle rectangle = new Rectangle(
+				this.getShapeType(),
+				this.getShapeId(),
+				this.getCanvasHash(),
+				new Point(this.getX(),this.getY()),
+				this.getZ(),
+				this.getRotation(),
+				new Stroke(this.getLineWidth(),this.getStrokeColor()),
+				this.getFillColor(),
+				new Size(this.getWidth(), this.getHeight()));
+		return rectangle;
 	}
 }
