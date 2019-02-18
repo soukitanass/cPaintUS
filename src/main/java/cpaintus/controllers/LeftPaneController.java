@@ -748,7 +748,7 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void handleButtomClick() {
 		double newY = boundingBox.getUpLeftCorner().getY();
-		shapeAlignment(Direction.BUTTOM, newY);
+		shapeAlignment(Direction.BOTTOM, newY);
 	}
 
 	@FXML
