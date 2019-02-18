@@ -62,21 +62,13 @@ public class GroupCommand extends Command {
 			}
 			
 		} else {
-			if (!shapesGroup.getShapes().isEmpty()) {
-				for (Shape shape : shapesGroup.getShapes()) {
-					shapesDict.removeShape(shape, false);
-				}
-				shapesDict.addShape(shapesGroup);
-			}
+			shapesDict.addShape(shapesGroup);
 		}
 	}
 
 	@Override
 	public void undo() {
 		shapesDict.removeShape(shapesGroup);
-		for (Shape shape : shapesGroup.getShapes()) {
-			shapesDict.addShape(shape);
-		}
 		boundingBox.setVisible(false);
 		firstime = false;
 	}

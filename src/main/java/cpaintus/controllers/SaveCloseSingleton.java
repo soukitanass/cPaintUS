@@ -51,7 +51,7 @@ public class SaveCloseSingleton {
 	}
 
 	public boolean triggerClose() {
-		if (shapesDict.getShapesList().size() != 0 && !shapesDict.getShapesList().equals(localShapeDict)) {
+		if (!shapesDict.getShapesList().equals(localShapeDict)) {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/cpaintus/views/popup/Close.fxml"));
 			Parent parent;
 			try {
@@ -65,7 +65,7 @@ public class SaveCloseSingleton {
 				CloseController controller = fxmlLoader.getController();
 				controller.setNewDialog(stage);
 				stage.showAndWait();
-				if (controller.isYesClicked()||controller.isNoClicked()) {
+				if (controller.isYesClicked() || controller.isNoClicked()) {
 					if (controller.isYesClicked()) {
 						this.handleSave();
 					}
@@ -77,7 +77,7 @@ public class SaveCloseSingleton {
 				LOGGER.log(Level.INFO, "Error while opening the file ", e);
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public void handleSave() {
@@ -94,13 +94,13 @@ public class SaveCloseSingleton {
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 				prefs.put(WORKDIR, selectedFile.getParent());
+				updateLocalShapeDict();
 			} else {
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
 				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
 				prefs.put(WORKDIR, selectedFile.getParent());
 			}
-			updateLocalShapeDict();
 		}
 	}
 	

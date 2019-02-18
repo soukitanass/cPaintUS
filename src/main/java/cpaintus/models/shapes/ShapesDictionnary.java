@@ -69,7 +69,24 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void addShape(Shape shape) {
+		if (shape.getShapeType() == ShapeType.GROUP) {
+			for (Shape child : ((ShapesGroup) shape).getShapes()) {
+				removeShape(child, false);
+			}
+		}
+		
 		addShape(shape, true);
+	}
+	
+	public void addShape(Shape shape, List<ShapesGroup> parents) {
+		if (parents.size() != 0) {
+			for (ShapesGroup parent : parents) {
+				parent.add(shape);
+			}
+			notifyAddAllObservers();
+		} else {
+			addShape(shape);
+		}
 	}
 
 	public void addShape(Shape shape, boolean shouldNotify) {
@@ -123,8 +140,33 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			obs.update(ObservableList.SHAPE_REMOVED);
 		}
 	}
-
+	
+	public void findParents(Shape child, List<Shape> shapesList, List<ShapesGroup> parents) {
+		for (Shape shape : shapesList) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				if (((ShapesGroup) shape).getShapes().contains(child)) {
+					parents.add((ShapesGroup) shape);
+				}
+				
+				findParents(child, ((ShapesGroup) shape).getShapes(), parents);
+			}
+		}
+	}
+	
 	public void removeShape(Shape shape) {
+		List<ShapesGroup> parents = new ArrayList<ShapesGroup>();
+		findParents(shape, getShapesList(), parents);
+		
+		for (ShapesGroup parent : parents) {
+			parent.remove(shape);
+		}
+		
+		if (shape.getShapeType() == ShapeType.GROUP && parents.size() == 0) {
+			for (Shape s : ((ShapesGroup) shape).getShapes()) {
+				addShape(s);
+			}
+		}
+
 		removeShape(shape, true);
 	}
 
