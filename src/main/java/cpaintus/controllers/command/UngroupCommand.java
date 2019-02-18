@@ -28,11 +28,9 @@ public class UngroupCommand extends Command {
 	
 	@Override
 	public void execute() {
-		shapesDict.removeShape(shapesGroup);
-		
 		parents = new ArrayList<ShapesGroup>();
 		shapesDict.findParents(shapesGroup, shapesDict.getShapesList(), parents);
-		
+		shapesDict.removeShape(shapesGroup);	
 		boundingBox.setVisible(false);
 	}
 
