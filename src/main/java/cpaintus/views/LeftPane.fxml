@@ -100,25 +100,24 @@
 										<TextField fx:id="editY" onAction="#handleEditY"
 											prefWidth="110.0" />
 									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Button fx:id="topBtn"
-											onAction="#handleTopClick" prefWidth="188.0"
-											text="Top" />
+									<HBox prefWidth="188.0" spacing="5">
+										<Label prefWidth="78.0" text="Alignement: " />
 									</HBox>
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Button fx:id="rightBtn"
-											onAction="#handleRightClick" prefWidth="188.0"
-											text="Right" />
+										<Button fx:id="topBtn" onAction="#handleTopClick"
+											prefWidth="188.0" text="Top" />
 									</HBox>
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Button fx:id="buttomBtn"
-											onAction="#handleButtomClick" prefWidth="188.0"
-											text="Bottom" />
+										<Button fx:id="rightBtn" onAction="#handleRightClick"
+											prefWidth="188.0" text="Right" />
 									</HBox>
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Button fx:id="leftBtn"
-											onAction="#handleLeftClick" prefWidth="188.0"
-											text="Left" />
+										<Button fx:id="buttomBtn" onAction="#handleButtomClick"
+											prefWidth="188.0" text="Bottom" />
+									</HBox>
+									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+										<Button fx:id="leftBtn" onAction="#handleLeftClick"
+											prefWidth="188.0" text="Left" />
 									</HBox>
 									<HBox fx:id="editZSection" alignment="CENTER"
 										prefWidth="188.0" spacing="5">
