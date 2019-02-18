@@ -321,13 +321,6 @@ public class LeftPaneController implements IObserver {
 	}
 
 	@FXML
-	private void handleUnSelectClick() {
-		selectShapesSingleton.setSelectedShape(tree.getSelectionModel().getSelectedItem().getValue());
-		selectShapesSingleton.notifyUngroupObservers();
-		attributes.setVisible(false);
-	}
-
-	@FXML
 	private void handleEraseAllClick() {
 		SnapshotSingleton.getInstance().eraseAll();
 	}
@@ -390,6 +383,13 @@ public class LeftPaneController implements IObserver {
 
 		isUpdatingAttributes = false;
 		updateBoundingBox(newShape);
+	}
+	
+	@FXML
+	private void handleUnSelectClick() {
+		selectShapesSingleton.setSelectedShape(shapeToEdit);
+		selectShapesSingleton.notifyUngroupObservers();
+		attributes.setVisible(false);
 	}
 
 	@FXML
@@ -716,10 +716,14 @@ public class LeftPaneController implements IObserver {
 			editCommand.setOldShape(oldShape);
 			switch (direction) {
 			case TOP:
-			case BOTTOM:
 				shape.setY(newVal);
 				break;
+			case BOTTOM:
+				shape.setY(newVal - shape.getHeight());
+				break;
 			case RIGHT:
+				shape.setX(newVal - shape.getWidth());
+				break;
 			case LEFT:
 				shape.setX(newVal);
 				break;
@@ -747,7 +751,7 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleButtomClick() {
-		double newY = boundingBox.getUpLeftCorner().getY();
+		double newY = boundingBox.getUpLeftCorner().getY() + boundingBox.getHeight();
 		shapeAlignment(Direction.BOTTOM, newY);
 	}
 
