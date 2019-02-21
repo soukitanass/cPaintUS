@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
+import javafx.scene.Node;
 import cpaintus.models.Point;
 import cpaintus.models.composite.ShapesGroup;
 
@@ -95,6 +96,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		if (shape != null) {
 			lastCreatedShapeId = shape.getShapeId();
 			shapesDict.put(shape.getShapeId(), shape);
+			updateShapesZ(shape);
 			if (shouldNotify)
 				notifyAddAllObservers();
 		} else
@@ -123,37 +125,6 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		shapeFactory.clear();
 		notifyAllObservers();
 	}
-
-	@Override
-	public void notifyAllObservers() {
-		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.SHAPES_LOADED);
-		}
-	}
-
-	public void notifyAddAllObservers() {
-		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.SHAPE_ADDED);
-		}
-	}
-
-	public void notifyRemoveAllObservers() {
-		for (IObserver obs : getObserverList()) {
-			obs.update(ObservableList.SHAPE_REMOVED);
-		}
-	}
-	
-	public void findParents(Shape child, List<Shape> shapesList, List<ShapesGroup> parents) {
-		for (Shape shape : shapesList) {
-			if (shape.getShapeType() == ShapeType.GROUP) {
-				if (((ShapesGroup) shape).getShapes().contains(child)) {
-					parents.add((ShapesGroup) shape);
-				}
-				
-				findParents(child, ((ShapesGroup) shape).getShapes(), parents);
-			}
-		}
-	}
 	
 	public void removeShape(Shape shape) {
 		List<ShapesGroup> parents = new ArrayList<ShapesGroup>();
@@ -175,8 +146,63 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	public void removeShape(Shape shape, boolean shouldNotify) {
     if(shapesDict.containsKey(shape.getShapeId())) {
 			shapesDict.remove(shape.getShapeId());
+			updateShapesZ(shape);
 		}
 		if (shouldNotify)
 			notifyRemoveAllObservers();
+	}
+	
+	public void findParents(Shape child, List<Shape> shapesList, List<ShapesGroup> parents) {
+		for (Shape shape : shapesList) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				if (((ShapesGroup) shape).getShapes().contains(child)) {
+					parents.add((ShapesGroup) shape);
+				}
+				
+				findParents(child, ((ShapesGroup) shape).getShapes(), parents);
+			}
+		}
+	}
+	
+	// This method should be called after adding of removing a shape AFTER doing so!
+	// shape is the shape that's been added of removed
+	public void updateShapesZ(Shape shape) {
+		boolean added = false;
+		List<Shape> shapes = getFullShapesList();
+		if (shapes.contains(shape)) {
+			added = true;
+		}
+		
+		int z = shape.getZ();
+		
+		for (Shape currShape : getFullShapesList()) {
+			int currZ = currShape.getZ();
+			if (!added && z < currZ) {
+				currZ--;
+				currShape.setZ(currZ);
+			} else if (added && shape != currShape && z <= currZ) {
+				currZ++;
+				shape.setZ(currZ);
+			}
+		}
+	}
+	
+	@Override
+	public void notifyAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.SHAPES_LOADED);
+		}
+	}
+
+	public void notifyAddAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.SHAPE_ADDED);
+		}
+	}
+
+	public void notifyRemoveAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.SHAPE_REMOVED);
+		}
 	}
 }

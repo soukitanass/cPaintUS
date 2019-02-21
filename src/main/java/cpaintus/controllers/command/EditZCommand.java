@@ -1,6 +1,7 @@
 package cpaintus.controllers.command;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.models.shapes.Shape;
@@ -67,8 +68,7 @@ public class EditZCommand extends Command {
 		changeOrder(oldZ,newZ);
 	}
 	
-	private void changeOrder (int changingZ, int changedZ) {
-		
+	private void changeOrder(int changingZ, int changedZ) {
 		List<Node> nodes = pane.getChildren();		
 		nodes.remove(changedZ);
 		nodes.add(changingZ, activeCanvas);
@@ -92,7 +92,6 @@ public class EditZCommand extends Command {
 				.orElse(null);
 			if (shape != null) shape.setZ(i);
 		}
-
 	}
 	
 	private void setup () {

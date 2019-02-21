@@ -22,9 +22,9 @@ public class ShapeFactory {
 		ellipseNb = 0;
 		lineNb = 0;
 		pokeballNb = 0;
-		totalShapeNb = 0;
 		heartNb = 0;
 		pictureNb = 0;
+		totalShapeNb = 0;
 		
 		ShapeFunctionalInterface rectangleCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
 				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {

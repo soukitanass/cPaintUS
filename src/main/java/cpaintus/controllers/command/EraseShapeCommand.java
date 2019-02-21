@@ -2,6 +2,8 @@ package cpaintus.controllers.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
@@ -56,7 +58,4 @@ public class EraseShapeCommand extends Command {
 		this.shapeToDelete = shapeToDelete;
 		setCommandID("Erase : "+ new String (shapeToDelete.toString()));
 	}
-	
-	
-
 }
