@@ -97,6 +97,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			shapesDict.put(shape.getShapeId(), shape);
 			if (shouldNotify)
 				notifyAddAllObservers();
+			shapeFactory.setTotalShapeNb(getFullShapesList().size());
 		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
@@ -109,6 +110,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 				shape.setShapeId(temp.getShapeId());
 				shape.setZ(shapeFactory.getTotalShapeNb());
 				shapesDict.put(shape.getShapeId(), shape);
+				shapeFactory.setTotalShapeNb(getFullShapesList().size());
 			} else
 				LOGGER.log(Level.INFO, ERROR_MESSAGE);
 		}
@@ -116,6 +118,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 
 	public void clearShapesTempo() {
 		shapesDict.clear();
+		shapeFactory.setTotalShapeNb(0);
 	}
 	
 	public void clearShapes() {
@@ -173,10 +176,11 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void removeShape(Shape shape, boolean shouldNotify) {
-    if(shapesDict.containsKey(shape.getShapeId())) {
-			shapesDict.remove(shape.getShapeId());
+	    if(shapesDict.containsKey(shape.getShapeId())) {
+				shapesDict.remove(shape.getShapeId());
+			}
+			if (shouldNotify)
+				notifyRemoveAllObservers();
+			shapeFactory.setTotalShapeNb(getFullShapesList().size());
 		}
-		if (shouldNotify)
-			notifyRemoveAllObservers();
-	}
 }

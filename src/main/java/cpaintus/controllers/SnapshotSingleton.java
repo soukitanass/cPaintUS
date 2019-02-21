@@ -3,6 +3,7 @@ package cpaintus.controllers;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.util.Base64;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +13,10 @@ import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Picture;
+import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
@@ -22,6 +26,7 @@ public class SnapshotSingleton extends Observable<IObserver> {
 	private AnchorPane snapshotPane;
 	private Image image;
 	private Picture picture;
+	private ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
 
 	public AnchorPane getSnapshotPane() {
 		return snapshotPane;
@@ -84,5 +89,20 @@ public class SnapshotSingleton extends Observable<IObserver> {
 
 	public void setPicture(Picture picture) {
 		this.picture = picture;
+	}
+	
+	public void updateShapesZ() {
+		List<Node> nodes = snapshotPane.getChildren();
+		
+		System.out.println(nodes);
+
+		for (int i = 0; i < nodes.size(); i++) {
+			int hash = nodes.get(i).hashCode();
+			Shape shape = shapesDict.getFullShapesList().stream()
+				.filter(s -> hash == s.getCanvasHash())
+				.findAny()
+				.orElse(null);
+			if (shape != null) shape.setZ(i);
+		}
 	}
 }
