@@ -35,7 +35,7 @@ public class EditGroupCommand extends Command {
 
 	public void setShapeToEdit(List<Shape> shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("EditGroup" + new String(shapeToEdit.toString()));
+		setCommandID("EditGroup" + shapeToEdit.toString());
 	}
 
 	public List<Shape> getOldShape() {

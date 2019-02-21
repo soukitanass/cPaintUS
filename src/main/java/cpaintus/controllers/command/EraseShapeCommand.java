@@ -37,7 +37,7 @@ public class EraseShapeCommand extends Command {
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
 		
-		parents = new ArrayList<ShapesGroup>();
+		parents = new ArrayList<>();
 		shapesDictionnary.findParents(shapeToDelete, shapesDictionnary.getShapesList(), parents);
 		
 		shapesDictionnary.removeShape(shapeToDelete);

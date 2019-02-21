@@ -1,23 +1,20 @@
 package cpaintus;
 
-import cpaintus.controllers.SaveCloseSingleton;
-import cpaintus.controllers.SnapshotSingleton;
-import cpaintus.controllers.command.Invoker;
-
 import java.util.prefs.Preferences;
+
+import cpaintus.controllers.SaveCloseSingleton;
+import cpaintus.controllers.command.Invoker;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
@@ -32,31 +29,29 @@ public class Main extends Application {
 		primaryStage.setMinHeight(600);
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	        public void handle(WindowEvent ev) {
-	            if (!SaveCloseSingleton.getInstance().triggerClose()) {
-	                ev.consume();
-	            }
-	        }
-	    });
+			public void handle(WindowEvent ev) {
+				if (!SaveCloseSingleton.getInstance().triggerClose()) {
+					ev.consume();
+				}
+			}
+		});
 		primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> prefs.putDouble("width", (double) newVal));
 		primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> prefs.putDouble("height", (double) newVal));
 		KeyCombination cntrlZ = new KeyCodeCombination(KeyCode.Z, KeyCodeCombination.CONTROL_DOWN);
 		KeyCombination cntrlY = new KeyCodeCombination(KeyCode.Y, KeyCodeCombination.CONTROL_DOWN);
 		KeyCombination cntrlS = new KeyCodeCombination(KeyCode.S, KeyCodeCombination.CONTROL_DOWN);
-        primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent event) {
-                if(cntrlZ.match(event)){
-                   Invoker.getInstance().undo();
-                }
-                else if (cntrlY.match(event)) {
-                   Invoker.getInstance().redo();
-                }
-                else if (cntrlS.match(event)) {
-                   SaveCloseSingleton.getInstance().handleSave();
-                }
-            }
-        });
+		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (cntrlZ.match(event)) {
+					Invoker.getInstance().undo();
+				} else if (cntrlY.match(event)) {
+					Invoker.getInstance().redo();
+				} else if (cntrlS.match(event)) {
+					SaveCloseSingleton.getInstance().handleSave();
+				}
+			}
+		});
 	}
 
 	public static void main(String[] args) {

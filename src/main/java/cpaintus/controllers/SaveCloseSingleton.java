@@ -33,7 +33,7 @@ public class SaveCloseSingleton {
 	private static final String WORKDIR = "Workdir";
 	private SnapshotSingleton snapshotSingleton;
 	private ShapesDictionnary shapesDict;
-	private List<Shape> localShapeDict = new ArrayList<Shape>();
+	private List<Shape> localShapeDict = new ArrayList<>();
 
 	private SaveCloseSingleton() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
