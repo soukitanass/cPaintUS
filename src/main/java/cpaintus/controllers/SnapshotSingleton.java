@@ -93,8 +93,6 @@ public class SnapshotSingleton extends Observable<IObserver> {
 	
 	public void updateShapesZ() {
 		List<Node> nodes = snapshotPane.getChildren();
-		
-		System.out.println(nodes);
 
 		for (int i = 0; i < nodes.size(); i++) {
 			int hash = nodes.get(i).hashCode();
