@@ -26,7 +26,7 @@ public class ShapesGroup extends Shape2D {
 				this.shapes.remove(child);
 			}
 		}
-		
+
 		this.shapes.add(shape);
 	}
 
@@ -36,7 +36,7 @@ public class ShapesGroup extends Shape2D {
 				this.shapes.add(child);
 			}
 		}
-		
+
 		shapes.remove(shape);
 	}
 
@@ -133,21 +133,21 @@ public class ShapesGroup extends Shape2D {
 
 		}
 	}
-	
+
 	@Override
 	public ShapesGroup makeCopy() {
 		ShapesGroup group = new ShapesGroup();
-			--groupNb;
-			group.setShapeId("Group " + groupNb);
-			group.setShapeType(ShapeType.GROUP);
-			group.shapeDim = ShapeDimension.SHAPE2D;
-			for (Shape shape : shapes) {
-				group.shapes.add(shape.makeCopy());
-			}
-			group.x = this.x;
-			group.y = this.y;
-			group.height = this.height;
-			group.width = this.width;
+		--groupNb;
+		group.setShapeId("Group " + groupNb);
+		group.setShapeType(ShapeType.GROUP);
+		group.shapeDim = ShapeDimension.SHAPE2D;
+		for (Shape shape : shapes) {
+			group.shapes.add(shape.makeCopy());
+		}
+		group.x = this.x;
+		group.y = this.y;
+		group.height = this.height;
+		group.width = this.width;
 		return group;
 	}
 }

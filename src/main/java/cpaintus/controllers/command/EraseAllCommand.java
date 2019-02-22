@@ -3,6 +3,7 @@ package cpaintus.controllers.command;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import cpaintus.models.BoundingBox;
 import cpaintus.models.shapes.Shape;
@@ -13,11 +14,10 @@ import javafx.scene.layout.AnchorPane;
 public class EraseAllCommand extends Command {
 
 	private Node boundingBoxNode;
-	private Node baseCanvasNode;
 	private AnchorPane pane;
 	private BoundingBox boundingBox;
-	private LinkedHashMap<String, Shape> shapesDict = new LinkedHashMap<String, Shape>();
-	private List<Node> conservedList = new ArrayList<Node>();
+	private LinkedHashMap<String, Shape> shapesDict = new LinkedHashMap<>();
+	private List<Node> conservedList = new ArrayList<>();
 	private ShapesDictionnary shapesDictionnary;
 
 	public EraseAllCommand() {
@@ -31,11 +31,12 @@ public class EraseAllCommand extends Command {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setShapesDict(LinkedHashMap<String, Shape> shapesDict) {
-		this.shapesDict = (LinkedHashMap<String, Shape>) shapesDict.clone();
+	public void setShapesDict(Map<String, Shape> shapesDict) {
+		this.shapesDict = (LinkedHashMap<String, Shape>) ((LinkedHashMap<String, Shape>) shapesDict).clone();
 	}
 	
 	public void execute() {
+		Node baseCanvasNode;
 		setShapesDict(shapesDictionnary.getShapesDict());
 		boundingBoxNode = pane.getChildren().get(pane.getChildren().size()-1);
 		baseCanvasNode = pane.getChildren().get(0);

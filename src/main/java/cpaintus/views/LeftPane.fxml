@@ -20,7 +20,7 @@
 								<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
 										<Label prefWidth="78.0" text="Draw Shape: " />
-										<ComboBox fx:id="shape" onAction="#handleChangeShape"
+										<ComboBox fx:id="shapeType" onAction="#handleChangeShape"
 											prefWidth="110.0" promptText="Choose" />
 									</HBox>
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
