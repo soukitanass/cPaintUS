@@ -68,31 +68,11 @@ public class EditZCommand extends Command {
 	}
 	
 	private void changeOrder (int changingZ, int changedZ) {
-		
 		List<Node> nodes = pane.getChildren();		
 		nodes.remove(changedZ);
 		nodes.add(changingZ, activeCanvas);
 		
-		int start;
-		int end;
-		
-		if (changedZ < changingZ) {
-			start = changedZ;
-			end = changingZ;
-		} else {
-			start = changingZ + 1;
-			end = changedZ + 1;
-		}
-		
-		for (int i = start; i < end; i++) {
-			int hash = nodes.get(i).hashCode();
-			Shape shape = shapesDictionnary.getFullShapesList().stream()
-				.filter(s -> hash == s.getCanvasHash())
-				.findAny()
-				.orElse(null);
-			if (shape != null) shape.setZ(i);
-		}
-
+		snapshotSingleton.updateShapesZ();
 	}
 	
 	private void setup () {

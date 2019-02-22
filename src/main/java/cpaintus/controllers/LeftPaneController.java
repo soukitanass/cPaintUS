@@ -518,7 +518,6 @@ public class LeftPaneController implements IObserver {
 		if (shapeToEdit.getZ() == newZ)
 			return;
 		EditZCommand editZCommand = new EditZCommand();
-		shapeToEdit.setZ(newZ);
 		editZCommand.setNewZ(newZ);
 		editZCommand.setShape(shapeToEdit);
 		invoker.execute(editZCommand);
