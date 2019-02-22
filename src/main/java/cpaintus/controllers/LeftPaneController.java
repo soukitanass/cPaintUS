@@ -465,7 +465,8 @@ public class LeftPaneController implements IObserver {
 			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getX())));
 			return;
 		}
-		int newX = Integer.parseInt(editX.getText());
+		int newXTempo = Integer.parseInt(editX.getText());
+		int newX = (newXTempo >= 0) ? newXTempo : 0;
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
@@ -492,7 +493,8 @@ public class LeftPaneController implements IObserver {
 			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getY())));
 			return;
 		}
-		int newY = Integer.parseInt(editY.getText());
+		int newYTempo = Integer.parseInt(editY.getText());
+		int newY = (newYTempo >= 0) ? newYTempo : 0;
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
@@ -533,7 +535,8 @@ public class LeftPaneController implements IObserver {
 			editWidth.setText(String.valueOf((int) Math.round(shapeToEdit.getWidth())));
 			return;
 		}
-		int newWidth = Integer.parseInt(editWidth.getText());
+		int newWidthTempo = Integer.parseInt(editWidth.getText());
+		int newWidth = (newWidthTempo >= 0) ? newWidthTempo : 0;
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
@@ -551,7 +554,8 @@ public class LeftPaneController implements IObserver {
 			editHeight.setText(String.valueOf((int) Math.round(shapeToEdit.getHeight())));
 			return;
 		}
-		int newHeight = Integer.parseInt(editHeight.getText());
+		int newHeightTempo = Integer.parseInt(editHeight.getText());
+		int newHeight = (newHeightTempo >= 0) ? newHeightTempo : 0;
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
@@ -587,6 +591,8 @@ public class LeftPaneController implements IObserver {
 			isGrouping = false;
 			break;
 		case SHAPES_LOADED:
+			updateList();
+			selectLastItem(true);
 			break;
 		case SHAPE_REMOVED:
 			updateList();

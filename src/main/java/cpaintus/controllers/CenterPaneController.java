@@ -334,8 +334,6 @@ public class CenterPaneController implements IObserver {
 		Canvas canvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
 		picture.setCanvasHash(canvas.hashCode());
 		drawerStrategyContext.draw(picture, canvas);
-		scrollPaneWidthHandler(scrollPane.getWidth());
-		scrollPaneHeightHandler(scrollPane.getHeight());
 	}
 
 	private void selectShapes() {
