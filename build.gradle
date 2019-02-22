@@ -36,14 +36,16 @@ dependencies {
 	testImplementation(
             'org.junit.jupiter:junit-jupiter-api:5.3.2'
     )
-   testRuntimeOnly(
-           'org.junit.jupiter:junit-jupiter-engine:5.3.2',
-   )
+    testRuntimeOnly(
+            'org.junit.jupiter:junit-jupiter-engine:5.3.2',
+    )
 }
 
 
 test {
 	jvmArgs "-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.text=t2k -Dtestfx.setup.timeout=2500"
+
+	exclude 'cpaintus/views/**'
 
 	useJUnitPlatform()
 	
