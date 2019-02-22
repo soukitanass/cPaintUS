@@ -87,8 +87,10 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			for (ShapesGroup parent : parents) {
 				parent.add(shape);
 			}
-		} else
-			LOGGER.log(Level.INFO, ERROR_MESSAGE);
+			notifyAddAllObservers();
+		} else {
+			addShape(shape);
+		}
 	}
 
 	public void addShape(Shape shape, boolean shouldNotify) {
