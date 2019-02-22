@@ -78,11 +78,12 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			}
 
 			addShape(shape, true);
-		}
+		} else
+			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
 
 	public void addShape(Shape shape, List<ShapesGroup> parents) {
-		if (!parents.isEmpty()) {
+		if (parents != null && !parents.isEmpty()) {
 			for (ShapesGroup parent : parents) {
 				parent.add(shape);
 			}
