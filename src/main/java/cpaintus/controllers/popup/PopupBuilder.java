@@ -12,16 +12,16 @@ public class PopupBuilder {
 
 	private String windowName;
 	private String fxmlResource;
-	
+
 	public PopupBuilder() {
-		
+
 	}
-	
+
 	public PopupBuilder(String windowName, String fxmlResource) {
 		this.windowName = windowName;
 		this.fxmlResource = fxmlResource;
 	}
-	
+
 	public PopupEnvironment build() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlResource));
 		Parent parent;
@@ -32,8 +32,7 @@ public class PopupBuilder {
 		stage.setTitle(windowName);
 		stage.setScene(scene);
 		stage.setResizable(false);
-		PopupEnvironment popupEnvironment = new PopupEnvironment(stage, fxmlLoader);
-		return popupEnvironment;
+		return new PopupEnvironment(stage, fxmlLoader);
 	}
 
 	public String getWindowName() {
@@ -51,6 +50,5 @@ public class PopupBuilder {
 	public void setFxmlResource(String fxmlResource) {
 		this.fxmlResource = fxmlResource;
 	}
-	
-	
+
 }

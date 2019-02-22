@@ -36,7 +36,7 @@ public class EraseShapeCommand extends Command {
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
 		pane.getChildren().remove(activeCanvas);
 		
-		parents = new ArrayList<ShapesGroup>();
+		parents = new ArrayList<>();
 		shapesDictionnary.findParents(shapeToDelete, shapesDictionnary.getShapesList(), parents);
 		
 		shapesDictionnary.removeShape(shapeToDelete);

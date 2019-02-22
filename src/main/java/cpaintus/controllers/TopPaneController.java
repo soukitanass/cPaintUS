@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 public class TopPaneController {
 
 	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final String ERROR_MESSAGE = "Error while opening the file ";
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
 	private Preferences prefs;
@@ -48,13 +49,13 @@ public class TopPaneController {
 	@FXML
 	private void handleUndo () {
 		invoker.undo();
-		InvokerUpdateSingleton.getInstance().updateTree();;
+		InvokerUpdateSingleton.getInstance().updateTree();
 	}
 	
 	@FXML
 	private void handleRedo () {
 		invoker.redo();
-		InvokerUpdateSingleton.getInstance().updateTree();;
+		InvokerUpdateSingleton.getInstance().updateTree();
 	}
 
 	@FXML
@@ -76,7 +77,7 @@ public class TopPaneController {
 			}
 
 		} catch (IOException e) {
-			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+			LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 		}
 	}
 
@@ -97,7 +98,7 @@ public class TopPaneController {
 			controller.setNewDialog(popupEnvironment.getStage());
 			popupEnvironment.getStage().showAndWait();
 		} catch (IOException e) {
-			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+			LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 		}
 	}
 
@@ -113,7 +114,7 @@ public class TopPaneController {
 			
 			popupEnvironment.getStage().showAndWait();
 		} catch (IOException e) {
-			LOGGER.log(Level.INFO, "Error while opening the file ", e);
+			LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 		}
 	}
 	
