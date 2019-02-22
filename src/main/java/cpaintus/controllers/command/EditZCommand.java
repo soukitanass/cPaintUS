@@ -16,7 +16,6 @@ public class EditZCommand extends Command {
 	private int oldZ; 
 	private Canvas activeCanvas;
 	private Shape shapeAttr; 
-	private ShapesDictionnary shapesDictionnary;
 	private AnchorPane pane;
 	private SnapshotSingleton snapshotSingleton;
 	
@@ -50,7 +49,6 @@ public class EditZCommand extends Command {
 	}
 
 	public EditZCommand () {
-		shapesDictionnary = ShapesDictionnary.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
 	}
