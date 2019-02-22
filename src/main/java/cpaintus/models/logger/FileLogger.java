@@ -20,7 +20,7 @@ public class FileLogger extends BaseLogger {
 
 	@Override
 	protected void writeMessage(String msg) {
-		if (file == null) {
+		if (file == null || stream == null) {
 			try {
 				directory = new File("./logs");
 				directory.mkdir(); // Will do nothing if already exists

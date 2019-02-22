@@ -13,7 +13,6 @@ public class Invoker extends Observable<IObserver> {
 
 	private ObservableList<Command> commands = FXCollections.observableArrayList();
 	private int index = -1;
-	private LogLevel logLevel;
 	private BaseLogger logger;
 	
 	public Invoker() {		
@@ -70,8 +69,11 @@ public class Invoker extends Observable<IObserver> {
 	public void redo() {
 		if (index < commands.size() - 1) {
 			index++;
-			commands.get(index).execute();
+			Command c = commands.get(index);
+			c.execute();
 			notifyAllObservers();
+			
+			logger.message("REDO " + c.getCommandID());
 		}
 	}
 

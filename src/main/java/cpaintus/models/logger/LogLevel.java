@@ -17,13 +17,14 @@ public enum LogLevel {
     }
     
     public static LogLevel getLevel(int i) {
-    	if (i == CONSOLE.getValue()) {
+    	switch(i) {
+    	case 1:
     		return CONSOLE;
-    	} else if (i == FILE.getValue()) {
+    	case 2:
     		return FILE;
-    	} else if (i == ALL.getValue()) {
+    	case 3:
     		return ALL;
-    	} else {
+    	default:
     		return NONE;
     	}
     }
