@@ -21,34 +21,36 @@ public class EraseShapeCommand extends Command {
 	private Shape shapeToDelete;
 	private List<ShapesGroup> parents;
 	private ShapesDictionnary shapesDictionnary;
-	private DrawerStrategyContext drawerStrategyContext;
+	private int z;
 	
 	public EraseShapeCommand() {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
 		shapesDictionnary = ShapesDictionnary.getInstance();
-		drawerStrategyContext = DrawerStrategyContext.getInstance();
 	}
 	@Override
 	public void execute() {
 		int hash = shapeToDelete.getCanvasHash();
+		z = shapeToDelete.getZ();
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny().orElse(null);
-		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
+		pane.getChildren().remove(activeCanvas);
 		
-		parents = new ArrayList<ShapesGroup>();
+		parents = new ArrayList<>();
 		shapesDictionnary.findParents(shapeToDelete, shapesDictionnary.getShapesList(), parents);
 		
 		shapesDictionnary.removeShape(shapeToDelete);
 		boundingBox.setVisible(false);
+		
+		snapshotSingleton.updateShapesZ();
 	}
 
 	@Override
 	public void undo() {
 		if(this.shapeToDelete != null && this.activeCanvas != null) {
 			shapesDictionnary.addShape(this.shapeToDelete, this.parents);
-			drawerStrategyContext.draw(shapeToDelete, activeCanvas);
+			pane.getChildren().add(z, activeCanvas);
+			snapshotSingleton.updateShapesZ();
 		}
 	}
 	

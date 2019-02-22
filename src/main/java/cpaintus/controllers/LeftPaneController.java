@@ -78,7 +78,7 @@ public class LeftPaneController implements IObserver {
 	private boolean isUpdatingAttributes;
 
 	@FXML
-	private ComboBox<ShapeType> shape;
+	private ComboBox<ShapeType> shapeType;
 	@FXML
 	private ComboBox<String> lineWidth;
 	@FXML
@@ -206,17 +206,17 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private void initialize() {
 		// Shape settings
-		shape.getItems().setAll(ShapeType.values());
-		shape.getItems().remove(ShapeType.PICTURE);
-		shape.getItems().remove(ShapeType.GROUP);
-		shape.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
+		shapeType.getItems().setAll(ShapeType.values());
+		shapeType.getItems().remove(ShapeType.PICTURE);
+		shapeType.getItems().remove(ShapeType.GROUP);
+		shapeType.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
 
 		// Line width setting
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
 
 		// Color settings
-		fillColor.setDisable(shape.getValue() == ShapeType.LINE);
+		fillColor.setDisable(shapeType.getValue() == ShapeType.LINE);
 		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
 		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
 
@@ -262,12 +262,12 @@ public class LeftPaneController implements IObserver {
 
 	@FXML
 	private void handleChangeShape() {
-		drawSettings.setShape(shape.getValue());
-		fillColor.setDisable(shape.getValue() == ShapeType.LINE);
-		if (shape.getValue() == ShapeType.TEXT) {
+		drawSettings.setShape(shapeType.getValue());
+		fillColor.setDisable(shapeType.getValue() == ShapeType.LINE);
+		if (shapeType.getValue() == ShapeType.TEXT) {
 			handleTextAddClick();
 		}
-		prefs.put("shape", shape.getValue().name());
+		prefs.put("shape", shapeType.getValue().name());
 	}
 
 	private void handleTextAddClick() {
@@ -518,7 +518,6 @@ public class LeftPaneController implements IObserver {
 		if (shapeToEdit.getZ() == newZ)
 			return;
 		EditZCommand editZCommand = new EditZCommand();
-		shapeToEdit.setZ(newZ);
 		editZCommand.setNewZ(newZ);
 		editZCommand.setShape(shapeToEdit);
 		invoker.execute(editZCommand);

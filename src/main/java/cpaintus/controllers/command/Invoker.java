@@ -6,10 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Invoker extends Observable<IObserver> {
-	
+
 	private ObservableList<Command> commands = FXCollections.observableArrayList();
 	private int index = -1;
-	
+
 	public ObservableList<Command> getCommands() {
 		return commands;
 	}
@@ -33,40 +33,27 @@ public class Invoker extends Observable<IObserver> {
 	public static Invoker getInstance() {
 		return InvokerHelper.INSTANCE;
 	}
-	
-	public void execute (Command c) {
+
+	public void execute(Command c) {
 		c.execute();
-		if (index < commands.size()-1) {
-			commands.subList(index+1, commands.size()).clear();
+		if (index < commands.size() - 1) {
+			commands.subList(index + 1, commands.size()).clear();
 		}
 		commands.add(c);
 		index++;
 	}
-	
-	public void undo () {
+
+	public void undo() {
 		if (index >= 0) {
 			commands.get(index).undo();
-			for (Command command : commands) {
-				System.out.println(command);
-				if (command instanceof EditZCommand) {
-					System.out.println(((EditZCommand) command).getShapeAttr());
-					System.out.println(((EditZCommand) command).getNewZ());
-					System.out.println(((EditZCommand) command).getOldZ());
-				}
-			}
-			System.out.println("Current : " + commands.get(index));
 			index--;
 			notifyAllObservers();
 		}
 	}
-	
-	public void redo () {
-		if (index < commands.size()-1) {
-			index++; 
-			for (Command command : commands) {
-				System.out.println(command);
-			}
-			System.out.println("Current : " + commands.get(index));
+
+	public void redo() {
+		if (index < commands.size() - 1) {
+			index++;
 			commands.get(index).execute();
 			notifyAllObservers();
 		}

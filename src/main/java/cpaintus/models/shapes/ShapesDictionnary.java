@@ -3,6 +3,7 @@ package cpaintus.models.shapes;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,27 +34,27 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		return instance;
 	}
 
-	public LinkedHashMap<String, Shape> getShapesDict() {
+	public Map<String, Shape> getShapesDict() {
 		return shapesDict;
 	}
 
-	public void setShapesDict(LinkedHashMap<String, Shape> shapesDict) {
-		this.shapesDict = shapesDict;
+	public void setShapesDict(Map<String, Shape> shapesDict) {
+		this.shapesDict = (LinkedHashMap<String, Shape>) shapesDict;
 	}
 
 	public List<Shape> getShapesList() {
 		return new ArrayList<>(shapesDict.values());
 	}
-	
+
 	public List<Shape> getFullShapesList() {
 		List<Shape> fullList = new ArrayList<>();
 		List<Shape> list = getShapesList();
-		
+
 		appendChildren(fullList, list);
-		
+
 		return fullList;
 	}
-	
+
 	private void appendChildren(List<Shape> fullList, List<Shape> list) {
 		for (Shape shape : list) {
 			if (shape.getShapeType() == ShapeType.GROUP) {
@@ -63,7 +64,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			}
 		}
 	}
-	
+
 	public Shape getLastCreatedShape() {
 		return shapesDict.get(lastCreatedShapeId);
 	}
@@ -80,16 +81,11 @@ public class ShapesDictionnary extends Observable<IObserver> {
 		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
-	
+
 	public void addShape(Shape shape, List<ShapesGroup> parents) {
-		if (shape != null && parents != null) {
-			if (parents.size() != 0) {
-				for (ShapesGroup parent : parents) {
-					parent.add(shape);
-				}
-				notifyAddAllObservers();
-			} else {
-				addShape(shape);
+		if (parents != null && !parents.isEmpty()) {
+			for (ShapesGroup parent : parents) {
+				parent.add(shape);
 			}
 		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
@@ -101,6 +97,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			shapesDict.put(shape.getShapeId(), shape);
 			if (shouldNotify)
 				notifyAddAllObservers();
+			shapeFactory.setTotalShapeNb(getFullShapesList().size());
 		} else
 			LOGGER.log(Level.INFO, ERROR_MESSAGE);
 	}
@@ -108,11 +105,12 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	public void addListShapes(List<Shape> shapesList) {
 		for (Shape shape : shapesList) {
 			if (shape != null) {
-				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0,new Point(0,0), new Point(0,0),new Size(0, 0), 0, new Stroke(1, "#000000"),
-						"#000000", "", "");
+				Shape temp = shapeFactory.getShape(shape.getShapeType(), true, 0, new Point(0, 0), new Point(0, 0),
+						new Size(0, 0), 0, new Stroke(1, "#000000"), "#000000", "", "");
 				shape.setShapeId(temp.getShapeId());
 				shape.setZ(shapeFactory.getTotalShapeNb());
 				shapesDict.put(shape.getShapeId(), shape);
+				shapeFactory.setTotalShapeNb(getFullShapesList().size());
 			} else
 				LOGGER.log(Level.INFO, ERROR_MESSAGE);
 		}
@@ -120,8 +118,9 @@ public class ShapesDictionnary extends Observable<IObserver> {
 
 	public void clearShapesTempo() {
 		shapesDict.clear();
+		shapeFactory.setTotalShapeNb(0);
 	}
-	
+
 	public void clearShapes() {
 		shapesDict.clear();
 		shapeFactory.clear();
@@ -146,28 +145,28 @@ public class ShapesDictionnary extends Observable<IObserver> {
 			obs.update(ObservableList.SHAPE_REMOVED);
 		}
 	}
-	
+
 	public void findParents(Shape child, List<Shape> shapesList, List<ShapesGroup> parents) {
 		for (Shape shape : shapesList) {
 			if (shape.getShapeType() == ShapeType.GROUP) {
 				if (((ShapesGroup) shape).getShapes().contains(child)) {
 					parents.add((ShapesGroup) shape);
 				}
-				
+
 				findParents(child, ((ShapesGroup) shape).getShapes(), parents);
 			}
 		}
 	}
-	
+
 	public void removeShape(Shape shape) {
-		List<ShapesGroup> parents = new ArrayList<ShapesGroup>();
+		List<ShapesGroup> parents = new ArrayList<>();
 		findParents(shape, getShapesList(), parents);
-		
+
 		for (ShapesGroup parent : parents) {
 			parent.remove(shape);
 		}
-		
-		if (shape.getShapeType() == ShapeType.GROUP && parents.size() == 0) {
+
+		if (shape.getShapeType() == ShapeType.GROUP && parents.isEmpty()) {
 			for (Shape s : ((ShapesGroup) shape).getShapes()) {
 				addShape(s);
 			}
@@ -177,10 +176,12 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void removeShape(Shape shape, boolean shouldNotify) {
-    if(shapesDict.containsKey(shape.getShapeId())) {
-			shapesDict.remove(shape.getShapeId());
+	    if(shapesDict.containsKey(shape.getShapeId())) {
+				shapesDict.remove(shape.getShapeId());
+			}
+			if (shouldNotify) {
+				notifyRemoveAllObservers();
+			}
+			shapeFactory.setTotalShapeNb(getFullShapesList().size());
 		}
-		if (shouldNotify)
-			notifyRemoveAllObservers();
-	}
 }

@@ -25,67 +25,76 @@ public class ShapeFactory {
 		totalShapeNb = 0;
 		heartNb = 0;
 		pictureNb = 0;
-		
-		ShapeFunctionalInterface rectangleCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Rectangle " + rectangleNb;
-					if (persistent)
-						rectangleNb++;
-					return new Rectangle(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke, fillColor, size);
+
+		ShapeFunctionalInterface rectangleCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
+				Point position, Point position2, Size size, double rotation, Stroke stroke, String fillColor,
+				String base64, String text) -> {
+			String shapeId = "Rectangle " + rectangleNb;
+			if (persistent)
+				rectangleNb++;
+			return new Rectangle(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
+					size);
 		};
-		
-		ShapeFunctionalInterface ellipseCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Ellipse " + ellipseNb;
-					if (persistent)
-						ellipseNb++;
-					return new Ellipse(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke, fillColor, size);
+
+		ShapeFunctionalInterface ellipseCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
+				Point position, Point position2, Size size, double rotation, Stroke stroke, String fillColor,
+				String base64, String text) -> {
+			String shapeId = "Ellipse " + ellipseNb;
+			if (persistent)
+				ellipseNb++;
+			return new Ellipse(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
+					size);
 		};
-		
-		ShapeFunctionalInterface lineCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Line " + lineNb;
-					if (persistent)
-						lineNb++;
-					return new Line(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke,
-							position2);
+
+		ShapeFunctionalInterface lineCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position,
+				Point position2, Size size, double rotation, Stroke stroke, String fillColor, String base64,
+				String text) -> {
+			String shapeId = "Line " + lineNb;
+			if (persistent)
+				lineNb++;
+			return new Line(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, position2);
 		};
-		
-		ShapeFunctionalInterface pokeballCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Pokeball " + pokeballNb;
-					if (persistent)
-						pokeballNb++;
-					return new Pokeball(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke, fillColor, size);
+
+		ShapeFunctionalInterface pokeballCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
+				Point position, Point position2, Size size, double rotation, Stroke stroke, String fillColor,
+				String base64, String text) -> {
+			String shapeId = "Pokeball " + pokeballNb;
+			if (persistent)
+				pokeballNb++;
+			return new Pokeball(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
+					size);
 		};
-		
-		ShapeFunctionalInterface heartCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Heart " + heartNb;
-					if (persistent)
-						heartNb++;
-					return new Heart(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke,
-							fillColor, size);
+
+		ShapeFunctionalInterface heartCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
+				Point position, Point position2, Size size, double rotation, Stroke stroke, String fillColor,
+				String base64, String text) -> {
+			String shapeId = "Heart " + heartNb;
+			if (persistent)
+				heartNb++;
+			return new Heart(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor, size);
 		};
-		
-		ShapeFunctionalInterface pictureCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Picture " + pictureNb;
-					if (persistent)
-						pictureNb++;
-					return new Picture(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke, fillColor, size, base64);
+
+		ShapeFunctionalInterface pictureCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
+				Point position, Point position2, Size size, double rotation, Stroke stroke, String fillColor,
+				String base64, String text) -> {
+			String shapeId = "Picture " + pictureNb;
+			if (persistent)
+				pictureNb++;
+			return new Picture(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
+					size, base64);
 		};
-		
-		ShapeFunctionalInterface textCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2, Size size,
-				double rotation, Stroke stroke, String fillColor, String base64, String text) -> {
-					String shapeId = "Text " + textNb;
-					if (persistent)
-						textNb++;
-					return new Text(shapeType, shapeId, canvasHash, position, totalShapeNb, rotation, stroke,
-							fillColor, size, text);
+
+		ShapeFunctionalInterface textCreator = (ShapeType shapeType, boolean persistent, int canvasHash, Point position,
+				Point position2, Size size, double rotation, Stroke stroke, String fillColor, String base64,
+				String text) -> {
+			String shapeId = "Text " + textNb;
+			if (persistent)
+				textNb++;
+			return new Text(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor, size,
+					text);
 		};
-		
-		creatorDictionary = new HashMap<ShapeType, ShapeFunctionalInterface>();
+
+		creatorDictionary = new HashMap<>();
 		creatorDictionary.put(ShapeType.RECTANGLE, rectangleCreator);
 		creatorDictionary.put(ShapeType.ELLIPSE, ellipseCreator);
 		creatorDictionary.put(ShapeType.HEART, heartCreator);
@@ -104,11 +113,9 @@ public class ShapeFactory {
 	}
 
 	public Shape getShape(ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2,
-			Size size, double rotation, Stroke stroke, String fillColor, String base64,
-			String text) {
-		if (persistent)
-			++totalShapeNb;
-		return creatorDictionary.get(shapeType).create(shapeType, persistent, canvasHash, position, position2, size, rotation, stroke, fillColor, base64, text);
+			Size size, double rotation, Stroke stroke, String fillColor, String base64, String text) {
+		return creatorDictionary.get(shapeType).create(shapeType, persistent, canvasHash, position, position2, size,
+				rotation, stroke, fillColor, base64, text);
 	}
 
 	void clear() {
@@ -120,11 +127,11 @@ public class ShapeFactory {
 		pictureNb = 0;
 		totalShapeNb = 0;
 	}
-	
+
 	public int getTotalShapeNb() {
 		return totalShapeNb;
 	}
-	
+
 	public int getRectangleNb() {
 		return rectangleNb;
 	}
