@@ -1,5 +1,9 @@
 package cpaintus.controllers.command;
 
+import cpaintus.models.logger.BaseLogger;
+import cpaintus.models.logger.ConsoleLogger;
+import cpaintus.models.logger.FileLogger;
+import cpaintus.models.logger.LogLevel;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import javafx.collections.FXCollections;
@@ -9,7 +13,22 @@ public class Invoker extends Observable<IObserver> {
 
 	private ObservableList<Command> commands = FXCollections.observableArrayList();
 	private int index = -1;
+	private LogLevel logLevel;
+	private BaseLogger logger;
+	
+	public Invoker() {		
+		logger = new ConsoleLogger();
+		logger.setNext(new FileLogger());
+	}
+	
+	private static class InvokerHelper {
+		private static final Invoker INSTANCE = new Invoker();
+	}
 
+	public static Invoker getInstance() {
+		return InvokerHelper.INSTANCE;
+	}
+	
 	public ObservableList<Command> getCommands() {
 		return commands;
 	}
@@ -26,14 +45,6 @@ public class Invoker extends Observable<IObserver> {
 		this.index = index;
 	}
 
-	private static class InvokerHelper {
-		private static final Invoker INSTANCE = new Invoker();
-	}
-
-	public static Invoker getInstance() {
-		return InvokerHelper.INSTANCE;
-	}
-
 	public void execute(Command c) {
 		c.execute();
 		if (index < commands.size() - 1) {
@@ -41,13 +52,18 @@ public class Invoker extends Observable<IObserver> {
 		}
 		commands.add(c);
 		index++;
+		
+		logger.message("DO " + c.getCommandID());
 	}
 
 	public void undo() {
 		if (index >= 0) {
-			commands.get(index).undo();
+			Command c = commands.get(index);
+			c.undo();
 			index--;
 			notifyAllObservers();
+			
+			logger.message("UNDO " + c.getCommandID());
 		}
 	}
 

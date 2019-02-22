@@ -4,6 +4,8 @@ import java.util.prefs.Preferences;
 
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
+import cpaintus.models.logger.BaseLogger;
+import cpaintus.models.logger.LogLevel;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +57,14 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		int i = 0;
+		if (args.length > 0 && args[0].toLowerCase().contains("verbose")) {
+			String[] verbose = args[0].split("=");
+			i = Integer.parseInt(verbose[1]);
+		}
+		LogLevel logLevel = LogLevel.getLevel(i);
+		BaseLogger.setLogLevel(logLevel);
+		
 		launch(args);
 	}
 }

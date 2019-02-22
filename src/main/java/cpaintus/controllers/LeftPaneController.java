@@ -194,7 +194,6 @@ public class LeftPaneController implements IObserver {
 		selectCommandListener = new ChangeListener<Command>() {
 			@Override
 			public void changed(ObservableValue<? extends Command> observable, Command oldValue, Command newValue) {
-				System.out.println("Selectionnée :" + newValue);
 				commandToUndoUntil = newValue;
 			}
 		};
