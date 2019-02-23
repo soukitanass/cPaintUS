@@ -38,6 +38,13 @@ public class BoundingBox extends Observable<IObserver> {
 			obs.update(ObservableList.BOUNDING_BOX);
 		}
 	}
+
+	public void notifyGridObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.GRID);
+		}
+	}
+
 	private Point gridRound(Point p) {
 		if(gridMod) {
 			p.setX(roundForGrid(p.getX()));
@@ -130,7 +137,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridMod(Boolean gridMod) {
 		this.gridMod = gridMod;
-		notifyAllObservers();
+		notifyGridObservers();
 	}
 
 	public double getGridStep() {
@@ -139,7 +146,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridStep(double gridStep) {
 		this.gridStep = gridStep;
-		notifyAllObservers();
+		notifyGridObservers();
 	}
 	
 	public Point getCenter() {

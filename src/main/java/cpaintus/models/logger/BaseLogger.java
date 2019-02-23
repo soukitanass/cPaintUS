@@ -27,14 +27,16 @@ public abstract class BaseLogger
 
     public void message(String msg)
     {
-        if ((logMask.getValue() & logLevel.getValue()) != 0) //True if all logMask bits are set in logLevel
-        {
-            writeMessage(msg);
-        }
-        if (next != null) 
-        {
-            next.message(msg); 
-        }
+    	if (logMask != null && logLevel != null) {
+	        if ((logMask.getValue() & logLevel.getValue()) != 0) //True if all logMask bits are set in logLevel
+	        {
+	            writeMessage(msg);
+	        }
+	        if (next != null)
+	        {
+	            next.message(msg);
+	        }
+    	}
     }
 
     abstract protected void writeMessage(String msg);

@@ -50,6 +50,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -98,13 +99,7 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Button deleteBtn;
 	@FXML
-	private Button topBtn;
-	@FXML
-	private Button rightBtn;
-	@FXML
-	private Button buttomBtn;
-	@FXML
-	private Button leftBtn;
+	private VBox alignments;
 	@FXML
 	private Button flipHorizontalBtn;
 	@FXML
@@ -153,8 +148,6 @@ public class LeftPaneController implements IObserver {
 	private TextField editHeight;
 	@FXML
 	private TextField rotate;
-	@FXML
-	private Label alignementLabel;
 
 	public LeftPaneController() {
 		invoker = Invoker.getInstance();
@@ -235,13 +228,10 @@ public class LeftPaneController implements IObserver {
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 
 		// Bind managed to visibility
+		attributes.managedProperty().bind(attributes.visibleProperty());
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
 		deleteBtn.managedProperty().bind(deleteBtn.visibleProperty());
-		topBtn.managedProperty().bind(topBtn.visibleProperty());
-		rightBtn.managedProperty().bind(rightBtn.visibleProperty());
-		buttomBtn.managedProperty().bind(buttomBtn.visibleProperty());
-		leftBtn.managedProperty().bind(leftBtn.visibleProperty());
-		alignementLabel.managedProperty().bind(alignementLabel.visibleProperty());
+		alignments.managedProperty().bind(alignments.visibleProperty());
 		editLineWidthSection.managedProperty().bind(editLineWidthSection.visibleProperty());
 		editStrokeColorSection.managedProperty().bind(editStrokeColorSection.visibleProperty());
 		editZSection.managedProperty().bind(editZSection.visibleProperty());
@@ -356,11 +346,7 @@ public class LeftPaneController implements IObserver {
 		// Set the attributes visibility
 		unselectBtn.setVisible(isGroup);
 		deleteBtn.setVisible(!isGroup);
-		topBtn.setVisible(isGroup);
-		rightBtn.setVisible(isGroup);
-		buttomBtn.setVisible(isGroup);
-		leftBtn.setVisible(isGroup);
-		alignementLabel.setVisible(isGroup);
+		alignments.setVisible(isGroup);
 		editLineWidthSection.setVisible(!isGroup);
 		editStrokeColorSection.setVisible(!isGroup);
 		editZSection.setVisible(!isGroup);
