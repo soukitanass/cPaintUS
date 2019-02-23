@@ -22,7 +22,7 @@
 	<children>
 		<VBox prefHeight="620" prefWidth="204.0">
 			<children>
-				<Accordion>
+				<Accordion expandedPane="$default">
 					<panes>
 						<TitledPane fx:id="default" text="Draw Settings">
 							<ToolBar prefWidth="188.0">
