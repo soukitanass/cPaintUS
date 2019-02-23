@@ -77,8 +77,6 @@ public class LeftPaneController implements IObserver {
 	private boolean isUpdatingAttributes;
 	
 	@FXML
-	private VBox test;
-	@FXML
 	private ComboBox<ShapeType> shapeType;
 	@FXML
 	private ComboBox<String> lineWidth;
