@@ -1,9 +1,11 @@
 package cpaintus.views;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -30,7 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 @ExtendWith(ApplicationExtension.class)
-class ShapeTestFX {
+class DrawShapeTest {
 
 	@Start
 	private void start(Stage stage) {
@@ -60,7 +62,6 @@ class ShapeTestFX {
 				}
 			});
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -68,20 +69,35 @@ class ShapeTestFX {
 	@Test
 	void createShapeTestFX(FxRobot robot) {
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
-		DrawSettings drawSettings = DrawSettings.getInstance();
-		drawSettings.setShape(ShapeType.POKEBALL);
+		createShape(robot, ShapeType.ELLIPSE);
+		assertFalse(shapesDict.getFullShapesList().isEmpty());
 
-		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
-		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
+		createShape(robot, ShapeType.RECTANGLE);
+		assertEquals(2, shapesDict.getFullShapesList().size());
 
-		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
+		createShape(robot, ShapeType.POKEBALL);
+		assertEquals(3, shapesDict.getFullShapesList().size());
+
+		createShape(robot, ShapeType.HEART);
+		assertEquals(4, shapesDict.getFullShapesList().size());
+
+		createShape(robot, ShapeType.LINE);
+		assertEquals(5, shapesDict.getFullShapesList().size());
 
 		try {
 			FxToolkit.cleanupStages();
 		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void createShape(FxRobot robot, ShapeType shapeType) {
+		DrawSettings drawSettings = DrawSettings.getInstance();
+		drawSettings.setShape(shapeType);
+
+		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
+		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
+
 	}
 
 }
