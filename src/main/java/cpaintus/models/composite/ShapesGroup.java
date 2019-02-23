@@ -124,6 +124,7 @@ public class ShapesGroup extends Shape2D {
 			shape.setStrokeColor(strokeColor);
 		}
 	}
+	
 
 	public void setFillColor(String fillColor) {
 		for (Shape shape : shapes) {
@@ -131,6 +132,18 @@ public class ShapesGroup extends Shape2D {
 				((Shape2D) shape).setFillColor(fillColor);
 			}
 
+		}
+	}
+	
+	public void setFlipHorizontal(boolean flip) {
+		for (Shape shape : shapes) {
+			shape.setFlipHorizontal(flip);
+		}
+	}
+
+	public void setFlipVertical(boolean flip) {
+		for (Shape shape : shapes) {
+			shape.setFlipVertical(flip);
 		}
 	}
 

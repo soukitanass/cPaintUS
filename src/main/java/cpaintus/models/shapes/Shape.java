@@ -14,6 +14,8 @@ public abstract class Shape {
 	private double rotation;
 	private int lineWidth;
 	private String strokeColor;
+	private boolean flipHorizontal;
+	private boolean flipVertical;
 	protected ShapeDimension shapeDim;
 
 	public Shape(
@@ -135,6 +137,23 @@ public abstract class Shape {
 	
 	public void setUpLeftCornerY(double y) {
 		this.setY(y);
+	}
+
+
+	public boolean isFlipHorizontal() {
+		return flipHorizontal;
+	}
+
+	public void setFlipHorizontal(boolean flipHorizontal) {
+		this.flipHorizontal = flipHorizontal;
+	}
+
+	public boolean isFlipVertical() {
+		return flipVertical;
+	}
+
+	public void setFlipVertical(boolean flipVertical) {
+		this.flipVertical = flipVertical;
 	}
 
 

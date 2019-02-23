@@ -106,6 +106,10 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Button leftBtn;
 	@FXML
+	private Button flipHorizontalBtn;
+	@FXML
+	private Button flipVerticalBtn;
+	@FXML
 	private TreeView<Shape> tree;
 	@FXML
 	private ListView<Command> commandes;
@@ -149,6 +153,8 @@ public class LeftPaneController implements IObserver {
 	private TextField editHeight;
 	@FXML
 	private TextField rotate;
+	@FXML
+	private Label alignementLabel;
 
 	public LeftPaneController() {
 		invoker = Invoker.getInstance();
@@ -235,6 +241,7 @@ public class LeftPaneController implements IObserver {
 		rightBtn.managedProperty().bind(rightBtn.visibleProperty());
 		buttomBtn.managedProperty().bind(buttomBtn.visibleProperty());
 		leftBtn.managedProperty().bind(leftBtn.visibleProperty());
+		alignementLabel.managedProperty().bind(alignementLabel.visibleProperty());
 		editLineWidthSection.managedProperty().bind(editLineWidthSection.visibleProperty());
 		editStrokeColorSection.managedProperty().bind(editStrokeColorSection.visibleProperty());
 		editZSection.managedProperty().bind(editZSection.visibleProperty());
@@ -353,6 +360,7 @@ public class LeftPaneController implements IObserver {
 		rightBtn.setVisible(isGroup);
 		buttomBtn.setVisible(isGroup);
 		leftBtn.setVisible(isGroup);
+		alignementLabel.setVisible(isGroup);
 		editLineWidthSection.setVisible(!isGroup);
 		editStrokeColorSection.setVisible(!isGroup);
 		editZSection.setVisible(!isGroup);
@@ -383,7 +391,7 @@ public class LeftPaneController implements IObserver {
 		isUpdatingAttributes = false;
 		updateBoundingBox(newShape);
 	}
-	
+
 	@FXML
 	private void handleUnSelectClick() {
 		selectShapesSingleton.setSelectedShape(shapeToEdit);
@@ -704,7 +712,7 @@ public class LeftPaneController implements IObserver {
 			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
 	}
-	
+
 	private void shapeAlignment(Direction direction, double newVal) {
 		if (isUpdatingAttributes)
 			return;
@@ -728,7 +736,7 @@ public class LeftPaneController implements IObserver {
 			default:
 				break;
 			}
-			
+
 			editCommand.setShapeToEdit(shape);
 			invoker.execute(editCommand);
 		}
@@ -757,6 +765,50 @@ public class LeftPaneController implements IObserver {
 	private void handleLeftClick() {
 		double newX = boundingBox.getUpLeftCorner().getX();
 		shapeAlignment(Direction.LEFT, newX);
+	}
+
+	@FXML
+	private void handleFlipHorizontalClick() {
+		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.setFlipHorizontal(true);
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
+			Shape oldShape = shapeToEdit.makeCopy();
+			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
+			shapeToEdit.setFlipHorizontal(true);
+			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			invoker.execute(editGroupCommand);
+			updateBoundingBox(shapeToEdit);
+		}
+	}
+
+	@FXML
+	private void handleFlipVerticalClick() {
+		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.setFlipVertical(true);
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
+			Shape oldShape = shapeToEdit.makeCopy();
+			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
+			((ShapesGroup) shapeToEdit).setFlipVertical(true);
+			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			invoker.execute(editGroupCommand);
+			updateBoundingBox(shapeToEdit);
+		}
 	}
 
 }

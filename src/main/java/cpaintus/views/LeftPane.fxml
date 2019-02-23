@@ -64,6 +64,12 @@
 										<Button fx:id="deleteBtn" onAction="#handleDeleteClick"
 											prefWidth="188.0" text="Delete" />
 									</HBox>
+									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+										<Button fx:id="flipHorizontalBtn" onAction="#handleFlipHorizontalClick"
+											prefWidth="188.0" text="Flip Horizontal" />
+										<Button fx:id="flipVerticalBtn" onAction="#handleFlipVerticalClick"
+											prefWidth="188.0" text="Flip Vertical" />
+									</HBox>
 									<HBox fx:id="editLineWidthSection" alignment="CENTER"
 										prefWidth="188.0" spacing="5">
 										<Label prefWidth="78.0" text="Brush Size: " />
@@ -101,7 +107,7 @@
 											prefWidth="110.0" />
 									</HBox>
 									<HBox prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Alignement: " />
+										<Label prefWidth="78.0" text="Alignement: " fx:id="alignementLabel" />
 									</HBox>
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
 										<Button fx:id="topBtn" onAction="#handleTopClick"

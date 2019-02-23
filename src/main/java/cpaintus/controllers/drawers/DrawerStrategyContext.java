@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.StrokeLineCap;
 
 public class DrawerStrategyContext {
-	
+
 	private DrawerStrategyContext() {
 	}
 
@@ -24,11 +24,11 @@ public class DrawerStrategyContext {
 		activeCanvas.setLayoutY(shape.getY());
 		activeCanvas.setWidth(shape.getWidth());
 		activeCanvas.setHeight(shape.getHeight());
-		
+
 		GraphicsContext gc = activeCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, activeCanvas.getWidth(), activeCanvas.getHeight());
 		gc.setLineCap(StrokeLineCap.ROUND);
-		
+
 		switch (shape.getShapeType()) {
 		case RECTANGLE:
 			drawerStrategy = new RectangleDrawerStrategy();
@@ -41,7 +41,7 @@ public class DrawerStrategyContext {
 		case LINE:
 			activeCanvas.setLayoutX(shape.getUpLeftCorner().getX());
 			activeCanvas.setLayoutY(shape.getUpLeftCorner().getY());
-			
+
 			drawerStrategy = new LineDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
@@ -64,7 +64,13 @@ public class DrawerStrategyContext {
 		default:
 			break;
 		}
-		
+
 		activeCanvas.setRotate(shape.getRotation());
+		if (shape.isFlipHorizontal()) {
+			activeCanvas.setScaleX(-activeCanvas.getScaleX());
+		}
+		if (shape.isFlipVertical()) {
+			activeCanvas.setScaleY(-activeCanvas.getScaleY());
+		}
 	}
 }
