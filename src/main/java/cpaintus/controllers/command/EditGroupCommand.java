@@ -67,13 +67,15 @@ public class EditGroupCommand extends Command {
 				return;
 			}
 			if (shapeToEdit.isFlipVertical()) {
-				activeCanvas.getTransforms().add(new Rotate(180, shapeToEdit.getCenter().getX(),
-						shapeToEdit.getCenter().getY(), 0, Rotate.X_AXIS));
-
+				activeCanvas.getTransforms().add(new Rotate(180, 
+						shapeToEdit.getCenter().getX() - shapeToEdit.getUpLeftCorner().getX(),
+						shapeToEdit.getCenter().getY() - shapeToEdit.getUpLeftCorner().getY(),
+						0, Rotate.X_AXIS));
 			} else if (shapeToEdit.isFlipHorizontal()) {
-				activeCanvas.getTransforms().add(new Rotate(180, shapeToEdit.getCenter().getX(),
-						shapeToEdit.getCenter().getY(), 0, Rotate.Y_AXIS));
-
+				activeCanvas.getTransforms().add(new Rotate(180,
+						shapeToEdit.getCenter().getX() - shapeToEdit.getUpLeftCorner().getX(),
+						shapeToEdit.getCenter().getY() - shapeToEdit.getUpLeftCorner().getY(),
+						0, Rotate.Y_AXIS));
 			} else
 				drawerStrategyContext.draw(shapes.get(i), activeCanvas);
 		}
