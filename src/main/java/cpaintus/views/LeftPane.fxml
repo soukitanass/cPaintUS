@@ -22,152 +22,147 @@
 	<children>
 		<VBox prefWidth="204.0">
 			<children>
-				<Accordion expandedPane="$default">
-					<panes>
-						<TitledPane fx:id="default" text="Draw Settings">
-							<ToolBar prefWidth="188.0">
-								<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Draw Shape: " />
-										<ComboBox fx:id="shapeType"
-											onAction="#handleChangeShape" prefWidth="110.0"
-											promptText="Choose" />
-									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Brush Size: " />
-										<ComboBox fx:id="lineWidth"
-											onAction="#handleChangeLineWidth" prefWidth="110.0"
-											promptText="Choose" />
-									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Fill Color: " />
-										<ColorPicker fx:id="fillColor"
-											onAction="#handleChangeFillColor" prefWidth="110.0" />
-									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Stroke Color: " />
-										<ColorPicker fx:id="strokeColor"
-											onAction="#handleChangeStrokeColor" prefWidth="110.0" />
-									</HBox>
-									<Button fx:id="eraseAllBtn"
-										onAction="#handleEraseAllClick" prefWidth="188.0"
-										text="Erase All" />
-									<Button fx:id="selectBtn" onAction="#handleSelectClick"
-										prefWidth="188.0" text="Select" />
-								</VBox>
-							</ToolBar>
-						</TitledPane>
-						<TitledPane text="Shapes">
-							<TreeView fx:id="tree" prefHeight="200.0"
-								prefWidth="200.0" />
-						</TitledPane>
-						<TitledPane text="Edit Attributes">
-							<ToolBar fx:id="attributes">
-								<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
-									<Label fx:id="attributesLabel" />
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Button fx:id="unselectBtn"
-											onAction="#handleUnSelectClick" prefWidth="188.0"
-											text="Unselect" />
-									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Button fx:id="deleteBtn" onAction="#handleDeleteClick"
-											prefWidth="188.0" text="Delete" />
-									</HBox>
-									<HBox fx:id="editLineWidthSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Brush Size: " />
-										<ComboBox fx:id="editLineWidth"
-											onAction="#handleEditLineWidth" prefWidth="110.0"
-											promptText="Choose" />
-									</HBox>
-									<HBox fx:id="editFillColorSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Fill Color: " />
-										<ColorPicker fx:id="editFillColor"
-											onAction="#handleEditFillColor" prefWidth="110.0" />
-									</HBox>
-									<HBox fx:id="editStrokeColorSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Stroke Color: " />
-										<ColorPicker fx:id="editStrokeColor"
-											onAction="#handleEditStrokeColor" prefWidth="110.0" />
-									</HBox>
-									<HBox fx:id="editTextSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Edit Text: " />
-										<TextField fx:id="editText" prefWidth="65.0" />
-										<Button fx:id="editBtn" onAction="#handleEditText"
-											prefWidth="40.0" text="Edit" />
-									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="X: " />
-										<TextField fx:id="editX" onAction="#handleEditX"
-											prefWidth="110.0" />
-									</HBox>
-									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Y: " />
-										<TextField fx:id="editY" onAction="#handleEditY"
-											prefWidth="110.0" />
-									</HBox>
-									<VBox prefWidth="188.0" spacing="5" fx:id="alignments">
-										<Label prefWidth="78.0" text="Alignement: " />
-										<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
-											<Button onAction="#handleTopClick" prefWidth="94.0"
-												text="Top" />
-										</HBox>
-										<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-											<Button onAction="#handleLeftClick" prefWidth="94.0"
-												text="Left" />
-											<Button onAction="#handleRightClick" prefWidth="94.0"
-												text="Right" />
-										</HBox>
-										<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
-											<Button onAction="#handleButtomClick" prefWidth="94.0"
-												text="Bottom" />
-										</HBox>
-									</VBox>
-									<HBox fx:id="editZSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Z: " />
-										<Spinner fx:id="editZ" prefWidth="110.0" />
-									</HBox>
-									<HBox fx:id="editWidthSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Width: " />
-										<TextField fx:id="editWidth"
-											onAction="#handleEditWidth" prefWidth="110.0" />
-									</HBox>
-									<HBox fx:id="editHeightSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Height: " />
-										<TextField fx:id="editHeight"
-											onAction="#handleEditHeight" prefWidth="110.0" />
-									</HBox>
-									<HBox fx:id="editRotateSection" alignment="CENTER"
-										prefWidth="188.0" spacing="5">
-										<Label prefWidth="78.0" text="Rotation: " />
-										<TextField fx:id="rotate" onAction="#handleRotate"
-											prefWidth="110.0" />
-									</HBox>
-								</VBox>
-							</ToolBar>
-						</TitledPane>
-						<TitledPane text="Command History">
-							<VBox>
-								<HBox>
-									<ListView fx:id="commandes" prefHeight="200.0"
-										prefWidth="200.0" />
+				<TitledPane text="Draw Settings" expanded="true">
+					<ToolBar prefWidth="188.0">
+						<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Draw Shape: " />
+								<ComboBox fx:id="shapeType"
+									onAction="#handleChangeShape" prefWidth="110.0"
+									promptText="Choose" />
+							</HBox>
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Brush Size: " />
+								<ComboBox fx:id="lineWidth"
+									onAction="#handleChangeLineWidth" prefWidth="110.0"
+									promptText="Choose" />
+							</HBox>
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Fill Color: " />
+								<ColorPicker fx:id="fillColor"
+									onAction="#handleChangeFillColor" prefWidth="110.0" />
+							</HBox>
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Stroke Color: " />
+								<ColorPicker fx:id="strokeColor"
+									onAction="#handleChangeStrokeColor" prefWidth="110.0" />
+							</HBox>
+							<Button fx:id="eraseAllBtn"
+								onAction="#handleEraseAllClick" prefWidth="188.0"
+								text="Erase All" />
+							<Button fx:id="selectBtn" onAction="#handleSelectClick"
+								prefWidth="188.0" text="Select" />
+						</VBox>
+					</ToolBar>
+				</TitledPane>
+				<TitledPane text="Shapes" expanded="false">
+					<TreeView fx:id="tree" prefHeight="200.0"
+						prefWidth="200.0" />
+				</TitledPane>
+				<TitledPane fx:id="attributes" text="Edit Attributes" expanded="false">
+					<ToolBar>
+						<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
+							<Label fx:id="attributesLabel" />
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Button fx:id="unselectBtn"
+									onAction="#handleUnSelectClick" prefWidth="188.0"
+									text="Unselect" />
+							</HBox>
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Button fx:id="deleteBtn" onAction="#handleDeleteClick"
+									prefWidth="188.0" text="Delete" />
+							</HBox>
+							<HBox fx:id="editLineWidthSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Brush Size: " />
+								<ComboBox fx:id="editLineWidth"
+									onAction="#handleEditLineWidth" prefWidth="110.0"
+									promptText="Choose" />
+							</HBox>
+							<HBox fx:id="editFillColorSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Fill Color: " />
+								<ColorPicker fx:id="editFillColor"
+									onAction="#handleEditFillColor" prefWidth="110.0" />
+							</HBox>
+							<HBox fx:id="editStrokeColorSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Stroke Color: " />
+								<ColorPicker fx:id="editStrokeColor"
+									onAction="#handleEditStrokeColor" prefWidth="110.0" />
+							</HBox>
+							<HBox fx:id="editTextSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Edit Text: " />
+								<TextField fx:id="editText" prefWidth="65.0" />
+								<Button fx:id="editBtn" onAction="#handleEditText"
+									prefWidth="40.0" text="Edit" />
+							</HBox>
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="X: " />
+								<TextField fx:id="editX" onAction="#handleEditX"
+									prefWidth="110.0" />
+							</HBox>
+							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Y: " />
+								<TextField fx:id="editY" onAction="#handleEditY"
+									prefWidth="110.0" />
+							</HBox>
+							<VBox prefWidth="188.0" spacing="5" fx:id="alignments">
+								<Label prefWidth="78.0" text="Alignement: " />
+								<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
+									<Button onAction="#handleTopClick" prefWidth="94.0"
+										text="Top" />
 								</HBox>
-								<HBox>
-									<Button fx:id="undoUntilBtn"
-										onAction="#handleUndoUntilClick" prefWidth="188.0"
-										text="Revert" />
+								<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
+									<Button onAction="#handleLeftClick" prefWidth="94.0"
+										text="Left" />
+									<Button onAction="#handleRightClick" prefWidth="94.0"
+										text="Right" />
+								</HBox>
+								<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
+									<Button onAction="#handleButtomClick" prefWidth="94.0"
+										text="Bottom" />
 								</HBox>
 							</VBox>
-						</TitledPane>
-					</panes>
-				</Accordion>
+							<HBox fx:id="editZSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Z: " />
+								<Spinner fx:id="editZ" prefWidth="110.0" />
+							</HBox>
+							<HBox fx:id="editWidthSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Width: " />
+								<TextField fx:id="editWidth"
+									onAction="#handleEditWidth" prefWidth="110.0" />
+							</HBox>
+							<HBox fx:id="editHeightSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Height: " />
+								<TextField fx:id="editHeight"
+									onAction="#handleEditHeight" prefWidth="110.0" />
+							</HBox>
+							<HBox fx:id="editRotateSection" alignment="CENTER"
+								prefWidth="188.0" spacing="5">
+								<Label prefWidth="78.0" text="Rotation: " />
+								<TextField fx:id="rotate" onAction="#handleRotate"
+									prefWidth="110.0" />
+							</HBox>
+						</VBox>
+					</ToolBar>
+				</TitledPane>
+				<TitledPane text="Command History" expanded="false">
+					<VBox>
+						<HBox>
+							<ListView fx:id="commandes" prefHeight="200.0"
+								prefWidth="200.0" />
+						</HBox>
+						<HBox>
+							<Button fx:id="undoUntilBtn"
+								onAction="#handleUndoUntilClick" prefWidth="188.0" text="Revert" />
+						</HBox>
+					</VBox>
+				</TitledPane>
 			</children>
 		</VBox>
 	</children>
