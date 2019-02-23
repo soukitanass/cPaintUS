@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefWidth="204.0"
-	xmlns="http://javafx.com/javafx/9.0.4"
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="cpaintus.controllers.LeftPaneController">
 	<children>
-		<VBox prefHeight="620" prefWidth="204.0">
+		<VBox prefWidth="204.0">
 			<children>
 				<Accordion expandedPane="$default">
 					<panes>
-						<TitledPane text="Draw Settings" fx:id="default">
-							<ToolBar>
+						<TitledPane fx:id="default" text="Draw Settings">
+							<ToolBar prefWidth="188.0">
 								<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
 										<Label prefWidth="78.0" text="Draw Shape: " />
-										<ComboBox fx:id="shapeType" onAction="#handleChangeShape"
-											prefWidth="110.0" promptText="Choose" />
+										<ComboBox fx:id="shapeType"
+											onAction="#handleChangeShape" prefWidth="110.0"
+											promptText="Choose" />
 									</HBox>
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
 										<Label prefWidth="78.0" text="Brush Size: " />
@@ -103,18 +113,18 @@
 									<VBox prefWidth="188.0" spacing="5" fx:id="alignments">
 										<Label prefWidth="78.0" text="Alignement: " />
 										<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
-											<Button onAction="#handleTopClick"
-												prefWidth="94.0" text="Top" />
+											<Button onAction="#handleTopClick" prefWidth="94.0"
+												text="Top" />
 										</HBox>
 										<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-											<Button onAction="#handleLeftClick"
-												prefWidth="94.0" text="Left" />
-											<Button onAction="#handleRightClick"
-												prefWidth="94.0" text="Right" />
+											<Button onAction="#handleLeftClick" prefWidth="94.0"
+												text="Left" />
+											<Button onAction="#handleRightClick" prefWidth="94.0"
+												text="Right" />
 										</HBox>
 										<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
-											<Button onAction="#handleButtomClick"
-												prefWidth="94.0" text="Bottom" />
+											<Button onAction="#handleButtomClick" prefWidth="94.0"
+												text="Bottom" />
 										</HBox>
 									</VBox>
 									<HBox fx:id="editZSection" alignment="CENTER"
