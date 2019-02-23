@@ -20,7 +20,7 @@
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="cpaintus.controllers.LeftPaneController">
 	<children>
-		<VBox prefHeight="620" prefWidth="204.0">
+		<VBox prefWidth="204.0">
 			<children>
 				<Accordion expandedPane="$default">
 					<panes>
@@ -113,18 +113,18 @@
 									<VBox prefWidth="188.0" spacing="5" fx:id="alignments">
 										<Label prefWidth="78.0" text="Alignement: " />
 										<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
-											<Button onAction="#handleTopClick"
-												prefWidth="94.0" text="Top" />
+											<Button onAction="#handleTopClick" prefWidth="94.0"
+												text="Top" />
 										</HBox>
 										<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
-											<Button onAction="#handleLeftClick"
-												prefWidth="94.0" text="Left" />
-											<Button onAction="#handleRightClick"
-												prefWidth="94.0" text="Right" />
+											<Button onAction="#handleLeftClick" prefWidth="94.0"
+												text="Left" />
+											<Button onAction="#handleRightClick" prefWidth="94.0"
+												text="Right" />
 										</HBox>
 										<HBox alignment="CENTER" prefWidth="94.0" spacing="5">
-											<Button onAction="#handleButtomClick"
-												prefWidth="94.0" text="Bottom" />
+											<Button onAction="#handleButtomClick" prefWidth="94.0"
+												text="Bottom" />
 										</HBox>
 									</VBox>
 									<HBox fx:id="editZSection" alignment="CENTER"
