@@ -1,5 +1,7 @@
 package cpaintus.views;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
@@ -10,6 +12,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.util.WaitForAsyncUtils;
 
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
@@ -30,7 +33,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 @ExtendWith(ApplicationExtension.class)
-class ShapeTestFX {
+class DeleteShapeTest {
 
 	@Start
 	private void start(Stage stage) {
@@ -66,15 +69,17 @@ class ShapeTestFX {
 	}
 
 	@Test
-	void createShapeTestFX(FxRobot robot) {
+	void deleteShapeTestFX(FxRobot robot) {
+
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
-		DrawSettings drawSettings = DrawSettings.getInstance();
-		drawSettings.setShape(ShapeType.POKEBALL);
+		createShape(robot);
 
-		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
-		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
-
-		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
+		robot.clickOn("#attributes");
+		robot.clickOn("#deleteBtn");
+		robot.type(KeyCode.DOWN);
+		robot.type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		assertTrue(shapesDict.getShapesList().isEmpty());
 
 		try {
 			FxToolkit.cleanupStages();
@@ -82,6 +87,17 @@ class ShapeTestFX {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void createShape(FxRobot robot) {
+		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
+		DrawSettings drawSettings = DrawSettings.getInstance();
+		drawSettings.setShape(ShapeType.RECTANGLE);
+
+		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
+		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
+
+		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
 	}
 
 }

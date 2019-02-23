@@ -1,8 +1,11 @@
 package cpaintus.views;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +13,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.util.WaitForAsyncUtils;
 
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
@@ -20,6 +24,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -30,7 +35,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 @ExtendWith(ApplicationExtension.class)
-class ShapeTestFX {
+class EditShapeXPositionTest {
 
 	@Start
 	private void start(Stage stage) {
@@ -65,16 +70,26 @@ class ShapeTestFX {
 		}
 	}
 
+	@AfterEach
+	public void tearDown() throws TimeoutException {
+		FxToolkit.cleanupStages();
+		FxToolkit.hideStage();
+	}
+
 	@Test
-	void createShapeTestFX(FxRobot robot) {
+	void editShapeXPositionTestFX(FxRobot robot) {
+
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
-		DrawSettings drawSettings = DrawSettings.getInstance();
-		drawSettings.setShape(ShapeType.POKEBALL);
-
-		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
-		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
-
-		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
+		createShape(robot);
+		TextField editX = robot.lookup("#editX").query();
+		robot.clickOn("#attributes");
+		editX.clear();
+		robot.clickOn("#editX");
+		robot.write("140");
+		robot.type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		assertEquals(140, shapesDict.getShapesList().get(0).getX());
 
 		try {
 			FxToolkit.cleanupStages();
@@ -84,4 +99,14 @@ class ShapeTestFX {
 		}
 	}
 
+	private void createShape(FxRobot robot) {
+		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
+		DrawSettings drawSettings = DrawSettings.getInstance();
+		drawSettings.setShape(ShapeType.RECTANGLE);
+
+		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
+		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
+
+		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
+	}
 }

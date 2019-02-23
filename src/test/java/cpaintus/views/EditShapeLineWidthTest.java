@@ -1,5 +1,7 @@
 package cpaintus.views;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
@@ -10,6 +12,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.util.WaitForAsyncUtils;
 
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
@@ -20,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -30,7 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 @ExtendWith(ApplicationExtension.class)
-class ShapeTestFX {
+class EditShapeLineWidthTest {
 
 	@Start
 	private void start(Stage stage) {
@@ -66,15 +70,19 @@ class ShapeTestFX {
 	}
 
 	@Test
-	void createShapeTestFX(FxRobot robot) {
+	void editShapeLineWidthTestFX(FxRobot robot) {
+
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
-		DrawSettings drawSettings = DrawSettings.getInstance();
-		drawSettings.setShape(ShapeType.POKEBALL);
+		createShape(robot);
+		ComboBox<String> editLineWidth = robot.lookup("#editLineWidth").query();
 
-		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
-		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
-
-		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
+		robot.clickOn("#attributes");
+		robot.clickOn("#editLineWidth").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		String widthStr = editLineWidth.getValue().replaceAll("[^0-9]", "");
+		int newWidth = Integer.parseInt(widthStr);
+		assertEquals(newWidth, shapesDict.getShapesList().get(0).getLineWidth());
 
 		try {
 			FxToolkit.cleanupStages();
@@ -82,6 +90,17 @@ class ShapeTestFX {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void createShape(FxRobot robot) {
+		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
+		DrawSettings drawSettings = DrawSettings.getInstance();
+		drawSettings.setShape(ShapeType.RECTANGLE);
+
+		AnchorPane centerPane = robot.lookup("#centerPane").queryAs(AnchorPane.class);
+		robot.drag(centerPane.getScene(), MouseButton.PRIMARY).dropBy(100, 100);
+
+		Assertions.assertTrue(!shapesDict.getFullShapesList().isEmpty());
 	}
 
 }
