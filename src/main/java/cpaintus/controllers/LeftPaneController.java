@@ -50,6 +50,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -98,13 +99,7 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private Button deleteBtn;
 	@FXML
-	private Button topBtn;
-	@FXML
-	private Button rightBtn;
-	@FXML
-	private Button buttomBtn;
-	@FXML
-	private Button leftBtn;
+	private VBox alignments;
 	@FXML
 	private Button flipHorizontalBtn;
 	@FXML
@@ -235,6 +230,7 @@ public class LeftPaneController implements IObserver {
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 
 		// Bind managed to visibility
+		attributes.managedProperty().bind(attributes.visibleProperty());
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
 		deleteBtn.managedProperty().bind(deleteBtn.visibleProperty());
 		topBtn.managedProperty().bind(topBtn.visibleProperty());
