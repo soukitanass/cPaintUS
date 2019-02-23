@@ -321,6 +321,7 @@ public class LeftPaneController implements IObserver {
 		isUpdatingAttributes = true;
 
 		boundingBox.setVisible(newShape != null);
+		boundingBox.setFollowGrid(false);
 		if (newShape == null) {
 			attributes.setVisible(false);
 			return;
