@@ -471,6 +471,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
 			((ShapesGroup) shapeToEdit).setX(newX);
+			editGroupCommand.setGroupShape((ShapesGroup) shapeToEdit);
 			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
@@ -498,6 +499,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
 			((ShapesGroup) shapeToEdit).setY(newY);
+			editGroupCommand.setGroupShape((ShapesGroup) shapeToEdit);
 			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
