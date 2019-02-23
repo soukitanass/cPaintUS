@@ -59,8 +59,8 @@
 					<TreeView fx:id="tree" prefHeight="200.0"
 						prefWidth="200.0" />
 				</TitledPane>
-				<TitledPane text="Edit Attributes" expanded="false">
-					<ToolBar fx:id="attributes">
+				<TitledPane fx:id="attributes" text="Edit Attributes" expanded="false">
+					<ToolBar>
 						<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
 							<Label fx:id="attributesLabel" />
 							<HBox alignment="CENTER" prefWidth="188.0" spacing="5">

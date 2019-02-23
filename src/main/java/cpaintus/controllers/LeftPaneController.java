@@ -46,7 +46,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
@@ -105,7 +105,7 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private ListView<Command> commandes;
 	@FXML
-	private ToolBar attributes;
+	private TitledPane attributes;
 	@FXML
 	private Label attributesLabel;
 	@FXML
@@ -168,11 +168,8 @@ public class LeftPaneController implements IObserver {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Shape>> observable, TreeItem<Shape> oldItem,
 					TreeItem<Shape> newItem) {
-				if (newItem == null) {
-					return;
-				}
 
-				handleSelectShape(newItem.getValue());
+				handleSelectShape(newItem == null ? null : newItem.getValue());
 
 			}
 		};
@@ -215,7 +212,6 @@ public class LeftPaneController implements IObserver {
 		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
 
 		// Attributes
-		attributes.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editY.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -224,7 +220,6 @@ public class LeftPaneController implements IObserver {
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 
 		// Bind managed to visibility
-		attributes.managedProperty().bind(attributes.visibleProperty());
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
 		deleteBtn.managedProperty().bind(deleteBtn.visibleProperty());
 		alignments.managedProperty().bind(alignments.visibleProperty());
@@ -250,6 +245,7 @@ public class LeftPaneController implements IObserver {
 				return new CommandListCell();
 			}
 		});
+		showAttributes(false);
 	}
 
 	@FXML
@@ -322,10 +318,10 @@ public class LeftPaneController implements IObserver {
 
 		boundingBox.setVisible(newShape != null);
 		if (newShape == null) {
-			attributes.setVisible(false);
+			showAttributes(false);
 			return;
 		}
-		attributes.setVisible(true);
+		showAttributes(true);
 		shapeToEdit = newShape;
 
 		// Always shown attributes
@@ -378,7 +374,7 @@ public class LeftPaneController implements IObserver {
 	private void handleUnSelectClick() {
 		selectShapesSingleton.setSelectedShape(shapeToEdit);
 		selectShapesSingleton.notifyUngroupObservers();
-		attributes.setVisible(false);
+		showAttributes(false);
 	}
 
 	@FXML
@@ -579,6 +575,7 @@ public class LeftPaneController implements IObserver {
 			break;
 		case SHAPE_REMOVED:
 			updateList();
+			selectLastItem(false);
 			break;
 		case UNSELECT_SHAPE:
 			selectLastItem(false);
@@ -589,6 +586,11 @@ public class LeftPaneController implements IObserver {
 		default:
 			break;
 		}
+	}
+
+	private void showAttributes(boolean isVisible) {
+		attributes.getContent().setVisible(isVisible);
+		attributes.getContent().setManaged(isVisible);
 	}
 
 	private void updateList() {
