@@ -58,8 +58,8 @@ public class EditGroupCommand extends Command {
 	@Override
 	public void execute() {
 		List<Shape> shapes = ((ShapesGroup)shapeToEdit).getShapes();
-		for (int i = 0; i < shapes.size(); i++) {
-			int hash = shapes.get(i).getCanvasHash();
+		for (Shape shape : shapes) {
+			int hash = shape.getCanvasHash();
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
 			if (activeCanvas == null) {
@@ -68,16 +68,16 @@ public class EditGroupCommand extends Command {
 			}
 			if (shapeToEdit.isFlipVertical()) {
 				activeCanvas.getTransforms().add(new Rotate(180, 
-						shapeToEdit.getCenter().getX() - shapeToEdit.getUpLeftCorner().getX(),
-						shapeToEdit.getCenter().getY() - shapeToEdit.getUpLeftCorner().getY(),
+						shapeToEdit.getCenter().getX() - shape.getUpLeftCorner().getX(),
+						shapeToEdit.getCenter().getY() - shape.getUpLeftCorner().getY(),
 						0, Rotate.X_AXIS));
 			} else if (shapeToEdit.isFlipHorizontal()) {
 				activeCanvas.getTransforms().add(new Rotate(180,
-						shapeToEdit.getCenter().getX() - shapeToEdit.getUpLeftCorner().getX(),
-						shapeToEdit.getCenter().getY() - shapeToEdit.getUpLeftCorner().getY(),
+						shapeToEdit.getCenter().getX() - shape.getUpLeftCorner().getX(),
+						shapeToEdit.getCenter().getY() - shape.getUpLeftCorner().getY(),
 						0, Rotate.Y_AXIS));
 			} else
-				drawerStrategyContext.draw(shapes.get(i), activeCanvas);
+				drawerStrategyContext.draw(shape, activeCanvas);
 		}
 		shapeToEdit.setFlipVertical(false);
 		shapeToEdit.setFlipHorizontal(false);
