@@ -15,4 +15,5 @@ public enum ObservableList {
 	UNGROUP_SHAPES, 
 	SHAPE_REMOVED, 
 	CHANGEDCOMMAND,
+	GRID
 }

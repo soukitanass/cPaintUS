@@ -117,11 +117,18 @@ public class CenterPaneController implements IObserver {
 
 		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> scrollPaneHeightHandler(newVal.doubleValue()));
 
+		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
+
 		pane.setStyle("-fx-background-color: white");
 		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
 		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
+
 		boundingBoxCanvas.setMouseTransparent(true);
 		SnapshotSingleton.getInstance().setSnapshotPane(pane);
 		drawGrid();
@@ -141,8 +148,10 @@ public class CenterPaneController implements IObserver {
 			eraseAll();
 			break;
 		case BOUNDING_BOX:
-			drawGrid();
 			drawBoundingBox();
+			break;
+		case GRID:
+			drawGrid();
 			break;
 		case GROUP_SHAPES:
 			selectShapes = true;
@@ -186,25 +195,45 @@ public class CenterPaneController implements IObserver {
 		} else {
 			drawBoundingBox();
 		}
-
 	}
 
 	private void scrollPaneWidthHandler(double width) {
-		scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		double tempWidth = getMinimumBaseCanvasSize().getWidth();
+		if (tempWidth > width)
+			width = tempWidth;
+
 		baseCanvas.setWidth(width);
-		if (pane.getWidth() > width + 10) {
-			scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		}
-		drawBoundingBox();
+		drawGrid();
 	}
 
 	private void scrollPaneHeightHandler(double height) {
-		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
+		double tempHeight = getMinimumBaseCanvasSize().getHeight();
+		if (tempHeight > height)
+			height = tempHeight;
+
 		baseCanvas.setHeight(height);
-		if (pane.getHeight() > height + 10) {
-			scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		drawGrid();
+	}
+
+	private Size getMinimumBaseCanvasSize() {
+		double width = 0;
+		double height = 0;
+
+		List<Shape> shapes = shapesDict.getFullShapesList();
+		double tempHeight;
+		double tempWidth;
+		for (Shape currentShape : shapes) {
+			tempHeight = currentShape.getUpLeftCorner().getY() + currentShape.getHeight();
+			if (tempHeight > height) {
+				height = tempHeight;
+			}
+			tempWidth = currentShape.getUpLeftCorner().getX() + currentShape.getWidth();
+			if (tempWidth > width) {
+				width = tempWidth;
+			}
 		}
-		drawBoundingBox();
+
+		return new Size(width, height);
 	}
 
 	private void eraseCanvas() {
@@ -218,9 +247,9 @@ public class CenterPaneController implements IObserver {
 		for (Node canvas : canvasToRemove) {
 			canvasList.remove(canvas);
 		}
+		baseCanvas.setWidth(scrollPane.getWidth());
+		baseCanvas.setHeight(scrollPane.getHeight());
 		boundingBox.setVisible(false);
-		scrollPaneWidthHandler(pane.getWidth());
-		scrollPaneHeightHandler(pane.getHeight());
 	}
 
 	private void initializeNewCanvas() {
@@ -230,10 +259,24 @@ public class CenterPaneController implements IObserver {
 		pane.getChildren().add(pane.getChildren().size() - 1, newCanvas);
 	}
 
+	private void updateBaseCanvasAndGrid(Shape shape) {
+		double newWidth = shape.getUpLeftCorner().getX() + shape.getWidth();
+		double newHeight = shape.getUpLeftCorner().getY() + shape.getHeight();
+		if (baseCanvas.getWidth() < newWidth || baseCanvas.getHeight() < newHeight) {
+			if (baseCanvas.getWidth() < newWidth)
+				baseCanvas.setWidth(newWidth);
+			if (baseCanvas.getHeight() < newHeight)
+				baseCanvas.setHeight(newHeight);
+			drawGrid();
+		}
+	}
+
 	public void draw(boolean persistent) {
 		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
 		Shape shape = createShape(persistent, activeCanvas.hashCode());
 		if (shape != null) {
+			updateBaseCanvasAndGrid(shape);
+
 			if (persistent) {
 				pane.getChildren().remove(pane.getChildren().size() - 2);
 				DrawCommand drawCommand = new DrawCommand(pane, shape);
@@ -243,8 +286,6 @@ public class CenterPaneController implements IObserver {
 			}
 		}
 		drawBoundingBox();
-		scrollPaneWidthHandler(scrollPane.getWidth());
-		scrollPaneHeightHandler(scrollPane.getHeight());
 	}
 
 	/*
