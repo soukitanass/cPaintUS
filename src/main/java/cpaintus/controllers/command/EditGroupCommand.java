@@ -6,15 +6,20 @@ import java.util.logging.Logger;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
+import cpaintus.models.BoundingBox;
+import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.transform.Rotate;
 
 public class EditGroupCommand extends Command {
 
 	private EditCommand command;
 	private List<Shape> shapeToEdit;
 	private List<Shape> oldShape;
+	private ShapesGroup shapesGroup;
+	private BoundingBox boundingBox;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private Canvas activeCanvas;
@@ -46,11 +51,16 @@ public class EditGroupCommand extends Command {
 		this.oldShape = oldShape;
 	}
 
+	public void setGroupShape(ShapesGroup shapesGroup) {
+		this.shapesGroup = shapesGroup;
+	}
+
 	public EditGroupCommand() {
 		command = new EditCommand();
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
+		boundingBox = BoundingBox.getInstance();
 	}
 
 	@Override
@@ -63,8 +73,19 @@ public class EditGroupCommand extends Command {
 				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
 				return;
 			}
-			drawerStrategyContext.draw(shapeToEdit.get(i), activeCanvas);
+			if (shapesGroup.isFlipVertical()) {
+				activeCanvas.getTransforms().add(new Rotate(180, boundingBox.getCenter().getX(),
+						boundingBox.getCenter().getY(), 0, Rotate.X_AXIS));
+
+			} else if (shapesGroup.isFlipHorizontal()) {
+				activeCanvas.getTransforms().add(new Rotate(180, boundingBox.getCenter().getX(),
+						boundingBox.getCenter().getY(), 0, Rotate.Y_AXIS));
+
+			} else
+				drawerStrategyContext.draw(shapeToEdit.get(i), activeCanvas);
 		}
+		shapesGroup.setFlipVertical(false);
+		shapesGroup.setFlipHorizontal(false);
 	}
 
 	@Override

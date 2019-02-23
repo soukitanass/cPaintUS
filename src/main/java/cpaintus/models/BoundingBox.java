@@ -141,4 +141,8 @@ public class BoundingBox extends Observable<IObserver> {
 		this.gridStep = gridStep;
 		notifyAllObservers();
 	}
+	
+	public Point getCenter() {
+		return new Point((getUpLeftCorner().getX()*2.0+getWidth())/2,(getUpLeftCorner().getY()*2.0+getHeight())/2);
+	}
 }

@@ -135,18 +135,7 @@ public class ShapesGroup extends Shape2D {
 		}
 	}
 	
-	public void setFlipHorizontal(boolean flip) {
-		for (Shape shape : shapes) {
-			shape.setFlipHorizontal(flip);
-		}
-	}
-
-	public void setFlipVertical(boolean flip) {
-		for (Shape shape : shapes) {
-			shape.setFlipVertical(flip);
-		}
-	}
-
+	
 	@Override
 	public ShapesGroup makeCopy() {
 		ShapesGroup group = new ShapesGroup();
