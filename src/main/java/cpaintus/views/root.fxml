@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="600.0" minWidth="785.0" prefHeight="600.0" prefWidth="800.0"
-	fx:controller="cpaintus.controllers.RootController"
-	xmlns="http://javafx.com/javafx/9.0.4"
-	xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="785.0" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cpaintus.controllers.RootController">
 
 	<center>
 		<fx:include fx:id="centerPane" source="CenterPane.fxml" />
@@ -18,10 +11,14 @@
 	<bottom>
 		<fx:include fx:id="bottomPane" source="BottomPane.fxml" />
 	</bottom>
-	<left>
-		<fx:include fx:id="leftPane" source="LeftPane.fxml" />
-	</left>
 	<top>
 		<fx:include fx:id="topPane" source="TopPane.fxml" />
 	</top>
+   <left>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="535.0" prefWidth="219.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+         <content>
+      		<fx:include fx:id="leftPane" source="LeftPane.fxml" />
+         </content>
+      </ScrollPane>
+   </left>
 </BorderPane>

@@ -28,7 +28,7 @@ public class Main extends Application {
 		primaryStage.setTitle("cPaintUS");
 		primaryStage.setScene(new Scene(root, prefs.getDouble("width", 800), prefs.getDouble("height", 600)));
 		primaryStage.setMinWidth(800);
-		primaryStage.setMinHeight(600);
+		primaryStage.setMinHeight(650);
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent ev) {
