@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.1.0-RC6" sequence="0" timestamp="1550487545569" analysisTimestamp="1550488265705" release="">
+  <Project>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\Main$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\Main$2.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\Main.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\BottomPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\CenterPaneController$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\CenterPaneController$2.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\CenterPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\Direction.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\InvokerUpdateSingleton$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\InvokerUpdateSingleton$InvokerUpdateSingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\InvokerUpdateSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$2.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$3.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$4.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$5.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$6.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController$CommandListCell.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\LeftPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\RootController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\SaveCloseSingleton$SaveCloseSingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\SaveCloseSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\SelectShapesSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\SnapshotSingleton$SnapSingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\SnapshotSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\TopPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\BoundingBox$SingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\BoundingBox.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\DrawSettings$DrawSettingsInstance.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\DrawSettings.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\LineWidth.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\Point.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\Pointer$SingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\Pointer.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\BoundingBoxTest$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\BoundingBoxTest$2.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\BoundingBoxTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\DrawSettingsTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\FileManagerStrategyTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\LineWidthTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\PointerTest$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\PointerTest$2.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\PointerTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\ShapeDictTest$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\ShapeDictTest$2.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\ShapeDictTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\ShapeFactoryTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\ShapesGroupTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\models\TemporaryFolderExtension.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\views\ShapeTestFX$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\test\cpaintus\views\ShapeTestFX.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\Command.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\DrawCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\EditCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\EditGroupCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\EditZCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\EraseAllCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\EraseShapeCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\GroupCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\Invoker$InvokerHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\Invoker.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\command\UngroupCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\DrawerStrategyContext$SingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\DrawerStrategyContext.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\EllipseDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\HeartDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\IDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\LineDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\PictureDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\PokeballDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\RectangleDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\drawers\TextDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\AboutController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\AddTextController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\CloseController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\GridController$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\GridController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\NewController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\PopupBuilder.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\controllers\popup\PopupEnvironment.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\composite\ShapesGroup.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\observable\IObserver.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\observable\Observable.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\observable\ObservableList.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\savestrategy\FileContext$types.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\savestrategy\FileContext.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\savestrategy\FileManagerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\savestrategy\PNGStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\savestrategy\XMLStrategy$1.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\savestrategy\XMLStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Ellipse.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Heart.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Line.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Picture.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Pokeball.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Rectangle.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Shape.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Shape1D.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Shape2D.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\ShapeDimension.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\ShapeFactory.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\ShapeFunctionalInterface.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\ShapesDictionnary.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\ShapeType.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Size.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Stroke.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\main\cpaintus\models\shapes\Text.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\Main.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\BottomPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\CenterPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\Direction.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\InvokerUpdateSingleton$InvokerUpdateSingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\InvokerUpdateSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\LeftPaneController$CommandListCell.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\LeftPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\RootController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\SaveCloseSingleton$SaveCloseSingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\SaveCloseSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\SelectShapesSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\SnapshotSingleton$SnapSingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\SnapshotSingleton.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\TopPaneController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\BoundingBox$SingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\BoundingBox.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\DrawSettings$DrawSettingsInstance.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\DrawSettings.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\LineWidth.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\Point.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\Pointer$SingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\Pointer.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\BoundingBoxTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\DrawSettingsTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\FileManagerStrategyTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\LineWidthTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\PointerTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\ShapeDictTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\ShapeFactoryTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\ShapesGroupTest.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\models\TemporaryFolderExtension.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\test\java\cpaintus\views\ShapeTestFX.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\Command.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\DrawCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\EditCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\EditGroupCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\EditZCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\EraseAllCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\EraseShapeCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\GroupCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\Invoker$InvokerHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\Invoker.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\command\UngroupCommand.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\DrawerStrategyContext$SingletonHelper.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\DrawerStrategyContext.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\EllipseDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\HeartDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\IDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\LineDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\PictureDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\PokeballDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\RectangleDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\drawers\TextDrawerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\AboutController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\AddTextController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\CloseController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\GridController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\NewController.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\PopupBuilder.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\controllers\popup\PopupEnvironment.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\composite\ShapesGroup.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\observable\IObserver.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\observable\Observable.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\observable\ObservableList.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\savestrategy\FileContext$types.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\savestrategy\FileContext.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\savestrategy\FileManagerStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\savestrategy\PNGStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\savestrategy\XMLStrategy.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Ellipse.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Heart.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Line.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Picture.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Pokeball.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Rectangle.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Shape.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Shape1D.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Shape2D.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\ShapeDimension.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\ShapeFactory.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\ShapesDictionnary.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\ShapeType.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Size.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Stroke.class</Jar>
+    <Jar>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin\src\main\java\cpaintus\models\shapes\Text.class</Jar>
+    <AuxClasspathEntry>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\bin</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\.scannerwork\findbugs\annotations.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\.scannerwork\findbugs\jsr305.jar</AuxClasspathEntry>
+    <WrkDir>C:\Users\Utilisteur\Programmation\S7\Agile\cPaintUS\.scannerwork</WrkDir>
+  </Project>
+  <Errors errors="0" missingClasses="9">
+    <MissingClass>changed</MissingClass>
+    <MissingClass>create</MissingClass>
+    <MissingClass>handle</MissingClass>
+    <MissingClass>org.junit.jupiter.api.Assertions</MissingClass>
+    <MissingClass>org.junit.jupiter.api.extension.BeforeEachCallback</MissingClass>
+    <MissingClass>org.testfx.api.FxRobot</MissingClass>
+    <MissingClass>org.testfx.api.FxToolkit</MissingClass>
+    <MissingClass>org.testfx.service.query.NodeQuery</MissingClass>
+    <MissingClass>test</MissingClass>
+  </Errors>
+  <FindBugsSummary timestamp="Mon, 18 Feb 2019 05:59:05 -0500" total_classes="193" referenced_classes="582" total_bugs="0" total_size="5257" num_packages="23" java_version="1.8.0_121" vm_version="25.121-b13" cpu_seconds="54.08" clock_seconds="17.50" peak_mbytes="730.01" alloc_mbytes="1796.00" gc_seconds="0.28">
+    <FileStats path="cpaintus/Main.java" bugCount="0" size="54"/>
+    <FileStats path="cpaintus/controllers/BottomPaneController.java" bugCount="0" size="44"/>
+    <FileStats path="cpaintus/controllers/CenterPaneController.java" bugCount="0" size="270"/>
+    <FileStats path="cpaintus/controllers/Direction.java" bugCount="0" size="13"/>
+    <FileStats path="cpaintus/controllers/InvokerUpdateSingleton.java" bugCount="0" size="47"/>
+    <FileStats path="cpaintus/controllers/LeftPaneController.java" bugCount="0" size="549"/>
+    <FileStats path="cpaintus/controllers/RootController.java" bugCount="0" size="15"/>
+    <FileStats path="cpaintus/controllers/SaveCloseSingleton.java" bugCount="0" size="75"/>
+    <FileStats path="cpaintus/controllers/SelectShapesSingleton.java" bugCount="0" size="35"/>
+    <FileStats path="cpaintus/controllers/SnapshotSingleton.java" bugCount="0" size="55"/>
+    <FileStats path="cpaintus/controllers/TopPaneController.java" bugCount="0" size="88"/>
+    <FileStats path="cpaintus/controllers/command/Command.java" bugCount="0" size="11"/>
+    <FileStats path="cpaintus/controllers/command/DrawCommand.java" bugCount="0" size="30"/>
+    <FileStats path="cpaintus/controllers/command/EditCommand.java" bugCount="0" size="60"/>
+    <FileStats path="cpaintus/controllers/command/EditGroupCommand.java" bugCount="0" size="56"/>
+    <FileStats path="cpaintus/controllers/command/EditZCommand.java" bugCount="0" size="69"/>
+    <FileStats path="cpaintus/controllers/command/EraseAllCommand.java" bugCount="0" size="43"/>
+    <FileStats path="cpaintus/controllers/command/EraseShapeCommand.java" bugCount="0" size="37"/>
+    <FileStats path="cpaintus/controllers/command/GroupCommand.java" bugCount="0" size="52"/>
+    <FileStats path="cpaintus/controllers/command/Invoker.java" bugCount="0" size="59"/>
+    <FileStats path="cpaintus/controllers/command/UngroupCommand.java" bugCount="0" size="23"/>
+    <FileStats path="cpaintus/controllers/drawers/DrawerStrategyContext.java" bugCount="0" size="51"/>
+    <FileStats path="cpaintus/controllers/drawers/EllipseDrawerStrategy.java" bugCount="0" size="10"/>
+    <FileStats path="cpaintus/controllers/drawers/HeartDrawerStrategy.java" bugCount="0" size="59"/>
+    <FileStats path="cpaintus/controllers/drawers/IDrawerStrategy.java" bugCount="0" size="2"/>
+    <FileStats path="cpaintus/controllers/drawers/LineDrawerStrategy.java" bugCount="0" size="19"/>
+    <FileStats path="cpaintus/controllers/drawers/PictureDrawerStrategy.java" bugCount="0" size="19"/>
+    <FileStats path="cpaintus/controllers/drawers/PokeballDrawerStrategy.java" bugCount="0" size="49"/>
+    <FileStats path="cpaintus/controllers/drawers/RectangleDrawerStrategy.java" bugCount="0" size="10"/>
+    <FileStats path="cpaintus/controllers/drawers/TextDrawerStrategy.java" bugCount="0" size="11"/>
+    <FileStats path="cpaintus/controllers/popup/AboutController.java" bugCount="0" size="19"/>
+    <FileStats path="cpaintus/controllers/popup/AddTextController.java" bugCount="0" size="24"/>
+    <FileStats path="cpaintus/controllers/popup/CloseController.java" bugCount="0" size="38"/>
+    <FileStats path="cpaintus/controllers/popup/GridController.java" bugCount="0" size="45"/>
+    <FileStats path="cpaintus/controllers/popup/NewController.java" bugCount="0" size="26"/>
+    <FileStats path="cpaintus/controllers/popup/PopupBuilder.java" bugCount="0" size="32"/>
+    <FileStats path="cpaintus/controllers/popup/PopupEnvironment.java" bugCount="0" size="18"/>
+    <FileStats path="cpaintus/models/BoundingBox.java" bugCount="0" size="101"/>
+    <FileStats path="cpaintus/models/BoundingBoxTest.java" bugCount="0" size="79"/>
+    <FileStats path="cpaintus/models/DrawSettings.java" bugCount="0" size="54"/>
+    <FileStats path="cpaintus/models/DrawSettingsTest.java" bugCount="0" size="24"/>
+    <FileStats path="cpaintus/models/FileManagerStrategyTest.java" bugCount="0" size="35"/>
+    <FileStats path="cpaintus/models/LineWidth.java" bugCount="0" size="27"/>
+    <FileStats path="cpaintus/models/LineWidthTest.java" bugCount="0" size="14"/>
+    <FileStats path="cpaintus/models/Point.java" bugCount="0" size="27"/>
+    <FileStats path="cpaintus/models/Pointer.java" bugCount="0" size="27"/>
+    <FileStats path="cpaintus/models/PointerTest.java" bugCount="0" size="40"/>
+    <FileStats path="cpaintus/models/ShapeDictTest.java" bugCount="0" size="78"/>
+    <FileStats path="cpaintus/models/ShapeFactoryTest.java" bugCount="0" size="33"/>
+    <FileStats path="cpaintus/models/ShapesGroupTest.java" bugCount="0" size="101"/>
+    <FileStats path="cpaintus/models/TemporaryFolderExtension.java" bugCount="0" size="40"/>
+    <FileStats path="cpaintus/models/composite/ShapesGroup.java" bugCount="0" size="98"/>
+    <FileStats path="cpaintus/models/observable/IObserver.java" bugCount="0" size="2"/>
+    <FileStats path="cpaintus/models/observable/Observable.java" bugCount="0" size="18"/>
+    <FileStats path="cpaintus/models/observable/ObservableList.java" bugCount="0" size="36"/>
+    <FileStats path="cpaintus/models/savestrategy/FileContext.java" bugCount="0" size="42"/>
+    <FileStats path="cpaintus/models/savestrategy/FileManagerStrategy.java" bugCount="0" size="3"/>
+    <FileStats path="cpaintus/models/savestrategy/PNGStrategy.java" bugCount="0" size="38"/>
+    <FileStats path="cpaintus/models/savestrategy/XMLStrategy.java" bugCount="0" size="63"/>
+    <FileStats path="cpaintus/models/shapes/Ellipse.java" bugCount="0" size="21"/>
+    <FileStats path="cpaintus/models/shapes/Heart.java" bugCount="0" size="21"/>
+    <FileStats path="cpaintus/models/shapes/Line.java" bugCount="0" size="20"/>
+    <FileStats path="cpaintus/models/shapes/Picture.java" bugCount="0" size="29"/>
+    <FileStats path="cpaintus/models/shapes/Pokeball.java" bugCount="0" size="25"/>
+    <FileStats path="cpaintus/models/shapes/Rectangle.java" bugCount="0" size="21"/>
+    <FileStats path="cpaintus/models/shapes/Shape.java" bugCount="0" size="87"/>
+    <FileStats path="cpaintus/models/shapes/Shape1D.java" bugCount="0" size="51"/>
+    <FileStats path="cpaintus/models/shapes/Shape2D.java" bugCount="0" size="31"/>
+    <FileStats path="cpaintus/models/shapes/ShapeDimension.java" bugCount="0" size="11"/>
+    <FileStats path="cpaintus/models/shapes/ShapeFactory.java" bugCount="0" size="133"/>
+    <FileStats path="cpaintus/models/shapes/ShapeFunctionalInterface.java" bugCount="0" size="2"/>
+    <FileStats path="cpaintus/models/shapes/ShapeType.java" bugCount="0" size="17"/>
+    <FileStats path="cpaintus/models/shapes/ShapesDictionnary.java" bugCount="0" size="123"/>
+    <FileStats path="cpaintus/models/shapes/Size.java" bugCount="0" size="18"/>
+    <FileStats path="cpaintus/models/shapes/Stroke.java" bugCount="0" size="18"/>
+    <FileStats path="cpaintus/models/shapes/Text.java" bugCount="0" size="29"/>
+    <FileStats path="cpaintus/views/ShapeTestFX.java" bugCount="0" size="50"/>
+    <FileStats path="src/main/java/cpaintus/Main.java" bugCount="0" size="7"/>
+    <FileStats path="src/main/java/cpaintus/controllers/BottomPaneController.java" bugCount="0" size="21"/>
+    <FileStats path="src/main/java/cpaintus/controllers/CenterPaneController.java" bugCount="0" size="55"/>
+    <FileStats path="src/main/java/cpaintus/controllers/Direction.java" bugCount="0" size="7"/>
+    <FileStats path="src/main/java/cpaintus/controllers/InvokerUpdateSingleton.java" bugCount="0" size="19"/>
+    <FileStats path="src/main/java/cpaintus/controllers/LeftPaneController.java" bugCount="0" size="129"/>
+    <FileStats path="src/main/java/cpaintus/controllers/RootController.java" bugCount="0" size="15"/>
+    <FileStats path="src/main/java/cpaintus/controllers/SaveCloseSingleton.java" bugCount="0" size="21"/>
+    <FileStats path="src/main/java/cpaintus/controllers/SelectShapesSingleton.java" bugCount="0" size="22"/>
+    <FileStats path="src/main/java/cpaintus/controllers/SnapshotSingleton.java" bugCount="0" size="31"/>
+    <FileStats path="src/main/java/cpaintus/controllers/TopPaneController.java" bugCount="0" size="28"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/Command.java" bugCount="0" size="10"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/DrawCommand.java" bugCount="0" size="12"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/EditCommand.java" bugCount="0" size="26"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/EditGroupCommand.java" bugCount="0" size="27"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/EditZCommand.java" bugCount="0" size="33"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/EraseAllCommand.java" bugCount="0" size="18"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/EraseShapeCommand.java" bugCount="0" size="16"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/GroupCommand.java" bugCount="0" size="14"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/Invoker.java" bugCount="0" size="27"/>
+    <FileStats path="src/main/java/cpaintus/controllers/command/UngroupCommand.java" bugCount="0" size="12"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/DrawerStrategyContext.java" bugCount="0" size="11"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/EllipseDrawerStrategy.java" bugCount="0" size="5"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/HeartDrawerStrategy.java" bugCount="0" size="11"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/IDrawerStrategy.java" bugCount="0" size="4"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/LineDrawerStrategy.java" bugCount="0" size="5"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/PictureDrawerStrategy.java" bugCount="0" size="8"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/PokeballDrawerStrategy.java" bugCount="0" size="7"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/RectangleDrawerStrategy.java" bugCount="0" size="5"/>
+    <FileStats path="src/main/java/cpaintus/controllers/drawers/TextDrawerStrategy.java" bugCount="0" size="5"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/AboutController.java" bugCount="0" size="12"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/AddTextController.java" bugCount="0" size="17"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/CloseController.java" bugCount="0" size="26"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/GridController.java" bugCount="0" size="17"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/NewController.java" bugCount="0" size="19"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/PopupBuilder.java" bugCount="0" size="16"/>
+    <FileStats path="src/main/java/cpaintus/controllers/popup/PopupEnvironment.java" bugCount="0" size="13"/>
+    <FileStats path="src/main/java/cpaintus/models/BoundingBox.java" bugCount="0" size="53"/>
+    <FileStats path="src/main/java/cpaintus/models/DrawSettings.java" bugCount="0" size="35"/>
+    <FileStats path="src/main/java/cpaintus/models/LineWidth.java" bugCount="0" size="14"/>
+    <FileStats path="src/main/java/cpaintus/models/Point.java" bugCount="0" size="16"/>
+    <FileStats path="src/main/java/cpaintus/models/Pointer.java" bugCount="0" size="16"/>
+    <FileStats path="src/main/java/cpaintus/models/composite/ShapesGroup.java" bugCount="0" size="43"/>
+    <FileStats path="src/main/java/cpaintus/models/observable/IObserver.java" bugCount="0" size="4"/>
+    <FileStats path="src/main/java/cpaintus/models/observable/Observable.java" bugCount="0" size="13"/>
+    <FileStats path="src/main/java/cpaintus/models/observable/ObservableList.java" bugCount="0" size="17"/>
+    <FileStats path="src/main/java/cpaintus/models/savestrategy/FileContext.java" bugCount="0" size="13"/>
+    <FileStats path="src/main/java/cpaintus/models/savestrategy/FileManagerStrategy.java" bugCount="0" size="5"/>
+    <FileStats path="src/main/java/cpaintus/models/savestrategy/PNGStrategy.java" bugCount="0" size="16"/>
+    <FileStats path="src/main/java/cpaintus/models/savestrategy/XMLStrategy.java" bugCount="0" size="11"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Ellipse.java" bugCount="0" size="6"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Heart.java" bugCount="0" size="6"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Line.java" bugCount="0" size="6"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Picture.java" bugCount="0" size="11"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Pokeball.java" bugCount="0" size="9"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Rectangle.java" bugCount="0" size="6"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Shape.java" bugCount="0" size="64"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Shape1D.java" bugCount="0" size="28"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Shape2D.java" bugCount="0" size="21"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/ShapeDimension.java" bugCount="0" size="5"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/ShapeFactory.java" bugCount="0" size="50"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/ShapeType.java" bugCount="0" size="11"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/ShapesDictionnary.java" bugCount="0" size="43"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Size.java" bugCount="0" size="13"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Stroke.java" bugCount="0" size="13"/>
+    <FileStats path="src/main/java/cpaintus/models/shapes/Text.java" bugCount="0" size="11"/>
+    <FileStats path="src/test/java/cpaintus/models/BoundingBoxTest.java" bugCount="0" size="25"/>
+    <FileStats path="src/test/java/cpaintus/models/DrawSettingsTest.java" bugCount="0" size="14"/>
+    <FileStats path="src/test/java/cpaintus/models/FileManagerStrategyTest.java" bugCount="0" size="17"/>
+    <FileStats path="src/test/java/cpaintus/models/LineWidthTest.java" bugCount="0" size="10"/>
+    <FileStats path="src/test/java/cpaintus/models/PointerTest.java" bugCount="0" size="12"/>
+    <FileStats path="src/test/java/cpaintus/models/ShapeDictTest.java" bugCount="0" size="19"/>
+    <FileStats path="src/test/java/cpaintus/models/ShapeFactoryTest.java" bugCount="0" size="10"/>
+    <FileStats path="src/test/java/cpaintus/models/ShapesGroupTest.java" bugCount="0" size="31"/>
+    <FileStats path="src/test/java/cpaintus/models/TemporaryFolderExtension.java" bugCount="0" size="18"/>
+    <FileStats path="src/test/java/cpaintus/views/ShapeTestFX.java" bugCount="0" size="7"/>
+    <PackageStats package="cpaintus" total_bugs="0" total_types="3" total_size="54">
+      <ClassStats class="cpaintus.Main" sourceFile="Main.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="cpaintus.Main$1" sourceFile="Main.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="cpaintus.Main$2" sourceFile="Main.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.controllers" total_bugs="0" total_types="23" total_size="1191">
+      <ClassStats class="cpaintus.controllers.BottomPaneController" sourceFile="BottomPaneController.java" interface="false" size="44" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.CenterPaneController" sourceFile="CenterPaneController.java" interface="false" size="238" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.CenterPaneController$1" sourceFile="CenterPaneController.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.CenterPaneController$2" sourceFile="CenterPaneController.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.Direction" sourceFile="Direction.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.InvokerUpdateSingleton" sourceFile="InvokerUpdateSingleton.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.InvokerUpdateSingleton$1" sourceFile="InvokerUpdateSingleton.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.InvokerUpdateSingleton$InvokerUpdateSingletonHelper" sourceFile="InvokerUpdateSingleton.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController" sourceFile="LeftPaneController.java" interface="false" size="481" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$1" sourceFile="LeftPaneController.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$2" sourceFile="LeftPaneController.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$3" sourceFile="LeftPaneController.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$4" sourceFile="LeftPaneController.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$5" sourceFile="LeftPaneController.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$6" sourceFile="LeftPaneController.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.LeftPaneController$CommandListCell" sourceFile="LeftPaneController.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.RootController" sourceFile="RootController.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.SaveCloseSingleton" sourceFile="SaveCloseSingleton.java" interface="false" size="68" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.SaveCloseSingleton$SaveCloseSingletonHelper" sourceFile="SaveCloseSingleton.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.SelectShapesSingleton" sourceFile="SelectShapesSingleton.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.SnapshotSingleton" sourceFile="SnapshotSingleton.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.SnapshotSingleton$SnapSingletonHelper" sourceFile="SnapshotSingleton.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.TopPaneController" sourceFile="TopPaneController.java" interface="false" size="88" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.controllers.command" total_bugs="0" total_types="11" total_size="440">
+      <ClassStats class="cpaintus.controllers.command.Command" sourceFile="Command.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.DrawCommand" sourceFile="DrawCommand.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.EditCommand" sourceFile="EditCommand.java" interface="false" size="60" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.EditGroupCommand" sourceFile="EditGroupCommand.java" interface="false" size="56" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.EditZCommand" sourceFile="EditZCommand.java" interface="false" size="69" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.EraseAllCommand" sourceFile="EraseAllCommand.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.EraseShapeCommand" sourceFile="EraseShapeCommand.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.GroupCommand" sourceFile="GroupCommand.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.Invoker" sourceFile="Invoker.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.Invoker$InvokerHelper" sourceFile="Invoker.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.command.UngroupCommand" sourceFile="UngroupCommand.java" interface="false" size="23" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.controllers.drawers" total_bugs="0" total_types="10" total_size="230">
+      <ClassStats class="cpaintus.controllers.drawers.DrawerStrategyContext" sourceFile="DrawerStrategyContext.java" interface="false" size="44" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.DrawerStrategyContext$SingletonHelper" sourceFile="DrawerStrategyContext.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.EllipseDrawerStrategy" sourceFile="EllipseDrawerStrategy.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.HeartDrawerStrategy" sourceFile="HeartDrawerStrategy.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.IDrawerStrategy" sourceFile="IDrawerStrategy.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.LineDrawerStrategy" sourceFile="LineDrawerStrategy.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.PictureDrawerStrategy" sourceFile="PictureDrawerStrategy.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.PokeballDrawerStrategy" sourceFile="PokeballDrawerStrategy.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.RectangleDrawerStrategy" sourceFile="RectangleDrawerStrategy.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.drawers.TextDrawerStrategy" sourceFile="TextDrawerStrategy.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.controllers.popup" total_bugs="0" total_types="8" total_size="202">
+      <ClassStats class="cpaintus.controllers.popup.AboutController" sourceFile="AboutController.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.AddTextController" sourceFile="AddTextController.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.CloseController" sourceFile="CloseController.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.GridController" sourceFile="GridController.java" interface="false" size="36" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.GridController$1" sourceFile="GridController.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.NewController" sourceFile="NewController.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.PopupBuilder" sourceFile="PopupBuilder.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="cpaintus.controllers.popup.PopupEnvironment" sourceFile="PopupEnvironment.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.models" total_bugs="0" total_types="23" total_size="680">
+      <ClassStats class="cpaintus.models.BoundingBox" sourceFile="BoundingBox.java" interface="false" size="94" bugs="0"/>
+      <ClassStats class="cpaintus.models.BoundingBox$SingletonHelper" sourceFile="BoundingBox.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.models.BoundingBoxTest" sourceFile="BoundingBoxTest.java" interface="false" size="67" bugs="0"/>
+      <ClassStats class="cpaintus.models.BoundingBoxTest$1" sourceFile="BoundingBoxTest.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="cpaintus.models.BoundingBoxTest$2" sourceFile="BoundingBoxTest.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="cpaintus.models.DrawSettings" sourceFile="DrawSettings.java" interface="false" size="47" bugs="0"/>
+      <ClassStats class="cpaintus.models.DrawSettings$DrawSettingsInstance" sourceFile="DrawSettings.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.models.DrawSettingsTest" sourceFile="DrawSettingsTest.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="cpaintus.models.FileManagerStrategyTest" sourceFile="FileManagerStrategyTest.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="cpaintus.models.LineWidth" sourceFile="LineWidth.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="cpaintus.models.LineWidthTest" sourceFile="LineWidthTest.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="cpaintus.models.Point" sourceFile="Point.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="cpaintus.models.Pointer" sourceFile="Pointer.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="cpaintus.models.Pointer$SingletonHelper" sourceFile="Pointer.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="cpaintus.models.PointerTest" sourceFile="PointerTest.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="cpaintus.models.PointerTest$1" sourceFile="PointerTest.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="cpaintus.models.PointerTest$2" sourceFile="PointerTest.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="cpaintus.models.ShapeDictTest" sourceFile="ShapeDictTest.java" interface="false" size="66" bugs="0"/>
+      <ClassStats class="cpaintus.models.ShapeDictTest$1" sourceFile="ShapeDictTest.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="cpaintus.models.ShapeDictTest$2" sourceFile="ShapeDictTest.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="cpaintus.models.ShapeFactoryTest" sourceFile="ShapeFactoryTest.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="cpaintus.models.ShapesGroupTest" sourceFile="ShapesGroupTest.java" interface="false" size="101" bugs="0"/>
+      <ClassStats class="cpaintus.models.TemporaryFolderExtension" sourceFile="TemporaryFolderExtension.java" interface="false" size="40" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.models.composite" total_bugs="0" total_types="1" total_size="98">
+      <ClassStats class="cpaintus.models.composite.ShapesGroup" sourceFile="ShapesGroup.java" interface="false" size="98" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.models.observable" total_bugs="0" total_types="3" total_size="56">
+      <ClassStats class="cpaintus.models.observable.IObserver" sourceFile="IObserver.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="cpaintus.models.observable.Observable" sourceFile="Observable.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="cpaintus.models.observable.ObservableList" sourceFile="ObservableList.java" interface="false" size="36" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.models.savestrategy" total_bugs="0" total_types="6" total_size="146">
+      <ClassStats class="cpaintus.models.savestrategy.FileContext" sourceFile="FileContext.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="cpaintus.models.savestrategy.FileContext$types" sourceFile="FileContext.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="cpaintus.models.savestrategy.FileManagerStrategy" sourceFile="FileManagerStrategy.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="cpaintus.models.savestrategy.PNGStrategy" sourceFile="PNGStrategy.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="cpaintus.models.savestrategy.XMLStrategy" sourceFile="XMLStrategy.java" interface="false" size="56" bugs="0"/>
+      <ClassStats class="cpaintus.models.savestrategy.XMLStrategy$1" sourceFile="XMLStrategy.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.models.shapes" total_bugs="0" total_types="17" total_size="657">
+      <ClassStats class="cpaintus.models.shapes.Ellipse" sourceFile="Ellipse.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Heart" sourceFile="Heart.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Line" sourceFile="Line.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Picture" sourceFile="Picture.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Pokeball" sourceFile="Pokeball.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Rectangle" sourceFile="Rectangle.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Shape" sourceFile="Shape.java" interface="false" size="87" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Shape1D" sourceFile="Shape1D.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Shape2D" sourceFile="Shape2D.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.ShapeDimension" sourceFile="ShapeDimension.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.ShapeFactory" sourceFile="ShapeFactory.java" interface="false" size="133" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.ShapeFunctionalInterface" sourceFile="ShapeFunctionalInterface.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.ShapeType" sourceFile="ShapeType.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.ShapesDictionnary" sourceFile="ShapesDictionnary.java" interface="false" size="123" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Size" sourceFile="Size.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Stroke" sourceFile="Stroke.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="cpaintus.models.shapes.Text" sourceFile="Text.java" interface="false" size="29" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="cpaintus.views" total_bugs="0" total_types="2" total_size="50">
+      <ClassStats class="cpaintus.views.ShapeTestFX" sourceFile="ShapeTestFX.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="cpaintus.views.ShapeTestFX$1" sourceFile="ShapeTestFX.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus" total_bugs="0" total_types="1" total_size="7">
+      <ClassStats class="src.main.java.cpaintus.Main" sourceFile="Main.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.controllers" total_bugs="0" total_types="14" total_size="348">
+      <ClassStats class="src.main.java.cpaintus.controllers.BottomPaneController" sourceFile="BottomPaneController.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.CenterPaneController" sourceFile="CenterPaneController.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.Direction" sourceFile="Direction.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.InvokerUpdateSingleton" sourceFile="InvokerUpdateSingleton.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.InvokerUpdateSingleton$InvokerUpdateSingletonHelper" sourceFile="InvokerUpdateSingleton.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.LeftPaneController" sourceFile="LeftPaneController.java" interface="false" size="124" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.LeftPaneController$CommandListCell" sourceFile="LeftPaneController.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.RootController" sourceFile="RootController.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.SaveCloseSingleton" sourceFile="SaveCloseSingleton.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.SaveCloseSingleton$SaveCloseSingletonHelper" sourceFile="SaveCloseSingleton.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.SelectShapesSingleton" sourceFile="SelectShapesSingleton.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.SnapshotSingleton" sourceFile="SnapshotSingleton.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.SnapshotSingleton$SnapSingletonHelper" sourceFile="SnapshotSingleton.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.TopPaneController" sourceFile="TopPaneController.java" interface="false" size="28" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.controllers.command" total_bugs="0" total_types="11" total_size="195">
+      <ClassStats class="src.main.java.cpaintus.controllers.command.Command" sourceFile="Command.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.DrawCommand" sourceFile="DrawCommand.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.EditCommand" sourceFile="EditCommand.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.EditGroupCommand" sourceFile="EditGroupCommand.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.EditZCommand" sourceFile="EditZCommand.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.EraseAllCommand" sourceFile="EraseAllCommand.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.EraseShapeCommand" sourceFile="EraseShapeCommand.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.GroupCommand" sourceFile="GroupCommand.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.Invoker" sourceFile="Invoker.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.Invoker$InvokerHelper" sourceFile="Invoker.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.command.UngroupCommand" sourceFile="UngroupCommand.java" interface="false" size="12" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.controllers.drawers" total_bugs="0" total_types="10" total_size="61">
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.DrawerStrategyContext" sourceFile="DrawerStrategyContext.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.DrawerStrategyContext$SingletonHelper" sourceFile="DrawerStrategyContext.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.EllipseDrawerStrategy" sourceFile="EllipseDrawerStrategy.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.HeartDrawerStrategy" sourceFile="HeartDrawerStrategy.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.IDrawerStrategy" sourceFile="IDrawerStrategy.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.LineDrawerStrategy" sourceFile="LineDrawerStrategy.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.PictureDrawerStrategy" sourceFile="PictureDrawerStrategy.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.PokeballDrawerStrategy" sourceFile="PokeballDrawerStrategy.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.RectangleDrawerStrategy" sourceFile="RectangleDrawerStrategy.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.drawers.TextDrawerStrategy" sourceFile="TextDrawerStrategy.java" interface="false" size="5" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.controllers.popup" total_bugs="0" total_types="7" total_size="120">
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.AboutController" sourceFile="AboutController.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.AddTextController" sourceFile="AddTextController.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.CloseController" sourceFile="CloseController.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.GridController" sourceFile="GridController.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.NewController" sourceFile="NewController.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.PopupBuilder" sourceFile="PopupBuilder.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.controllers.popup.PopupEnvironment" sourceFile="PopupEnvironment.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.models" total_bugs="0" total_types="8" total_size="134">
+      <ClassStats class="src.main.java.cpaintus.models.BoundingBox" sourceFile="BoundingBox.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.BoundingBox$SingletonHelper" sourceFile="BoundingBox.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.DrawSettings" sourceFile="DrawSettings.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.DrawSettings$DrawSettingsInstance" sourceFile="DrawSettings.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.LineWidth" sourceFile="LineWidth.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.Point" sourceFile="Point.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.Pointer" sourceFile="Pointer.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.Pointer$SingletonHelper" sourceFile="Pointer.java" interface="false" size="4" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.models.composite" total_bugs="0" total_types="1" total_size="43">
+      <ClassStats class="src.main.java.cpaintus.models.composite.ShapesGroup" sourceFile="ShapesGroup.java" interface="false" size="43" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.models.observable" total_bugs="0" total_types="3" total_size="34">
+      <ClassStats class="src.main.java.cpaintus.models.observable.IObserver" sourceFile="IObserver.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.observable.Observable" sourceFile="Observable.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.observable.ObservableList" sourceFile="ObservableList.java" interface="false" size="17" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.models.savestrategy" total_bugs="0" total_types="5" total_size="45">
+      <ClassStats class="src.main.java.cpaintus.models.savestrategy.FileContext" sourceFile="FileContext.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.savestrategy.FileContext$types" sourceFile="FileContext.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.savestrategy.FileManagerStrategy" sourceFile="FileManagerStrategy.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.savestrategy.PNGStrategy" sourceFile="PNGStrategy.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.savestrategy.XMLStrategy" sourceFile="XMLStrategy.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.main.java.cpaintus.models.shapes" total_bugs="0" total_types="16" total_size="303">
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Ellipse" sourceFile="Ellipse.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Heart" sourceFile="Heart.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Line" sourceFile="Line.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Picture" sourceFile="Picture.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Pokeball" sourceFile="Pokeball.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Rectangle" sourceFile="Rectangle.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Shape" sourceFile="Shape.java" interface="false" size="64" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Shape1D" sourceFile="Shape1D.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Shape2D" sourceFile="Shape2D.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.ShapeDimension" sourceFile="ShapeDimension.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.ShapeFactory" sourceFile="ShapeFactory.java" interface="false" size="50" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.ShapeType" sourceFile="ShapeType.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.ShapesDictionnary" sourceFile="ShapesDictionnary.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Size" sourceFile="Size.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Stroke" sourceFile="Stroke.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="src.main.java.cpaintus.models.shapes.Text" sourceFile="Text.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.test.java.cpaintus.models" total_bugs="0" total_types="9" total_size="156">
+      <ClassStats class="src.test.java.cpaintus.models.BoundingBoxTest" sourceFile="BoundingBoxTest.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.DrawSettingsTest" sourceFile="DrawSettingsTest.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.FileManagerStrategyTest" sourceFile="FileManagerStrategyTest.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.LineWidthTest" sourceFile="LineWidthTest.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.PointerTest" sourceFile="PointerTest.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.ShapeDictTest" sourceFile="ShapeDictTest.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.ShapeFactoryTest" sourceFile="ShapeFactoryTest.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.ShapesGroupTest" sourceFile="ShapesGroupTest.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="src.test.java.cpaintus.models.TemporaryFolderExtension" sourceFile="TemporaryFolderExtension.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="src.test.java.cpaintus.views" total_bugs="0" total_types="1" total_size="7">
+      <ClassStats class="src.test.java.cpaintus.views.ShapeTestFX" sourceFile="ShapeTestFX.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="1521" invocations="2304" avgMicrosecondsPerInvocation="660" maxMicrosecondsPerInvocation="15597" standardDeviationMicrosecondsPerInvocation="689"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="1049" invocations="2298" avgMicrosecondsPerInvocation="456" maxMicrosecondsPerInvocation="60863" standardDeviationMicrosecondsPerInvocation="1665"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="845" invocations="582" avgMicrosecondsPerInvocation="1452" maxMicrosecondsPerInvocation="80503" standardDeviationMicrosecondsPerInvocation="4747"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="706" invocations="582" avgMicrosecondsPerInvocation="1213" maxMicrosecondsPerInvocation="25955" standardDeviationMicrosecondsPerInvocation="2648"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="442" invocations="1185" avgMicrosecondsPerInvocation="373" maxMicrosecondsPerInvocation="11064" standardDeviationMicrosecondsPerInvocation="826"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="437" invocations="1802" avgMicrosecondsPerInvocation="242" maxMicrosecondsPerInvocation="41020" standardDeviationMicrosecondsPerInvocation="1187"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="426" invocations="1206" avgMicrosecondsPerInvocation="353" maxMicrosecondsPerInvocation="11299" standardDeviationMicrosecondsPerInvocation="715"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.taintanalysis.TaintDataflowEngine" totalMilliseconds="374" invocations="1206" avgMicrosecondsPerInvocation="310" maxMicrosecondsPerInvocation="11037" standardDeviationMicrosecondsPerInvocation="723"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="372" invocations="1240" avgMicrosecondsPerInvocation="300" maxMicrosecondsPerInvocation="19407" standardDeviationMicrosecondsPerInvocation="826"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="362" invocations="1198" avgMicrosecondsPerInvocation="302" maxMicrosecondsPerInvocation="7222" standardDeviationMicrosecondsPerInvocation="572"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="347" invocations="1216" avgMicrosecondsPerInvocation="285" maxMicrosecondsPerInvocation="19013" standardDeviationMicrosecondsPerInvocation="717"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="333" invocations="1233" avgMicrosecondsPerInvocation="270" maxMicrosecondsPerInvocation="22793" standardDeviationMicrosecondsPerInvocation="808"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison$SpecialTypeAnalysis" totalMilliseconds="268" invocations="1032" avgMicrosecondsPerInvocation="259" maxMicrosecondsPerInvocation="11858" standardDeviationMicrosecondsPerInvocation="637"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="192" invocations="582" avgMicrosecondsPerInvocation="330" maxMicrosecondsPerInvocation="12152" standardDeviationMicrosecondsPerInvocation="805"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="162" invocations="582" avgMicrosecondsPerInvocation="279" maxMicrosecondsPerInvocation="7440" standardDeviationMicrosecondsPerInvocation="566"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="147" invocations="1233" avgMicrosecondsPerInvocation="119" maxMicrosecondsPerInvocation="61277" standardDeviationMicrosecondsPerInvocation="1747"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="144" invocations="582" avgMicrosecondsPerInvocation="248" maxMicrosecondsPerInvocation="9506" standardDeviationMicrosecondsPerInvocation="696"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="143" invocations="2145" avgMicrosecondsPerInvocation="66" maxMicrosecondsPerInvocation="2108" standardDeviationMicrosecondsPerInvocation="133"/>
+      <ClassProfile name="edu.umd.cs.findbugs.DetectorToDetector2Adapter" totalMilliseconds="131" invocations="41889" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="11952" standardDeviationMicrosecondsPerInvocation="59"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="129" invocations="745" avgMicrosecondsPerInvocation="174" maxMicrosecondsPerInvocation="26130" standardDeviationMicrosecondsPerInvocation="1012"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="121" invocations="193" avgMicrosecondsPerInvocation="631" maxMicrosecondsPerInvocation="20895" standardDeviationMicrosecondsPerInvocation="1887"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="118" invocations="582" avgMicrosecondsPerInvocation="203" maxMicrosecondsPerInvocation="26198" standardDeviationMicrosecondsPerInvocation="1342"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.beans.BeanInjectionDetector" totalMilliseconds="116" invocations="193" avgMicrosecondsPerInvocation="601" maxMicrosecondsPerInvocation="59170" standardDeviationMicrosecondsPerInvocation="4277"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="113" invocations="582" avgMicrosecondsPerInvocation="195" maxMicrosecondsPerInvocation="13199" standardDeviationMicrosecondsPerInvocation="668"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="113" invocations="193" avgMicrosecondsPerInvocation="589" maxMicrosecondsPerInvocation="14434" standardDeviationMicrosecondsPerInvocation="1330"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.trust.TrustBoundaryViolationAttributeDetector" totalMilliseconds="108" invocations="193" avgMicrosecondsPerInvocation="561" maxMicrosecondsPerInvocation="46159" standardDeviationMicrosecondsPerInvocation="3363"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="107" invocations="582" avgMicrosecondsPerInvocation="184" maxMicrosecondsPerInvocation="3682" standardDeviationMicrosecondsPerInvocation="383"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="103" invocations="1206" avgMicrosecondsPerInvocation="86" maxMicrosecondsPerInvocation="2611" standardDeviationMicrosecondsPerInvocation="167"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.http.HttpParameterPollutionDetector" totalMilliseconds="99" invocations="193" avgMicrosecondsPerInvocation="512" maxMicrosecondsPerInvocation="41232" standardDeviationMicrosecondsPerInvocation="3054"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FormatStringChecker" totalMilliseconds="96" invocations="193" avgMicrosecondsPerInvocation="501" maxMicrosecondsPerInvocation="58939" standardDeviationMicrosecondsPerInvocation="4291"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindInconsistentSync2" totalMilliseconds="93" invocations="193" avgMicrosecondsPerInvocation="484" maxMicrosecondsPerInvocation="12706" standardDeviationMicrosecondsPerInvocation="1105"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildStringPassthruGraph" totalMilliseconds="92" invocations="582" avgMicrosecondsPerInvocation="159" maxMicrosecondsPerInvocation="4497" standardDeviationMicrosecondsPerInvocation="440"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.aws.AwsQueryInjectionDetector" totalMilliseconds="92" invocations="193" avgMicrosecondsPerInvocation="478" maxMicrosecondsPerInvocation="33438" standardDeviationMicrosecondsPerInvocation="2466"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.file.PathTraversalDetector" totalMilliseconds="86" invocations="193" avgMicrosecondsPerInvocation="446" maxMicrosecondsPerInvocation="8691" standardDeviationMicrosecondsPerInvocation="788"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.xpath.XPathInjectionDetector" totalMilliseconds="77" invocations="193" avgMicrosecondsPerInvocation="401" maxMicrosecondsPerInvocation="9271" standardDeviationMicrosecondsPerInvocation="945"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.ldap.LdapInjectionDetector" totalMilliseconds="71" invocations="193" avgMicrosecondsPerInvocation="371" maxMicrosecondsPerInvocation="7351" standardDeviationMicrosecondsPerInvocation="907"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindRefComparison" totalMilliseconds="69" invocations="193" avgMicrosecondsPerInvocation="360" maxMicrosecondsPerInvocation="9129" standardDeviationMicrosecondsPerInvocation="915"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.LoadOfKnownNullValue" totalMilliseconds="68" invocations="193" avgMicrosecondsPerInvocation="355" maxMicrosecondsPerInvocation="7587" standardDeviationMicrosecondsPerInvocation="748"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.redirect.UnvalidatedRedirectDetector" totalMilliseconds="68" invocations="193" avgMicrosecondsPerInvocation="352" maxMicrosecondsPerInvocation="8779" standardDeviationMicrosecondsPerInvocation="762"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUselessObjects" totalMilliseconds="66" invocations="193" avgMicrosecondsPerInvocation="343" maxMicrosecondsPerInvocation="14373" standardDeviationMicrosecondsPerInvocation="1232"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="64" invocations="10395" avgMicrosecondsPerInvocation="6" maxMicrosecondsPerInvocation="2588" standardDeviationMicrosecondsPerInvocation="43"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="63" invocations="193" avgMicrosecondsPerInvocation="331" maxMicrosecondsPerInvocation="6913" standardDeviationMicrosecondsPerInvocation="621"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.command.CommandInjectionDetector" totalMilliseconds="63" invocations="193" avgMicrosecondsPerInvocation="329" maxMicrosecondsPerInvocation="7589" standardDeviationMicrosecondsPerInvocation="671"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CheckRelaxingNullnessAnnotation" totalMilliseconds="63" invocations="193" avgMicrosecondsPerInvocation="328" maxMicrosecondsPerInvocation="12268" standardDeviationMicrosecondsPerInvocation="930"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="63" invocations="582" avgMicrosecondsPerInvocation="108" maxMicrosecondsPerInvocation="3608" standardDeviationMicrosecondsPerInvocation="265"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.password.ConstantPasswordDetector" totalMilliseconds="61" invocations="193" avgMicrosecondsPerInvocation="319" maxMicrosecondsPerInvocation="5476" standardDeviationMicrosecondsPerInvocation="598"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.custom.CustomInjectionDetector" totalMilliseconds="61" invocations="193" avgMicrosecondsPerInvocation="319" maxMicrosecondsPerInvocation="7637" standardDeviationMicrosecondsPerInvocation="676"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.script.ScriptInjectionDetector" totalMilliseconds="61" invocations="193" avgMicrosecondsPerInvocation="319" maxMicrosecondsPerInvocation="8171" standardDeviationMicrosecondsPerInvocation="704"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.xml.StdXmlTransformDetector" totalMilliseconds="61" invocations="193" avgMicrosecondsPerInvocation="318" maxMicrosecondsPerInvocation="7566" standardDeviationMicrosecondsPerInvocation="685"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.script.OgnlInjectionDetector" totalMilliseconds="60" invocations="193" avgMicrosecondsPerInvocation="315" maxMicrosecondsPerInvocation="7599" standardDeviationMicrosecondsPerInvocation="663"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LiveLocalStoreDataflowFactory" totalMilliseconds="60" invocations="1135" avgMicrosecondsPerInvocation="53" maxMicrosecondsPerInvocation="3451" standardDeviationMicrosecondsPerInvocation="149"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.HttpResponseSplittingDetector" totalMilliseconds="59" invocations="193" avgMicrosecondsPerInvocation="306" maxMicrosecondsPerInvocation="7403" standardDeviationMicrosecondsPerInvocation="692"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.scala.XssTwirlDetector" totalMilliseconds="58" invocations="193" avgMicrosecondsPerInvocation="305" maxMicrosecondsPerInvocation="7210" standardDeviationMicrosecondsPerInvocation="693"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.scala.ScalaSensitiveDataExposureDetector" totalMilliseconds="58" invocations="193" avgMicrosecondsPerInvocation="304" maxMicrosecondsPerInvocation="8204" standardDeviationMicrosecondsPerInvocation="697"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.sql.SqlInjectionDetector" totalMilliseconds="58" invocations="193" avgMicrosecondsPerInvocation="302" maxMicrosecondsPerInvocation="7820" standardDeviationMicrosecondsPerInvocation="686"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.scala.SSRFDetector" totalMilliseconds="58" invocations="193" avgMicrosecondsPerInvocation="302" maxMicrosecondsPerInvocation="7658" standardDeviationMicrosecondsPerInvocation="697"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.injection.sql.AndroidSqlInjectionDetector" totalMilliseconds="58" invocations="193" avgMicrosecondsPerInvocation="301" maxMicrosecondsPerInvocation="7703" standardDeviationMicrosecondsPerInvocation="678"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>
