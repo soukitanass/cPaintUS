@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,12 +67,6 @@ class EditShapeWidthTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	@AfterEach
-	public void tearDown() throws TimeoutException {
-		FxToolkit.cleanupStages();
-		FxToolkit.hideStage();
 	}
 
 	@Test
