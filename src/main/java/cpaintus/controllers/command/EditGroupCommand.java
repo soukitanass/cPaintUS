@@ -16,9 +16,8 @@ import javafx.scene.transform.Rotate;
 public class EditGroupCommand extends Command {
 
 	private EditCommand command;
-	private List<Shape> shapeToEdit;
-	private List<Shape> oldShape;
-	private ShapesGroup shapesGroup;
+	private Shape shapeToEdit;
+	private Shape oldShape;
 	private BoundingBox boundingBox;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
@@ -34,25 +33,21 @@ public class EditGroupCommand extends Command {
 		this.command = command;
 	}
 
-	public List<Shape> getShapeToEdit() {
+	public Shape getShapeToEdit() {
 		return shapeToEdit;
 	}
 
-	public void setShapeToEdit(List<Shape> shapeToEdit) {
+	public void setShapeToEdit(Shape shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("EditGroup" + shapeToEdit.toString());
+		setCommandID("EditGroup " + ((ShapesGroup)shapeToEdit).getShapes().toString());
 	}
 
-	public List<Shape> getOldShape() {
+	public Shape getOldShape() {
 		return oldShape;
 	}
 
-	public void setOldShape(List<Shape> oldShape) {
+	public void setOldShape(Shape oldShape) {
 		this.oldShape = oldShape;
-	}
-
-	public void setGroupShape(ShapesGroup shapesGroup) {
-		this.shapesGroup = shapesGroup;
 	}
 
 	public EditGroupCommand() {
@@ -65,40 +60,42 @@ public class EditGroupCommand extends Command {
 
 	@Override
 	public void execute() {
-		for (int i = 0; i < shapeToEdit.size(); i++) {
-			int hash = shapeToEdit.get(i).getCanvasHash();
+		List<Shape> shapes = ((ShapesGroup)shapeToEdit).getShapes();
+		for (int i = 0; i < shapes.size(); i++) {
+			int hash = shapes.get(i).getCanvasHash();
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
 			if (activeCanvas == null) {
 				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
 				return;
 			}
-			if (shapesGroup.isFlipVertical()) {
+			if (shapeToEdit.isFlipVertical()) {
 				activeCanvas.getTransforms().add(new Rotate(180, boundingBox.getCenter().getX(),
 						boundingBox.getCenter().getY(), 0, Rotate.X_AXIS));
 
-			} else if (shapesGroup.isFlipHorizontal()) {
+			} else if (shapeToEdit.isFlipHorizontal()) {
 				activeCanvas.getTransforms().add(new Rotate(180, boundingBox.getCenter().getX(),
 						boundingBox.getCenter().getY(), 0, Rotate.Y_AXIS));
 
 			} else
-				drawerStrategyContext.draw(shapeToEdit.get(i), activeCanvas);
+				drawerStrategyContext.draw(shapes.get(i), activeCanvas);
 		}
-		shapesGroup.setFlipVertical(false);
-		shapesGroup.setFlipHorizontal(false);
+		shapeToEdit.setFlipVertical(false);
+		shapeToEdit.setFlipHorizontal(false);
 	}
 
 	@Override
 	public void undo() {
-		for (int i = 0; i < oldShape.size(); i++) {
-			int hash = oldShape.get(i).getCanvasHash();
+		List<Shape> oldShapes = ((ShapesGroup)oldShape).getShapes();
+		for (int i = 0; i < oldShapes.size(); i++) {
+			int hash = oldShapes.get(i).getCanvasHash();
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
 			if (activeCanvas == null) {
 				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
 				return;
 			}
-			drawerStrategyContext.draw(oldShape.get(i), activeCanvas);
+			drawerStrategyContext.draw(oldShapes.get(i), activeCanvas);
 		}
 	}
 

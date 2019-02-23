@@ -3,12 +3,13 @@ package cpaintus.models.composite;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpaintus.models.Point;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.Shape2D;
 import cpaintus.models.shapes.ShapeDimension;
 import cpaintus.models.shapes.ShapeType;
 
-public class ShapesGroup extends Shape2D {
+public class ShapesGroup extends Shape {
 
 	private List<Shape> shapes = new ArrayList<>();
 	private static int groupNb = 0;
@@ -48,19 +49,16 @@ public class ShapesGroup extends Shape2D {
 		return shapes;
 	}
 
-	public void setHeightGroup(double height) {
-		this.height = height;
-
-	}
-
-	public void setWidthGroup(double width) {
-		this.width = width;
-
-	}
-
 	@Override
 	public double getWidth() {
-		return width;
+		double minX = Double.MAX_VALUE;
+		double maxX = 0;
+
+		for (Shape shape : shapes) {
+			minX = Math.min(minX, shape.getUpLeftCorner().getX());
+			maxX = Math.max(maxX, shape.getUpLeftCorner().getX() + shape.getWidth());
+		}
+		return maxX - minX;
 	}
 
 	@Override
@@ -72,7 +70,14 @@ public class ShapesGroup extends Shape2D {
 
 	@Override
 	public double getHeight() {
-		return height;
+		double minY = Double.MAX_VALUE;
+		double maxY = 0;
+
+		for (Shape shape : shapes) {
+			minY = Math.min(minY, shape.getUpLeftCorner().getY());
+			maxY = Math.max(maxY, shape.getUpLeftCorner().getY() + shape.getHeight());
+		}
+		return maxY - minY;
 	}
 
 	@Override
@@ -80,61 +85,41 @@ public class ShapesGroup extends Shape2D {
 		for (Shape shape : shapes) {
 			shape.setHeight(height);
 		}
-
 	}
 
-	public void setXGroup(double x) {
-		this.x = x;
+	@Override
+	public double getX() {
+		double minX = Double.MAX_VALUE;
+		for (Shape shape : shapes) {
+			minX = Math.min(minX, shape.getUpLeftCorner().getX());
+		}
+		return minX;
 	}
 
-	public void setYGroup(double y) {
-		this.y = y;
-	}
-
+	@Override
 	public void setX(double x) {
 		double marge = getUpLeftCorner().getX() - x;
-		setXGroup(x);
 		for (Shape shape : shapes) {
 			shape.setUpLeftCornerX(shape.getUpLeftCorner().getX() - marge);
 		}
 	}
 
+	@Override
+	public double getY() {
+		double minY = Double.MAX_VALUE;
+		for (Shape shape : shapes) {
+			minY = Math.min(minY, shape.getUpLeftCorner().getY());
+		}
+		return minY;
+	}
+	
+	@Override
 	public void setY(double y) {
 		double marge = getUpLeftCorner().getY() - y;
-		setYGroup(y);
 		for (Shape shape : shapes) {
 			shape.setUpLeftCornerY(shape.getUpLeftCorner().getY() - marge);
 		}
 	}
-
-	public void setRotation(double rotation) {
-		for (Shape shape : shapes) {
-			shape.setRotation(rotation);
-		}
-	}
-
-	public void setLineWidth(int lineWidth) {
-		for (Shape shape : shapes) {
-			shape.setLineWidth(lineWidth);
-		}
-	}
-
-	public void setStrokeColor(String strokeColor) {
-		for (Shape shape : shapes) {
-			shape.setStrokeColor(strokeColor);
-		}
-	}
-	
-
-	public void setFillColor(String fillColor) {
-		for (Shape shape : shapes) {
-			if (shape.getShapeDimension() == ShapeDimension.SHAPE2D) {
-				((Shape2D) shape).setFillColor(fillColor);
-			}
-
-		}
-	}
-	
 	
 	@Override
 	public ShapesGroup makeCopy() {
@@ -146,10 +131,11 @@ public class ShapesGroup extends Shape2D {
 		for (Shape shape : shapes) {
 			group.shapes.add(shape.makeCopy());
 		}
-		group.x = this.x;
-		group.y = this.y;
-		group.height = this.height;
-		group.width = this.width;
 		return group;
+	}
+
+	@Override
+	public Point getUpLeftCorner() {
+		return new Point(getX(), getY());
 	}
 }

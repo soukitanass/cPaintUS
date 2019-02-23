@@ -139,7 +139,6 @@ public abstract class Shape {
 		this.setY(y);
 	}
 
-
 	public boolean isFlipHorizontal() {
 		return flipHorizontal;
 	}
@@ -156,5 +155,9 @@ public abstract class Shape {
 		this.flipVertical = flipVertical;
 	}
 
+	public Point getCenter() {
+		return new Point((getUpLeftCorner().getX() + getWidth()) / 2,
+				(getUpLeftCorner().getY() + getHeight()) / 2);
+	}
 
 }
