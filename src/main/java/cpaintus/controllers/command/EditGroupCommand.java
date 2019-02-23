@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
-import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
@@ -18,7 +17,6 @@ public class EditGroupCommand extends Command {
 	private EditCommand command;
 	private Shape shapeToEdit;
 	private Shape oldShape;
-	private BoundingBox boundingBox;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private Canvas activeCanvas;
@@ -55,7 +53,6 @@ public class EditGroupCommand extends Command {
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		pane = snapshotSingleton.getSnapshotPane();
-		boundingBox = BoundingBox.getInstance();
 	}
 
 	@Override
@@ -70,12 +67,12 @@ public class EditGroupCommand extends Command {
 				return;
 			}
 			if (shapeToEdit.isFlipVertical()) {
-				activeCanvas.getTransforms().add(new Rotate(180, boundingBox.getCenter().getX(),
-						boundingBox.getCenter().getY(), 0, Rotate.X_AXIS));
+				activeCanvas.getTransforms().add(new Rotate(180, shapeToEdit.getCenter().getX(),
+						shapeToEdit.getCenter().getY(), 0, Rotate.X_AXIS));
 
 			} else if (shapeToEdit.isFlipHorizontal()) {
-				activeCanvas.getTransforms().add(new Rotate(180, boundingBox.getCenter().getX(),
-						boundingBox.getCenter().getY(), 0, Rotate.Y_AXIS));
+				activeCanvas.getTransforms().add(new Rotate(180, shapeToEdit.getCenter().getX(),
+						shapeToEdit.getCenter().getY(), 0, Rotate.Y_AXIS));
 
 			} else
 				drawerStrategyContext.draw(shapes.get(i), activeCanvas);

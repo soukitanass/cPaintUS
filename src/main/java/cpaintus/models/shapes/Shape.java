@@ -156,8 +156,8 @@ public abstract class Shape {
 	}
 
 	public Point getCenter() {
-		return new Point((getUpLeftCorner().getX() + getWidth()) / 2,
-				(getUpLeftCorner().getY() + getHeight()) / 2);
+		return new Point(getUpLeftCorner().getX() + getWidth() / 2,
+				getUpLeftCorner().getY() + getHeight() / 2);
 	}
 
 }

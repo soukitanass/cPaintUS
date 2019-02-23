@@ -89,6 +89,14 @@ class ShapesGroupTest {
 		assertEquals(expectedY, shapesGroup.getShapes().get(0).getY());
 	}
 
+	@Test
+	void getCenterOfGroup() {
+		addShapes();
+		Point center = shapesGroup.getCenter();
+		assertEquals((6 + (22 + 320))/2, center.getX());
+		assertEquals((11 + (13 + 130))/2, center.getY());
+	}
+
 	void addShapes() {
 		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
 				new Size(200, 10), 0, new Stroke(1, "#ff1ff"), "#fff56", "", "test"));
