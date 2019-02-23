@@ -24,8 +24,6 @@
 					<panes>
 						<TitledPane fx:id="default" text="Draw Settings">
 							<ToolBar prefWidth="188.0">
-                        <ScrollPane>
-                           <content>
       								<VBox alignment="CENTER" prefWidth="188.0" spacing="5">
       									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
       										<Label prefWidth="78.0" text="Draw Shape: " />
@@ -46,8 +44,6 @@
       									<Button fx:id="eraseAllBtn" onAction="#handleEraseAllClick" prefWidth="188.0" text="Erase All" />
       									<Button fx:id="selectBtn" onAction="#handleSelectClick" prefWidth="188.0" text="Select" />
       								</VBox>
-                           </content>
-                        </ScrollPane>
 							</ToolBar>
 						</TitledPane>
 						<TitledPane text="Shapes">
@@ -55,8 +51,6 @@
 						</TitledPane>
 						<TitledPane text="Edit Attributes">
 							<ToolBar fx:id="attributes">
-                        <ScrollPane>
-                           <content>
       								<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
       									<Label fx:id="attributesLabel" />
       									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
@@ -122,8 +116,6 @@
       										<TextField fx:id="rotate" onAction="#handleRotate" prefWidth="110.0" />
       									</HBox>
       								</VBox>
-                           </content>
-                        </ScrollPane>
 							</ToolBar>
 						</TitledPane>
 						<TitledPane text="Command History">
