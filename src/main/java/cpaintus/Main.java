@@ -64,7 +64,6 @@ public class Main extends Application {
 		}
 		LogLevel logLevel = LogLevel.getLevel(i);
 		BaseLogger.setLogLevel(logLevel);
-		
 		launch(args);
 	}
 }
