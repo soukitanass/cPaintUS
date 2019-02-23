@@ -15,7 +15,7 @@ public class ShapeFactory {
 	private int textNb;
 	private int totalShapeNb;
 
-	private HashMap<ShapeType, ShapeFunctionalInterface> creatorDictionary;
+	private static HashMap<ShapeType, ShapeFunctionalInterface> creatorDictionary;
 
 	private ShapeFactory() {
 		rectangleNb = 0;
@@ -112,7 +112,7 @@ public class ShapeFactory {
 		return factory;
 	}
 
-	public Shape getShape(ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2,
+	public static Shape getShape(ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2,
 			Size size, double rotation, Stroke stroke, String fillColor, String base64, String text) {
 		return creatorDictionary.get(shapeType).create(shapeType, persistent, canvasHash, position, position2, size,
 				rotation, stroke, fillColor, base64, text);

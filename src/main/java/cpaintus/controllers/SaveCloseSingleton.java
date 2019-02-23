@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cpaintus.controllers.popup.CloseController;
+import cpaintus.models.BoundingBox;
 import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
@@ -91,11 +92,12 @@ public class SaveCloseSingleton {
 		if (selectedFile != null) {
 			String fileName = selectedFile.getName();
 			String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1, selectedFile.getName().length());
+			updateLocalShapeDict();
 			if (fileExtension.equalsIgnoreCase("xml")) {
 				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 				prefs.put(WORKDIR, selectedFile.getParent());
-				updateLocalShapeDict();
 			} else {
+				BoundingBox.getInstance().setVisible(false);
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
 				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());

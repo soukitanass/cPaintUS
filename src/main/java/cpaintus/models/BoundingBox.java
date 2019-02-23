@@ -13,6 +13,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	private Boolean gridMod;
 	private double gridStep;
+	private Boolean followGrid;
 	
 	private static class SingletonHelper {
 		private static final BoundingBox INSTANCE = new BoundingBox();
@@ -46,7 +47,7 @@ public class BoundingBox extends Observable<IObserver> {
 	}
 
 	private Point gridRound(Point p) {
-		if(gridMod) {
+		if(gridMod && followGrid) {
 			p.setX(roundForGrid(p.getX()));
 			p.setY(roundForGrid(p.getY()));
 		}
@@ -64,7 +65,7 @@ public class BoundingBox extends Observable<IObserver> {
 	}
 
 	public void setOrigin(double x, double y) {
-		if(gridMod) {
+		if(gridMod && followGrid) {
 			x = roundForGrid(x);
 			y = roundForGrid(y);
 			if(x<4)
@@ -151,5 +152,9 @@ public class BoundingBox extends Observable<IObserver> {
 	
 	public Point getCenter() {
 		return new Point((getUpLeftCorner().getX()*2.0+getWidth())/2,(getUpLeftCorner().getY()*2.0+getHeight())/2);
+	}
+
+	public void setFollowGrid(Boolean followGrid) {
+		this.followGrid = followGrid;
 	}
 }

@@ -87,6 +87,7 @@ public class CenterPaneController implements IObserver {
 				boundingBox.setOrigin(e.getX(), e.getY());
 				boundingBox.setVisible(true);
 				boundingBox.setRotation(0);
+				boundingBox.setFollowGrid(true);
 				initializeNewCanvas();
 			}
 		};
@@ -382,6 +383,7 @@ public class CenterPaneController implements IObserver {
 		groupCommand.setFirst(true);
 		invoker.execute(groupCommand);
 		selectShapes = false;
+		boundingBox.setFollowGrid(false);
 	}
 	
 	private void drawGrid() {
