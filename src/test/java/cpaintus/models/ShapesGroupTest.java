@@ -28,10 +28,10 @@ class ShapesGroupTest {
 	@Test
 	void testAdd() {
 		assertTrue(shapesGroup.getShapes().isEmpty());
-		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh"));
 		assertEquals(1, shapesGroup.getShapes().size());
-		shapesGroup.add(shapeFactory.getShape(ShapeType.HEART, true, 0, new Point(0, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh"));
 		assertEquals(2, shapesGroup.getShapes().size());
 
@@ -40,7 +40,7 @@ class ShapesGroupTest {
 	@Test
 	void testRemove() {
 		assertTrue(shapesGroup.getShapes().isEmpty());
-		Shape shape = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		Shape shape = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		shapesGroup.add(shape);
 		assertEquals(1, shapesGroup.getShapes().size());
@@ -52,7 +52,7 @@ class ShapesGroupTest {
 	@Test
 	void testClear() {
 		assertTrue(shapesGroup.getShapes().isEmpty());
-		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh"));
 		assertEquals(1, shapesGroup.getShapes().size());
 		shapesGroup.clear();
@@ -98,11 +98,11 @@ class ShapesGroupTest {
 	}
 
 	void addShapes() {
-		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
 				new Size(200, 10), 0, new Stroke(1, "#ff1ff"), "#fff56", "", "test"));
-		shapesGroup.add(shapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 12), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0, 0),
 				new Size(220, 100), 30, new Stroke(2, "#fff98"), "#ff678", "", "test"));
-		shapesGroup.add(shapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 13), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0, 0),
 				new Size(320, 130), 100,new Stroke( 6, "#fff45"), "#f678f", "", "test"));
 		assertEquals(3, shapesGroup.getShapes().size());
 	}

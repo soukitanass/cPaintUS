@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 
 import cpaintus.controllers.command.Command;
 import cpaintus.controllers.command.EditCommand;
@@ -67,7 +66,6 @@ public class LeftPaneController implements IObserver {
 	private ShapesDictionnary shapesDict;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
-	private Preferences prefs;
 	private SelectShapesSingleton selectShapesSingleton;
 	private ChangeListener<Integer> editZListener;
 	private Invoker invoker;
@@ -77,7 +75,7 @@ public class LeftPaneController implements IObserver {
 	private boolean isGrouping;
 	private Command commandToUndoUntil;
 	private boolean isUpdatingAttributes;
-
+	
 	@FXML
 	private ComboBox<ShapeType> shapeType;
 	@FXML
@@ -157,7 +155,6 @@ public class LeftPaneController implements IObserver {
 		drawSettings = DrawSettings.getInstance();
 		boundingBox = BoundingBox.getInstance();
 
-		prefs = Preferences.userNodeForPackage(this.getClass());
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
 
@@ -204,17 +201,17 @@ public class LeftPaneController implements IObserver {
 		shapeType.getItems().setAll(ShapeType.values());
 		shapeType.getItems().remove(ShapeType.PICTURE);
 		shapeType.getItems().remove(ShapeType.GROUP);
-		shapeType.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
+		shapeType.setValue(drawSettings.getShape());
 
 		// Line width setting
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
-		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
+		lineWidth.setValue(drawSettings.getLineWidth()+"px");
 
 		// Color settings
 		fillColor.setDisable(shapeType.getValue() == ShapeType.LINE);
-		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
-		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
-
+		fillColor.setValue(drawSettings.getFillColor());
+		strokeColor.setValue(drawSettings.getStrokeColor());
+		
 		// Attributes
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -259,7 +256,6 @@ public class LeftPaneController implements IObserver {
 		if (shapeType.getValue() == ShapeType.TEXT) {
 			handleTextAddClick();
 		}
-		prefs.put("shape", shapeType.getValue().name());
 	}
 
 	private void handleTextAddClick() {
@@ -291,19 +287,16 @@ public class LeftPaneController implements IObserver {
 		int newWidth = Integer.parseInt(widthStr);
 
 		drawSettings.setLineWidth(newWidth);
-		prefs.put("linewidth", widthStr);
 	}
 
 	@FXML
 	private void handleChangeFillColor() {
 		drawSettings.setFillColor(fillColor.getValue());
-		prefs.put("fillcolor", fillColor.getValue().toString());
 	}
 
 	@FXML
 	private void handleChangeStrokeColor() {
 		drawSettings.setStrokeColor(strokeColor.getValue());
-		prefs.put("strokecolor", strokeColor.getValue().toString());
 	}
 
 	@FXML

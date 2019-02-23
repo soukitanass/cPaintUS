@@ -26,31 +26,31 @@ class ShapeFactoryTest {
 
 	@Test
 	void getShapeTest() {
-		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		Shape actual = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Rectangle);
 
-		actual = shapeFactory.getShape(ShapeType.ELLIPSE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
+		actual = ShapeFactory.getShape(ShapeType.ELLIPSE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
 				100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Ellipse);
 
-		actual = shapeFactory.getShape(ShapeType.LINE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100,
+		actual = ShapeFactory.getShape(ShapeType.LINE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100,
 				new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Line);
 
-		actual = shapeFactory.getShape(ShapeType.HEART, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
+		actual = ShapeFactory.getShape(ShapeType.HEART, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
 				100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Heart);
 
-		actual = shapeFactory.getShape(ShapeType.POKEBALL, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
+		actual = ShapeFactory.getShape(ShapeType.POKEBALL, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
 				100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Pokeball);
 
-		actual = shapeFactory.getShape(ShapeType.PICTURE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
+		actual = ShapeFactory.getShape(ShapeType.PICTURE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10),
 				100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Picture);
 
-		actual = shapeFactory.getShape(ShapeType.TEXT, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100,
+		actual = ShapeFactory.getShape(ShapeType.TEXT, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100,
 				new Stroke(1, "#fff"), "#fff", "", "hh");
 		Assertions.assertTrue(actual instanceof cpaintus.models.shapes.Text);
 	}
