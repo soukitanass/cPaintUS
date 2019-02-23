@@ -38,13 +38,15 @@ public class InvokerUpdateSingleton {
 	}
 	
 	public void updateTree() {
-		if (tree.getRoot() == null) {
-			tree.setRoot(new TreeItem<Shape>());
-			tree.setShowRoot(false);
-		}
+		if (tree != null) {
+			if (tree.getRoot() == null) {
+				tree.setRoot(new TreeItem<Shape>());
+				tree.setShowRoot(false);
+			}
 
-		tree.getRoot().getChildren().clear();
-		buildTree(tree.getRoot(), shapesDictionnary.getShapesList());
+			tree.getRoot().getChildren().clear();
+			buildTree(tree.getRoot(), shapesDictionnary.getShapesList());
+		}
 	}
 
 	private void buildTree(TreeItem<Shape> root, List<Shape> shapes) {
