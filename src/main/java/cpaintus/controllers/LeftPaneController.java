@@ -209,17 +209,20 @@ public class LeftPaneController implements IObserver {
 		shapeType.getItems().setAll(ShapeType.values());
 		shapeType.getItems().remove(ShapeType.PICTURE);
 		shapeType.getItems().remove(ShapeType.GROUP);
-		shapeType.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
+	//	shapeType.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
+		shapeType.setValue(drawSettings.getShape());
 
 		// Line width setting
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
-		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
+		lineWidth.setValue(drawSettings.getLineWidth()+"px");
 
 		// Color settings
 		fillColor.setDisable(shapeType.getValue() == ShapeType.LINE);
-		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
-		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
-
+	//	fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
+	// 	strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
+		fillColor.setValue(drawSettings.getFillColor());
+		strokeColor.setValue(drawSettings.getStrokeColor());
+		
 		// Attributes
 		attributes.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
