@@ -57,7 +57,15 @@ public class EditCommand extends Command {
 			return;
 		}
 		updateBoundingBox(shapeToEdit);
-		drawerStrategyContext.draw(shapeToEdit, activeCanvas);
+		if (shapeToEdit.isFlipHorizontal()) {
+			activeCanvas.setScaleX(-activeCanvas.getScaleX());
+			shapeToEdit.setFlipHorizontal(false);
+		}
+		else if (shapeToEdit.isFlipVertical()) {
+			activeCanvas.setScaleY(-activeCanvas.getScaleY());
+			shapeToEdit.setFlipVertical(false);
+		}
+		else drawerStrategyContext.draw(shapeToEdit, activeCanvas);
 	}
 
 	public void undo() {
