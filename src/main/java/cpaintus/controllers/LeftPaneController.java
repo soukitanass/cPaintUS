@@ -77,7 +77,9 @@ public class LeftPaneController implements IObserver {
 	private boolean isGrouping;
 	private Command commandToUndoUntil;
 	private boolean isUpdatingAttributes;
-
+	
+	@FXML
+	private VBox test;
 	@FXML
 	private ComboBox<ShapeType> shapeType;
 	@FXML
@@ -216,6 +218,7 @@ public class LeftPaneController implements IObserver {
 
 		// Attributes
 		attributes.setVisible(false);
+		test.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editY.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));

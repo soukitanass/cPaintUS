@@ -53,7 +53,7 @@
 						</TitledPane>
 						<TitledPane text="Edit Attributes">
 							<ToolBar fx:id="attributes">
-								<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5">
+								<VBox alignment="CENTER_LEFT" prefWidth="188.0" spacing="5" fx:id="test">
 									<Label fx:id="attributesLabel" />
 									<HBox alignment="CENTER" prefWidth="188.0" spacing="5">
 										<Button fx:id="unselectBtn"
