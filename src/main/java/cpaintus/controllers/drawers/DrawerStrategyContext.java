@@ -20,8 +20,8 @@ public class DrawerStrategyContext {
 
 	public void draw(Shape shape, Canvas activeCanvas) {
 		IDrawerStrategy drawerStrategy;
-		activeCanvas.setLayoutX(shape.getX());
-		activeCanvas.setLayoutY(shape.getY());
+		activeCanvas.setLayoutX(shape.getUpLeftCorner().getX());
+		activeCanvas.setLayoutY(shape.getUpLeftCorner().getY());
 		activeCanvas.setWidth(shape.getWidth());
 		activeCanvas.setHeight(shape.getHeight());
 
@@ -39,9 +39,6 @@ public class DrawerStrategyContext {
 			drawerStrategy.draw(gc, shape);
 			break;
 		case LINE:
-			activeCanvas.setLayoutX(shape.getUpLeftCorner().getX());
-			activeCanvas.setLayoutY(shape.getUpLeftCorner().getY());
-
 			drawerStrategy = new LineDrawerStrategy();
 			drawerStrategy.draw(gc, shape);
 			break;
