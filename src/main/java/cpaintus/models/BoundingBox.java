@@ -60,6 +60,8 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setOrigin(Point origin) {
 		origin = gridRound(origin);
+		origin.setX(Math.max(4, origin.getX()));
+		origin.setY(Math.max(4, origin.getY()));
 		this.origin.setPosition(origin.getX(), origin.getY());
 		this.oppositeCorner.setPosition(origin.getX(), origin.getY());
 	}
@@ -68,11 +70,11 @@ public class BoundingBox extends Observable<IObserver> {
 		if(gridMod && followGrid) {
 			x = roundForGrid(x);
 			y = roundForGrid(y);
-			if(x<4)
-				x=gridStep;
-			if(y<4)
-				y=gridStep;
 		}
+		if(x<4)
+			x=gridStep;
+		if(y<4)
+			y=gridStep;
 		this.origin.setPosition(x, y);
 		this.oppositeCorner.setPosition(x, y);
 	}
@@ -129,6 +131,8 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setRotation(double rotation) {
 		this.rotation = rotation;
+		
+		notifyAllObservers();
 	}
 	
 
