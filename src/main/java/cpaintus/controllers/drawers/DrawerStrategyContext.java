@@ -1,9 +1,12 @@
 package cpaintus.controllers.drawers;
 
+import cpaintus.models.FlipTransform;
 import cpaintus.models.shapes.Shape;
+import javafx.geometry.Point3D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.Rotate;
 
 public class DrawerStrategyContext {
 
@@ -66,5 +69,30 @@ public class DrawerStrategyContext {
 		}
 
 		activeCanvas.setRotate(shape.getRotation());
+		applyTransforms(shape, activeCanvas);
+	}
+
+	private void applyTransforms(Shape shape, Canvas activeCanvas) {
+		activeCanvas.getTransforms().clear();
+		for (FlipTransform flip : shape.getTransforms()) {
+			Point3D axis = null;
+			switch (flip.getType()) {
+			case VERTICAL:
+				axis = Rotate.X_AXIS;
+				break;
+			case HORIZONTAL:
+				axis = Rotate.Y_AXIS;
+				break;
+			default:
+				break;
+			}
+			if (axis != null) {
+				activeCanvas.getTransforms().add(new Rotate(180,
+						flip.getPivot().getX(),
+						flip.getPivot().getY(),
+						0,
+						axis));
+			}
+		}
 	}
 }

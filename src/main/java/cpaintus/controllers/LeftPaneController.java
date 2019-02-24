@@ -16,6 +16,7 @@ import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
+import cpaintus.models.Flip;
 import cpaintus.models.LineWidth;
 import cpaintus.models.Point;
 import cpaintus.models.composite.ShapesGroup;
@@ -730,7 +731,6 @@ public class LeftPaneController implements IObserver {
 	private void handleTopClick() {
 		double newY = boundingBox.getUpLeftCorner().getY();
 		shapeAlignment(Direction.TOP, newY);
-
 	}
 
 	@FXML
@@ -761,7 +761,7 @@ public class LeftPaneController implements IObserver {
 			EditCommand editCommand = new EditCommand();
 			Shape oldShape = shapeToEdit.makeCopy();
 			editCommand.setOldShape(oldShape);
-			shapeToEdit.setFlipHorizontal(true);
+			shapeToEdit.addTransform(Flip.HORIZONTAL);
 			editCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editCommand);
 		} else {
@@ -769,7 +769,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			Shape oldShape = shapeToEdit.makeCopy();
 			editGroupCommand.setOldShape(oldShape);
-			shapeToEdit.setFlipHorizontal(true);
+			shapeToEdit.addTransform(Flip.HORIZONTAL);
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 		}
@@ -781,7 +781,7 @@ public class LeftPaneController implements IObserver {
 			EditCommand editCommand = new EditCommand();
 			Shape oldShape = shapeToEdit.makeCopy();
 			editCommand.setOldShape(oldShape);
-			shapeToEdit.setFlipVertical(true);
+			shapeToEdit.addTransform(Flip.VERTICAL);
 			editCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editCommand);
 		} else {
@@ -789,7 +789,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			Shape oldShape = shapeToEdit.makeCopy();
 			editGroupCommand.setOldShape(oldShape);
-			shapeToEdit.setFlipVertical(true);
+			shapeToEdit.addTransform(Flip.VERTICAL);
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);

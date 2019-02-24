@@ -3,6 +3,8 @@ package cpaintus.models.composite;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpaintus.models.Flip;
+import cpaintus.models.FlipTransform;
 import cpaintus.models.Point;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.Shape2D;
@@ -137,5 +139,22 @@ public class ShapesGroup extends Shape {
 	@Override
 	public Point getUpLeftCorner() {
 		return new Point(getX(), getY());
+	}
+
+	@Override
+	public void addTransform(Flip type) {
+		Point center = this.getCenter();
+		for (Shape shape : shapes) {
+			shape.addTransform(type, new Point(
+					center.getX() - shape.getUpLeftCorner().getX(),
+					center.getY() - shape.getUpLeftCorner().getY()));
+		}
+	}
+
+	@Override
+	public void addTransform(Flip type, Point pivot) {
+		for (Shape shape : shapes) {
+			shape.addTransform(type, pivot);
+		}
 	}
 }

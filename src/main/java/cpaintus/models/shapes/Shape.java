@@ -1,5 +1,10 @@
 package cpaintus.models.shapes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cpaintus.models.Flip;
+import cpaintus.models.FlipTransform;
 import cpaintus.models.Point;
 
 public abstract class Shape {
@@ -14,9 +19,9 @@ public abstract class Shape {
 	private double rotation;
 	private int lineWidth;
 	private String strokeColor;
-	private boolean flipHorizontal;
-	private boolean flipVertical;
 	protected ShapeDimension shapeDim;
+
+	protected List<FlipTransform> flipTransforms;
 
 	public Shape(
 			ShapeType shapeType,
@@ -36,6 +41,7 @@ public abstract class Shape {
 		this.rotation = rotation;
 		this.lineWidth = stroke.getLinewidth();
 		this.strokeColor = stroke.getStrokeColor();
+		this.flipTransforms = new ArrayList<FlipTransform>();
 	}
 	
 	public Shape() {
@@ -139,25 +145,20 @@ public abstract class Shape {
 		this.setY(y);
 	}
 
-	public boolean isFlipHorizontal() {
-		return flipHorizontal;
-	}
-
-	public void setFlipHorizontal(boolean flipHorizontal) {
-		this.flipHorizontal = flipHorizontal;
-	}
-
-	public boolean isFlipVertical() {
-		return flipVertical;
-	}
-
-	public void setFlipVertical(boolean flipVertical) {
-		this.flipVertical = flipVertical;
-	}
-
 	public Point getCenter() {
 		return new Point(getUpLeftCorner().getX() + getWidth() / 2,
 				getUpLeftCorner().getY() + getHeight() / 2);
 	}
 
+	public void addTransform(Flip type) {
+		flipTransforms.add(new FlipTransform(type, new Point(getWidth() / 2, getHeight() / 2)));
+	}
+
+	public void addTransform(Flip type, Point pivot) {
+		flipTransforms.add(new FlipTransform(type, pivot));
+	}
+
+	public List<FlipTransform> getTransforms() {
+		return flipTransforms;
+	}
 }
