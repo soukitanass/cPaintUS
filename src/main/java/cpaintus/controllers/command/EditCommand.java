@@ -1,7 +1,5 @@
 package cpaintus.controllers.command;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
@@ -15,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class EditCommand extends Command {
 
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private BoundingBox boundingBox;
 	private Shape shapeToEdit;
@@ -53,21 +50,22 @@ public class EditCommand extends Command {
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 				.orElse(null);
 		if (activeCanvas == null) {
-			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
-			return;
+			activeCanvas = new Canvas();
+			shapeToEdit.setCanvasHash(activeCanvas.hashCode());
+			oldShape.setCanvasHash(activeCanvas.hashCode());
 		}
 		updateBoundingBox(shapeToEdit);
 		drawerStrategyContext.draw(shapeToEdit, activeCanvas);
 	}
 
 	public void undo() {
-		shapeToEdit = oldShape;
 		int hash = oldShape.getCanvasHash();
 		activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 				.orElse(null);
 		if (activeCanvas == null) {
-			LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
-			return;
+			activeCanvas = new Canvas();
+			oldShape.setCanvasHash(activeCanvas.hashCode());
+			shapeToEdit.setCanvasHash(activeCanvas.hashCode());
 		}
 		updateBoundingBox(oldShape);
 		drawerStrategyContext.draw(oldShape, activeCanvas);
@@ -75,12 +73,12 @@ public class EditCommand extends Command {
 
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
+		boundingBox.setRotation(shape.getRotation());
 		if (shape.getShapeType() == ShapeType.LINE) {
 			boundingBox.updateBoundingBox(new Point(((Line) shape).getX2(), ((Line) shape).getY2()));
 		} else {
 			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
-		boundingBox.setRotation(shape.getRotation());
 	}
 
 }
