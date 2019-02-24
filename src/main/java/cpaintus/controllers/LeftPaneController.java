@@ -689,12 +689,12 @@ public class LeftPaneController implements IObserver {
 
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
-		boundingBox.setRotation(shape.getRotation());
 		if (shape.getShapeType() == ShapeType.LINE) {
 			boundingBox.updateBoundingBox(new Point(((Line) shape).getX2(), ((Line) shape).getY2()));
 		} else {
 			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
+		boundingBox.setRotation(shape.getRotation());
 	}
 
 	private void shapeAlignment(Direction direction, double newVal) {

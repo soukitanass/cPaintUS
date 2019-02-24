@@ -19,7 +19,7 @@ public class BoundingBox extends Observable<IObserver> {
 	private boolean gridMod;
 	private double gridStep;
 	private boolean followGrid;
-	
+
 	private static class SingletonHelper {
 		private static final BoundingBox INSTANCE = new BoundingBox();
 	}
@@ -30,7 +30,7 @@ public class BoundingBox extends Observable<IObserver> {
 		origin = new Point();
 		oppositeCorner = new Point();
 		rotation = 0;
-		
+
 		gridStep = prefs.getDouble(GRIDSTEP, 25);
 		gridMod = prefs.getBoolean(GRIDMOD, false);
 	}
@@ -53,32 +53,34 @@ public class BoundingBox extends Observable<IObserver> {
 	}
 
 	private Point gridRound(Point p) {
-		if(gridMod && followGrid) {
+		if (gridMod && followGrid) {
 			p.setX(roundForGrid(p.getX()));
 			p.setY(roundForGrid(p.getY()));
 		}
 		return p;
 	}
-	
+
 	private double roundForGrid(double input) {
-		return Math.round((input/gridStep))*gridStep;
+		return Math.round((input / gridStep)) * gridStep;
 	}
 
 	public void setOrigin(Point origin) {
 		origin = gridRound(origin);
+		origin.setX(Math.max(4, origin.getX()));
+		origin.setY(Math.max(4, origin.getY()));
 		this.origin.setPosition(origin.getX(), origin.getY());
 		this.oppositeCorner.setPosition(origin.getX(), origin.getY());
 	}
 
 	public void setOrigin(double x, double y) {
-		if(gridMod && followGrid) {
+		if (gridMod && followGrid) {
 			x = roundForGrid(x);
 			y = roundForGrid(y);
-			if(x<4)
-				x=gridStep;
-			if(y<4)
-				y=gridStep;
 		}
+		if (x < 4)
+			x = gridStep;
+		if (y < 4)
+			y = gridStep;
 		this.origin.setPosition(x, y);
 		this.oppositeCorner.setPosition(x, y);
 	}
@@ -93,13 +95,11 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void updateBoundingBox(Point cursor) {
 		cursor = gridRound(cursor);
-		if(gridMod && gridStep >= 4) {
-			this.oppositeCorner.setPosition(
-					cursor.getX() < 4 ? gridStep : cursor.getX(),
+		if (gridMod && gridStep >= 4) {
+			this.oppositeCorner.setPosition(cursor.getX() < 4 ? gridStep : cursor.getX(),
 					cursor.getY() < 4 ? gridStep : cursor.getY());
 		} else {
-			this.oppositeCorner.setPosition(
-					cursor.getX() < 4 ? 4 : cursor.getX(),
+			this.oppositeCorner.setPosition(cursor.getX() < 4 ? 4 : cursor.getX(),
 					cursor.getY() < 4 ? 4 : cursor.getY());
 		}
 		notifyAllObservers();
@@ -135,8 +135,9 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setRotation(double rotation) {
 		this.rotation = rotation;
+
+		notifyAllObservers();
 	}
-	
 
 	public Boolean getGridMod() {
 		return gridMod;

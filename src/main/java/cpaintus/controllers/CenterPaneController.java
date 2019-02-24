@@ -1,5 +1,6 @@
 package cpaintus.controllers;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
 import cpaintus.models.Point;
 import cpaintus.models.Pointer;
+import cpaintus.models.ZoomSingleton;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
@@ -22,9 +24,11 @@ import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.ShapesDictionnary;
 import cpaintus.models.shapes.Size;
 import cpaintus.models.shapes.Stroke;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
@@ -43,7 +47,16 @@ public class CenterPaneController implements IObserver {
 	private Canvas boundingBoxCanvas;
 
 	@FXML
+	private Canvas snapshotCanvas;
+
+	@FXML
+	private Canvas hideCanvas;
+	
+	@FXML
 	private AnchorPane pane;
+
+	@FXML
+	private AnchorPane visualPane;
 
 	@FXML
 	private ScrollPane scrollPane;
@@ -54,6 +67,7 @@ public class CenterPaneController implements IObserver {
 	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private SelectShapesSingleton selectShapesSingleton;
+	private ZoomSingleton zoomSingleton;
 	private Invoker invoker;
 
 	private boolean hasBeenDragged;
@@ -65,6 +79,9 @@ public class CenterPaneController implements IObserver {
 
 	public CenterPaneController() {
 		drawerStrategyContext = DrawerStrategyContext.getInstance();
+		drawerStrategyContext.register(this);
+		shapesDict = ShapesDictionnary.getInstance();
+		shapesDict.register(this);
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		boundingBox.register(this);
@@ -74,6 +91,8 @@ public class CenterPaneController implements IObserver {
 		SnapshotSingleton.getInstance().register(this);
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
+		zoomSingleton = ZoomSingleton.getInstance();
+		zoomSingleton.register(this);
 		invoker = Invoker.getInstance();
 
 		hasBeenDragged = false;
@@ -82,10 +101,10 @@ public class CenterPaneController implements IObserver {
 		mousePressedEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				boundingBox.setOrigin(e.getX(), e.getY());
+				boundingBox.setFollowGrid(true);
+				boundingBox.setOrigin(e.getX() / zoomSingleton.getZoomRatio(), e.getY() / zoomSingleton.getZoomRatio());
 				boundingBox.setVisible(true);
 				boundingBox.setRotation(0);
-				boundingBox.setFollowGrid(true);
 				initializeNewCanvas();
 			}
 		};
@@ -125,12 +144,26 @@ public class CenterPaneController implements IObserver {
 		pane.setStyle("-fx-background-color: white");
 		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events
-		baseCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
-		baseCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
+		snapshotCanvas.addEventFilter(MouseEvent.MOUSE_PRESSED, mousePressedEventHandler);
+		snapshotCanvas.addEventFilter(MouseEvent.MOUSE_RELEASED, mouseReleasedEventHandler);
 
 		boundingBoxCanvas.setMouseTransparent(true);
 		SnapshotSingleton.getInstance().setSnapshotPane(pane);
 		drawGrid();
+		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+			drawSnapshot();
+		});
+		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+			drawSnapshot();
+		});
+		snapshotCanvas.getGraphicsContext2D().scale(zoomSingleton.getDynamicZoom(), zoomSingleton.getDynamicZoom());
+		drawSnapshot();
+	}
+
+	private void drawHidePane() {
+		GraphicsContext gc = hideCanvas.getGraphicsContext2D();
+		gc.setFill(Color.LIGHTGRAY);
+		gc.fillRect(0, 0, hideCanvas.getWidth(), hideCanvas.getHeight());
 	}
 
 	@Override
@@ -142,6 +175,7 @@ public class CenterPaneController implements IObserver {
 			break;
 		case LOAD_IMAGE:
 			loadImage();
+			drawSnapshot();
 			break;
 		case MENU_ERASE:
 			eraseAll();
@@ -158,6 +192,20 @@ public class CenterPaneController implements IObserver {
 		case UNGROUP_SHAPES:
 			if (selectShapesSingleton.getSelectedShape().getShapeType() == ShapeType.GROUP)
 				unselectShapes((ShapesGroup) selectShapesSingleton.getSelectedShape());
+			break;
+		case ZOOM:
+			snapshotCanvas.getGraphicsContext2D().scale(zoomSingleton.getDynamicZoom(), zoomSingleton.getDynamicZoom());
+			drawSnapshot();
+			drawBoundingBox();
+			break;
+		case DRAW:
+			drawSnapshot();
+			break;
+		case SHAPE_REMOVED:
+			drawSnapshot();
+			break;
+		case Z_EDIT:
+			drawSnapshot();
 			break;
 		default:
 			break;
@@ -176,18 +224,19 @@ public class CenterPaneController implements IObserver {
 		EraseAllCommand eraseAllCommand = new EraseAllCommand();
 		eraseAllCommand.setPane(pane);
 		invoker.execute(eraseAllCommand);
-
+		drawSnapshot();
 	}
 
 	@FXML
 	private void onMouseMoved(MouseEvent event) {
-		pointer.setCursorPoint(event.getX(), event.getY());
+		pointer.setCursorPoint(event.getX() / zoomSingleton.getZoomRatio(), event.getY() / zoomSingleton.getZoomRatio());
 	}
 
 	@FXML
 	private void onMouseDragged(MouseEvent event) {
 		hasBeenDragged = true;
-		pointer.setCursorPoint(event.getX(), event.getY());
+		pointer.setCursorPoint(event.getX() / zoomSingleton.getZoomRatio(),
+				event.getY() / zoomSingleton.getZoomRatio());
 		boundingBox.updateBoundingBox(pointer.getCursorPoint());
 		if (!selectShapes) {
 			draw(false);
@@ -271,20 +320,52 @@ public class CenterPaneController implements IObserver {
 	}
 
 	public void draw(boolean persistent) {
+		if (persistent) {
+			applyDraw();
+		} else {
+			tempDraw();
+			drawBoundingBox();
+		}
+	}
+
+	private void applyDraw() {
 		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
-		Shape shape = createShape(persistent, activeCanvas.hashCode());
+		Shape shape = createShape(true, activeCanvas.hashCode());
 		if (shape != null) {
 			updateBaseCanvasAndGrid(shape);
-
-			if (persistent) {
-				pane.getChildren().remove(pane.getChildren().size() - 2);
-				DrawCommand drawCommand = new DrawCommand(pane, shape);
-				invoker.execute(drawCommand);
-			} else {
-				drawerStrategyContext.draw(shape, activeCanvas);
-			}
+			pane.getChildren().remove(pane.getChildren().size() - 2);
+			DrawCommand drawCommand = new DrawCommand(pane, shape);
+			invoker.execute(drawCommand);
+			drawerStrategyContext.draw(shape, activeCanvas);
 		}
-		drawBoundingBox();
+	}
+
+	private void tempDraw() {
+		Canvas activeCanvas = (Canvas) pane.getChildren().get(pane.getChildren().size() - 2);
+		Shape shape = createShape(false, activeCanvas.hashCode());
+		if (shape != null) {
+			drawerStrategyContext.draw(shape, activeCanvas);
+		}
+	}
+	
+	public void drawSnapshot() {
+		snapshotCanvas.setWidth(0);
+		snapshotCanvas.setHeight(0);
+		hideCanvas.setWidth(0);
+		hideCanvas.setHeight(0);
+
+		BufferedImage image = SwingFXUtils.fromFXImage(pane.snapshot(new SnapshotParameters(), null), null);
+
+		hideCanvas.setWidth(pane.getWidth());
+		hideCanvas.setHeight(pane.getHeight());
+		drawHidePane();
+
+		snapshotCanvas.setWidth(image.getWidth() * this.zoomSingleton.getZoomRatio());
+		snapshotCanvas.setHeight(image.getHeight() * this.zoomSingleton.getZoomRatio());
+
+		GraphicsContext gc = snapshotCanvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, snapshotCanvas.getWidth(), snapshotCanvas.getHeight());
+		gc.drawImage(SwingFXUtils.toFXImage(image, null), 0, 0);
 	}
 
 	/*
@@ -292,29 +373,31 @@ public class CenterPaneController implements IObserver {
 	 * drawn around that.
 	 */
 	private void drawBoundingBox() {
-		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() - 4);
-		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() - 4);
-		boundingBoxCanvas.setWidth(boundingBox.getWidth() + 8);
-		boundingBoxCanvas.setHeight(boundingBox.getHeight() + 8);
+		double width = boundingBox.getWidth() * zoomSingleton.getZoomRatio();
+		double height = boundingBox.getHeight() * zoomSingleton.getZoomRatio();
+		boundingBoxCanvas.setLayoutX(boundingBox.getUpLeftCorner().getX() * zoomSingleton.getZoomRatio() - 4);
+		boundingBoxCanvas.setLayoutY(boundingBox.getUpLeftCorner().getY() * zoomSingleton.getZoomRatio() - 4);
+		boundingBoxCanvas.setWidth(width + 8);
+		boundingBoxCanvas.setHeight(height + 8);
 
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-
+		
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + 4, boundingBox.getHeight() + 4);
+			gc.strokeRect(2, 2, width + 4, height + 4);
 
 			// Gray lines making an X in the center
 			gc.setLineWidth(1);
 			gc.setStroke(Color.GRAY);
-			gc.strokeLine(3, 3, boundingBox.getWidth() + 5, boundingBox.getHeight() + 5);
-			gc.strokeLine(boundingBox.getWidth() + 5, 3, 3, boundingBox.getHeight() + 5);
+			gc.strokeLine(3, 3, width + 5, height + 5);
+			gc.strokeLine(width + 5, 3, 3, height + 5);
 
 			gc.setStroke(Color.WHITE);
 			gc.setLineWidth(2);
 			gc.setLineDashes(5);
-			gc.strokeRect(2, 2, boundingBox.getWidth() + 4, boundingBox.getHeight() + 4);
+			gc.strokeRect(2, 2, width + 4, height + 4);
 		}
 
 		boundingBoxCanvas.setRotate(boundingBox.getRotation());
@@ -383,20 +466,21 @@ public class CenterPaneController implements IObserver {
 		selectShapes = false;
 		boundingBox.setFollowGrid(false);
 	}
-	
+
 	private void drawGrid() {
 		GraphicsContext gc = this.baseCanvas.getGraphicsContext2D();
 		gc.setFill(Color.WHITE);
 		gc.fillRect(0, 0, this.baseCanvas.getWidth(), this.baseCanvas.getHeight());
-		if(!this.boundingBox.getGridMod())
+		if (!this.boundingBox.getGridMod())
 			return;
 		gc.setStroke(Color.LIGHTGRAY);
 		gc.setLineWidth(1);
-		for(int i = 0; i < this.baseCanvas.getWidth(); i = i + (int)this.boundingBox.getGridStep()) {
+		for (int i = 0; i < this.baseCanvas.getWidth(); i = i + (int) this.boundingBox.getGridStep()) {
 			gc.strokeLine(i, 0, i, this.baseCanvas.getHeight());
 		}
-		for(int i = 0; i < this.baseCanvas.getHeight(); i = i + (int)this.boundingBox.getGridStep()) {
+		for (int i = 0; i < this.baseCanvas.getHeight(); i = i + (int) this.boundingBox.getGridStep()) {
 			gc.strokeLine(0, i, this.baseCanvas.getWidth(), i);
 		}
+		drawSnapshot();
 	}
 }

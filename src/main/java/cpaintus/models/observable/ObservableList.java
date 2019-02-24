@@ -15,5 +15,8 @@ public enum ObservableList {
 	UNGROUP_SHAPES, 
 	SHAPE_REMOVED, 
 	CHANGEDCOMMAND,
-	GRID
+	ZOOM,
+	DRAW,
+	GRID,
+	Z_EDIT
 }

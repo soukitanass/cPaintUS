@@ -1,11 +1,14 @@
 package cpaintus.controllers.drawers;
 
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.Observable;
+import cpaintus.models.observable.ObservableList;
 import cpaintus.models.shapes.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.StrokeLineCap;
 
-public class DrawerStrategyContext {
+public class DrawerStrategyContext extends Observable<IObserver> {
 
 	private DrawerStrategyContext() {
 	}
@@ -65,5 +68,13 @@ public class DrawerStrategyContext {
 		activeCanvas.setRotate(shape.getRotation());
 		activeCanvas.setScaleX(shape.isFlippedHorizontally() ? -1 : 1);
 		activeCanvas.setScaleY(shape.isFlippedVertically() ? -1 : 1);
+		notifyAllObservers();
+	}
+
+	@Override
+	public void notifyAllObservers() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.DRAW);
+		}
 	}
 }

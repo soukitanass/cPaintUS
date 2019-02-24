@@ -2,10 +2,12 @@ package cpaintus.controllers;
 
 import cpaintus.models.BoundingBox;
 import cpaintus.models.Pointer;
+import cpaintus.models.ZoomSingleton;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 
 public class BottomPaneController implements IObserver {
 
@@ -17,21 +19,30 @@ public class BottomPaneController implements IObserver {
 	private Label w;
 	@FXML
 	private Label h;
+	@FXML
+	private Slider zoomSlider;
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
+	private ZoomSingleton zoomSingleton;
 
 	public BottomPaneController() {
 		pointer = Pointer.getInstance();
 		pointer.register(this);
 		boundingBox = BoundingBox.getInstance();
 		boundingBox.register(this);
+		zoomSingleton = ZoomSingleton.getInstance();
 	}
 	
 	@FXML
 	private void initialize() {
 		w.setVisible(boundingBox.isVisible());
 		h.setVisible(boundingBox.isVisible());
+		zoomSlider.setValue(zoomSingleton.getZoom());
+		zoomSlider.valueProperty().addListener((obs,oldValue,newValue)->{
+			zoomSingleton.setOldZoom(oldValue.doubleValue());
+			zoomSingleton.setZoom(newValue.doubleValue());
+		});
 	}
 
 	@Override
