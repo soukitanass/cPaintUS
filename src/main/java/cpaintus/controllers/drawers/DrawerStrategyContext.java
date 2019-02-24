@@ -1,12 +1,9 @@
 package cpaintus.controllers.drawers;
 
-import cpaintus.models.FlipTransform;
 import cpaintus.models.shapes.Shape;
-import javafx.geometry.Point3D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.transform.Rotate;
 
 public class DrawerStrategyContext {
 

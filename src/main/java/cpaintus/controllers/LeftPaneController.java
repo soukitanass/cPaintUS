@@ -16,7 +16,6 @@ import cpaintus.controllers.command.Invoker;
 import cpaintus.controllers.popup.AddTextController;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.DrawSettings;
-import cpaintus.models.Flip;
 import cpaintus.models.LineWidth;
 import cpaintus.models.Point;
 import cpaintus.models.composite.ShapesGroup;
