@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +21,11 @@ import cpaintus.models.shapes.Stroke;
 class ShapeDictTest {
 
 	private ShapesDictionnary shapeDict;
-	private ShapeFactory shapeFactory;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		shapeDict = ShapesDictionnary.getInstance();
 		shapeDict.unregisterAll();
-		shapeFactory = ShapeFactory.getInstance();
 	}
 
 	@Test
@@ -38,7 +35,7 @@ class ShapeDictTest {
 
 	@Test
 	void addShapeTest() {
-		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff",
+		Shape actual = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff",
 				"", "hh");
 		shapeDict.clearShapes();
 		shapeDict.addShape(actual);
@@ -59,7 +56,7 @@ class ShapeDictTest {
 
 	@Test
 	void clearShapesTest() {
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100, new Stroke(1, "#fff"),
+		shapeDict.addShape(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0), new Size(1, 10), 100, new Stroke(1, "#fff"),
 				"#fff", "", "hh"));
 		shapeDict.clearShapes();
 		Assertions.assertEquals(0, shapeDict.getShapesList().size());
@@ -68,7 +65,7 @@ class ShapeDictTest {
 	@Test
 	void addListShapeTest() {
 		List<Shape> actualList = new ArrayList<Shape>();
-		Shape actual = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		Shape actual = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff",
 				"", "hh");
 		actualList.add(actual);
@@ -110,13 +107,13 @@ class ShapeDictTest {
 
 	void addShapes() {
 		shapeDict.clearShapes();
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11),new Point(0,0), new Size(200, 10), 0, new Stroke(1, "#fff"),
+		shapeDict.addShape(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11),new Point(0,0), new Size(200, 10), 0, new Stroke(1, "#fff"),
 				"#fff56", "", "test"));
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0,0), new Size(220, 100), 30, new Stroke(2, "#fff98"),
+		shapeDict.addShape(ShapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0,0), new Size(220, 100), 30, new Stroke(2, "#fff98"),
 				"#ff678", "", "test"));
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0,0), new Size(320, 130), 100, new Stroke(6, "#fff45"),
+		shapeDict.addShape(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0,0), new Size(320, 130), 100, new Stroke(6, "#fff45"),
 				"#f678f", "", "test"));
-		shapeDict.addShape(shapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0,0), new Size(320, 130), 100,new Stroke(6, "#fff45"),
+		shapeDict.addShape(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0,0), new Size(320, 130), 100,new Stroke(6, "#fff45"),
 				"#f678f", "", "test"));
 		assertEquals(4, shapeDict.getShapesList().size());
 	}

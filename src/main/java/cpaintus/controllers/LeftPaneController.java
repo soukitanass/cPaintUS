@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 
 import cpaintus.controllers.command.Command;
 import cpaintus.controllers.command.EditCommand;
@@ -46,7 +45,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
@@ -67,7 +66,6 @@ public class LeftPaneController implements IObserver {
 	private ShapesDictionnary shapesDict;
 	private Shape shapeToEdit;
 	private BoundingBox boundingBox;
-	private Preferences prefs;
 	private SelectShapesSingleton selectShapesSingleton;
 	private ChangeListener<Integer> editZListener;
 	private Invoker invoker;
@@ -77,7 +75,7 @@ public class LeftPaneController implements IObserver {
 	private boolean isGrouping;
 	private Command commandToUndoUntil;
 	private boolean isUpdatingAttributes;
-
+	
 	@FXML
 	private ComboBox<ShapeType> shapeType;
 	@FXML
@@ -101,11 +99,15 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private VBox alignments;
 	@FXML
+	private Button flipHorizontalBtn;
+	@FXML
+	private Button flipVerticalBtn;
+	@FXML
 	private TreeView<Shape> tree;
 	@FXML
 	private ListView<Command> commandes;
 	@FXML
-	private ToolBar attributes;
+	private TitledPane attributes;
 	@FXML
 	private Label attributesLabel;
 	@FXML
@@ -153,7 +155,6 @@ public class LeftPaneController implements IObserver {
 		drawSettings = DrawSettings.getInstance();
 		boundingBox = BoundingBox.getInstance();
 
-		prefs = Preferences.userNodeForPackage(this.getClass());
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
 
@@ -168,11 +169,8 @@ public class LeftPaneController implements IObserver {
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Shape>> observable, TreeItem<Shape> oldItem,
 					TreeItem<Shape> newItem) {
-				if (newItem == null) {
-					return;
-				}
 
-				handleSelectShape(newItem.getValue());
+				handleSelectShape(newItem == null ? null : newItem.getValue());
 
 			}
 		};
@@ -203,19 +201,18 @@ public class LeftPaneController implements IObserver {
 		shapeType.getItems().setAll(ShapeType.values());
 		shapeType.getItems().remove(ShapeType.PICTURE);
 		shapeType.getItems().remove(ShapeType.GROUP);
-		shapeType.setValue(ShapeType.valueOf(prefs.get("shape", "LINE")));
+		shapeType.setValue(drawSettings.getShape());
 
 		// Line width setting
 		lineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
-		lineWidth.setValue(prefs.get("linewidth", LineWidth.getInstance().getDefaultString()));
+		lineWidth.setValue(drawSettings.getLineWidth()+"px");
 
 		// Color settings
 		fillColor.setDisable(shapeType.getValue() == ShapeType.LINE);
-		fillColor.setValue(Color.valueOf(prefs.get("fillcolor", "BLACK")));
-		strokeColor.setValue(Color.valueOf(prefs.get("strokecolor", "BLACK")));
-
+		fillColor.setValue(drawSettings.getFillColor());
+		strokeColor.setValue(drawSettings.getStrokeColor());
+		
 		// Attributes
-		attributes.setVisible(false);
 		editLineWidth.getItems().setAll(LineWidth.getInstance().getStrings());
 		editX.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 		editY.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -224,7 +221,6 @@ public class LeftPaneController implements IObserver {
 		rotate.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
 
 		// Bind managed to visibility
-		attributes.managedProperty().bind(attributes.visibleProperty());
 		unselectBtn.managedProperty().bind(unselectBtn.visibleProperty());
 		deleteBtn.managedProperty().bind(deleteBtn.visibleProperty());
 		alignments.managedProperty().bind(alignments.visibleProperty());
@@ -250,6 +246,7 @@ public class LeftPaneController implements IObserver {
 				return new CommandListCell();
 			}
 		});
+		showAttributes(false);
 	}
 
 	@FXML
@@ -259,7 +256,6 @@ public class LeftPaneController implements IObserver {
 		if (shapeType.getValue() == ShapeType.TEXT) {
 			handleTextAddClick();
 		}
-		prefs.put("shape", shapeType.getValue().name());
 	}
 
 	private void handleTextAddClick() {
@@ -291,19 +287,16 @@ public class LeftPaneController implements IObserver {
 		int newWidth = Integer.parseInt(widthStr);
 
 		drawSettings.setLineWidth(newWidth);
-		prefs.put("linewidth", widthStr);
 	}
 
 	@FXML
 	private void handleChangeFillColor() {
 		drawSettings.setFillColor(fillColor.getValue());
-		prefs.put("fillcolor", fillColor.getValue().toString());
 	}
 
 	@FXML
 	private void handleChangeStrokeColor() {
 		drawSettings.setStrokeColor(strokeColor.getValue());
-		prefs.put("strokecolor", strokeColor.getValue().toString());
 	}
 
 	@FXML
@@ -323,10 +316,10 @@ public class LeftPaneController implements IObserver {
 		boundingBox.setVisible(newShape != null);
 		boundingBox.setFollowGrid(false);
 		if (newShape == null) {
-			attributes.setVisible(false);
+			showAttributes(false);
 			return;
 		}
-		attributes.setVisible(true);
+		showAttributes(true);
 		shapeToEdit = newShape;
 
 		// Always shown attributes
@@ -374,12 +367,12 @@ public class LeftPaneController implements IObserver {
 		isUpdatingAttributes = false;
 		updateBoundingBox(newShape);
 	}
-	
+
 	@FXML
 	private void handleUnSelectClick() {
 		selectShapesSingleton.setSelectedShape(shapeToEdit);
 		selectShapesSingleton.notifyUngroupObservers();
-		attributes.setVisible(false);
+		showAttributes(false);
 	}
 
 	@FXML
@@ -455,7 +448,7 @@ public class LeftPaneController implements IObserver {
 			editX.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getX())));
 			return;
 		}
-		int newX = Integer.parseInt(editX.getText());
+		int newX = positive(Integer.parseInt(editX.getText()));
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
@@ -466,9 +459,9 @@ public class LeftPaneController implements IObserver {
 		} else {
 			EditGroupCommand editGroupCommand = new EditGroupCommand();
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
-			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
-			((ShapesGroup) shapeToEdit).setX(newX);
-			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.setUpLeftCornerX(newX);
+			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
 		}
@@ -482,7 +475,7 @@ public class LeftPaneController implements IObserver {
 			editY.setText(String.valueOf((int) Math.round(shapeToEdit.getUpLeftCorner().getY())));
 			return;
 		}
-		int newY = Integer.parseInt(editY.getText());
+		int newY = positive(Integer.parseInt(editY.getText()));
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
@@ -493,9 +486,9 @@ public class LeftPaneController implements IObserver {
 		} else {
 			EditGroupCommand editGroupCommand = new EditGroupCommand();
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
-			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
-			((ShapesGroup) shapeToEdit).setY(newY);
-			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.setUpLeftCornerY(newY);
+			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
 
@@ -523,7 +516,7 @@ public class LeftPaneController implements IObserver {
 			editWidth.setText(String.valueOf((int) Math.round(shapeToEdit.getWidth())));
 			return;
 		}
-		int newWidth = Integer.parseInt(editWidth.getText());
+		int newWidth = positive(Integer.parseInt(editWidth.getText()));
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
@@ -541,7 +534,7 @@ public class LeftPaneController implements IObserver {
 			editHeight.setText(String.valueOf((int) Math.round(shapeToEdit.getHeight())));
 			return;
 		}
-		int newHeight = Integer.parseInt(editHeight.getText());
+		int newHeight = positive(Integer.parseInt(editHeight.getText()));
 		EditCommand editCommand = new EditCommand();
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
@@ -577,9 +570,12 @@ public class LeftPaneController implements IObserver {
 			isGrouping = false;
 			break;
 		case SHAPES_LOADED:
+			updateList();
+			selectLastItem(true);
 			break;
 		case SHAPE_REMOVED:
 			updateList();
+			selectLastItem(false);
 			break;
 		case UNSELECT_SHAPE:
 			selectLastItem(false);
@@ -590,6 +586,11 @@ public class LeftPaneController implements IObserver {
 		default:
 			break;
 		}
+	}
+
+	private void showAttributes(boolean isVisible) {
+		attributes.getContent().setVisible(isVisible);
+		attributes.getContent().setManaged(isVisible);
 	}
 
 	private void updateList() {
@@ -695,7 +696,7 @@ public class LeftPaneController implements IObserver {
 		}
 		boundingBox.setRotation(shape.getRotation());
 	}
-	
+
 	private void shapeAlignment(Direction direction, double newVal) {
 		if (isUpdatingAttributes)
 			return;
@@ -719,7 +720,7 @@ public class LeftPaneController implements IObserver {
 			default:
 				break;
 			}
-			
+
 			editCommand.setShapeToEdit(shape);
 			invoker.execute(editCommand);
 		}
@@ -729,7 +730,6 @@ public class LeftPaneController implements IObserver {
 	private void handleTopClick() {
 		double newY = boundingBox.getUpLeftCorner().getY();
 		shapeAlignment(Direction.TOP, newY);
-
 	}
 
 	@FXML
@@ -748,6 +748,48 @@ public class LeftPaneController implements IObserver {
 	private void handleLeftClick() {
 		double newX = boundingBox.getUpLeftCorner().getX();
 		shapeAlignment(Direction.LEFT, newX);
+	}
+	
+	private int positive (int tested) {
+		return (tested >= 0) ? tested : 0;
+	}
+
+	@FXML
+	private void handleFlipHorizontalClick() {
+		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.flipHorizontally();
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.flipHorizontally();
+			editGroupCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editGroupCommand);
+		}
+	}
+
+	@FXML
+	private void handleFlipVerticalClick() {
+		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.flipVertically();
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.flipVertically();
+			editGroupCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editGroupCommand);
+		}
 	}
 
 }

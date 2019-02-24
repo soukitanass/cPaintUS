@@ -16,6 +16,9 @@ public abstract class Shape {
 	private String strokeColor;
 	protected ShapeDimension shapeDim;
 
+	private boolean isFlippedHorizontally;
+	private boolean isFlippedVertically;
+
 	public Shape(
 			ShapeType shapeType,
 			String shapeId,
@@ -34,6 +37,8 @@ public abstract class Shape {
 		this.rotation = rotation;
 		this.lineWidth = stroke.getLinewidth();
 		this.strokeColor = stroke.getStrokeColor();
+		this.isFlippedHorizontally = false;
+		this.isFlippedVertically = false;
 	}
 	
 	public Shape() {
@@ -100,7 +105,10 @@ public abstract class Shape {
 	}
 	
 	public double getRotation() {
-		return this.rotation;
+		double currentRotation = this.rotation;
+		if (isFlippedVertically ^ isFlippedHorizontally)
+			currentRotation = -currentRotation;
+		return currentRotation;
 	}
 
 	public void setRotation(double rotation) {
@@ -137,5 +145,24 @@ public abstract class Shape {
 		this.setY(y);
 	}
 
+	public Point getCenter() {
+		return new Point(getUpLeftCorner().getX() + getWidth() / 2,
+				getUpLeftCorner().getY() + getHeight() / 2);
+	}
 
+	public void flipHorizontally() {
+		this.isFlippedHorizontally = !this.isFlippedHorizontally;
+	}
+
+	public void flipVertically() {
+		this.isFlippedVertically = !this.isFlippedVertically;
+	}
+
+	public boolean isFlippedHorizontally() {
+		return this.isFlippedHorizontally;
+	}
+
+	public boolean isFlippedVertically() {
+		return this.isFlippedVertically;
+	}
 }

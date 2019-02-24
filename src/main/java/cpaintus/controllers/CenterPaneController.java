@@ -64,7 +64,6 @@ public class CenterPaneController implements IObserver {
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	private DrawSettings drawSettings;
-	private ShapeFactory shapeFactory;
 	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private SelectShapesSingleton selectShapesSingleton;
@@ -87,7 +86,6 @@ public class CenterPaneController implements IObserver {
 		boundingBox = BoundingBox.getInstance();
 		boundingBox.register(this);
 		drawSettings = DrawSettings.getInstance();
-		shapeFactory = ShapeFactory.getInstance();
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
 		SnapshotSingleton.getInstance().register(this);
@@ -426,7 +424,7 @@ public class CenterPaneController implements IObserver {
 				(int) (strokeColor.getGreen() * 255), (int) (strokeColor.getBlue() * 255));
 
 		if (shapeType == ShapeType.LINE) {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
+			newShape = ShapeFactory.getShape(shapeType, persistent, canvasHash,
 					new Point(boundingBox.getOrigin().getX(), boundingBox.getOrigin().getY()),
 					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
 					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor),
@@ -434,7 +432,7 @@ public class CenterPaneController implements IObserver {
 		} else if (shapeType == ShapeType.TEXT && boundingBox.getWidth() + boundingBox.getHeight() == 0) {
 			newShape = null;
 		} else {
-			newShape = shapeFactory.getShape(shapeType, persistent, canvasHash,
+			newShape = ShapeFactory.getShape(shapeType, persistent, canvasHash,
 					new Point(boundingBox.getUpLeftCorner().getX(), boundingBox.getUpLeftCorner().getY()),
 					new Point(boundingBox.getOppositeCorner().getX(), boundingBox.getOppositeCorner().getY()),
 					new Size(boundingBox.getWidth(), boundingBox.getHeight()), 0, new Stroke(lineWidth, sstrokeColor),

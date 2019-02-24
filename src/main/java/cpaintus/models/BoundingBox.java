@@ -1,32 +1,38 @@
 package cpaintus.models;
 
+import java.util.prefs.Preferences;
+
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import cpaintus.models.observable.ObservableList;
 
 public class BoundingBox extends Observable<IObserver> {
 
+	private final String GRIDMOD = "gridmod";
+	private final String GRIDSTEP = "gridstep";
 	private boolean visible;
 	private Point origin;
 	private Point oppositeCorner;
 	private double rotation;
+	private Preferences prefs;
 
-	private Boolean gridMod;
+	private boolean gridMod;
 	private double gridStep;
-	private Boolean followGrid;
+	private boolean followGrid;
 	
 	private static class SingletonHelper {
 		private static final BoundingBox INSTANCE = new BoundingBox();
 	}
 
 	private BoundingBox() {
+		prefs = Preferences.userNodeForPackage(this.getClass());
 		visible = false;
 		origin = new Point();
 		oppositeCorner = new Point();
 		rotation = 0;
 		
-		gridStep = 25;
-		gridMod = false;
+		gridStep = prefs.getDouble(GRIDSTEP, 25);
+		gridMod = prefs.getBoolean(GRIDMOD, false);
 	}
 
 	public static BoundingBox getInstance() {
@@ -142,6 +148,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridMod(Boolean gridMod) {
 		this.gridMod = gridMod;
+		prefs.putBoolean(GRIDMOD, gridMod);
 		notifyGridObservers();
 	}
 
@@ -151,6 +158,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridStep(double gridStep) {
 		this.gridStep = gridStep;
+		prefs.putDouble(GRIDSTEP, gridStep);
 		notifyGridObservers();
 	}
 

@@ -5,6 +5,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileContext {
+	
+	private FileContext() {
+		
+	}
 
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 

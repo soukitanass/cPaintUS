@@ -28,10 +28,10 @@ class ShapesGroupTest {
 	@Test
 	void testAdd() {
 		assertTrue(shapesGroup.getShapes().isEmpty());
-		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh"));
 		assertEquals(1, shapesGroup.getShapes().size());
-		shapesGroup.add(shapeFactory.getShape(ShapeType.HEART, true, 0, new Point(0, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh"));
 		assertEquals(2, shapesGroup.getShapes().size());
 
@@ -40,7 +40,7 @@ class ShapesGroupTest {
 	@Test
 	void testRemove() {
 		assertTrue(shapesGroup.getShapes().isEmpty());
-		Shape shape = shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		Shape shape = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh");
 		shapesGroup.add(shape);
 		assertEquals(1, shapesGroup.getShapes().size());
@@ -52,7 +52,7 @@ class ShapesGroupTest {
 	@Test
 	void testClear() {
 		assertTrue(shapesGroup.getShapes().isEmpty());
-		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
 				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh"));
 		assertEquals(1, shapesGroup.getShapes().size());
 		shapesGroup.clear();
@@ -60,92 +60,49 @@ class ShapesGroupTest {
 	}
 
 	@Test
-	void changeWidthOfGroup() {
+	void getWidthOfGroup() {
 		addShapes();
-		double expectedWidth = 120;
-		shapesGroup.setWidth(expectedWidth);
-		for (Shape shape : shapesGroup.getShapes()) {
-			assertEquals(expectedWidth, shape.getWidth());
-		}
+		assertEquals(22 + 320 - 6, shapesGroup.getWidth());
 	}
 
 	@Test
-	void changeHeightOfGroup() {
+	void getHeightOfGroup() {
 		addShapes();
-		double expectedHeight = 300;
-		shapesGroup.setHeight(expectedHeight);
-		for (Shape shape : shapesGroup.getShapes()) {
-			assertEquals(expectedHeight, shape.getHeight());
-		}
+		assertEquals(13 + 130 - 11, shapesGroup.getHeight());
 	}
 
 	@Test
 	void changeXOfGroup() {
 		addShapes();
-		shapesGroup.setXGroup(130);
-		double expectedX = shapesGroup.getShapes().get(0).getX() - 10;
-		shapesGroup.setX(120);
+		assertEquals(6, shapesGroup.getX());
+		double expectedX = 100;
+		shapesGroup.setX(expectedX);
 		assertEquals(expectedX, shapesGroup.getShapes().get(0).getX());
 	}
 
 	@Test
 	void changeYOfGroup() {
 		addShapes();
-		shapesGroup.setYGroup(140);
-		double expectedY = shapesGroup.getShapes().get(0).getY() - 10;
-		shapesGroup.setY(130);
+		assertEquals(11, shapesGroup.getY());
+		double expectedY = 100;
+		shapesGroup.setY(expectedY);
 		assertEquals(expectedY, shapesGroup.getShapes().get(0).getY());
 	}
 
 	@Test
-	void changeRotationOfGroup() {
+	void getCenterOfGroup() {
 		addShapes();
-		double expectedRotation = 180;
-		shapesGroup.setRotation(expectedRotation);
-		for (Shape shape : shapesGroup.getShapes()) {
-			assertEquals(expectedRotation, shape.getRotation());
-		}
-	}
-
-	@Test
-	void changeLineWidthOfGroup() {
-		addShapes();
-		int expectedLineWidth = 3;
-		shapesGroup.setLineWidth(expectedLineWidth);
-		for (Shape shape : shapesGroup.getShapes()) {
-			assertEquals(expectedLineWidth, shape.getLineWidth());
-		}
-	}
-
-	@Test
-	void changeStrokeColorOfGroup() {
-		addShapes();
-		String expectedStrokeColor = "#f0987";
-		shapesGroup.setStrokeColor(expectedStrokeColor);
-		for (Shape shape : shapesGroup.getShapes()) {
-			assertEquals(expectedStrokeColor, shape.getStrokeColor());
-		}
-	}
-
-	@Test
-	void changeFillColorOfGroup() {
-		addShapes();
-		String expectedFillColor = "#f0956";
-		shapesGroup.setFillColor(expectedFillColor);
-		for (Shape shape : shapesGroup.getShapes()) {
-			if (shape.getShapeDimension() == ShapeDimension.SHAPE2D) {
-				assertEquals(expectedFillColor, ((Shape2D) shape).getFillColor());
-			}
-
-		}
+		Point center = shapesGroup.getCenter();
+		assertEquals((6 + (22 + 320))/2, center.getX());
+		assertEquals((11 + (13 + 130))/2, center.getY());
 	}
 
 	void addShapes() {
-		shapesGroup.add(shapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
 				new Size(200, 10), 0, new Stroke(1, "#ff1ff"), "#fff56", "", "test"));
-		shapesGroup.add(shapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0, 0),
 				new Size(220, 100), 30, new Stroke(2, "#fff98"), "#ff678", "", "test"));
-		shapesGroup.add(shapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0, 0),
 				new Size(320, 130), 100,new Stroke( 6, "#fff45"), "#f678f", "", "test"));
 		assertEquals(3, shapesGroup.getShapes().size());
 	}

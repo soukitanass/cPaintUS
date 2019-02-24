@@ -2,6 +2,7 @@ package cpaintus.controllers.command;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
