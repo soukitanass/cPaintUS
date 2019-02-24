@@ -81,15 +81,15 @@ public class EditGroupCommand extends Command {
 	@Override
 	public void undo() {
 		List<Shape> oldShapes = ((ShapesGroup)oldShape).getShapes();
-		for (int i = 0; i < oldShapes.size(); i++) {
-			int hash = oldShapes.get(i).getCanvasHash();
+		for (Shape shape : oldShapes) {
+			int hash = shape.getCanvasHash();
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
 			if (activeCanvas == null) {
 				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
 				return;
 			}
-			drawerStrategyContext.draw(oldShapes.get(i), activeCanvas);
+			drawerStrategyContext.draw(shape, activeCanvas);
 		}
 	}
 
