@@ -2,14 +2,13 @@ package cpaintus.controllers.command;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import cpaintus.controllers.SnapshotSingleton;
-import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 
 public class EraseShapeCommand extends Command {

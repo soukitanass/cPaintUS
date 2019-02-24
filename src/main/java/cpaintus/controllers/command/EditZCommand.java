@@ -4,7 +4,6 @@ import java.util.List;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
