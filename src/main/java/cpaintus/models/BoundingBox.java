@@ -16,9 +16,9 @@ public class BoundingBox extends Observable<IObserver> {
 	private double rotation;
 	private Preferences prefs;
 
-	private Boolean gridMod;
+	private boolean gridMod;
 	private double gridStep;
-	private Boolean followGrid;
+	private boolean followGrid;
 	
 	private static class SingletonHelper {
 		private static final BoundingBox INSTANCE = new BoundingBox();
