@@ -5,7 +5,6 @@ import java.util.List;
 
 import cpaintus.models.Point;
 import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.Shape2D;
 import cpaintus.models.shapes.ShapeDimension;
 import cpaintus.models.shapes.ShapeType;
 
@@ -138,4 +137,43 @@ public class ShapesGroup extends Shape {
 	public Point getUpLeftCorner() {
 		return new Point(getX(), getY());
 	}
+
+	@Override
+	public void flipHorizontally() {
+		Point center = this.getCenter();
+		flipHorizontally(center);
+	}
+
+	public void flipHorizontally(Point center) {
+		double shapeX;
+		for (Shape shape : shapes) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				((ShapesGroup)shape).flipHorizontally(center);
+			} else {
+				shape.flipHorizontally();
+				shapeX = shape.getUpLeftCorner().getX();
+				shape.setX(2 * center.getX() - shapeX - shape.getWidth());
+			}
+		}
+	}
+
+	@Override
+	public void flipVertically() {
+		Point center = this.getCenter();
+		flipVertically(center);
+	}
+
+	public void flipVertically(Point center) {
+		double shapeY;
+		for (Shape shape : shapes) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				((ShapesGroup)shape).flipVertically(center);
+			} else {
+				shape.flipVertically();
+				shapeY = shape.getUpLeftCorner().getY();
+				shape.setY(2 * center.getY() - shapeY - shape.getHeight());
+			}
+		}
+	}
+
 }

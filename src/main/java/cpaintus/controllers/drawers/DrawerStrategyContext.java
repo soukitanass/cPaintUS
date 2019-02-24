@@ -66,5 +66,7 @@ public class DrawerStrategyContext {
 		}
 
 		activeCanvas.setRotate(shape.getRotation());
+		activeCanvas.setScaleX(shape.isFlippedHorizontally() ? -1 : 1);
+		activeCanvas.setScaleY(shape.isFlippedVertically() ? -1 : 1);
 	}
 }

@@ -8,9 +8,9 @@ import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
+import cpaintus.models.shapes.ShapeType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Rotate;
 
 public class EditGroupCommand extends Command {
 
@@ -55,10 +55,13 @@ public class EditGroupCommand extends Command {
 		pane = snapshotSingleton.getSnapshotPane();
 	}
 
-	@Override
-	public void execute() {
-		List<Shape> shapes = ((ShapesGroup)shapeToEdit).getShapes();
+	private void execute(Shape shapesGroup) {
+		List<Shape> shapes = ((ShapesGroup)shapesGroup).getShapes();
 		for (Shape shape : shapes) {
+			if (shape.getShapeType() == ShapeType.GROUP) {
+				execute(shape);
+				return;
+			}
 			int hash = shape.getCanvasHash();
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
@@ -66,21 +69,13 @@ public class EditGroupCommand extends Command {
 				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
 				return;
 			}
-			if (shapeToEdit.isFlipVertical()) {
-				activeCanvas.getTransforms().add(new Rotate(180, 
-						shapeToEdit.getCenter().getX() - shape.getUpLeftCorner().getX(),
-						shapeToEdit.getCenter().getY() - shape.getUpLeftCorner().getY(),
-						0, Rotate.X_AXIS));
-			} else if (shapeToEdit.isFlipHorizontal()) {
-				activeCanvas.getTransforms().add(new Rotate(180,
-						shapeToEdit.getCenter().getX() - shape.getUpLeftCorner().getX(),
-						shapeToEdit.getCenter().getY() - shape.getUpLeftCorner().getY(),
-						0, Rotate.Y_AXIS));
-			} else
-				drawerStrategyContext.draw(shape, activeCanvas);
+			drawerStrategyContext.draw(shape, activeCanvas);
 		}
-		shapeToEdit.setFlipVertical(false);
-		shapeToEdit.setFlipHorizontal(false);
+	}
+
+	@Override
+	public void execute() {
+		execute(shapeToEdit);
 	}
 
 	@Override
