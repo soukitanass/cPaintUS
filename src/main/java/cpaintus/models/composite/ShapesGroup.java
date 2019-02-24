@@ -152,7 +152,7 @@ public class ShapesGroup extends Shape {
 			} else {
 				shape.flipHorizontally();
 				shapeX = shape.getUpLeftCorner().getX();
-				shape.setX(2 * center.getX() - shapeX - shape.getWidth());
+				shape.setUpLeftCornerX(2 * center.getX() - shapeX - shape.getWidth());
 			}
 		}
 	}
@@ -171,7 +171,7 @@ public class ShapesGroup extends Shape {
 			} else {
 				shape.flipVertically();
 				shapeY = shape.getUpLeftCorner().getY();
-				shape.setY(2 * center.getY() - shapeY - shape.getHeight());
+				shape.setUpLeftCornerY(2 * center.getY() - shapeY - shape.getHeight());
 			}
 		}
 	}
