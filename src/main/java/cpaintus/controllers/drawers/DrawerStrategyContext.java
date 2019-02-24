@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.StrokeLineCap;
 
 public class DrawerStrategyContext extends Observable<IObserver> {
-	
+
 	private DrawerStrategyContext() {
 	}
 
@@ -70,7 +70,7 @@ public class DrawerStrategyContext extends Observable<IObserver> {
 		activeCanvas.setScaleY(shape.isFlippedVertically() ? -1 : 1);
 		notifyAllObservers();
 	}
-	
+
 	@Override
 	public void notifyAllObservers() {
 		for (IObserver obs : getObserverList()) {

@@ -150,7 +150,6 @@ public class CenterPaneController implements IObserver {
 		boundingBoxCanvas.setMouseTransparent(true);
 		SnapshotSingleton.getInstance().setSnapshotPane(pane);
 		drawGrid();
-		// TESTSSSSSSSS------------------------------------------------------------------------------
 		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
 			drawSnapshot();
 		});
@@ -180,7 +179,6 @@ public class CenterPaneController implements IObserver {
 			break;
 		case MENU_ERASE:
 			eraseAll();
-			drawSnapshot();
 			break;
 		case BOUNDING_BOX:
 			drawBoundingBox();
