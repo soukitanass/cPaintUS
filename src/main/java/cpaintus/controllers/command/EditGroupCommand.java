@@ -1,8 +1,6 @@
 package cpaintus.controllers.command;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
@@ -17,7 +15,6 @@ public class EditGroupCommand extends Command {
 	private EditCommand command;
 	private Shape shapeToEdit;
 	private Shape oldShape;
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private SnapshotSingleton snapshotSingleton;
 	private Canvas activeCanvas;
 	private DrawerStrategyContext drawerStrategyContext;
@@ -66,8 +63,9 @@ public class EditGroupCommand extends Command {
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
 			if (activeCanvas == null) {
-				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
-				return;
+				activeCanvas = new Canvas();
+				shapeToEdit.setCanvasHash(activeCanvas.hashCode());
+				oldShape.setCanvasHash(activeCanvas.hashCode());
 			}
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
@@ -86,8 +84,9 @@ public class EditGroupCommand extends Command {
 			activeCanvas = (Canvas) pane.getChildren().stream().filter(child -> hash == child.hashCode()).findAny()
 					.orElse(null);
 			if (activeCanvas == null) {
-				LOGGER.log(Level.INFO, "No shape to edit. Aborting edit because canvas is null.");
-				return;
+				activeCanvas = new Canvas();
+				shapeToEdit.setCanvasHash(activeCanvas.hashCode());
+				oldShape.setCanvasHash(activeCanvas.hashCode());
 			}
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
