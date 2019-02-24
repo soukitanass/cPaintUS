@@ -761,7 +761,7 @@ public class LeftPaneController implements IObserver {
 			EditCommand editCommand = new EditCommand();
 			Shape oldShape = shapeToEdit.makeCopy();
 			editCommand.setOldShape(oldShape);
-			shapeToEdit.addTransform(Flip.HORIZONTAL);
+			shapeToEdit.flipHorizontally();
 			editCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editCommand);
 		} else {
@@ -769,7 +769,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			Shape oldShape = shapeToEdit.makeCopy();
 			editGroupCommand.setOldShape(oldShape);
-			shapeToEdit.addTransform(Flip.HORIZONTAL);
+			shapeToEdit.flipHorizontally();
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 		}
@@ -781,7 +781,7 @@ public class LeftPaneController implements IObserver {
 			EditCommand editCommand = new EditCommand();
 			Shape oldShape = shapeToEdit.makeCopy();
 			editCommand.setOldShape(oldShape);
-			shapeToEdit.addTransform(Flip.VERTICAL);
+			shapeToEdit.flipVertically();
 			editCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editCommand);
 		} else {
@@ -789,7 +789,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			Shape oldShape = shapeToEdit.makeCopy();
 			editGroupCommand.setOldShape(oldShape);
-			shapeToEdit.addTransform(Flip.VERTICAL);
+			shapeToEdit.flipVertically();
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);

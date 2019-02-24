@@ -59,7 +59,7 @@ public class EditGroupCommand extends Command {
 		List<Shape> shapes = ((ShapesGroup)shapesGroup).getShapes();
 		for (Shape shape : shapes) {
 			if (shape.getShapeType() == ShapeType.GROUP) {
-				execute((ShapesGroup)shape);
+				execute(shape);
 				return;
 			}
 			int hash = shape.getCanvasHash();

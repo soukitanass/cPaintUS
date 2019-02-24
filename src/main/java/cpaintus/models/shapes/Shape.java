@@ -1,10 +1,5 @@
 package cpaintus.models.shapes;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cpaintus.models.Flip;
-import cpaintus.models.FlipTransform;
 import cpaintus.models.Point;
 
 public abstract class Shape {
@@ -21,7 +16,8 @@ public abstract class Shape {
 	private String strokeColor;
 	protected ShapeDimension shapeDim;
 
-	protected List<FlipTransform> flipTransforms;
+	private boolean isFlippedHorizontally;
+	private boolean isFlippedVertically;
 
 	public Shape(
 			ShapeType shapeType,
@@ -41,7 +37,8 @@ public abstract class Shape {
 		this.rotation = rotation;
 		this.lineWidth = stroke.getLinewidth();
 		this.strokeColor = stroke.getStrokeColor();
-		this.flipTransforms = new ArrayList<FlipTransform>();
+		this.isFlippedHorizontally = false;
+		this.isFlippedVertically = false;
 	}
 	
 	public Shape() {
@@ -108,7 +105,10 @@ public abstract class Shape {
 	}
 	
 	public double getRotation() {
-		return this.rotation;
+		double currentRotation = this.rotation;
+		if (isFlippedVertically ^ isFlippedHorizontally)
+			currentRotation = -currentRotation;
+		return currentRotation;
 	}
 
 	public void setRotation(double rotation) {
@@ -150,15 +150,19 @@ public abstract class Shape {
 				getUpLeftCorner().getY() + getHeight() / 2);
 	}
 
-	public void addTransform(Flip type) {
-		flipTransforms.add(new FlipTransform(type, new Point(getWidth() / 2, getHeight() / 2)));
+	public void flipHorizontally() {
+		this.isFlippedHorizontally = !this.isFlippedHorizontally;
 	}
 
-	public void addTransform(Flip type, Point pivot) {
-		flipTransforms.add(new FlipTransform(type, pivot));
+	public void flipVertically() {
+		this.isFlippedVertically = !this.isFlippedVertically;
 	}
 
-	public List<FlipTransform> getTransforms() {
-		return flipTransforms;
+	public boolean isFlippedHorizontally() {
+		return this.isFlippedHorizontally;
+	}
+
+	public boolean isFlippedVertically() {
+		return this.isFlippedVertically;
 	}
 }
