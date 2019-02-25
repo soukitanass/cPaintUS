@@ -33,11 +33,11 @@ public class FileLogger extends BaseLogger {
 			} catch (FileNotFoundException e) {
 				logger.log(Level.INFO, "Error while creating in file stream", e);
 			}
-			if(stream != null) {
-				stream.println(msg);
-			}
-			
+
 		}
-		
+		if (stream != null) {
+			stream.println(msg);
+		}
+
 	}
 }
