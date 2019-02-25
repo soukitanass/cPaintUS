@@ -15,7 +15,7 @@ public class ShapeFactory {
 	private int textNb;
 	private int totalShapeNb;
 
-	private static HashMap<ShapeType, ShapeFunctionalInterface> creatorDictionary;
+	private static HashMap<ShapeType, ShapeFunctionalInterface> creatorDictionary = new HashMap<>();;
 
 	private ShapeFactory() {
 		rectangleNb = 0;
@@ -32,8 +32,8 @@ public class ShapeFactory {
 			String shapeId = "Rectangle " + rectangleNb;
 			if (persistent)
 				rectangleNb++;
-			return new Rectangle(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
-					size);
+			return new Rectangle(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke,
+					fillColor, size);
 		};
 
 		ShapeFunctionalInterface ellipseCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
@@ -71,7 +71,8 @@ public class ShapeFactory {
 			String shapeId = "Heart " + heartNb;
 			if (persistent)
 				heartNb++;
-			return new Heart(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor, size);
+			return new Heart(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
+					size);
 		};
 
 		ShapeFunctionalInterface pictureCreator = (ShapeType shapeType, boolean persistent, int canvasHash,
@@ -90,11 +91,10 @@ public class ShapeFactory {
 			String shapeId = "Text " + textNb;
 			if (persistent)
 				textNb++;
-			return new Text(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor, size,
-					text);
+			return new Text(shapeType, shapeId, canvasHash, position, totalShapeNb + 1, rotation, stroke, fillColor,
+					size, text);
 		};
 
-		creatorDictionary = new HashMap<>();
 		creatorDictionary.put(ShapeType.RECTANGLE, rectangleCreator);
 		creatorDictionary.put(ShapeType.ELLIPSE, ellipseCreator);
 		creatorDictionary.put(ShapeType.HEART, heartCreator);
@@ -112,8 +112,8 @@ public class ShapeFactory {
 		return factory;
 	}
 
-	public static Shape getShape(ShapeType shapeType, boolean persistent, int canvasHash, Point position, Point position2,
-			Size size, double rotation, Stroke stroke, String fillColor, String base64, String text) {
+	public static Shape getShape(ShapeType shapeType, boolean persistent, int canvasHash, Point position,
+			Point position2, Size size, double rotation, Stroke stroke, String fillColor, String base64, String text) {
 		return creatorDictionary.get(shapeType).create(shapeType, persistent, canvasHash, position, position2, size,
 				rotation, stroke, fillColor, base64, text);
 	}

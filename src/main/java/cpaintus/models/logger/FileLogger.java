@@ -9,17 +9,17 @@ import java.util.logging.Logger;
 
 public class FileLogger extends BaseLogger {
 	private File file;
-	private File directory;
 	private PrintStream stream;
-	private Logger LOGGER;
+	private Logger logger;
 
 	public FileLogger() {
 		super(LogLevel.FILE);
-		LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+		logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	}
 
 	@Override
 	protected void writeMessage(String msg) {
+		File directory;
 		if (file == null || stream == null) {
 			try {
 				directory = new File("./logs");
@@ -31,9 +31,13 @@ public class FileLogger extends BaseLogger {
 				file = new File(fileName.toString());
 				stream = new PrintStream(file);
 			} catch (FileNotFoundException e) {
-				LOGGER.log(Level.INFO, "Error while creating in file stream", e);
+				logger.log(Level.INFO, "Error while creating in file stream", e);
 			}
+
 		}
-		stream.println(msg);
+		if (stream != null) {
+			stream.println(msg);
+		}
+
 	}
 }
