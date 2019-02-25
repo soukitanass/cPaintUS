@@ -33,7 +33,7 @@
 							onAction="#handleExitClick" />
 					</items>
 				</Menu>
-				<Menu mnemonicParsing="false" text="Edition">
+				<Menu mnemonicParsing="false" text="Edit">
 					<items>
 						<MenuItem mnemonicParsing="false" text="Undo"
 							onAction="#handleUndo" />
@@ -45,6 +45,14 @@
 					<items>
 						<MenuItem mnemonicParsing="false" text="Grid..."
 							onAction="#handleGridClick" />
+					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" text="Flip Vertical"
+							onAction="#handleFlipVerticalClick" />
+					</items>
+					<items>
+						<MenuItem mnemonicParsing="false" text="Flip Horizontal"
+							onAction="#handleFlipHorizontalClick" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">

@@ -75,6 +75,7 @@ public class LeftPaneController implements IObserver {
 	private boolean isGrouping;
 	private Command commandToUndoUntil;
 	private boolean isUpdatingAttributes;
+	private FlipShapeSingleton flipShapeSingleton;
 	
 	@FXML
 	private ComboBox<ShapeType> shapeType;
@@ -158,6 +159,8 @@ public class LeftPaneController implements IObserver {
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
 		selectShapesSingleton.register(this);
 
+		flipShapeSingleton = FlipShapeSingleton.getInstance();
+		flipShapeSingleton.register(this);
 		editZListener = new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
@@ -582,6 +585,12 @@ public class LeftPaneController implements IObserver {
 			break;
 		case CHANGEDCOMMAND:
 			selectUndo();
+			break;
+		case FLIP_HORIZONTAL:
+			handleFlipHorizontalClick();
+			break;
+		case FLIP_VERTICAL:
+			handleFlipVerticalClick();
 			break;
 		default:
 			break;

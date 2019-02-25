@@ -24,10 +24,11 @@ import javafx.stage.Stage;
 
 public class TopPaneController {
 
-	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static final String ERROR_MESSAGE = "Error while opening the file ";
 	private SnapshotSingleton snapshotSingleton;
 	private SaveCloseSingleton saveCloseSingleton;
+	private FlipShapeSingleton flipShapeSingleton;
 	private Preferences prefs;
 	private static final String WORKDIR = "Workdir";
 	private Invoker invoker;
@@ -41,19 +42,20 @@ public class TopPaneController {
 		snapshotSingleton = SnapshotSingleton.getInstance();
 		shapesDict = ShapesDictionnary.getInstance();
 		saveCloseSingleton = SaveCloseSingleton.getInstance();
-	    prefs = Preferences.userNodeForPackage(this.getClass());
-	    invoker = Invoker.getInstance();
-	    popupBuilder = new PopupBuilder();
+		flipShapeSingleton = FlipShapeSingleton.getInstance();
+		prefs = Preferences.userNodeForPackage(this.getClass());
+		invoker = Invoker.getInstance();
+		popupBuilder = new PopupBuilder();
 	}
 
 	@FXML
-	private void handleUndo () {
+	private void handleUndo() {
 		invoker.undo();
 		InvokerUpdateSingleton.getInstance().updateTree();
 	}
-	
+
 	@FXML
-	private void handleRedo () {
+	private void handleRedo() {
 		invoker.redo();
 		InvokerUpdateSingleton.getInstance().updateTree();
 	}
@@ -64,10 +66,10 @@ public class TopPaneController {
 			this.popupBuilder.setWindowName("New");
 			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/New.fxml");
 			PopupEnvironment popupEnvironment = this.popupBuilder.build();
-			
+
 			NewController controller = popupEnvironment.getFxmlLoader().getController();
 			controller.setNewDialog(popupEnvironment.getStage());
-			
+
 			if (!shapesDict.getShapesList().isEmpty()) {
 				popupEnvironment.getStage().showAndWait();
 				if (controller.isYesClicked()) {
@@ -89,7 +91,7 @@ public class TopPaneController {
 	@FXML
 	private void handleAboutClick() {
 		try {
-			
+
 			this.popupBuilder.setWindowName("About");
 			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/About.fxml");
 			PopupEnvironment popupEnvironment = this.popupBuilder.build();
@@ -108,21 +110,22 @@ public class TopPaneController {
 			this.popupBuilder.setWindowName("Grid");
 			this.popupBuilder.setFxmlResource("/cpaintus/views/popup/Grid.fxml");
 			PopupEnvironment popupEnvironment = this.popupBuilder.build();
-			
+
 			GridController controller = popupEnvironment.getFxmlLoader().getController();
 			controller.setNewDialog(popupEnvironment.getStage());
-			
+
 			popupEnvironment.getStage().showAndWait();
 		} catch (IOException e) {
 			LOGGER.log(Level.INFO, ERROR_MESSAGE, e);
 		}
 	}
-	
+
 	@FXML
 	private void handleLoadLClick() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");
-		fileChooser.setInitialDirectory(new File(prefs.get(WORKDIR,Paths.get(".").toAbsolutePath().normalize().toString())));
+		fileChooser.setInitialDirectory(
+				new File(prefs.get(WORKDIR, Paths.get(".").toAbsolutePath().normalize().toString())));
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("XML Files", "*.xml"),
 				new ExtensionFilter("PNG Files", "*.png"));
 		Stage stage = (Stage) snapshotSingleton.getSnapshotPane().getScene().getWindow();
@@ -144,6 +147,16 @@ public class TopPaneController {
 	@FXML
 	private void handleSaveClick() {
 		saveCloseSingleton.handleSave();
+	}
+
+	@FXML
+	private void handleFlipVerticalClick() {
+		flipShapeSingleton.notifyFlipVerticallyObservers();
+	}
+
+	@FXML
+	private void handleFlipHorizontalClick() {
+		flipShapeSingleton.notifyAllObservers();
 	}
 
 }
