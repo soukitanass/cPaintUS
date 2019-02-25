@@ -5,6 +5,7 @@ import cpaintus.models.Pointer;
 import cpaintus.models.ZoomSingleton;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -25,6 +26,7 @@ public class BottomPaneController implements IObserver {
 	private Pointer pointer;
 	private BoundingBox boundingBox;
 	private ZoomSingleton zoomSingleton;
+	private ChangeListener<? super Number> listener;
 
 	public BottomPaneController() {
 		pointer = Pointer.getInstance();
@@ -34,16 +36,17 @@ public class BottomPaneController implements IObserver {
 		zoomSingleton = ZoomSingleton.getInstance();
 		zoomSingleton.register(this);
 	}
-	
+
 	@FXML
 	private void initialize() {
 		w.setVisible(boundingBox.isVisible());
 		h.setVisible(boundingBox.isVisible());
 		zoomSlider.setValue(zoomSingleton.getZoom());
-		zoomSlider.valueProperty().addListener((obs,oldValue,newValue)->{
+		listener = (obs, oldValue, newValue) -> {
 			zoomSingleton.setOldZoom(oldValue.doubleValue());
 			zoomSingleton.setZoom(newValue.doubleValue());
-		});
+		};
+		zoomSlider.valueProperty().addListener(listener);
 	}
 
 	@Override
@@ -51,14 +54,16 @@ public class BottomPaneController implements IObserver {
 		switch (obs) {
 		case POINTER:
 			displayX();
-			displayY();			
+			displayY();
 			break;
 		case BOUNDING_BOX:
 			displayW();
-			displayH();			
+			displayH();
 			break;
 		case ZOOM:
-			zoomSlider.valueProperty().set(zoomSingleton.getZoom());	
+			zoomSlider.valueProperty().removeListener(listener);
+			zoomSlider.valueProperty().setValue(zoomSingleton.getZoom());
+			zoomSlider.valueProperty().addListener(listener);
 			break;
 		default:
 			break;
@@ -72,7 +77,7 @@ public class BottomPaneController implements IObserver {
 	private void displayY() {
 		y.setText(y.getText().substring(0, 4) + pointer.getCursorPoint().getY());
 	}
-	
+
 	private void displayW() {
 		w.setVisible(boundingBox.isVisible());
 		w.setText(w.getText().substring(0, 4) + (boundingBox.isVisible() ? boundingBox.getWidth() : ""));

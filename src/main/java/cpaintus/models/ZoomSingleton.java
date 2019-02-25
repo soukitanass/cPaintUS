@@ -8,7 +8,7 @@ public class ZoomSingleton extends Observable<IObserver> {
 
 	private double zoom;
 	private double oldZoom;
-	
+
 	private static class SingletonHelper {
 		private static final ZoomSingleton INSTANCE = new ZoomSingleton();
 	}
@@ -17,7 +17,7 @@ public class ZoomSingleton extends Observable<IObserver> {
 		oldZoom = 100;
 		zoom = 100;
 	}
-	
+
 	public static ZoomSingleton getInstance() {
 		return SingletonHelper.INSTANCE;
 	}
@@ -37,16 +37,16 @@ public class ZoomSingleton extends Observable<IObserver> {
 		this.zoom = zoom > 50 ? (zoom < 150 ? zoom : 150) : 50;
 		notifyAllObservers();
 	}
-	
+
 	public double getZoomRatio() {
-		return zoom/100;
+		return zoom / 100;
 	}
 
 	public void setOldZoom(double oldZoom) {
 		this.oldZoom = oldZoom;
 	}
-	
+
 	public double getDynamicZoom() {
-		return zoom/oldZoom;
+		return zoom / oldZoom;
 	}
 }
