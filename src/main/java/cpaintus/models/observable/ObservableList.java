@@ -18,5 +18,7 @@ public enum ObservableList {
 	ZOOM,
 	DRAW,
 	GRID,
-	Z_EDIT
+	Z_EDIT, 
+	FLIP_VERTICAL, 
+	FLIP_HORIZONTAL
 }
