@@ -97,9 +97,9 @@ class ShapesGroupTest {
 	void addShapes() {
 		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
 				new Size(200, 10), 0, new Stroke(1, "#ff1ff"), "#fff56", "", "test"));
-		shapesGroup.add(ShapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 12), new Point(0, 0),
 				new Size(220, 100), 30, new Stroke(2, "#fff98"), "#ff678", "", "test"));
-		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0, 0),
+		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 13), new Point(0, 0),
 				new Size(320, 130), 100, new Stroke(6, "#fff45"), "#f678f", "", "test"));
 		assertEquals(3, shapesGroup.getShapes().size());
 	}
