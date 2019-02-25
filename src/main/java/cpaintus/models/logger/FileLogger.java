@@ -22,10 +22,10 @@ public class FileLogger extends BaseLogger {
 		File directory;
 		if (file == null || stream == null) {
 			try {
-				directory = new File("./logs");
+				directory = new File("./events");
 				directory.mkdir(); // Will do nothing if already exists
 				StringBuilder fileName = new StringBuilder();
-				fileName.append("./logs/session_");
+				fileName.append("./events/session_");
 				fileName.append(session.format(DateTimeFormatter.ofPattern("ddMMuuuu_HHmmss")));
 				fileName.append(".txt");
 				file = new File(fileName.toString());

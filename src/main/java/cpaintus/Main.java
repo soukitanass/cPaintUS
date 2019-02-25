@@ -58,7 +58,7 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		int i = 0;
-		if (args.length > 0 && args[0].toLowerCase().contains("verbose")) {
+		if (args.length > 0 && args[0].toLowerCase().contains("verbose=")) {
 			String[] verbose = args[0].split("=");
 			i = Integer.parseInt(verbose[1]);
 		}
