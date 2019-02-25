@@ -82,7 +82,13 @@ public class SnapshotSingleton extends Observable<IObserver> {
 			obs.update(ObservableList.LOAD_IMAGE);
 		}
 	}
-
+	
+	private void notifyAllZEdit() {
+		for (IObserver obs : getObserverList()) {
+			obs.update(ObservableList.Z_EDIT);
+		}
+	}
+	
 	public Picture getPicture() {
 		return picture;
 	}
@@ -102,5 +108,6 @@ public class SnapshotSingleton extends Observable<IObserver> {
 				.orElse(null);
 			if (shape != null) shape.setZ(i);
 		}
+		notifyAllZEdit();
 	}
 }

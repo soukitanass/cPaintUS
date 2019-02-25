@@ -99,6 +99,10 @@ public class LeftPaneController implements IObserver {
 	@FXML
 	private VBox alignments;
 	@FXML
+	private Button flipHorizontalBtn;
+	@FXML
+	private Button flipVerticalBtn;
+	@FXML
 	private TreeView<Shape> tree;
 	@FXML
 	private ListView<Command> commandes;
@@ -363,7 +367,7 @@ public class LeftPaneController implements IObserver {
 		isUpdatingAttributes = false;
 		updateBoundingBox(newShape);
 	}
-	
+
 	@FXML
 	private void handleUnSelectClick() {
 		selectShapesSingleton.setSelectedShape(shapeToEdit);
@@ -455,9 +459,9 @@ public class LeftPaneController implements IObserver {
 		} else {
 			EditGroupCommand editGroupCommand = new EditGroupCommand();
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
-			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
-			((ShapesGroup) shapeToEdit).setX(newX);
-			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.setUpLeftCornerX(newX);
+			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
 		}
@@ -482,9 +486,9 @@ public class LeftPaneController implements IObserver {
 		} else {
 			EditGroupCommand editGroupCommand = new EditGroupCommand();
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
-			editGroupCommand.setOldShape(((ShapesGroup) oldShape).getShapes());
-			((ShapesGroup) shapeToEdit).setY(newY);
-			editGroupCommand.setShapeToEdit(((ShapesGroup) shapeToEdit).getShapes());
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.setUpLeftCornerY(newY);
+			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
 
@@ -685,14 +689,14 @@ public class LeftPaneController implements IObserver {
 
 	private void updateBoundingBox(Shape shape) {
 		boundingBox.setOrigin(shape.getX(), shape.getY());
-		boundingBox.setRotation(shape.getRotation());
 		if (shape.getShapeType() == ShapeType.LINE) {
 			boundingBox.updateBoundingBox(new Point(((Line) shape).getX2(), ((Line) shape).getY2()));
 		} else {
 			boundingBox.updateBoundingBox(new Point(shape.getX() + shape.getWidth(), shape.getY() + shape.getHeight()));
 		}
+		boundingBox.setRotation(shape.getRotation());
 	}
-	
+
 	private void shapeAlignment(Direction direction, double newVal) {
 		if (isUpdatingAttributes)
 			return;
@@ -716,7 +720,7 @@ public class LeftPaneController implements IObserver {
 			default:
 				break;
 			}
-			
+
 			editCommand.setShapeToEdit(shape);
 			invoker.execute(editCommand);
 		}
@@ -726,7 +730,6 @@ public class LeftPaneController implements IObserver {
 	private void handleTopClick() {
 		double newY = boundingBox.getUpLeftCorner().getY();
 		shapeAlignment(Direction.TOP, newY);
-
 	}
 
 	@FXML
@@ -749,6 +752,44 @@ public class LeftPaneController implements IObserver {
 	
 	private int positive (int tested) {
 		return (tested >= 0) ? tested : 0;
+	}
+
+	@FXML
+	private void handleFlipHorizontalClick() {
+		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.flipHorizontally();
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.flipHorizontally();
+			editGroupCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editGroupCommand);
+		}
+	}
+
+	@FXML
+	private void handleFlipVerticalClick() {
+		if (shapeToEdit.getShapeType() != ShapeType.GROUP) {
+			EditCommand editCommand = new EditCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editCommand.setOldShape(oldShape);
+			shapeToEdit.flipVertically();
+			editCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editCommand);
+		} else {
+			EditGroupCommand editGroupCommand = new EditGroupCommand();
+			Shape oldShape = shapeToEdit.makeCopy();
+			editGroupCommand.setOldShape(oldShape);
+			shapeToEdit.flipVertically();
+			editGroupCommand.setShapeToEdit(shapeToEdit);
+			invoker.execute(editGroupCommand);
+		}
 	}
 
 }

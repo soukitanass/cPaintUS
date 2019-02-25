@@ -25,13 +25,11 @@ public class PNGStrategy implements FileManagerStrategy {
 
 	private static final  Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private ShapesDictionnary shapeDict;
-	private ShapeFactory shapeFactory;
 	private BufferedImage bufferedImage;
 	private SnapshotSingleton snapshotSingleton;
 
 	public PNGStrategy() {
 		shapeDict = ShapesDictionnary.getInstance();
-		shapeFactory = ShapeFactory.getInstance();
 		snapshotSingleton = SnapshotSingleton.getInstance();
 	}
 
@@ -62,7 +60,7 @@ public class PNGStrategy implements FileManagerStrategy {
 		try {
 			bytes = Files.readAllBytes(Paths.get(path));
 			String img = Base64.getEncoder().encodeToString(bytes);
-			Shape pic = shapeFactory.getShape(ShapeType.PICTURE, true, 0, new Point(0,0), new Point(0,0), new Size(0, 0), 0, new Stroke(1, "#000000"), "#000000",
+			Shape pic = ShapeFactory.getShape(ShapeType.PICTURE, true, 0, new Point(0,0), new Point(0,0), new Size(0, 0), 0, new Stroke(1, "#000000"), "#000000",
 					img, "");
 			snapshotSingleton.setImage((Picture) pic);
 			pic.setHeight(snapshotSingleton.getImage().getHeight());

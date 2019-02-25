@@ -3,7 +3,6 @@ package cpaintus.controllers.command;
 import cpaintus.models.logger.BaseLogger;
 import cpaintus.models.logger.ConsoleLogger;
 import cpaintus.models.logger.FileLogger;
-import cpaintus.models.logger.LogLevel;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.Observable;
 import javafx.collections.FXCollections;
