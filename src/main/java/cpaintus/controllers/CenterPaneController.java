@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import cpaintus.Main;
 import cpaintus.controllers.command.DrawCommand;
 import cpaintus.controllers.command.EraseAllCommand;
 import cpaintus.controllers.command.GroupCommand;
