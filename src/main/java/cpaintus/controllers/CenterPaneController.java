@@ -198,6 +198,7 @@ public class CenterPaneController implements IObserver {
 			break;
 		case GRID:
 			drawGrid();
+			drawSnapshot();
 			break;
 		case GROUP_SHAPES:
 			selectShapes = true;
