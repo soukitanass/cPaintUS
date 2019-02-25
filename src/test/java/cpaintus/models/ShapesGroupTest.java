@@ -1,14 +1,13 @@
 package cpaintus.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
-import cpaintus.models.shapes.Shape2D;
-import cpaintus.models.shapes.ShapeDimension;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.Size;
@@ -17,12 +16,10 @@ import cpaintus.models.shapes.Stroke;
 class ShapesGroupTest {
 
 	ShapesGroup shapesGroup;
-	private ShapeFactory shapeFactory;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		shapesGroup = new ShapesGroup();
-		shapeFactory = ShapeFactory.getInstance();
 	}
 
 	@Test
@@ -93,8 +90,8 @@ class ShapesGroupTest {
 	void getCenterOfGroup() {
 		addShapes();
 		Point center = shapesGroup.getCenter();
-		assertEquals((6 + (22 + 320))/2, center.getX());
-		assertEquals((11 + (13 + 130))/2, center.getY());
+		assertEquals((6 + (22 + 320)) / 2, center.getX());
+		assertEquals((11 + (13 + 130)) / 2, center.getY());
 	}
 
 	void addShapes() {
@@ -103,7 +100,7 @@ class ShapesGroupTest {
 		shapesGroup.add(ShapeFactory.getShape(ShapeType.ELLIPSE, true, 5, new Point(7, 11), new Point(0, 0),
 				new Size(220, 100), 30, new Stroke(2, "#fff98"), "#ff678", "", "test"));
 		shapesGroup.add(ShapeFactory.getShape(ShapeType.HEART, true, 3, new Point(22, 11), new Point(0, 0),
-				new Size(320, 130), 100,new Stroke( 6, "#fff45"), "#f678f", "", "test"));
+				new Size(320, 130), 100, new Stroke(6, "#fff45"), "#f678f", "", "test"));
 		assertEquals(3, shapesGroup.getShapes().size());
 	}
 }

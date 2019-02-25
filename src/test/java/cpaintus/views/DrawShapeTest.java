@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.concurrent.TimeoutException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -47,11 +48,11 @@ class DrawShapeTest {
 		createShape(robot, ShapeType.LINE);
 		assertEquals(5, shapesDict.getFullShapesList().size());
 
-		try {
-			FxToolkit.cleanupStages();
-		} catch (TimeoutException e) {
-			e.printStackTrace();
-		}
+	}
+
+	@AfterEach
+	public void basicAfterEach() throws TimeoutException {
+		FxToolkit.cleanupStages();
 	}
 
 	private void createShape(FxRobot robot, ShapeType shapeType) {
