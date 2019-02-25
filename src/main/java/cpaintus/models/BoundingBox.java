@@ -8,8 +8,8 @@ import cpaintus.models.observable.ObservableList;
 
 public class BoundingBox extends Observable<IObserver> {
 
-	private static final String GRIDMOD_PERFS= "gridmod";
-	private static final String GRIDSTEP_PERFS = "gridstep";
+	private static final String GRIDMOD_PREFS= "gridmod";
+	private static final String GRIDSTEP_PREFS = "gridstep";
 	private boolean visible;
 	private Point origin;
 	private Point oppositeCorner;
@@ -31,8 +31,8 @@ public class BoundingBox extends Observable<IObserver> {
 		oppositeCorner = new Point();
 		rotation = 0;
 
-		gridStep = prefs.getDouble(GRIDSTEP_PERFS, 25);
-		gridMod = prefs.getBoolean(GRIDMOD_PERFS, false);
+		gridStep = prefs.getDouble(GRIDSTEP_PREFS, 25);
+		gridMod = prefs.getBoolean(GRIDMOD_PREFS, false);
 	}
 
 	public static BoundingBox getInstance() {
@@ -145,7 +145,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridMod(Boolean gridMod) {
 		this.gridMod = gridMod;
-		prefs.putBoolean(GRIDMOD_PERFS, gridMod);
+		prefs.putBoolean(GRIDMOD_PREFS, gridMod);
 		notifyGridObservers();
 	}
 
@@ -155,7 +155,7 @@ public class BoundingBox extends Observable<IObserver> {
 
 	public void setGridStep(double gridStep) {
 		this.gridStep = gridStep;
-		prefs.putDouble(GRIDSTEP_PERFS, gridStep);
+		prefs.putDouble(GRIDSTEP_PREFS, gridStep);
 		notifyGridObservers();
 	}
 
