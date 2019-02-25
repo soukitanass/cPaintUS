@@ -32,6 +32,7 @@ public class BottomPaneController implements IObserver {
 		boundingBox = BoundingBox.getInstance();
 		boundingBox.register(this);
 		zoomSingleton = ZoomSingleton.getInstance();
+		zoomSingleton.register(this);
 	}
 	
 	@FXML
@@ -55,6 +56,9 @@ public class BottomPaneController implements IObserver {
 		case BOUNDING_BOX:
 			displayW();
 			displayH();			
+			break;
+		case ZOOM:
+			zoomSlider.valueProperty().set(zoomSingleton.getZoom());	
 			break;
 		default:
 			break;
