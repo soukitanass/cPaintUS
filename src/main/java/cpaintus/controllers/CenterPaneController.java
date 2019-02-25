@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import cpaintus.Main;
 import cpaintus.controllers.command.DrawCommand;
 import cpaintus.controllers.command.EraseAllCommand;
 import cpaintus.controllers.command.GroupCommand;
@@ -35,6 +36,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -51,7 +53,7 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	private Canvas hideCanvas;
-	
+
 	@FXML
 	private AnchorPane pane;
 
@@ -158,6 +160,18 @@ public class CenterPaneController implements IObserver {
 		});
 		snapshotCanvas.getGraphicsContext2D().scale(zoomSingleton.getDynamicZoom(), zoomSingleton.getDynamicZoom());
 		drawSnapshot();
+
+		snapshotCanvas.setOnScroll(new EventHandler<ScrollEvent>() {
+			@Override
+			public void handle(ScrollEvent event) {
+
+				zoomSingleton.setOldZoom(zoomSingleton.getZoom());
+				if ((event.getDeltaX() > 0 || event.getDeltaY() > 0) && event.isControlDown())
+					zoomSingleton.setZoom(zoomSingleton.getZoom() + 10);
+				if ((event.getDeltaX() < 0 || event.getDeltaY() < 0) && event.isControlDown())
+					zoomSingleton.setZoom(zoomSingleton.getZoom() - 10);
+			}
+		});
 	}
 
 	private void drawHidePane() {
@@ -229,7 +243,8 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	private void onMouseMoved(MouseEvent event) {
-		pointer.setCursorPoint(event.getX() / zoomSingleton.getZoomRatio(), event.getY() / zoomSingleton.getZoomRatio());
+		pointer.setCursorPoint(event.getX() / zoomSingleton.getZoomRatio(),
+				event.getY() / zoomSingleton.getZoomRatio());
 	}
 
 	@FXML
@@ -347,7 +362,7 @@ public class CenterPaneController implements IObserver {
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
 	}
-	
+
 	public void drawSnapshot() {
 		snapshotCanvas.setWidth(0);
 		snapshotCanvas.setHeight(0);
@@ -382,7 +397,7 @@ public class CenterPaneController implements IObserver {
 
 		GraphicsContext gc = boundingBoxCanvas.getGraphicsContext2D();
 		gc.clearRect(0, 0, boundingBoxCanvas.getWidth(), boundingBoxCanvas.getHeight());
-		
+
 		if (boundingBox.isVisible()) {
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(3);
