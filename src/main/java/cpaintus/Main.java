@@ -2,7 +2,6 @@ package cpaintus;
 
 import java.util.prefs.Preferences;
 
-import cpaintus.controllers.CenterContainerController;
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.models.logger.BaseLogger;
