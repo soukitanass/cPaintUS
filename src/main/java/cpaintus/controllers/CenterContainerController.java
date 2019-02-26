@@ -53,14 +53,15 @@ public class CenterContainerController {
 		int bigSteps = boundingBox.getRulerStep();
 		int smallSteps = bigSteps / nbDivisions;
 		GraphicsContext gc = topRuler.getGraphicsContext2D();
-		gc.setStroke(Color.GRAY);
 		gc.setLineWidth(1);
 		for (int i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
-					gc.strokeLine(i, h, i, h - bigLine);
+					gc.setStroke(Color.GRAY);
+					gc.strokeLine(i - 0.5, h, i - 0.5, h - bigLine);
 				} else if (i % smallSteps == 0) {
-					gc.strokeLine(i, h, i, h - smallLine);
+					gc.setStroke(Color.DARKGRAY);
+					gc.strokeLine(i - 0.5, h, i - 0.5, h - smallLine);
 				}
 			}
 		}
