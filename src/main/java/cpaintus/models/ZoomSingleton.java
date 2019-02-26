@@ -34,8 +34,11 @@ public class ZoomSingleton extends Observable<IObserver> {
 	}
 
 	public void setZoom(double zoom) {
-		this.zoom = zoom > 50 ? (zoom < 150 ? zoom : 150) : 50;
-		notifyAllObservers();
+		zoom = (int) zoom;
+		if (zoom % 10 == 0) {
+			this.zoom = zoom > 50 ? (zoom < 150 ? zoom : 150) : 50;
+			notifyAllObservers();
+		}
 	}
 
 	public double getZoomRatio() {
@@ -43,7 +46,10 @@ public class ZoomSingleton extends Observable<IObserver> {
 	}
 
 	public void setOldZoom(double oldZoom) {
-		this.oldZoom = oldZoom;
+		oldZoom = (int) oldZoom;
+		if (oldZoom % 10 == 0) {
+			this.oldZoom = oldZoom;
+		}
 	}
 
 	public double getDynamicZoom() {

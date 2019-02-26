@@ -1,6 +1,9 @@
 package cpaintus.controllers;
 
 import cpaintus.models.BoundingBox;
+import cpaintus.models.ZoomSingleton;
+import cpaintus.models.observable.IObserver;
+import cpaintus.models.observable.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,7 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-public class CenterContainerController {
+public class CenterContainerController implements IObserver {
 
 	@FXML
 	private Canvas leftRuler;
@@ -28,18 +31,24 @@ public class CenterContainerController {
 	private final int smallLine = 8;
 	private final int bigLine = 16;
 	private final int nbDivisions = 4;
+	private double zoom;
+	private double demiPixel;
 	private BoundingBox boundingBox;
+	private ZoomSingleton zoomSingleton;
 	private RulerSingleton rulerSingleton;
 
 	public CenterContainerController() {
 		boundingBox = BoundingBox.getInstance();
+		zoomSingleton = ZoomSingleton.getInstance();
+		zoomSingleton.register(this);
+		zoom = 1;
+		demiPixel = 0.5;
 		rulerSingleton = RulerSingleton.getInstance();
 	}
 
 	@FXML
 	public void initialize() {
 		gridPane.setStyle("-fx-focus-color: #C8C7C5;");
-
 		gridPane.widthProperty().addListener((obs, oldValue, newValue) -> {
 			topRuler.setWidth(newValue.doubleValue() - 50);
 			drawRulers();
@@ -57,50 +66,64 @@ public class CenterContainerController {
 	}
 
 	private void drawRulers() {
+		zoom = zoomSingleton.getZoomRatio();
+		demiPixel *= zoom;
 		drawTopRuler();
 	}
 
 	private void drawTopRuler() {
 		int w = (int) topRuler.getWidth();
 		int h = (int) topRuler.getHeight();
-		int bigSteps = boundingBox.getRulerStep();
-		int smallSteps = bigSteps / nbDivisions;
+		double bigSteps = boundingBox.getRulerStep() * zoom;
+		double smallSteps = bigSteps / nbDivisions;
 
 		GraphicsContext gc = topRuler.getGraphicsContext2D();
+		gc.clearRect(0, 0, w, h);
 		gc.setLineWidth(1);
 
 		drawTopLines(gc, w, h, bigSteps, smallSteps);
 		drawTopNumbers(gc, w, h, bigSteps, smallSteps);
 	}
 
-	private void drawTopLines(GraphicsContext gc, int w, int h, int bigSteps, int smallSteps) {
-		for (int i = 0; i < w; i += smallSteps) {
+	private void drawTopLines(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
+		for (double i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
 					gc.setStroke(Color.GRAY);
-					gc.strokeLine(i - 0.5, h, i - 0.5, h - bigLine);
+					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - bigLine);
 				} else if (i % smallSteps == 0) {
 					gc.setStroke(Color.DARKGRAY);
-					gc.strokeLine(i - 0.5, h, i - 0.5, h - smallLine);
+					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - smallLine);
 				}
 			}
 		}
 	}
 
-	private void drawTopNumbers(GraphicsContext gc, int w, int h, int bigSteps, int smallSteps) {
+	private void drawTopNumbers(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
 		String currentNumber;
 		gc.setStroke(Color.GRAY);
 		gc.save();
 		gc.rotate(-90);
-		for (int i = 0; i < w; i += smallSteps) {
+		for (double i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
 					gc.translate(0, bigSteps);
-					currentNumber = String.valueOf(i / bigSteps);
+					currentNumber = String.valueOf((int) (i / bigSteps));
 					gc.fillText(currentNumber, -h + bigLine + 4, 3.5);
 				}
 			}
 		}
 		gc.restore();
+	}
+
+	@Override
+	public void update(ObservableList obs) {
+		switch (obs) {
+		case ZOOM:
+			drawRulers();
+			break;
+		default:
+			break;
+		}
 	}
 }
