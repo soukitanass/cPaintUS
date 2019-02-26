@@ -231,7 +231,6 @@ public class CenterContainerController implements IObserver {
 			drawRulers();
 			break;
 		case GRID:
-			System.out.println("test");
 			if (boundingBox.getGridMod()) {
 				expandRulers();
 				drawRulers();
