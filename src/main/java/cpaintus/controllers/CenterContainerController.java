@@ -40,12 +40,13 @@ public class CenterContainerController implements IObserver {
 		boundingBox = BoundingBox.getInstance();
 		zoomSingleton = ZoomSingleton.getInstance();
 		zoomSingleton.register(this);
+		zoom = 1;
+		demiPixel = 0.5;
 	}
 
 	@FXML
 	public void initialize() {
-		zoom = 1;
-		demiPixel = 0.5;
+		gridPane.setStyle("-fx-focus-color: #C8C7C5;");
 		gridPane.widthProperty().addListener((obs, oldValue, newValue) -> {
 			topRuler.setWidth(newValue.doubleValue() - 50);
 			drawRulers();
