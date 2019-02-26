@@ -12,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 
@@ -32,10 +31,10 @@ public class CenterContainerController implements IObserver {
 
 	@FXML
 	private ScrollPane topScroll;
-	
+
 	@FXML
 	private RowConstraints firstRow;
-	
+
 	@FXML
 	private ColumnConstraints firstColumn;
 
@@ -44,6 +43,8 @@ public class CenterContainerController implements IObserver {
 	private final int bigLine = 16;
 	private final int nbDivisions = 4;
 	private final int labelPxTreshold = 10;
+	private final double labelYOffset = 3.5;
+	private final double defaultDemiPixel = 0.5;
 	private double zoom;
 	private double demiPixel;
 	private BoundingBox boundingBox;
@@ -55,9 +56,9 @@ public class CenterContainerController implements IObserver {
 		boundingBox.register(this);
 		zoomSingleton = ZoomSingleton.getInstance();
 		zoomSingleton.register(this);
-		zoom = 1;
-		demiPixel = 0.5;
 		rulerSingleton = RulerSingleton.getInstance();
+		zoom = 1;
+		demiPixel = defaultDemiPixel;
 	}
 
 	@FXML
@@ -71,24 +72,25 @@ public class CenterContainerController implements IObserver {
 			leftRuler.setHeight(newValue.doubleValue() - 50);
 			drawRulers();
 		});
-		drawRulers();
 		rulerSingleton.getVerticalScrollPosition().bindBidirectional(leftScroll.vvalueProperty());
-		rulerSingleton.getVerticalCanvasSize().addListener((obs,oldVal,newVal)->{
+		rulerSingleton.getVerticalCanvasSize().addListener((obs, oldVal, newVal) -> {
 			leftRuler.setHeight(newVal.doubleValue());
-			//drawLeftRuler();
+			drawLeftRuler();
 		});
-		
 		rulerSingleton.getHorizontalScrollPosition().bindBidirectional(topScroll.hvalueProperty());
-		rulerSingleton.getHorizontalCanvasSize().addListener((obs,oldVal,newVal)->{
+		rulerSingleton.getHorizontalCanvasSize().addListener((obs, oldVal, newVal) -> {
 			topRuler.setWidth(newVal.doubleValue());
 			drawTopRuler();
 		});
+
+		drawRulers();
 	}
 
 	private void drawRulers() {
 		zoom = zoomSingleton.getZoomRatio();
-		demiPixel = 0.5 * zoom;
+		demiPixel = defaultDemiPixel * zoom;
 		drawTopRuler();
+		drawLeftRuler();
 	}
 
 	private void drawTopRuler() {
@@ -128,9 +130,11 @@ public class CenterContainerController implements IObserver {
 		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
 		String currentNumberLabel;
 		int currentNumber;
+
 		gc.setStroke(Color.GRAY);
 		gc.save();
 		gc.rotate(-90);
+
 		for (double i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
@@ -138,7 +142,63 @@ public class CenterContainerController implements IObserver {
 					currentNumber = (int) (i / bigSteps);
 					if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
 						currentNumberLabel = String.valueOf(currentNumber);
-						gc.fillText(currentNumberLabel, -h + bigLine + 4, 3.5);
+						gc.fillText(currentNumberLabel, -h + bigLine + 4, labelYOffset);
+					}
+				}
+			}
+		}
+		gc.restore();
+	}
+
+	private void drawLeftRuler() {
+		int w = (int) leftRuler.getWidth();
+		int h = (int) leftRuler.getHeight();
+		double bigSteps = boundingBox.getRulerStep() * zoom;
+		double smallSteps = bigSteps / nbDivisions;
+
+		GraphicsContext gc = leftRuler.getGraphicsContext2D();
+		gc.clearRect(0, 0, w, h);
+		gc.setLineWidth(1);
+
+		drawLeftLines(gc, w, h, bigSteps, smallSteps);
+		drawLeftNumbers(gc, w, h, bigSteps, smallSteps);
+	}
+
+	private void drawLeftLines(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
+		int line;
+		int currentNumber;
+		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		for (double i = 0; i < h; i += smallSteps) {
+			if (i != 0) {
+				if (i % bigSteps == 0) {
+					currentNumber = (int) (i / bigSteps);
+					line = shouldDisplayNumber(numberLabelIsTooBig, currentNumber) ? bigLine : middleLine;
+					gc.setStroke(Color.GRAY);
+					gc.strokeLine(w - line, i - demiPixel, w, i - demiPixel);
+				} else if (i % smallSteps == 0) {
+					gc.setStroke(Color.DARKGRAY);
+					gc.strokeLine(w - smallLine, i - demiPixel, w, i - demiPixel);
+				}
+			}
+		}
+	}
+
+	private void drawLeftNumbers(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
+		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		String currentNumberLabel;
+		int currentNumber;
+
+		gc.setStroke(Color.GRAY);
+		gc.save();
+		for (double i = 0; i < h; i += smallSteps) {
+			if (i != 0) {
+				if (i % bigSteps == 0) {
+					gc.translate(0, bigSteps);
+					currentNumber = (int) (i / bigSteps);
+					if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
+						currentNumberLabel = String.valueOf(currentNumber);
+						gc.fillText(currentNumberLabel, w - bigLine - 6 - 6 * currentNumberLabel.length(),
+								labelYOffset);
 					}
 				}
 			}
@@ -152,10 +212,10 @@ public class CenterContainerController implements IObserver {
 
 	private void collapseRulers() {
 	}
-	
+
 	private void expandRulers() {
 	}
-	
+
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
@@ -164,7 +224,7 @@ public class CenterContainerController implements IObserver {
 			break;
 		case GRID:
 			System.out.println("test");
-			if(boundingBox.getGridMod())
+			if (boundingBox.getGridMod())
 				expandRulers();
 			else
 				collapseRulers();
