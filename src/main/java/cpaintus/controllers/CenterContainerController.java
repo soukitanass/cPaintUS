@@ -5,8 +5,6 @@ import cpaintus.models.ZoomSingleton;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
@@ -96,7 +94,7 @@ public class CenterContainerController implements IObserver {
 	private void drawTopRuler() {
 		int w = (int) topRuler.getWidth();
 		int h = (int) topRuler.getHeight();
-		double bigSteps = boundingBox.getRulerStep() * zoom;
+		double bigSteps = boundingBox.getGridStep() * zoom;
 		double smallSteps = bigSteps / nbDivisions;
 
 		GraphicsContext gc = topRuler.getGraphicsContext2D();
@@ -153,7 +151,7 @@ public class CenterContainerController implements IObserver {
 	private void drawLeftRuler() {
 		int w = (int) leftRuler.getWidth();
 		int h = (int) leftRuler.getHeight();
-		double bigSteps = boundingBox.getRulerStep() * zoom;
+		double bigSteps = boundingBox.getGridStep() * zoom;
 		double smallSteps = bigSteps / nbDivisions;
 
 		GraphicsContext gc = leftRuler.getGraphicsContext2D();
@@ -224,9 +222,10 @@ public class CenterContainerController implements IObserver {
 			break;
 		case GRID:
 			System.out.println("test");
-			if (boundingBox.getGridMod())
+			if (boundingBox.getGridMod()) {
 				expandRulers();
-			else
+				drawRulers();
+			} else
 				collapseRulers();
 			break;
 		default:
