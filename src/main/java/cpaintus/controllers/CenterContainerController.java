@@ -26,6 +26,8 @@ public class CenterContainerController {
 	
 	@FXML
 	public void initialize() {
+		gridPane.setStyle("-fx-focus-color: #C8C7C5;");
+		
 		gridPane.widthProperty().addListener((obs,oldValue,newValue)->{
 			topRuler.setWidth(newValue.doubleValue()-50);
 			drawRulers();
