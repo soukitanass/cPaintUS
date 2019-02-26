@@ -48,12 +48,23 @@ public class CenterContainerController {
 	}
 
 	private void drawRulers() {
+		drawTopRuler();
+	}
+
+	private void drawTopRuler() {
 		int w = (int) topRuler.getWidth();
 		int h = (int) topRuler.getHeight();
 		int bigSteps = boundingBox.getRulerStep();
 		int smallSteps = bigSteps / nbDivisions;
+
 		GraphicsContext gc = topRuler.getGraphicsContext2D();
 		gc.setLineWidth(1);
+
+		drawTopLines(gc, w, h, bigSteps, smallSteps);
+		drawTopNumbers(gc, w, h, bigSteps, smallSteps);
+	}
+
+	private void drawTopLines(GraphicsContext gc, int w, int h, int bigSteps, int smallSteps) {
 		for (int i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
@@ -65,5 +76,22 @@ public class CenterContainerController {
 				}
 			}
 		}
+	}
+
+	private void drawTopNumbers(GraphicsContext gc, int w, int h, int bigSteps, int smallSteps) {
+		String currentNumber;
+		gc.setStroke(Color.GRAY);
+		gc.save();
+		gc.rotate(-90);
+		for (int i = 0; i < w; i += smallSteps) {
+			if (i != 0) {
+				if (i % bigSteps == 0) {
+					gc.translate(0, bigSteps);
+					currentNumber = String.valueOf(i / bigSteps);
+					gc.fillText(currentNumber, -h + bigLine + 4, 3.5);
+				}
+			}
+		}
+		gc.restore();
 	}
 }
