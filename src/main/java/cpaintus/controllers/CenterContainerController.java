@@ -29,8 +29,10 @@ public class CenterContainerController implements IObserver {
 	private ScrollPane topScroll;
 
 	private final int smallLine = 8;
+	private final int middleLine = 12;
 	private final int bigLine = 16;
 	private final int nbDivisions = 4;
+	private final int labelPxTreshold = 10;
 	private double zoom;
 	private double demiPixel;
 	private BoundingBox boundingBox;
@@ -60,7 +62,7 @@ public class CenterContainerController implements IObserver {
 
 	private void drawRulers() {
 		zoom = zoomSingleton.getZoomRatio();
-		demiPixel *= zoom;
+		demiPixel = 0.5 * zoom;
 		drawTopRuler();
 	}
 
@@ -79,11 +81,16 @@ public class CenterContainerController implements IObserver {
 	}
 
 	private void drawTopLines(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
+		int line;
+		int currentNumber;
+		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
 		for (double i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
+					currentNumber = (int) (i / bigSteps);
+					line = shouldDisplayNumber(numberLabelIsTooBig, currentNumber) ? bigLine : middleLine;
 					gc.setStroke(Color.GRAY);
-					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - bigLine);
+					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - line);
 				} else if (i % smallSteps == 0) {
 					gc.setStroke(Color.DARKGRAY);
 					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - smallLine);
@@ -93,7 +100,9 @@ public class CenterContainerController implements IObserver {
 	}
 
 	private void drawTopNumbers(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
-		String currentNumber;
+		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		String currentNumberLabel;
+		int currentNumber;
 		gc.setStroke(Color.GRAY);
 		gc.save();
 		gc.rotate(-90);
@@ -101,12 +110,19 @@ public class CenterContainerController implements IObserver {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
 					gc.translate(0, bigSteps);
-					currentNumber = String.valueOf((int) (i / bigSteps));
-					gc.fillText(currentNumber, -h + bigLine + 4, 3.5);
+					currentNumber = (int) (i / bigSteps);
+					if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
+						currentNumberLabel = String.valueOf(currentNumber);
+						gc.fillText(currentNumberLabel, -h + bigLine + 4, 3.5);
+					}
 				}
 			}
 		}
 		gc.restore();
+	}
+
+	private boolean shouldDisplayNumber(boolean tooBig, int currentNumber) {
+		return !(tooBig && currentNumber % 2 != 0);
 	}
 
 	@Override
