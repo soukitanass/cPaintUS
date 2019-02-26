@@ -37,6 +37,7 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class CenterPaneController implements IObserver {
@@ -61,6 +62,9 @@ public class CenterPaneController implements IObserver {
 
 	@FXML
 	private ScrollPane scrollPane;
+	
+	@FXML
+	private StackPane stackPane;
 
 	private Pointer pointer;
 	private BoundingBox boundingBox;
@@ -68,6 +72,7 @@ public class CenterPaneController implements IObserver {
 	private ShapesDictionnary shapesDict;
 	private DrawerStrategyContext drawerStrategyContext;
 	private SelectShapesSingleton selectShapesSingleton;
+	private RulerSingleton rulerSingleton;
 	private ZoomSingleton zoomSingleton;
 	private Invoker invoker;
 
@@ -83,6 +88,7 @@ public class CenterPaneController implements IObserver {
 		drawerStrategyContext.register(this);
 		shapesDict = ShapesDictionnary.getInstance();
 		shapesDict.register(this);
+		rulerSingleton = RulerSingleton.getInstance();
 		pointer = Pointer.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		boundingBox.register(this);
@@ -142,6 +148,17 @@ public class CenterPaneController implements IObserver {
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 
+		rulerSingleton.getVerticalScrollPosition().bindBidirectional(scrollPane.vvalueProperty());
+		rulerSingleton.getHorizontalScrollPosition().bindBidirectional(scrollPane.hvalueProperty());
+		
+		stackPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+			rulerSingleton.getHorizontalCanvasSize().setValue(newVal.doubleValue());
+		});
+		
+		stackPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+			rulerSingleton.getVerticalCanvasSize().setValue(newVal.doubleValue());
+		});
+		
 		pane.setStyle("-fx-background-color: white");
 		scrollPane.setStyle("-fx-background: #FFFFFF");
 		// configuration of the mouse events

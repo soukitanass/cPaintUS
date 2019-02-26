@@ -13,7 +13,7 @@
 			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
 			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<content>
-				<StackPane>
+				<StackPane fx:id="stackPane">
 					<children>
 						<AnchorPane fx:id="pane" mouseTransparent="true">
 							<children>
