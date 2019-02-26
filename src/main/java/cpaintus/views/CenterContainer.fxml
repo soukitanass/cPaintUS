@@ -20,13 +20,13 @@
 	</rowConstraints>
 	<children>
 		<ScrollPane fx:id="leftScroll" hbarPolicy="ALWAYS"
-			vbarPolicy="NEVER" GridPane.rowIndex="1">
+			vbarPolicy="NEVER" GridPane.rowIndex="1" styleClass="rulers">
 			<content>
 				<Canvas fx:id="leftRuler" height="300.0" width="50.0" />
 			</content>
 		</ScrollPane>
 		<ScrollPane fx:id="topScroll" hbarPolicy="NEVER"
-			vbarPolicy="ALWAYS" GridPane.columnIndex="1">
+			vbarPolicy="ALWAYS" GridPane.columnIndex="1" styleClass="rulers">
 			<content>
 				<Canvas fx:id="topRuler" height="50.0" width="300.0" />
 			</content>
