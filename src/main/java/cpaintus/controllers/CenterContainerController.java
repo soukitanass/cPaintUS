@@ -5,10 +5,15 @@ import cpaintus.models.ZoomSingleton;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 
 public class CenterContainerController implements IObserver {
@@ -27,6 +32,12 @@ public class CenterContainerController implements IObserver {
 
 	@FXML
 	private ScrollPane topScroll;
+	
+	@FXML
+	private RowConstraints firstRow;
+	
+	@FXML
+	private ColumnConstraints firstColumn;
 
 	private final int smallLine = 8;
 	private final int bigLine = 16;
@@ -39,6 +50,7 @@ public class CenterContainerController implements IObserver {
 
 	public CenterContainerController() {
 		boundingBox = BoundingBox.getInstance();
+		boundingBox.register(this);
 		zoomSingleton = ZoomSingleton.getInstance();
 		zoomSingleton.register(this);
 		zoom = 1;
@@ -59,10 +71,16 @@ public class CenterContainerController implements IObserver {
 		});
 		drawRulers();
 		rulerSingleton.getVerticalScrollPosition().bindBidirectional(leftScroll.vvalueProperty());
-		rulerSingleton.getVerticalCanvasSize().addListener((obs,oldVal,newVal)->leftRuler.setHeight(newVal.doubleValue()));
+		rulerSingleton.getVerticalCanvasSize().addListener((obs,oldVal,newVal)->{
+			leftRuler.setHeight(newVal.doubleValue());
+			//drawLeftRuler();
+		});
 		
 		rulerSingleton.getHorizontalScrollPosition().bindBidirectional(topScroll.hvalueProperty());
-		rulerSingleton.getHorizontalCanvasSize().addListener((obs,oldVal,newVal)->topRuler.setWidth(newVal.doubleValue()));
+		rulerSingleton.getHorizontalCanvasSize().addListener((obs,oldVal,newVal)->{
+			topRuler.setWidth(newVal.doubleValue());
+			drawTopRuler();
+		});
 	}
 
 	private void drawRulers() {
@@ -116,11 +134,24 @@ public class CenterContainerController implements IObserver {
 		gc.restore();
 	}
 
+	private void collapseRulers() {
+	}
+	
+	private void expandRulers() {
+	}
+	
 	@Override
 	public void update(ObservableList obs) {
 		switch (obs) {
 		case ZOOM:
 			drawRulers();
+			break;
+		case GRID:
+			System.out.println("test");
+			if(boundingBox.getGridMod())
+				expandRulers();
+			else
+				collapseRulers();
 			break;
 		default:
 			break;

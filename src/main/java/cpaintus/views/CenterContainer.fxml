@@ -9,12 +9,12 @@
 <GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="cpaintus.controllers.CenterContainerController">
 	<columnConstraints>
-		<ColumnConstraints hgrow="SOMETIMES" minWidth="50.0"
+		<ColumnConstraints fx:id="firstColumn" hgrow="SOMETIMES" minWidth="50.0"
 			prefWidth="50.0" />
 		<ColumnConstraints hgrow="SOMETIMES" />
 	</columnConstraints>
 	<rowConstraints>
-		<RowConstraints minHeight="50.0" prefHeight="50.0"
+		<RowConstraints fx:id="firstRow" minHeight="50.0" prefHeight="50.0"
 			vgrow="SOMETIMES" />
 		<RowConstraints vgrow="SOMETIMES" />
 	</rowConstraints>
