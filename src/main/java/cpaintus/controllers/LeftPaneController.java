@@ -633,6 +633,10 @@ public class LeftPaneController implements IObserver {
 	}
 
 	private void selectLastItem(boolean shouldSelect) {
+		if (tree.getRoot() == null) {
+			tree.setRoot(new TreeItem<Shape>());
+			tree.setShowRoot(false);
+		}
 		if (!tree.getRoot().getChildren().isEmpty() && shouldSelect) {
 			if (isGrouping) {
 				ShapesGroup shapeToSelect = selectShapesSingleton.getLastCreatedGroup();
