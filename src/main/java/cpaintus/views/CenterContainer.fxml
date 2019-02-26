@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridPane"
-	xmlns:fx="http://javafx.com/fxml/1"
+<GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="cpaintus.controllers.CenterContainerController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" minWidth="50.0"
@@ -20,14 +19,14 @@
 		<RowConstraints vgrow="SOMETIMES" />
 	</rowConstraints>
 	<children>
-		<ScrollPane fx:id="leftScroll" hbarPolicy="NEVER"
+		<ScrollPane fx:id="leftScroll" hbarPolicy="ALWAYS"
 			vbarPolicy="NEVER" GridPane.rowIndex="1">
 			<content>
 				<Canvas fx:id="leftRuler" height="300.0" width="50.0" />
 			</content>
 		</ScrollPane>
 		<ScrollPane fx:id="topScroll" hbarPolicy="NEVER"
-			vbarPolicy="NEVER" GridPane.columnIndex="1">
+			vbarPolicy="ALWAYS" GridPane.columnIndex="1">
 			<content>
 				<Canvas fx:id="topRuler" height="50.0" width="300.0" />
 			</content>

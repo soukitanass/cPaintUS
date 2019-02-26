@@ -29,9 +29,11 @@ public class CenterContainerController {
 	private final int bigLine = 16;
 	private final int nbDivisions = 4;
 	private BoundingBox boundingBox;
+	private RulerSingleton rulerSingleton;
 
 	public CenterContainerController() {
 		boundingBox = BoundingBox.getInstance();
+		rulerSingleton = RulerSingleton.getInstance();
 	}
 
 	@FXML
@@ -47,6 +49,11 @@ public class CenterContainerController {
 			drawRulers();
 		});
 		drawRulers();
+		rulerSingleton.getVerticalScrollPosition().bindBidirectional(leftScroll.vvalueProperty());
+		rulerSingleton.getVerticalCanvasSize().addListener((obs,oldVal,newVal)->leftRuler.setHeight(newVal.doubleValue()));
+		
+		rulerSingleton.getHorizontalScrollPosition().bindBidirectional(topScroll.hvalueProperty());
+		rulerSingleton.getHorizontalCanvasSize().addListener((obs,oldVal,newVal)->topRuler.setWidth(newVal.doubleValue()));
 	}
 
 	private void drawRulers() {
