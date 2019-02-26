@@ -1,0 +1,9 @@
+.rulers .scroll-bar:vertical {
+	 -fx-opacity: 0.0;
+	 -fx-background-radius: 0em;
+}
+
+.rulers .scroll-bar:horizontal {
+	 -fx-opacity: 0.0;
+	 -fx-background-radius: 0em;
+}

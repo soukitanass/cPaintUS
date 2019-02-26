@@ -2,6 +2,7 @@ package cpaintus;
 
 import java.util.prefs.Preferences;
 
+import cpaintus.controllers.CenterContainerController;
 import cpaintus.controllers.SaveCloseSingleton;
 import cpaintus.controllers.command.Invoker;
 import cpaintus.models.logger.BaseLogger;
@@ -27,6 +28,7 @@ public class Main extends Application {
 		Parent root = loader.load();
 		primaryStage.setTitle("cPaintUS");
 		primaryStage.setScene(new Scene(root, prefs.getDouble("width", 800), prefs.getDouble("height", 600)));
+		primaryStage.getScene().getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
 		primaryStage.setMinWidth(800);
 		primaryStage.setMinHeight(650);
 		primaryStage.show();
