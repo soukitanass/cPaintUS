@@ -35,7 +35,7 @@ public class CenterContainerController implements IObserver {
 
 	@FXML
 	private ColumnConstraints firstColumn;
-
+	
 	private final int smallLine = 8;
 	private final int middleLine = 12;
 	private final int bigLine = 16;
@@ -80,7 +80,9 @@ public class CenterContainerController implements IObserver {
 			topRuler.setWidth(newVal.doubleValue());
 			drawTopRuler();
 		});
-
+		if(!boundingBox.getGridMod()) {
+			collapseRulers();
+		}
 		drawRulers();
 	}
 
@@ -209,9 +211,17 @@ public class CenterContainerController implements IObserver {
 	}
 
 	private void collapseRulers() {
+		firstColumn.setMaxWidth(0);
+		firstColumn.setMinWidth(0);
+		firstRow.setMaxHeight(0);
+		firstRow.setMinHeight(0);
 	}
 
 	private void expandRulers() {
+		firstColumn.setMaxWidth(50);
+		firstColumn.setMinWidth(50);
+		firstRow.setMaxHeight(50);
+		firstRow.setMinHeight(50);
 	}
 
 	@Override
