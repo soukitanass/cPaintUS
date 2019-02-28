@@ -15,7 +15,7 @@ public class GroupCommand extends Command {
 	private boolean firstime = false;
 
 	public GroupCommand() {
-		setCommandID("Group");
+		setCommandID("Group n°" + new String(shapesGroup.getShapeId()) );
 		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
