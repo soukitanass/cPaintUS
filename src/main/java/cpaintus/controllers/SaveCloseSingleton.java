@@ -97,11 +97,19 @@ public class SaveCloseSingleton {
 				FileContext.save(FileContext.types.XML, null, selectedFile.getAbsolutePath());
 				prefs.put(WORKDIR, selectedFile.getParent());
 			} else {
+				boolean gridmod = false;
 				BoundingBox.getInstance().setVisible(false);
+				if (BoundingBox.getInstance().getGridMod()) {
+					BoundingBox.getInstance().setGridMod(false);
+					gridmod = true;
+				}
 				BufferedImage image = SwingFXUtils.fromFXImage(
 						snapshotSingleton.getSnapshotPane().snapshot(new SnapshotParameters(), null), null);
 				FileContext.save(FileContext.types.PNG, image, selectedFile.getAbsolutePath());
 				prefs.put(WORKDIR, selectedFile.getParent());
+				BoundingBox.getInstance().setVisible(true);
+				if (gridmod)
+					BoundingBox.getInstance().setGridMod(true);
 			}
 		}
 	}
