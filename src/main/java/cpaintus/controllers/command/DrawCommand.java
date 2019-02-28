@@ -1,6 +1,7 @@
 package cpaintus.controllers.command;
 
 import cpaintus.controllers.drawers.DrawerStrategyContext;
+import cpaintus.models.BoundingBox;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.scene.canvas.Canvas;
@@ -39,6 +40,7 @@ public class DrawCommand extends Command{
 	public void undo() {
 		pane.getChildren().remove(activeCanvas);
 		shapesDict.removeShape(shape);
+		BoundingBox.getInstance().setVisible(false);
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
+import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeType;
@@ -39,7 +40,7 @@ public class EditGroupCommand extends Command {
 
 	public void setShapeToEdit(Shape shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("EditGroup "+ editType + ((ShapesGroup)shapeToEdit).getShapes().toString());
+		setCommandID("EditGroup "+ editType + " : " + shapeToEdit.getShapeId());
 	}
 
 	public Shape getOldShape() {
@@ -74,6 +75,7 @@ public class EditGroupCommand extends Command {
 			}
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
+
 	}
 
 	@Override
@@ -95,6 +97,7 @@ public class EditGroupCommand extends Command {
 			}
 			drawerStrategyContext.draw(shape, activeCanvas);
 		}
+
 	}
 
 }

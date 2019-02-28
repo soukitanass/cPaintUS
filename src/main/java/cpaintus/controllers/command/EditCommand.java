@@ -65,6 +65,7 @@ public class EditCommand extends Command {
 		}
 		updateBoundingBox(shapeToEdit);
 		drawerStrategyContext.draw(shapeToEdit, activeCanvas);
+
 	}
 
 	public void undo() {
