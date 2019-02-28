@@ -17,7 +17,7 @@ public class BoundingBox extends Observable<IObserver> {
 	private Preferences prefs;
 
 	private boolean gridMod;
-	private double gridStep;
+	private int gridStep;
 	private boolean followGrid;
 
 	private static class SingletonHelper {
@@ -31,7 +31,7 @@ public class BoundingBox extends Observable<IObserver> {
 		oppositeCorner = new Point();
 		rotation = 0;
 
-		gridStep = prefs.getDouble(GRIDSTEP_PREFS, 25);
+		gridStep = prefs.getInt(GRIDSTEP_PREFS, 20);
 		gridMod = prefs.getBoolean(GRIDMOD_PREFS, false);
 	}
 
@@ -149,13 +149,13 @@ public class BoundingBox extends Observable<IObserver> {
 		notifyGridObservers();
 	}
 
-	public double getGridStep() {
+	public int getGridStep() {
 		return gridStep;
 	}
 
-	public void setGridStep(double gridStep) {
+	public void setGridStep(int gridStep) {
 		this.gridStep = gridStep;
-		prefs.putDouble(GRIDSTEP_PREFS, gridStep);
+		prefs.putInt(GRIDSTEP_PREFS, gridStep);
 		notifyGridObservers();
 	}
 

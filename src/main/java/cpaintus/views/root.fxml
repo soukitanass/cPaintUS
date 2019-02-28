@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
@@ -9,7 +10,8 @@
 	fx:controller="cpaintus.controllers.RootController">
 
 	<center>
-		<fx:include fx:id="centerPane" source="CenterPane.fxml" />
+		<fx:include fx:id="centerPane"
+			source="CenterContainer.fxml" />
 	</center>
 	<bottom>
 		<fx:include fx:id="bottomPane" source="BottomPane.fxml" />

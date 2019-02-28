@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="gridPane" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="cpaintus.controllers.CenterContainerController">
+	<columnConstraints>
+		<ColumnConstraints fx:id="firstColumn" hgrow="SOMETIMES" minWidth="50.0"
+			prefWidth="50.0" />
+		<ColumnConstraints hgrow="SOMETIMES" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints fx:id="firstRow" minHeight="50.0" prefHeight="50.0"
+			vgrow="SOMETIMES" />
+		<RowConstraints vgrow="SOMETIMES" />
+	</rowConstraints>
+	<children>
+		<ScrollPane fx:id="leftScroll" hbarPolicy="ALWAYS"
+			vbarPolicy="NEVER" GridPane.rowIndex="1" styleClass="rulers">
+			<content>
+				<Canvas fx:id="leftRuler" height="300.0" width="48.0" />
+			</content>
+		</ScrollPane>
+		<ScrollPane fx:id="topScroll" hbarPolicy="NEVER"
+			vbarPolicy="ALWAYS" GridPane.columnIndex="1" styleClass="rulers">
+			<content>
+				<Canvas fx:id="topRuler" height="48.0" width="300.0" />
+			</content>
+		</ScrollPane>
+		<fx:include fx:id="centerPane" source="CenterPane.fxml"
+			GridPane.columnIndex="1" GridPane.halignment="LEFT"
+			GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1"
+			GridPane.valignment="TOP" GridPane.vgrow="SOMETIMES" />
+	</children>
+</GridPane>
