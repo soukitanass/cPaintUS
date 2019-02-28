@@ -389,8 +389,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		shapeToEdit.setLineWidth(newWidth);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Line Width");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 
 	}
@@ -405,8 +405,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		((Shape2D) shapeToEdit).setFillColor(color);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Fillcolor");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 
 	}
@@ -422,8 +422,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		shapeToEdit.setStrokeColor(color);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Strokecolor");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 
 	}
@@ -441,8 +441,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		((Text) shapeToEdit).setText(editedText);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Text");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 
 	}
@@ -530,8 +530,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		shapeToEdit.setWidth(newWidth);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Width");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 
 	}
@@ -549,8 +549,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		shapeToEdit.setHeight(newHeight);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Height");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 
 	}
@@ -568,8 +568,8 @@ public class LeftPaneController implements IObserver {
 		Shape oldShape = shapeToEdit.makeCopy();
 		editCommand.setOldShape(oldShape);
 		shapeToEdit.setRotation(newRotation);
-		editCommand.setShapeToEdit(shapeToEdit);
 		editCommand.setEditType("Rotate");
+		editCommand.setShapeToEdit(shapeToEdit);
 		invoker.execute(editCommand);
 	}
 

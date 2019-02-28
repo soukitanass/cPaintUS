@@ -47,7 +47,7 @@ public class EditCommand extends Command {
 
 	public void setShapeToEdit(Shape shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("Edit "+ editType +" :" + new String(shapeToEdit.toString()));
+		setCommandID("Edit "+ editType +" : " + new String(shapeToEdit.toString()));
 	}
 
 	public void setOldShape(Shape oldShape) {
