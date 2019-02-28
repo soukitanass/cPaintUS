@@ -15,7 +15,6 @@ public class GroupCommand extends Command {
 	private boolean firstime = false;
 
 	public GroupCommand() {
-		setCommandID("Group");
 		shapesDict = ShapesDictionnary.getInstance();
 		boundingBox = BoundingBox.getInstance();
 		selectShapesSingleton = SelectShapesSingleton.getInstance();
@@ -29,6 +28,7 @@ public class GroupCommand extends Command {
 	public void execute() {
 		if (firstime) {
 			shapesGroup = new ShapesGroup();
+			setCommandID("Created " + new String(shapesGroup.getShapeId()) );
 
 			for (Shape shape : shapesDict.getShapesList()) {
 				if (shape.getUpLeftCorner().getX() >= boundingBox.getUpLeftCorner().getX()

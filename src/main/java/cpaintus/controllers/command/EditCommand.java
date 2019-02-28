@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class EditCommand extends Command {
 
+	private String editType = "";
 	private SnapshotSingleton snapshotSingleton;
 	private BoundingBox boundingBox;
 	private Shape shapeToEdit;
@@ -28,6 +29,14 @@ public class EditCommand extends Command {
 		pane = snapshotSingleton.getSnapshotPane();
 	}
 
+	public String getEditType() {
+		return editType;
+	}
+
+	public void setEditType(String editType) {
+		this.editType = editType;
+	}
+
 	public Shape getShapeToEdit() {
 		return shapeToEdit;
 	}
@@ -38,7 +47,7 @@ public class EditCommand extends Command {
 
 	public void setShapeToEdit(Shape shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("Edit " + new String(shapeToEdit.toString()));
+		setCommandID("Edit "+ editType +" : " + new String(shapeToEdit.toString()));
 	}
 
 	public void setOldShape(Shape oldShape) {
@@ -56,6 +65,7 @@ public class EditCommand extends Command {
 		}
 		updateBoundingBox(shapeToEdit);
 		drawerStrategyContext.draw(shapeToEdit, activeCanvas);
+
 	}
 
 	public void undo() {
