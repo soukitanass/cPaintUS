@@ -11,7 +11,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.AnchorPane;
 
 public class EditGroupCommand extends Command {
-
+	
+	private String editType = "";
 	private EditCommand command;
 	private Shape shapeToEdit;
 	private Shape oldShape;
@@ -19,6 +20,10 @@ public class EditGroupCommand extends Command {
 	private Canvas activeCanvas;
 	private DrawerStrategyContext drawerStrategyContext;
 	private AnchorPane pane;
+
+	public void setEditType(String editType) {
+		this.editType = editType;
+	}
 
 	public EditCommand getCommand() {
 		return command;
@@ -34,7 +39,7 @@ public class EditGroupCommand extends Command {
 
 	public void setShapeToEdit(Shape shapeToEdit) {
 		this.shapeToEdit = shapeToEdit;
-		setCommandID("EditGroup " + ((ShapesGroup)shapeToEdit).getShapes().toString());
+		setCommandID("EditGroup "+ editType + ((ShapesGroup)shapeToEdit).getShapes().toString());
 	}
 
 	public Shape getOldShape() {

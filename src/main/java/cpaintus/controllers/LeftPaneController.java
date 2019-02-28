@@ -469,6 +469,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			editGroupCommand.setOldShape(oldShape);
 			shapeToEdit.setUpLeftCornerX(newX);
+			editGroupCommand.setEditType("X");
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
@@ -497,6 +498,7 @@ public class LeftPaneController implements IObserver {
 			editGroupCommand.setCommandID("Edit Group :" + shapeToEdit.getShapeId());
 			editGroupCommand.setOldShape(oldShape);
 			shapeToEdit.setUpLeftCornerY(newY);
+			editGroupCommand.setEditType("Y");
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 			updateBoundingBox(shapeToEdit);
@@ -783,6 +785,7 @@ public class LeftPaneController implements IObserver {
 			Shape oldShape = shapeToEdit.makeCopy();
 			editCommand.setOldShape(oldShape);
 			shapeToEdit.flipHorizontally();
+			editCommand.setEditType("Horizontal Flip");
 			editCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editCommand);
 		} else {
@@ -790,6 +793,7 @@ public class LeftPaneController implements IObserver {
 			Shape oldShape = shapeToEdit.makeCopy();
 			editGroupCommand.setOldShape(oldShape);
 			shapeToEdit.flipHorizontally();
+			editGroupCommand.setEditType("Horizontal Flip");
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 		}
@@ -802,6 +806,7 @@ public class LeftPaneController implements IObserver {
 			Shape oldShape = shapeToEdit.makeCopy();
 			editCommand.setOldShape(oldShape);
 			shapeToEdit.flipVertically();
+			editCommand.setEditType("Vertical Flip");
 			editCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editCommand);
 		} else {
@@ -809,6 +814,7 @@ public class LeftPaneController implements IObserver {
 			Shape oldShape = shapeToEdit.makeCopy();
 			editGroupCommand.setOldShape(oldShape);
 			shapeToEdit.flipVertically();
+			editGroupCommand.setEditType("Vertical Flip");
 			editGroupCommand.setShapeToEdit(shapeToEdit);
 			invoker.execute(editGroupCommand);
 		}
