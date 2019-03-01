@@ -83,7 +83,7 @@ public class ShapesDictionnary extends Observable<IObserver> {
 	}
 
 	public void addShape(Shape shape, List<ShapesGroup> parents) {
-		if (parents != null && !parents.isEmpty()) {
+		if (!parents.isEmpty()) {
 			for (ShapesGroup parent : parents) {
 				parent.add(shape);
 			}
