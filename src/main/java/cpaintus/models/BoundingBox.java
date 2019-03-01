@@ -61,7 +61,7 @@ public class BoundingBox extends Observable<IObserver> {
 	}
 
 	private double roundForGrid(double input) {
-		return Math.round((input / gridStep)) * gridStep;
+		return Math.round((input / gridStep)) * (double)gridStep;
 	}
 
 	public void setOrigin(Point origin) {

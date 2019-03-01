@@ -28,7 +28,7 @@ import javafx.stage.WindowEvent;
 @ExtendWith(ApplicationExtension.class)
 public class LoadStage {
 
-	public static void loadApplication(Stage stage,FXMLLoader loader) {
+	public static void loadApplication(Stage stage, FXMLLoader loader) {
 		Parent root;
 		try {
 			root = loader.load();
@@ -58,7 +58,7 @@ public class LoadStage {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void createShape(FxRobot robot) {
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
 		DrawSettings drawSettings = DrawSettings.getInstance();

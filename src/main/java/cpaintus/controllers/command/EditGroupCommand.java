@@ -4,7 +4,6 @@ import java.util.List;
 
 import cpaintus.controllers.SnapshotSingleton;
 import cpaintus.controllers.drawers.DrawerStrategyContext;
-import cpaintus.models.BoundingBox;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeType;

@@ -35,14 +35,14 @@ public class CenterContainerController implements IObserver {
 
 	@FXML
 	private ColumnConstraints firstColumn;
-	
-	private final int smallLine = 8;
-	private final int middleLine = 12;
-	private final int bigLine = 16;
-	private final int nbDivisions = 4;
-	private final int labelPxTreshold = 10;
-	private final double labelYOffset = 3.5;
-	private final double defaultDemiPixel = 0.5;
+
+	private static final int SMALLLINE = 8;
+	private static final int MIDDLELINE = 12;
+	private static final int BIGLINE = 16;
+	private static final int NB_DIVISIONS = 4;
+	private static final int LABEL_PXTRESHOLD = 10;
+	private static final double LABEL_Y_OFFSET = 3.5;
+	private static final double DEFAULT_DEMI_PIXEL = 0.5;
 	private double zoom;
 	private double demiPixel;
 	private BoundingBox boundingBox;
@@ -56,7 +56,7 @@ public class CenterContainerController implements IObserver {
 		zoomSingleton.register(this);
 		rulerSingleton = RulerSingleton.getInstance();
 		zoom = 1;
-		demiPixel = defaultDemiPixel;
+		demiPixel = DEFAULT_DEMI_PIXEL;
 	}
 
 	@FXML
@@ -80,7 +80,7 @@ public class CenterContainerController implements IObserver {
 			topRuler.setWidth(newVal.doubleValue());
 			drawTopRuler();
 		});
-		if(!boundingBox.getGridMod()) {
+		if (!boundingBox.getGridMod()) {
 			collapseRulers();
 		}
 		drawRulers();
@@ -88,7 +88,7 @@ public class CenterContainerController implements IObserver {
 
 	private void drawRulers() {
 		zoom = zoomSingleton.getZoomRatio();
-		demiPixel = defaultDemiPixel * zoom;
+		demiPixel = DEFAULT_DEMI_PIXEL * zoom;
 		drawTopRuler();
 		drawLeftRuler();
 	}
@@ -97,7 +97,7 @@ public class CenterContainerController implements IObserver {
 		int w = (int) topRuler.getWidth();
 		int h = (int) topRuler.getHeight();
 		double bigSteps = boundingBox.getGridStep() * zoom;
-		double smallSteps = bigSteps / nbDivisions;
+		double smallSteps = bigSteps / NB_DIVISIONS;
 
 		GraphicsContext gc = topRuler.getGraphicsContext2D();
 		gc.clearRect(0, 0, w, h);
@@ -110,24 +110,24 @@ public class CenterContainerController implements IObserver {
 	private void drawTopLines(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
 		int line;
 		int currentNumber;
-		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		boolean numberLabelIsTooBig = bigSteps < LABEL_PXTRESHOLD;
 		for (double i = 0; i < w; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
 					currentNumber = (int) (i / bigSteps);
-					line = shouldDisplayNumber(numberLabelIsTooBig, currentNumber) ? bigLine : middleLine;
+					line = shouldDisplayNumber(numberLabelIsTooBig, currentNumber) ? BIGLINE : MIDDLELINE;
 					gc.setStroke(Color.GRAY);
 					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - line);
 				} else if (i % smallSteps == 0) {
 					gc.setStroke(Color.DARKGRAY);
-					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - smallLine);
+					gc.strokeLine(i - demiPixel, h, i - demiPixel, h - SMALLLINE);
 				}
 			}
 		}
 	}
 
 	private void drawTopNumbers(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
-		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		boolean numberLabelIsTooBig = bigSteps < LABEL_PXTRESHOLD;
 		String currentNumberLabel;
 		int currentNumber;
 
@@ -136,14 +136,13 @@ public class CenterContainerController implements IObserver {
 		gc.rotate(-90);
 
 		for (double i = 0; i < w; i += smallSteps) {
-			if (i != 0) {
-				if (i % bigSteps == 0) {
-					gc.translate(0, bigSteps);
-					currentNumber = (int) (i / bigSteps);
-					if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
-						currentNumberLabel = String.valueOf(currentNumber);
-						gc.fillText(currentNumberLabel, -h + bigLine + 4, labelYOffset);
-					}
+			if (i != 0 && i % bigSteps == 0) {
+
+				gc.translate(0, bigSteps);
+				currentNumber = (int) (i / bigSteps);
+				if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
+					currentNumberLabel = String.valueOf(currentNumber);
+					gc.fillText(currentNumberLabel, -h + BIGLINE + 4, LABEL_Y_OFFSET);
 				}
 			}
 		}
@@ -154,7 +153,7 @@ public class CenterContainerController implements IObserver {
 		int w = (int) leftRuler.getWidth();
 		int h = (int) leftRuler.getHeight();
 		double bigSteps = boundingBox.getGridStep() * zoom;
-		double smallSteps = bigSteps / nbDivisions;
+		double smallSteps = bigSteps / NB_DIVISIONS;
 
 		GraphicsContext gc = leftRuler.getGraphicsContext2D();
 		gc.clearRect(0, 0, w, h);
@@ -167,39 +166,36 @@ public class CenterContainerController implements IObserver {
 	private void drawLeftLines(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
 		int line;
 		int currentNumber;
-		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		boolean numberLabelIsTooBig = bigSteps < LABEL_PXTRESHOLD;
 		for (double i = 0; i < h; i += smallSteps) {
 			if (i != 0) {
 				if (i % bigSteps == 0) {
 					currentNumber = (int) (i / bigSteps);
-					line = shouldDisplayNumber(numberLabelIsTooBig, currentNumber) ? bigLine : middleLine;
+					line = shouldDisplayNumber(numberLabelIsTooBig, currentNumber) ? BIGLINE : MIDDLELINE;
 					gc.setStroke(Color.GRAY);
 					gc.strokeLine(w - line, i - demiPixel, w, i - demiPixel);
 				} else if (i % smallSteps == 0) {
 					gc.setStroke(Color.DARKGRAY);
-					gc.strokeLine(w - smallLine, i - demiPixel, w, i - demiPixel);
+					gc.strokeLine(w - SMALLLINE, i - demiPixel, w, i - demiPixel);
 				}
 			}
 		}
 	}
 
 	private void drawLeftNumbers(GraphicsContext gc, int w, int h, double bigSteps, double smallSteps) {
-		boolean numberLabelIsTooBig = bigSteps < labelPxTreshold;
+		boolean numberLabelIsTooBig = bigSteps < LABEL_PXTRESHOLD;
 		String currentNumberLabel;
 		int currentNumber;
 
 		gc.setStroke(Color.GRAY);
 		gc.save();
 		for (double i = 0; i < h; i += smallSteps) {
-			if (i != 0) {
-				if (i % bigSteps == 0) {
-					gc.translate(0, bigSteps);
-					currentNumber = (int) (i / bigSteps);
-					if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
-						currentNumberLabel = String.valueOf(currentNumber);
-						gc.fillText(currentNumberLabel, w - bigLine - 6 - 6 * currentNumberLabel.length(),
-								labelYOffset);
-					}
+			if (i != 0 && i % bigSteps == 0) {
+				gc.translate(0, bigSteps);
+				currentNumber = (int) (i / bigSteps);
+				if (shouldDisplayNumber(numberLabelIsTooBig, currentNumber)) {
+					currentNumberLabel = String.valueOf(currentNumber);
+					gc.fillText(currentNumberLabel, w - BIGLINE - 6 - 6 * currentNumberLabel.length(), LABEL_Y_OFFSET);
 				}
 			}
 		}

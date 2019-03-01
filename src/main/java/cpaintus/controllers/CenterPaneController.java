@@ -151,13 +151,13 @@ public class CenterPaneController implements IObserver {
 		rulerSingleton.getVerticalScrollPosition().bindBidirectional(scrollPane.vvalueProperty());
 		rulerSingleton.getHorizontalScrollPosition().bindBidirectional(scrollPane.hvalueProperty());
 		
-		stackPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-			rulerSingleton.getHorizontalCanvasSize().setValue(newVal.doubleValue());
-		});
+		stackPane.widthProperty().addListener((obs, oldVal, newVal) -> 
+			rulerSingleton.getHorizontalCanvasSize().setValue(newVal.doubleValue())
+		);
 		
-		stackPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-			rulerSingleton.getVerticalCanvasSize().setValue(newVal.doubleValue());
-		});
+		stackPane.heightProperty().addListener((obs, oldVal, newVal) -> 
+			rulerSingleton.getVerticalCanvasSize().setValue(newVal.doubleValue())
+		);
 		
 		pane.setStyle("-fx-background-color: white");
 		scrollPane.setStyle("-fx-background: #FFFFFF");
@@ -168,12 +168,12 @@ public class CenterPaneController implements IObserver {
 		boundingBoxCanvas.setMouseTransparent(true);
 		SnapshotSingleton.getInstance().setSnapshotPane(pane);
 		drawGrid();
-		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
-			drawSnapshot();
-		});
-		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> {
-			drawSnapshot();
-		});
+		scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> 
+			drawSnapshot()
+		);
+		scrollPane.heightProperty().addListener((obs, oldVal, newVal) -> 
+			drawSnapshot()
+		);
 		snapshotCanvas.getGraphicsContext2D().scale(zoomSingleton.getDynamicZoom(), zoomSingleton.getDynamicZoom());
 		drawSnapshot();
 
