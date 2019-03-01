@@ -34,13 +34,16 @@ class EditShapeYPositionTest {
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
 		LoadStage.createShape(robot);
 		TextField editY = robot.lookup("#editY").query();
-		robot.clickOn("#attributes");
 		editY.clear();
+		robot.clickOn("#attributes");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
 		robot.clickOn("#editY");
 		robot.write("140");
 		robot.type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
+		
 		assertEquals(140, shapesDict.getLastCreatedShape().getY());
 	}
 

@@ -17,7 +17,6 @@ import cpaintus.models.shapes.Shape2D;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -37,7 +36,13 @@ class EditShapeFillColorTest {
 		LoadStage.createShape(robot);
 		ColorPicker colorPicker = robot.lookup("#editFillColor").query();
 		robot.clickOn("#attributes");
-		robot.clickOn("#editFillColor").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.clickOn("#editFillColor");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.moveBy(0, 100);
+		robot.clickOn();
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
 		Color selectedColor = colorPicker.getValue();

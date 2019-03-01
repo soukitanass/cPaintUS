@@ -36,6 +36,8 @@ class EditShapeLineWidthTest {
 		ComboBox<String> editLineWidth = robot.lookup("#editLineWidth").query();
 
 		robot.clickOn("#attributes");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
 		robot.clickOn("#editLineWidth").type(KeyCode.DOWN).type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);

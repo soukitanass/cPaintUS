@@ -16,7 +16,6 @@ import org.testfx.util.WaitForAsyncUtils;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -36,7 +35,13 @@ class EditShapeStokeColorTest {
 		LoadStage.createShape(robot);
 		ColorPicker colorPicker = robot.lookup("#editStrokeColor").query();
 		robot.clickOn("#attributes");
-		robot.clickOn("#editStrokeColor").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.clickOn("#editStrokeColor");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.moveBy(0, 100);
+		robot.clickOn();
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
 		Color selectedColor = colorPicker.getValue();

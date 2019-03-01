@@ -123,7 +123,57 @@ class ShapesGroupTest {
 		assertEquals((6 + (22 + 320)) / 2, center.getX());
 		assertEquals((11 + (13 + 130)) / 2, center.getY());
 	}
-
+	
+	@Test
+	void setWidth() {
+		addShapes();
+		shapesGroup.setWidth(100);
+		
+		for (Shape shape : shapesGroup.getShapes()) {
+			assertEquals(100, shape.getWidth());
+		}
+	}
+	
+	@Test
+	void setHeight() {
+		addShapes();
+		shapesGroup.setHeight(100);
+		
+		for (Shape shape : shapesGroup.getShapes()) {
+			assertEquals(100, shape.getHeight());
+		}
+	}
+	
+	@Test
+	void makeCopy() {
+		addShapes();
+		ShapesGroup copy = shapesGroup.makeCopy();
+		
+		for (int i = 0 ; i < shapesGroup.getShapes().size() ; i++) {
+			assertEquals(shapesGroup.getShapes().get(i).getShapeId(), copy.getShapes().get(i).getShapeId());
+		}
+	}
+	
+	@Test
+	void flipHorizontally() {
+		addShapes();
+		shapesGroup.flipHorizontally();
+		
+		for (Shape shape : shapesGroup.getShapes()) {
+			assertTrue(shape.isFlippedHorizontally());
+		}
+	}
+	
+	@Test
+	void flipVertically() {
+		addShapes();
+		shapesGroup.flipVertically();
+		
+		for (Shape shape : shapesGroup.getShapes()) {
+			assertTrue(shape.isFlippedVertically());
+		}
+	}
+	
 	void addShapes() {
 		shapesGroup.add(ShapeFactory.getShape(ShapeType.RECTANGLE, true, 3, new Point(6, 11), new Point(0, 0),
 				new Size(200, 10), 0, new Stroke(1, "#ff1ff"), "#fff56", "", "test"));

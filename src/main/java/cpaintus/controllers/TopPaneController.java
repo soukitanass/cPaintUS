@@ -17,7 +17,9 @@ import cpaintus.controllers.popup.PopupEnvironment;
 import cpaintus.models.savestrategy.FileContext;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -35,6 +37,12 @@ public class TopPaneController {
 	private PopupBuilder popupBuilder;
 	@FXML
 	private MenuBar menuBar;
+	@FXML
+	private Menu editMenu;
+	@FXML
+	private MenuItem undo;
+	@FXML
+	private MenuItem redo;
 
 	private ShapesDictionnary shapesDict;
 

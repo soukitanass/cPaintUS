@@ -34,8 +34,10 @@ class EditShapeXPositionTest {
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
 		LoadStage.createShape(robot);
 		TextField editX = robot.lookup("#editX").query();
-		robot.clickOn("#attributes");
 		editX.clear();
+		robot.clickOn("#attributes");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
 		robot.clickOn("#editX");
 		robot.write("140");
 		robot.type(KeyCode.ENTER);
