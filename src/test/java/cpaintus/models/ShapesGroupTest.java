@@ -1,6 +1,7 @@
 package cpaintus.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,23 @@ class ShapesGroupTest {
 		assertEquals(2, shapesGroup.getShapes().size());
 
 	}
+	
+	@Test
+	void testAddGroup() {
+		Shape shape = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh");
+		shapesGroup.add(shape);
+		
+		assertEquals(1, shapesGroup.getShapes().size());
+		assertSame(shape, shapesGroup.getShapes().get(0));
+		
+		ShapesGroup childGroup = new ShapesGroup();
+		childGroup.add(shape);
+		shapesGroup.add(childGroup);
+		
+		assertEquals(1, shapesGroup.getShapes().size());
+		assertSame(childGroup, shapesGroup.getShapes().get(0));
+	}
 
 	@Test
 	void testRemove() {
@@ -43,7 +61,19 @@ class ShapesGroupTest {
 		assertEquals(1, shapesGroup.getShapes().size());
 		shapesGroup.remove(shape);
 		assertTrue(shapesGroup.getShapes().isEmpty());
-
+	}
+	
+	@Test
+	void testRemoveGroup() {
+		Shape shape = ShapeFactory.getShape(ShapeType.RECTANGLE, true, 0, new Point(0, 11), new Point(0, 0),
+				new Size(1, 10), 100, new Stroke(1, "#fff"), "#fff", "", "hh");
+		
+		ShapesGroup childGroup = new ShapesGroup();
+		childGroup.add(shape);
+		shapesGroup.remove(childGroup);
+		
+		assertEquals(1, shapesGroup.getShapes().size());
+		assertSame(shape, shapesGroup.getShapes().get(0));
 	}
 
 	@Test
