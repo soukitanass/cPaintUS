@@ -37,11 +37,11 @@ class EditShapeYPositionTest {
 		robot.clickOn("#attributes");
 		editY.clear();
 		robot.clickOn("#editY");
-		editY.setText("140");
+		robot.write("140");
 		robot.type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
-		assertEquals(140, shapesDict.getShapesList().get(0).getY());
+		assertEquals(140, shapesDict.getLastCreatedShape().getY());
 	}
 
 	@AfterEach

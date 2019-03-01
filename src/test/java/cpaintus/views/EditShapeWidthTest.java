@@ -78,7 +78,7 @@ class EditShapeWidthTest {
 		robot.type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
-		assertEquals(140, shapesDict.getShapesList().get(0).getWidth());
+		assertEquals(140, shapesDict.getLastCreatedShape().getWidth());
 
 	}
 

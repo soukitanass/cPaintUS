@@ -41,7 +41,7 @@ class EditShapeXPositionTest {
 		robot.type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
-		assertEquals(140, shapesDict.getShapesList().get(0).getX());
+		assertEquals(140, shapesDict.getLastCreatedShape().getX());
 	}
 
 	@AfterEach

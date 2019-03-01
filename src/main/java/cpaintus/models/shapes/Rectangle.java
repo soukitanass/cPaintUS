@@ -9,10 +9,6 @@ public class Rectangle extends Shape2D {
 		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
 	}
 
-	public Rectangle() {
-
-	}
-
 	@Override
 	public Rectangle makeCopy() {
 		return new Rectangle(this.getShapeType(), this.getShapeId(), this.getCanvasHash(),

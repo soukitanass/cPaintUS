@@ -78,7 +78,7 @@ class EditShapeRotationTest {
 		robot.type(KeyCode.ENTER);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
-		assertEquals(140, shapesDict.getShapesList().get(0).getRotation());
+		assertEquals(140, shapesDict.getLastCreatedShape().getRotation());
 	}
 
 	@AfterEach
