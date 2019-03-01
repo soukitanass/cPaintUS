@@ -15,7 +15,7 @@ public class ShapeFactory {
 	private int textNb;
 	private int totalShapeNb;
 
-	private static HashMap<ShapeType, ShapeFunctionalInterface> creatorDictionary = new HashMap<>();;
+	private static HashMap<ShapeType, ShapeFunctionalInterface> creatorDictionary = new HashMap<>();
 
 	private ShapeFactory() {
 		rectangleNb = 0;
