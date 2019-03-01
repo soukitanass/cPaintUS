@@ -8,6 +8,9 @@ public class Rectangle extends Shape2D {
 			Stroke stroke, String fillColor, Size size) {
 		super(shapeType, shapeId, canvasHash, position, z, rotation, stroke, fillColor, size);
 	}
+	
+	public Rectangle() {
+	}
 
 	@Override
 	public Rectangle makeCopy() {

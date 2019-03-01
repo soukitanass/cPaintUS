@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import cpaintus.models.composite.ShapesGroup;
 import cpaintus.models.observable.IObserver;
 import cpaintus.models.observable.ObservableList;
-import cpaintus.models.shapes.Rectangle;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
