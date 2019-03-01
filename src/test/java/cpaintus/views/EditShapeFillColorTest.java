@@ -17,7 +17,6 @@ import cpaintus.models.shapes.Shape2D;
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 

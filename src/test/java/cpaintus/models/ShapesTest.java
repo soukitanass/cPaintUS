@@ -1,17 +1,15 @@
 package cpaintus.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import cpaintus.models.shapes.Text;
 import cpaintus.models.shapes.Shape;
 import cpaintus.models.shapes.ShapeFactory;
 import cpaintus.models.shapes.ShapeType;
 import cpaintus.models.shapes.Size;
 import cpaintus.models.shapes.Stroke;
+import cpaintus.models.shapes.Text;
 
 class ShapesTest {
 	@Test
