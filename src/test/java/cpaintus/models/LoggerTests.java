@@ -55,7 +55,7 @@ class LoggerTests {
 		
 		consoleLogger.setNext(fileLogger);
 		consoleLogger.message(msg);
-		assertEquals(msg + "\r\n", outContent.toString());
+		assertTrue(outContent.toString().contains(msg));
 		
 		File directory = new File("./events");
 		assertTrue(directory.isDirectory());

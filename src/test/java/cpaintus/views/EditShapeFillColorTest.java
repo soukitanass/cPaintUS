@@ -48,7 +48,7 @@ class EditShapeFillColorTest {
 		Color selectedColor = colorPicker.getValue();
 		String fillColor = String.format("#%02X%02X%02X", (int) (selectedColor.getRed() * 255),
 				(int) (selectedColor.getGreen() * 255), (int) (selectedColor.getBlue() * 255));
-		assertEquals(fillColor, ((Shape2D) shapesDict.getShapesList().get(0)).getFillColor());
+		assertEquals(fillColor, ((Shape2D) shapesDict.getLastCreatedShape()).getFillColor());
 
 	}
 

@@ -43,7 +43,7 @@ class EditShapeLineWidthTest {
 		robot.sleep(1000);
 		String widthStr = editLineWidth.getValue().replaceAll("[^0-9]", "");
 		int newWidth = Integer.parseInt(widthStr);
-		assertEquals(newWidth, shapesDict.getShapesList().get(0).getLineWidth());
+		assertEquals(newWidth, shapesDict.getLastCreatedShape().getLineWidth());
 
 	}
 
