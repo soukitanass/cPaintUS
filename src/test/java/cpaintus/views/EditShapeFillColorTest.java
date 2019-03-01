@@ -37,7 +37,13 @@ class EditShapeFillColorTest {
 		LoadStage.createShape(robot);
 		ColorPicker colorPicker = robot.lookup("#editFillColor").query();
 		robot.clickOn("#attributes");
-		robot.clickOn("#editFillColor").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.clickOn("#editFillColor");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.moveBy(0, 100);
+		robot.clickOn();
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
 		Color selectedColor = colorPicker.getValue();

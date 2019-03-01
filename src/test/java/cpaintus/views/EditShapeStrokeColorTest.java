@@ -36,7 +36,13 @@ class EditShapeStokeColorTest {
 		LoadStage.createShape(robot);
 		ColorPicker colorPicker = robot.lookup("#editStrokeColor").query();
 		robot.clickOn("#attributes");
-		robot.clickOn("#editStrokeColor").type(KeyCode.DOWN).type(KeyCode.ENTER);
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.clickOn("#editStrokeColor");
+		WaitForAsyncUtils.waitForFxEvents();
+		robot.sleep(1000);
+		robot.moveBy(0, 100);
+		robot.clickOn();
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
 		Color selectedColor = colorPicker.getValue();

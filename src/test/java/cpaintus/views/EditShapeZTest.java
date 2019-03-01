@@ -1,6 +1,6 @@
 package cpaintus.views;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.concurrent.TimeoutException;
 
@@ -15,10 +15,11 @@ import org.testfx.util.WaitForAsyncUtils;
 
 import cpaintus.models.shapes.ShapesDictionnary;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Spinner;
 import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
-class FlipShapeTest {
+class EditShapeZTest {
 
 	@Start
 	private void start(Stage stage) {
@@ -27,28 +28,29 @@ class FlipShapeTest {
 	}
 
 	@Test
-	void flipHorizontallyShapeTest(FxRobot robot) {
+	void editShapeZTest(FxRobot robot) {
+
 		ShapesDictionnary shapesDict = ShapesDictionnary.getInstance();
+		// firstShape
+		LoadStage.createShape(robot);
+		// secondShape
 		LoadStage.createShape(robot);
 		
+		int z = shapesDict.getLastCreatedShape().getZ();
+		
+		assertEquals(z, shapesDict.getLastCreatedShape().getZ());
 		robot.clickOn("#attributes");
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
-		robot.clickOn("#flipHorizontalBtn");
+		Spinner<Integer> editZ = robot.lookup("#editZ").query();
+		editZ.getValueFactory().decrement(1);
 		WaitForAsyncUtils.waitForFxEvents();
 		robot.sleep(1000);
-		assertTrue(shapesDict.getLastCreatedShape().isFlippedHorizontally());
-		robot.clickOn("#flipVerticalBtn");
-		WaitForAsyncUtils.waitForFxEvents();
-		assertTrue(shapesDict.getLastCreatedShape().isFlippedVertically());
-
+		assertEquals(z, shapesDict.getLastCreatedShape().getZ());
 	}
-	
 
 	@AfterEach
 	public void basicAfterEach() throws TimeoutException {
 		FxToolkit.cleanupStages();
 	}
-
-
 }
